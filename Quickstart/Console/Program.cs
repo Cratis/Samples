@@ -1,8 +1,8 @@
-﻿#region Sample-Quickstart-Setup
+﻿#region Snippet:Quickstart-Setup
 using Cratis.Chronicle;
 
 using var client = new ChronicleClient("chronicle://localhost:35000");
 var eventStore = client.GetEventStore("Quickstart");
 await eventStore.DiscoverAll();
 await eventStore.RegisterAll();
-#endregion Sample-Quickstart-Setup
+#endregion Snippet:Quickstart-Setup
