@@ -17,5 +17,6 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
+          token: ${{ secrets.PAT_DOCUMENTATION }}
           repository: cratis/documentation
           event-type: build-docs
