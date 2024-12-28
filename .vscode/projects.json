@@ -1,7 +1,7 @@
 [
     {
         "name": "Quickstart Console",
-        "path": "${workspaceFolder}/Quickstart/Console",
-        "outputPath": "${workspaceFolder}/Quickstart/Console/bin/Debug/net9.0/Cratis.Chronicle.Server.dll"
+        "path": "${workspaceFolder}/Chronicle/Quickstart/Console",
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Console/bin/Debug/net9.0/Console.dll"
     }
 ]

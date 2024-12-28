@@ -1,8 +1,11 @@
 using Cratis.Chronicle.Events;
 
-namespace Quickstart;
+namespace Quickstart.Common;
 
 #region Snippet:Quickstart-Events
+[EventType]
+public record BookAddedToInventory(string Title, string Author, string ISBN);
+
 [EventType]
 public record BookBorrowed(Guid UserId);
 
