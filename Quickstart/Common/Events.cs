@@ -2,7 +2,7 @@ using Cratis.Chronicle.Events;
 
 namespace Quickstart;
 
-#region Snippet:Quickstart-Console-Events
+#region Snippet:Quickstart-Events
 [EventType]
 public record BookBorrowed(Guid UserId);
 
@@ -20,4 +20,4 @@ public record ReservationCancelled();
 
 [EventType]
 public record ReservationFulfilled();
-#endregion Snippet:Quickstart-Console-Events
+#endregion Snippet:Quickstart-Events
