@@ -31,6 +31,11 @@ public partial class Library
         switch (item.Command)
         {
             case MainMenuCommand.InitializeWithBooks:
+                _ = Task.Run(async () =>
+                {
+                    await Globals.DemoData.Initialize();
+                    Application.Invoke(() => MessageBox.Query("Demo data initialized", "Demo data has been initialized", "OK"));
+                });
                 break;
             case MainMenuCommand.AddBookToInventory:
                 Application.Run(new AddBook());
@@ -39,6 +44,7 @@ public partial class Library
                 Application.Run(new BorrowBook());
                 break;
             case MainMenuCommand.ReturnBook:
+                Application.Run(new ReturnBook());
                 break;
             case MainMenuCommand.SetBookAsOverdue:
                 break;
@@ -48,6 +54,9 @@ public partial class Library
                 break;
             case MainMenuCommand.ShowBooks:
                 Application.Run(new Books());
+                break;
+            case MainMenuCommand.ShowBooksBorrowed:
+                Application.Run(new BorrowedBooks());
                 break;
         }
     }

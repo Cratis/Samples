@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quickstart", "Quickstart", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Chronicle\Quickstart\Console\Console.csproj", "{3833B693-5A84-43E4-B38D-3BF135A7CAF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Chronicle\Quickstart\Common\Common.csproj", "{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,9 +24,14 @@ Global
 		{3833B693-5A84-43E4-B38D-3BF135A7CAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3833B693-5A84-43E4-B38D-3BF135A7CAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3833B693-5A84-43E4-B38D-3BF135A7CAF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{346D143E-DE9D-4574-AD65-C0E3116F8323} = {35C1D0BB-0B2E-4238-B110-BF2D395C8124}
 		{3833B693-5A84-43E4-B38D-3BF135A7CAF7} = {346D143E-DE9D-4574-AD65-C0E3116F8323}
+		{B68E33D5-1EDC-4A0C-8ABA-89014B97F9B1} = {346D143E-DE9D-4574-AD65-C0E3116F8323}
 	EndGlobalSection
 EndGlobal

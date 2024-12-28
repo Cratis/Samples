@@ -4,6 +4,9 @@ namespace Quickstart.Common;
 
 #region Snippet:Quickstart-Events
 [EventType]
+public record UserOnboarded(string Name, string Email);
+
+[EventType]
 public record BookAddedToInventory(string Title, string Author, string ISBN);
 
 [EventType]
