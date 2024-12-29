@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Quickstart.Dialogs;
 using Terminal.Gui;
 
 namespace Quickstart;
@@ -41,22 +42,24 @@ public partial class Library
                 Application.Run(new AddBook());
                 break;
             case MainMenuCommand.BorrowBook:
-                Application.Run(new BorrowBook());
+                Application.Run(new UserAndBookSelector((user, book) => Globals.EventStore.EventLog.Append(book.Id, new BookBorrowed(user.Id))));
                 break;
             case MainMenuCommand.ReturnBook:
-                Application.Run(new ReturnBook());
+                Application.Run(new Dialogs.BorrowedBooks(book => Globals.EventStore.EventLog.Append(book.Id, new BookReturned())));
                 break;
             case MainMenuCommand.SetBookAsOverdue:
+                Application.Run(new Dialogs.BorrowedBooks(book => Globals.EventStore.EventLog.Append(book.Id, new BookOverdue())));
                 break;
             case MainMenuCommand.ReserveBook:
+                Application.Run(new UserAndBookSelector((user, book) => Globals.EventStore.EventLog.Append(book.Id, new BookReservationPlaced(user.Id))));
                 break;
             case MainMenuCommand.CancelReservation:
                 break;
             case MainMenuCommand.ShowBooks:
-                Application.Run(new Books());
+                Application.Run(new Dialogs.Books());
                 break;
             case MainMenuCommand.ShowBooksBorrowed:
-                Application.Run(new BorrowedBooks());
+                Application.Run(new Dialogs.BorrowedBooks());
                 break;
         }
     }

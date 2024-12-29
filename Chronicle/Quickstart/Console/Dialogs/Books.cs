@@ -2,11 +2,11 @@ using System.Collections.ObjectModel;
 using MongoDB.Driver;
 using Terminal.Gui;
 
-namespace Quickstart;
+namespace Quickstart.Dialogs;
 
 public partial class Books
 {
-    public Books()
+    public Books(Action<Book>? returnAction = default)
     {
         InitializeComponent();
 
@@ -15,10 +15,15 @@ public partial class Books
             Text = "OK",
             IsDefault = true
         };
-        button.Accept += (s, e) => Application.RequestStop();
         AddButton(button);
 
         var books = Globals.Books.GetAll();
         _books.Source = new ListWrapper<string>(new ObservableCollection<string>(books.Select(_ => _.Title)));
+
+        button.Accept += (s, e) =>
+        {
+            returnAction?.Invoke(books.ElementAt(_books.SelectedItem));
+            Application.RequestStop();
+        };
     }
 }

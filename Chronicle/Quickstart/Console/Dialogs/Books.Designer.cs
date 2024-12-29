@@ -8,7 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // -----------------------------------------------------------------------------
-namespace Quickstart {
+namespace Quickstart.Dialogs {
     using System;
     using Terminal.Gui;
     using System.Collections;
@@ -17,7 +17,7 @@ namespace Quickstart {
     using System.Drawing;
 
 
-    public partial class BorrowedBooks : Terminal.Gui.Dialog {
+    public partial class Books : Terminal.Gui.Dialog {
 
         private Terminal.Gui.ListView _books;
 
@@ -32,7 +32,7 @@ namespace Quickstart {
             this.Modal = true;
             this.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Title = "";
-            this._books.Width = Dim.Fill(0);
+            this._books.Width = Dim.Fill(20);
             this._books.Height = Dim.Fill(3);
             this._books.X = 0;
             this._books.Y = 0;

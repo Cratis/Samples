@@ -2,13 +2,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Terminal.Gui;
 
-namespace Quickstart;
+namespace Quickstart.Dialogs;
 
 public partial class BorrowedBooks
 {
     readonly IEnumerable<BorrowedBook> _allBooks;
+    readonly Action<BorrowedBook>? _returnAction;
 
-    public BorrowedBooks()
+    public BorrowedBooks(Action<BorrowedBook>? returnAction = default)
     {
         InitializeComponent();
 
@@ -22,10 +23,12 @@ public partial class BorrowedBooks
 
         _allBooks = Globals.BorrowedBooks.GetAll().ToList();
         _books.Source = new ListWrapper<BorrowedBook>(new ObservableCollection<BorrowedBook>(_allBooks));
+        _returnAction = returnAction;
     }
 
     void Return(object? sender, HandledEventArgs e)
     {
+        _returnAction?.Invoke(_allBooks.ElementAt(_books.SelectedItem));
         Application.RequestStop();
     }
 }

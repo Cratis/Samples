@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Terminal.Gui;
 
-namespace Quickstart;
+namespace Quickstart.Dialogs;
 
 public partial class AddBook
 {

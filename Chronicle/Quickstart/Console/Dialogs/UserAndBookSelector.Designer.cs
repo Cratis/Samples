@@ -8,7 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // -----------------------------------------------------------------------------
-namespace Quickstart {
+namespace Quickstart.Dialogs {
     using System;
     using Terminal.Gui;
     using System.Collections;
@@ -17,7 +17,7 @@ namespace Quickstart {
     using System.Drawing;
 
 
-    public partial class BorrowBook : Terminal.Gui.Dialog {
+    public partial class UserAndBookSelector : Terminal.Gui.Dialog {
 
         private Terminal.Gui.Label label;
 

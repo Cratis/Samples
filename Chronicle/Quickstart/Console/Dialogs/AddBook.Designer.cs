@@ -8,33 +8,33 @@
 //      the code is regenerated.
 //  </auto-generated>
 // -----------------------------------------------------------------------------
-namespace Quickstart {
+namespace Quickstart.Dialogs {
     using System;
     using Terminal.Gui;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
-    
-    
+
+
     public partial class AddBook : Terminal.Gui.Dialog {
-        
+
         private Terminal.Gui.Label label;
-        
+
         private Terminal.Gui.TextField _title;
-        
+
         private Terminal.Gui.Label label2;
-        
+
         private Terminal.Gui.TextField _author;
-        
+
         private Terminal.Gui.Label label3;
-        
+
         private Terminal.Gui.TextField _isbn;
-        
+
         private Terminal.Gui.Button _save;
-        
+
         private Terminal.Gui.Button _cancel;
-        
+
         private void InitializeComponent() {
             this._cancel = new Terminal.Gui.Button();
             this._save = new Terminal.Gui.Button();

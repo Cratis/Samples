@@ -19,11 +19,11 @@ public record BookReturned();
 public record BookOverdue();
 
 [EventType]
-public record ReservationPlaced(Guid UserId);
+public record BookReservationPlaced(Guid UserId);
 
 [EventType]
-public record ReservationCancelled();
+public record BookReservationCancelled();
 
 [EventType]
-public record ReservationFulfilled();
+public record BookReservationFulfilled();
 #endregion Snippet:Quickstart-Events
