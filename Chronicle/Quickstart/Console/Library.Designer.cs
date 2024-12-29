@@ -15,12 +15,12 @@ namespace Quickstart {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
-    
-    
+
+
     public partial class Library : Terminal.Gui.Window {
-        
+
         private Terminal.Gui.ListView _mainMenu;
-        
+
         private void InitializeComponent() {
             this._mainMenu = new Terminal.Gui.ListView();
             this.Width = Dim.Fill(0);
@@ -32,10 +32,10 @@ namespace Quickstart {
             this.Modal = false;
             this.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Title = "Library (ESC to quit)";
-            this._mainMenu.Width = Dim.Fill(20);
-            this._mainMenu.Height = Dim.Fill(20);
-            this._mainMenu.X = 0;
-            this._mainMenu.Y = 0;
+            this._mainMenu.Width = Dim.Fill(1);
+            this._mainMenu.Height = Dim.Fill(1);
+            this._mainMenu.X = 1;
+            this._mainMenu.Y = 1;
             this._mainMenu.Visible = true;
             this._mainMenu.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this._mainMenu.Data = "_mainMenu";

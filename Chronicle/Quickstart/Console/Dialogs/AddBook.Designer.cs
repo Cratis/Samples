@@ -15,29 +15,23 @@ namespace Quickstart.Dialogs {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
-
-
+    
+    
     public partial class AddBook : Terminal.Gui.Dialog {
-
+        
         private Terminal.Gui.Label label;
-
+        
         private Terminal.Gui.TextField _title;
-
+        
         private Terminal.Gui.Label label2;
-
+        
         private Terminal.Gui.TextField _author;
-
+        
         private Terminal.Gui.Label label3;
-
+        
         private Terminal.Gui.TextField _isbn;
-
-        private Terminal.Gui.Button _save;
-
-        private Terminal.Gui.Button _cancel;
-
+        
         private void InitializeComponent() {
-            this._cancel = new Terminal.Gui.Button();
-            this._save = new Terminal.Gui.Button();
             this._isbn = new Terminal.Gui.TextField();
             this.label3 = new Terminal.Gui.Label();
             this._author = new Terminal.Gui.TextField();
@@ -55,18 +49,18 @@ namespace Quickstart.Dialogs {
             this.Title = "";
             this.label.Width = Dim.Auto();
             this.label.Height = 1;
-            this.label.X = 0;
-            this.label.Y = 0;
+            this.label.X = 1;
+            this.label.Y = 1;
             this.label.Visible = true;
             this.label.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this.label.Data = "label";
             this.label.Text = "Title";
             this.label.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Add(this.label);
-            this._title.Width = Dim.Fill(5);
+            this._title.Width = Dim.Fill(1);
             this._title.Height = 1;
-            this._title.X = 0;
-            this._title.Y = 1;
+            this._title.X = 1;
+            this._title.Y = 2;
             this._title.Visible = true;
             this._title.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this._title.Secret = false;
@@ -76,18 +70,18 @@ namespace Quickstart.Dialogs {
             this.Add(this._title);
             this.label2.Width = Dim.Auto();
             this.label2.Height = 1;
-            this.label2.X = 0;
-            this.label2.Y = 3;
+            this.label2.X = 1;
+            this.label2.Y = 4;
             this.label2.Visible = true;
             this.label2.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this.label2.Data = "label2";
             this.label2.Text = "Author";
             this.label2.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Add(this.label2);
-            this._author.Width = Dim.Fill(5);
+            this._author.Width = Dim.Fill(1);
             this._author.Height = 1;
-            this._author.X = -1;
-            this._author.Y = 4;
+            this._author.X = 1;
+            this._author.Y = 5;
             this._author.Visible = true;
             this._author.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this._author.Secret = false;
@@ -97,18 +91,18 @@ namespace Quickstart.Dialogs {
             this.Add(this._author);
             this.label3.Width = Dim.Auto();
             this.label3.Height = 1;
-            this.label3.X = 0;
-            this.label3.Y = 6;
+            this.label3.X = 1;
+            this.label3.Y = 7;
             this.label3.Visible = true;
             this.label3.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this.label3.Data = "label3";
             this.label3.Text = "ISBN";
             this.label3.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Add(this.label3);
-            this._isbn.Width = Dim.Fill(5);
+            this._isbn.Width = Dim.Fill(1);
             this._isbn.Height = 1;
-            this._isbn.X = 0;
-            this._isbn.Y = 7;
+            this._isbn.X = 1;
+            this._isbn.Y = 8;
             this._isbn.Visible = true;
             this._isbn.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this._isbn.Secret = false;
@@ -116,28 +110,6 @@ namespace Quickstart.Dialogs {
             this._isbn.Text = "";
             this._isbn.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Add(this._isbn);
-            this._save.Width = Dim.Auto();
-            this._save.Height = 1;
-            this._save.X = 0;
-            this._save.Y = 10;
-            this._save.Visible = true;
-            this._save.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
-            this._save.Data = "_save";
-            this._save.Text = "Save";
-            this._save.TextAlignment = Terminal.Gui.Alignment.Center;
-            this._save.IsDefault = true;
-            this.Add(this._save);
-            this._cancel.Width = Dim.Auto();
-            this._cancel.Height = 1;
-            this._cancel.X = 11;
-            this._cancel.Y = 10;
-            this._cancel.Visible = true;
-            this._cancel.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
-            this._cancel.Data = "_cancel";
-            this._cancel.Text = "Cancel";
-            this._cancel.TextAlignment = Terminal.Gui.Alignment.Center;
-            this._cancel.IsDefault = false;
-            this.Add(this._cancel);
         }
     }
 }

@@ -4,9 +4,9 @@ using Terminal.Gui;
 
 namespace Quickstart.Dialogs;
 
-public partial class BorrowedBooks
+public partial class ReservedBooks
 {
-    public BorrowedBooks(Action<BorrowedBook>? returnAction = default)
+    public ReservedBooks(Action<ReservedBook>? returnAction = default)
     {
         InitializeComponent();
 
@@ -17,8 +17,8 @@ public partial class BorrowedBooks
         };
         AddButton(okButton);
 
-        var allBooks = Globals.BorrowedBooks.GetAll();
-        _books.Source = new ListWrapper<BorrowedBook>(new ObservableCollection<BorrowedBook>(allBooks));
+        var allBooks = Globals.ReservedBooks.GetAll();
+        _books.Source = new ListWrapper<ReservedBook>(new ObservableCollection<ReservedBook>(allBooks));
 
         okButton.Accept += (s, e) =>
         {

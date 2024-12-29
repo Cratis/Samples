@@ -11,7 +11,7 @@ public partial class Library
         InitializeComponent();
         _mainMenu.Source = new ListWrapper<MainMenuItem>(
         [
-            new(MainMenuCommand.InitializeWithBooks, "Initialize with books"),
+            new(MainMenuCommand.InitializeWithBooks, "Initialize demo data"),
             new(MainMenuCommand.AddBookToInventory, "Add book to inventory"),
             new(MainMenuCommand.BorrowBook, "Borrow book"),
             new(MainMenuCommand.ReturnBook, "Return book"),
@@ -54,12 +54,19 @@ public partial class Library
                 Application.Run(new UserAndBookSelector((user, book) => Globals.EventStore.EventLog.Append(book.Id, new BookReservationPlaced(user.Id))));
                 break;
             case MainMenuCommand.CancelReservation:
+                Application.Run(new Dialogs.ReservedBooks(book => Globals.EventStore.EventLog.Append(book.Id, new BookReservationCancelled())));
                 break;
             case MainMenuCommand.ShowBooks:
                 Application.Run(new Dialogs.Books());
                 break;
             case MainMenuCommand.ShowBooksBorrowed:
                 Application.Run(new Dialogs.BorrowedBooks());
+                break;
+            case MainMenuCommand.ShowBooksOverdue:
+                Application.Run(new Dialogs.OverdueBooks());
+                break;
+            case MainMenuCommand.ShowReservations:
+                Application.Run(new Dialogs.ReservedBooks());
                 break;
         }
     }

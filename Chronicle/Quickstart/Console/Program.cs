@@ -20,6 +20,8 @@ Globals.Database = mongoClient.GetDatabase("Quickstart");
 Globals.EventStore = eventStore;
 Globals.Books = new Books(Globals.Database.GetCollection<Book>("books"));
 Globals.BorrowedBooks = new BorrowedBooks(Globals.Database.GetCollection<BorrowedBook>("borrowedBooks"));
+Globals.OverdueBooks = new OverdueBooks(Globals.Database.GetCollection<OverdueBook>("overdueBooks"));
+Globals.ReservedBooks = new ReservedBooks(Globals.Database.GetCollection<ReservedBook>("reservedBooks"));
 Globals.Users = new Users(Globals.Database.GetCollection<User>("users"));
 Globals.DemoData = new DemoData(Globals.EventStore.EventLog);
 

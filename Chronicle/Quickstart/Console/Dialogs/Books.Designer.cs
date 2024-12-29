@@ -15,12 +15,12 @@ namespace Quickstart.Dialogs {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
-
-
+    
+    
     public partial class Books : Terminal.Gui.Dialog {
-
+        
         private Terminal.Gui.ListView _books;
-
+        
         private void InitializeComponent() {
             this._books = new Terminal.Gui.ListView();
             this.Width = Dim.Percent(90);
@@ -32,10 +32,10 @@ namespace Quickstart.Dialogs {
             this.Modal = true;
             this.TextAlignment = Terminal.Gui.Alignment.Start;
             this.Title = "";
-            this._books.Width = Dim.Fill(20);
-            this._books.Height = Dim.Fill(3);
-            this._books.X = 0;
-            this._books.Y = 0;
+            this._books.Width = Dim.Fill(1);
+            this._books.Height = Dim.Fill(1);
+            this._books.X = 1;
+            this._books.Y = 1;
             this._books.Visible = true;
             this._books.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
             this._books.Data = "_books";

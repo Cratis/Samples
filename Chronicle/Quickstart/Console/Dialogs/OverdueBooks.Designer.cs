@@ -15,12 +15,12 @@ namespace Quickstart.Dialogs {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Drawing;
-    
-    
-    public partial class BorrowedBooks : Terminal.Gui.Dialog {
-        
+
+
+    public partial class OverdueBooks : Terminal.Gui.Dialog {
+
         private Terminal.Gui.ListView _books;
-        
+
         private void InitializeComponent() {
             this._books = new Terminal.Gui.ListView();
             this.Width = Dim.Percent(90);

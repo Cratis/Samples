@@ -9,11 +9,24 @@ public partial class AddBook
     {
         InitializeComponent();
 
-        _save.Accept += Save;
-        _cancel.Accept += Cancel;
+        var addButton = new Button
+        {
+            Text = "Add",
+            IsDefault = true
+        };
+        AddButton(addButton);
+
+        var cancelButton = new Button
+        {
+            Text = "Cancel",
+        };
+        AddButton(cancelButton);
+
+        addButton.Accept += AddBookToInventory;
+        cancelButton.Accept += Cancel;
     }
 
-    void Save(object? sender, HandledEventArgs e)
+    void AddBookToInventory(object? sender, HandledEventArgs e)
     {
         var title = _title.Text;
         var author = _author.Text;
