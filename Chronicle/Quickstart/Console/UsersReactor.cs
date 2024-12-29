@@ -1,3 +1,4 @@
+#region Snippet:Quickstart-UsersReactor
 using Cratis.Chronicle.Events;
 using Cratis.Chronicle.Reactors;
 using MongoDB.Driver;
@@ -13,3 +14,4 @@ public class UsersReactor : IReactor
         await collection.InsertOneAsync(user);
     }
 }
+#endregion Snippet:Quickstart-UsersReactor

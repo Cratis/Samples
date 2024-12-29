@@ -1,3 +1,4 @@
+#region Snippet:Quickstart-BorrowedBooksProjection
 using Cratis.Chronicle.Projections;
 
 namespace Quickstart.Common;
@@ -16,3 +17,4 @@ public class BorrowedBooksProjection : IProjectionFor<BorrowedBook>
             .Set(m => m.User).To(e => e.Name))
         .RemovedWith<BookReturned>();
 }
+#endregion Snippet:Quickstart-BorrowedBooksProjection

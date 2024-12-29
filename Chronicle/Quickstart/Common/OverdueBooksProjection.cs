@@ -1,3 +1,4 @@
+#region Snippet:Quickstart-OverdueBooksProjection
 using Cratis.Chronicle.Projections;
 
 namespace Quickstart.Common;
@@ -18,3 +19,4 @@ public class OverdueBooksProjection : IProjectionFor<OverdueBook>
             .Set(m => m.User).To(e => e.Name))
         .RemovedWith<BookReturned>();
 }
+#endregion Snippet:Quickstart-OverdueBooksProjection
