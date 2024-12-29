@@ -8,12 +8,12 @@ public record UserOnboarded(string Name, string Email);
 
 [EventType]
 public record BookAddedToInventory(string Title, string Author, string ISBN);
+
+[EventType]
+public record BookBorrowed(Guid UserId);
 #endregion Snippet:Quickstart-Events
 
 #region Snippet:Quickstart-Projection-Events
-[EventType]
-public record BookBorrowed(Guid UserId);
-
 [EventType]
 public record BookReturned();
 
