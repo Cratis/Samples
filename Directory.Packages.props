@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <ApplicationModel>15.0.1</ApplicationModel>
     <Fundamentals>6.0.3</Fundamentals>
-    <Chronicle>10.6.0</Chronicle>
+    <Chronicle>10.6.4</Chronicle>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="$(Fundamentals)" />
