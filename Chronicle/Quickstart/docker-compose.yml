@@ -1,4 +1,4 @@
-#region Snippet:Quickstart-Console-DockerCompose
+#region Snippet:Quickstart-DockerCompose
 services:
   chronicle:
     image: cratis/chronicle:latest-development
@@ -21,4 +21,4 @@ services:
     ports:
       - 18888:18888
       - 4317:18889
-#endregion Snippet:Quickstart-Console-DockerCompose
+#endregion Snippet:Quickstart-DockerCompose
