@@ -65,6 +65,7 @@ dotnet_diagnostic.IDE0040.severity = none
 dotnet_diagnostic.IDE0040WithoutSuggestion.severity = none
 dotnet_diagnostic.IDE0042.severity = none
 dotnet_diagnostic.IDE0055.severity = none
+dotnet_diagnostic.IDE0060.severity = none
 dotnet_diagnostic.IDE0072.severity = none
 dotnet_diagnostic.IDE0083.severity = none
 dotnet_diagnostic.IDE0130.severity = none

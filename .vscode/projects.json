@@ -1,7 +1,12 @@
 [
     {
-        "name": "Quickstart Console",
+        "name": "Chronicle Quickstart Console",
         "path": "${workspaceFolder}/Chronicle/Quickstart/Console",
         "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Console/bin/Debug/net9.0/Console.dll"
+    },
+    {
+        "name": "Chronicle Quickstart AspNetCore",
+        "path": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore",
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore/bin/Debug/net9.0/AspNetCore.dll"
     }
 ]
