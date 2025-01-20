@@ -68,13 +68,8 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapGet("/api/demo-data", ([FromServices] DemoData demoData) => demoData.Initialize());
-// app.MapGet("/api/demo-data", () => Console.WriteLine("Hello world"));
-
 app.MapPost("/api/books/reserve", async ([FromServices] IEventLog eventLog) =>
-{
-    // var eventLog = app.Services.GetRequiredService<IEventLog>();
-    await eventLog.Append(Guid.NewGuid(), new BookReservationPlaced(Guid.NewGuid()));
-});
+    await eventLog.Append(Guid.NewGuid(), new BookReservationPlaced(Guid.NewGuid())));
 
 #region Snippet:Quickstart-AspNetCore-BookBorrowed
 app.MapPost("/api/books/{bookId}/borrow/{userId}", async (
