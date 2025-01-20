@@ -1,3 +1,4 @@
+using Cratis.Chronicle;
 using Cratis.Chronicle.EventSequences;
 using Cratis.DependencyInjection;
 using Cratis.Json;
@@ -12,6 +13,16 @@ MongoDBDefaults.Initialize();
 var builder = WebApplication.CreateBuilder(args)
     .AddCratisChronicle(options => options.EventStore = "Quickstart");
 #endregion Snippet:Quickstart-AspNetCore-WebApplicationBuilder
+
+builder.Services.AddOpenApi();
+
+#region Snippet:Quickstart-AspNetCore-ServiceValidation
+builder.Host.UseDefaultServiceProvider(_ =>
+   {
+       _.ValidateScopes = false;
+       _.ValidateOnBuild = false;
+   });
+#endregion Snippet:Quickstart-AspNetCore-ServiceValidation
 
 #region Snippet:Quickstart-AspNetCore-MongoSetup
 builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
@@ -46,6 +57,30 @@ var app = builder.Build();
 app.UseCratisChronicle();
 #endregion Snippet:Quickstart-AspNetCore-WebApplication
 
-app.MapGet("/api/demo-data", async ([FromServices] DemoData demoData) => await demoData.Initialize());
+app.MapOpenApi("OpenApi/v1/OpenApiDoc.json");
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/OpenApi/v1/OpenApiDoc.json", "My API Documentation V1");
+    c.RoutePrefix = "OpenApiDoc";
+    c.DocumentTitle = "My Custom API Documentation";
+    c.InjectStylesheet("/swagger-ui/custom.css");
+    c.EnableDeepLinking();
+});
+
+app.MapGet("/api/demo-data", ([FromServices] DemoData demoData) => demoData.Initialize());
+// app.MapGet("/api/demo-data", () => Console.WriteLine("Hello world"));
+
+app.MapPost("/api/books/reserve", async ([FromServices] IEventLog eventLog) =>
+{
+    // var eventLog = app.Services.GetRequiredService<IEventLog>();
+    await eventLog.Append(Guid.NewGuid(), new BookReservationPlaced(Guid.NewGuid()));
+});
+
+#region Snippet:Quickstart-AspNetCore-BookBorrowed
+app.MapPost("/api/books/{bookId}/borrow/{userId}", async (
+    [FromServices] IEventLog eventLog,
+    [FromRoute] Guid bookId,
+    [FromRoute] Guid userId) => await eventLog.Append(bookId, new BookBorrowed(userId)));
+#endregion Snippet:Quickstart-AspNetCore-BookBorrowed
 
 await app.RunAsync();

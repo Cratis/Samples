@@ -7,7 +7,9 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
         <PackageReference Include="MongoDB.Driver" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
     </ItemGroup>
 
     <ItemGroup>
