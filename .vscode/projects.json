@@ -8,5 +8,10 @@
         "name": "Chronicle Quickstart AspNetCore",
         "path": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore",
         "outputPath": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore/bin/Debug/net9.0/AspNetCore.dll"
+    },
+    {
+        "name": "Library",
+        "path": "${workspaceFolder}/Library/Main",
+        "outputPath": "${workspaceFolder}/Library/Main/bin/Debug/net9.0/Main.dll"
     }
 ]

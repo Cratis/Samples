@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Quickstart;
 using Quickstart.Common;
+using Scalar.AspNetCore;
 
 MongoDBDefaults.Initialize();
 
@@ -57,15 +58,8 @@ var app = builder.Build();
 app.UseCratisChronicle();
 #endregion Snippet:Quickstart-AspNetCore-WebApplication
 
-app.MapOpenApi("OpenApi/v1/OpenApiDoc.json");
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/OpenApi/v1/OpenApiDoc.json", "My API Documentation V1");
-    c.RoutePrefix = "OpenApiDoc";
-    c.DocumentTitle = "My Custom API Documentation";
-    c.InjectStylesheet("/swagger-ui/custom.css");
-    c.EnableDeepLinking();
-});
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.MapGet("/api/demo-data", ([FromServices] DemoData demoData) => demoData.Initialize());
 app.MapPost("/api/books/reserve", async ([FromServices] IEventLog eventLog) =>

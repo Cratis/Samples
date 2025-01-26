@@ -45,19 +45,5 @@
         "**/dist",
         "**/for_*/**",
         "**/vite.config.mts"
-    ],
-    "references": [
-        {
-            "path": "./Source/JavaScript/Applications",
-        },
-        {
-            "path": "./Source/JavaScript/Applications.React",
-        },
-        {
-            "path": "./Source/JavaScript/Applications.React.MVVM",
-        },
-        {
-            "path": "./Source/JavaScript/Applications.Vite",
-        }
     ]
 }

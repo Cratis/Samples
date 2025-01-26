@@ -1,0 +1,24 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "dist",
+        "paths": {
+            "Api/*": [
+                "Api/*"
+            ],
+            "Components/*": [
+                "Components/*"
+            ]
+        }
+    },
+    "include": [
+        "vite.config.mts",
+        "global.d.ts",
+        "src",
+        "../../Shared/Components/theme.d.ts" // TODO: Find a better way to do this, this is already part of the package @shared/components, and even exposed through the global.d.ts shouldn't be necessary to do this
+    ],
+    "exclude": [],
+    "references": []
+}
