@@ -5,7 +5,6 @@ import js from '@eslint/js';
 import eslint from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import header from 'eslint-plugin-header';
 import noNull from 'eslint-plugin-no-null';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';

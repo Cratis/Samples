@@ -8,5 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis.Fundamentals" />
+        <PackageReference Include="Cratis.Chronicle"/>
     </ItemGroup>
 </Project>
