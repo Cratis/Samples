@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using MongoDB.Driver;
@@ -23,8 +26,8 @@ public partial class UserAndBookSelector
 
         _allUsers = Globals.Users.GetAll().ToList();
         _allBooks = Globals.Books.GetAll().ToList();
-        _borrowers.Source = new ListWrapper<User>(new ObservableCollection<User>(_allUsers));
-        _books.Source = new ListWrapper<Book>(new ObservableCollection<Book>(_allBooks));
+        _borrowers.Source = new ListWrapper<User>([.. _allUsers]);
+        _books.Source = new ListWrapper<Book>([.. _allBooks]);
 
         okButton.Accept += (s, e) =>
         {

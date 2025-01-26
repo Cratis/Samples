@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.Collections.ObjectModel;
 using MongoDB.Driver;
 using Terminal.Gui;
@@ -18,7 +21,7 @@ public partial class Books
         AddButton(button);
 
         var books = Globals.Books.GetAll();
-        _books.Source = new ListWrapper<string>(new ObservableCollection<string>(books.Select(_ => _.Title)));
+        _books.Source = new ListWrapper<string>([.. books.Select(_ => _.Title)]);
 
         button.Accept += (s, e) =>
         {

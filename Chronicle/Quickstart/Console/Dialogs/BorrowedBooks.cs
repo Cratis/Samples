@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Terminal.Gui;
@@ -18,7 +21,7 @@ public partial class BorrowedBooks
         AddButton(okButton);
 
         var allBooks = Globals.BorrowedBooks.GetAll();
-        _books.Source = new ListWrapper<BorrowedBook>(new ObservableCollection<BorrowedBook>(allBooks));
+        _books.Source = new ListWrapper<BorrowedBook>([.. allBooks]);
 
         okButton.Accept += (s, e) =>
         {

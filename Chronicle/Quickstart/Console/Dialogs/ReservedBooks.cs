@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Terminal.Gui;
@@ -18,7 +21,7 @@ public partial class ReservedBooks
         AddButton(okButton);
 
         var allBooks = Globals.ReservedBooks.GetAll();
-        _books.Source = new ListWrapper<ReservedBook>(new ObservableCollection<ReservedBook>(allBooks));
+        _books.Source = new ListWrapper<ReservedBook>([.. allBooks]);
 
         okButton.Accept += (s, e) =>
         {

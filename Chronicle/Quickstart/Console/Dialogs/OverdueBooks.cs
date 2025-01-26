@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Terminal.Gui;
@@ -18,7 +21,7 @@ public partial class OverdueBooks
         AddButton(okButton);
 
         var allBooks = Globals.OverdueBooks.GetAll();
-        _books.Source = new ListWrapper<OverdueBook>(new ObservableCollection<OverdueBook>(allBooks));
+        _books.Source = new ListWrapper<OverdueBook>([.. allBooks]);
 
         okButton.Accept += (s, e) =>
         {
