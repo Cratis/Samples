@@ -12,7 +12,6 @@ import { Footer } from './Footer';
 import { ErrorBoundary } from 'Components/Common/ErrorBoundary';
 import { useContext, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import * as Shared from 'Shared';
 
 interface IDefaultLayoutProps {
     menu?: IMenuItemGroup[];
@@ -20,18 +19,11 @@ interface IDefaultLayoutProps {
 }
 
 export const DefaultLayout = (props: IDefaultLayoutProps) => {
-    const params = useParams<Shared.EventStoreAndNamespaceParams>();
-    const sidebarBasePath = generatePath(props.basePath ?? '', params);
+    const sidebarBasePath = generatePath(props.basePath ?? '');
     const layoutContext = useContext(LayoutContext);
     const navigate = useNavigate();
     const location = useLocation();
     const [namespace, setNamespace] = useState('');
-
-    const namespaceSelected = (namespace: string) => {
-        setNamespace(namespace);
-        const newRoute = location.pathname.replace(params.namespace!, namespace);
-        navigate(newRoute);
-    };
 
     return (
         <ErrorBoundary>

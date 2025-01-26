@@ -6,19 +6,28 @@
         "outDir": "dist",
         "paths": {
             "Api/*": [
-                "Api/*"
+                "./Api/*"
             ],
             "Components/*": [
-                "Components/*"
+                "./Components/*"
             ]
         }
     },
     "include": [
-        "vite.config.mts",
         "global.d.ts",
-        "src",
-        "../../Shared/Components/theme.d.ts" // TODO: Find a better way to do this, this is already part of the package @shared/components, and even exposed through the global.d.ts shouldn't be necessary to do this
+        "Api",
+        "Components",
+        "Layout",
+        "Utils",
+        "App.tsx",
+        "index.tsx",
+        "Features",
+        "given.ts"
     ],
     "exclude": [],
-    "references": []
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
 }
