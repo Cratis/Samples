@@ -6,11 +6,8 @@ import { Button } from 'primereact/button';
 import css from './TopBar.module.css';
 import { FaBars } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
-import * as Shared from 'Shared';
 
 export const TopBar = () => {
-    const params = useParams<Shared.EventStoreAndNamespaceParams>();
-
     const { toggleLeftSidebarOpen } = useLayoutContext();
 
     return (
@@ -26,22 +23,13 @@ export const TopBar = () => {
                     </Button>
                 </div>
                 <div className="flex-1 flex align-center justify-center">
-                    <div className="font-extrabold text-2xl m-2">{params.eventStore}</div>
+                    <div className="font-extrabold text-2xl m-2">Library</div>
                 </div>
 
             </div>
             <div className="flex-1 flex items-center justify-end px-5 gap-6">
                 <div>
                 </div>
-                {/* <div>
-                    <Connection />
-                </div>
-                <div>
-                    <Notifications />
-                </div>
-                <div>
-                    <Profile />
-                </div> */}
             </div>
         </div>
     );
