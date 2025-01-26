@@ -11,7 +11,6 @@ import { TopBar } from './TopBar/TopBar';
 import { Footer } from './Footer';
 import { ErrorBoundary } from 'Components/Common/ErrorBoundary';
 import { useContext, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 
 interface IDefaultLayoutProps {
     menu?: IMenuItemGroup[];
@@ -21,9 +20,6 @@ interface IDefaultLayoutProps {
 export const DefaultLayout = (props: IDefaultLayoutProps) => {
     const sidebarBasePath = generatePath(props.basePath ?? '');
     const layoutContext = useContext(LayoutContext);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [namespace, setNamespace] = useState('');
 
     return (
         <ErrorBoundary>
@@ -39,7 +35,7 @@ export const DefaultLayout = (props: IDefaultLayoutProps) => {
                 <aside className={css.appLeftSidebar}>
                     <div className={css.sidebarContainer}>
                         {props.menu && (
-                            <MenuProvider params={{ namespace }}>
+                            <MenuProvider>
                                 <SidebarMenu
                                     items={props.menu}
                                     basePath={sidebarBasePath}
