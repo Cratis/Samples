@@ -18,10 +18,10 @@
         "dev:debug": "yarn g:dev:debug"
     },
     "dependencies": {
-        "@cratis/applications": "15.0.15",
+        "@cratis/applications": "15.0.17",
         "@cratis/applications.react": "15.0.15",
-        "@cratis/applications.react.mvvm": "15.0.15",
-        "@cratis/applications.vite": "15.0.15",
+        "@cratis/applications.react.mvvm": "15.0.17",
+        "@cratis/applications.vite": "15.0.17",
         "allotment": "1.20.2",
         "echarts": "5.6.0",
         "mobx": "6.13.5",
@@ -36,5 +36,9 @@
         "ts-deepmerge": "7.0.2",
         "tsyringe": "4.8.0",
         "usehooks-ts": "3.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "19.0.8",
+        "@types/react-dom": "19.0.3"
     }
 }
