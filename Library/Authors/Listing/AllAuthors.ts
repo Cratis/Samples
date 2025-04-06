@@ -4,26 +4,26 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-import { QueryFor, QueryResultWithState, Sorting, SortingActions, SortingActionsForQuery, Paging } from '@cratis/applications/queries';
-import { useQuery, useQueryWithPaging, PerformQuery, SetSorting, SetPage, SetPageSize } from '@cratis/applications.react/queries';
+import { ObservableQueryFor, QueryResultWithState, Sorting, SortingActions, SortingActionsForObservableQuery, Paging } from '@cratis/applications/queries';
+import { useObservableQuery, useObservableQueryWithPaging, SetSorting, SetPage, SetPageSize } from '@cratis/applications.react/queries';
 import { Author } from './Author';
 import Handlebars from 'handlebars';
 
 const routeTemplate = Handlebars.compile('/api/authors');
 
 class AllAuthorsSortBy {
-    private _id: SortingActionsForQuery<Author[]>;
-    private _name: SortingActionsForQuery<Author[]>;
+    private _id: SortingActionsForObservableQuery<Author[]>;
+    private _name: SortingActionsForObservableQuery<Author[]>;
 
     constructor(readonly query: AllAuthors) {
-        this._id = new SortingActionsForQuery<Author[]>('id', query);
-        this._name = new SortingActionsForQuery<Author[]>('name', query);
+        this._id = new SortingActionsForObservableQuery<Author[]>('id', query);
+        this._name = new SortingActionsForObservableQuery<Author[]>('name', query);
     }
 
-    get id(): SortingActionsForQuery<Author[]> {
+    get id(): SortingActionsForObservableQuery<Author[]> {
         return this._id;
     }
-    get name(): SortingActionsForQuery<Author[]> {
+    get name(): SortingActionsForObservableQuery<Author[]> {
         return this._name;
     }
 }
@@ -40,7 +40,7 @@ class AllAuthorsSortByWithoutQuery {
     }
 }
 
-export class AllAuthors extends QueryFor<Author[]> {
+export class AllAuthors extends ObservableQueryFor<Author[]> {
     readonly route: string = '/api/authors';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly defaultValue: Author[] = [];
@@ -65,11 +65,11 @@ export class AllAuthors extends QueryFor<Author[]> {
         return this._sortBy;
     }
 
-    static use(sorting?: Sorting): [QueryResultWithState<Author[]>, PerformQuery, SetSorting] {
-        return useQuery<Author[], AllAuthors>(AllAuthors, undefined, sorting);
+    static use(sorting?: Sorting): [QueryResultWithState<Author[]>, SetSorting] {
+        return useObservableQuery<Author[], AllAuthors>(AllAuthors, undefined, sorting);
     }
 
-    static useWithPaging(pageSize: number, sorting?: Sorting): [QueryResultWithState<Author[]>, PerformQuery, SetSorting, SetPage, SetPageSize] {
-        return useQueryWithPaging<Author[], AllAuthors>(AllAuthors, new Paging(0, pageSize), undefined, sorting);
+    static useWithPaging(pageSize: number, sorting?: Sorting): [QueryResultWithState<Author[]>, SetSorting, SetPage, SetPageSize] {
+        return useObservableQueryWithPaging<Author[], AllAuthors>(AllAuthors, new Paging(0, pageSize), undefined, sorting);
     }
 }

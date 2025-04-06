@@ -8,10 +8,12 @@ import { Guid } from '@cratis/fundamentals';
 @injectable()
 export class AddAuthorViewModel {
     constructor(readonly command: RegisterAuthor) {
-        this.command.authorId = Guid.create();
     }
 
     async register() {
-        await this.command.execute();
+        this.command.authorId = Guid.create();
+        const result = await this.command.execute();
+
+        this.command.revertChanges();
     }
 }
