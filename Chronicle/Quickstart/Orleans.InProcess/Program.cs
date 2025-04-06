@@ -16,9 +16,15 @@ using Scalar.AspNetCore;
 MongoDBDefaults.Initialize();
 
 #region Snippet:Quickstart-AspNetCore-WebApplicationBuilder
-var builder = WebApplication.CreateBuilder(args)
-    .AddCratisChronicle(options => options.EventStore = "Quickstart");
+var builder = WebApplication.CreateBuilder(args);
 #endregion Snippet:Quickstart-AspNetCore-WebApplicationBuilder
+
+builder.Host.UseOrleans(static siloBuilder =>
+{
+    siloBuilder.UseLocalhostClustering();
+    siloBuilder.AddChronicleToSilo();
+    siloBuilder.AddMemoryGrainStorage("urls");
+});
 
 builder.Services.AddOpenApi();
 

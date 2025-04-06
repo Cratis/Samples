@@ -7,7 +7,7 @@ using Cratis.Chronicle.Reactors;
 using MongoDB.Driver;
 using Quickstart.Common;
 
-namespace Quickstart;
+namespace Quickstart.Common.AspNetCore;
 
 public class UsersReactor(IMongoCollection<User> collection) : IReactor
 {

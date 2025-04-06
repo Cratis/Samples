@@ -7,6 +7,8 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Cratis.Chronicle.Orleans.InProcess" />
+        <PackageReference Include="Microsoft.Orleans.Server" />
         <PackageReference Include="MongoDB.Driver" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
         <PackageReference Include="Scalar.AspNetCore" />
