@@ -23,7 +23,7 @@ public partial class OverdueBooks
         var allBooks = Globals.OverdueBooks.GetAll();
         _books.Source = new ListWrapper<OverdueBook>([.. allBooks]);
 
-        okButton.Accept += (s, e) =>
+        okButton.Accepting += (s, e) =>
         {
             returnAction?.Invoke(allBooks.ElementAt(_books.SelectedItem));
             Application.RequestStop();

@@ -25,11 +25,11 @@ public partial class AddBook
         };
         AddButton(cancelButton);
 
-        addButton.Accept += AddBookToInventory;
-        cancelButton.Accept += Cancel;
+        addButton.Accepting += AddBookToInventory;
+        cancelButton.Accepting += Cancel;
     }
 
-    void AddBookToInventory(object? sender, HandledEventArgs e)
+    void AddBookToInventory(object? sender, CommandEventArgs e)
     {
         var title = _title.Text;
         var author = _author.Text;
@@ -40,5 +40,5 @@ public partial class AddBook
         Application.RequestStop();
     }
 
-    void Cancel(object? sender, HandledEventArgs e) => Application.RequestStop();
+    void Cancel(object? sender, CommandEventArgs e) => Application.RequestStop();
 }

@@ -23,7 +23,7 @@ public partial class BorrowedBooks
         var allBooks = Globals.BorrowedBooks.GetAll();
         _books.Source = new ListWrapper<BorrowedBook>([.. allBooks]);
 
-        okButton.Accept += (s, e) =>
+        okButton.Accepting += (s, e) =>
         {
             returnAction?.Invoke(allBooks.ElementAt(_books.SelectedItem));
             Application.RequestStop();

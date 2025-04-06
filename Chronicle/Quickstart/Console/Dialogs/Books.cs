@@ -23,7 +23,7 @@ public partial class Books
         var books = Globals.Books.GetAll();
         _books.Source = new ListWrapper<string>([.. books.Select(_ => _.Title)]);
 
-        button.Accept += (s, e) =>
+        button.Accepting += (s, e) =>
         {
             returnAction?.Invoke(books.ElementAt(_books.SelectedItem));
             Application.RequestStop();

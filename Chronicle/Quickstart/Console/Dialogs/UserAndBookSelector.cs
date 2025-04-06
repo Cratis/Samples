@@ -29,7 +29,7 @@ public partial class UserAndBookSelector
         _borrowers.Source = new ListWrapper<User>([.. _allUsers]);
         _books.Source = new ListWrapper<Book>([.. _allBooks]);
 
-        okButton.Accept += (s, e) =>
+        okButton.Accepting += (s, e) =>
         {
             returnAction?.Invoke(_allUsers.ElementAt(_borrowers.SelectedItem), _allBooks.ElementAt(_books.SelectedItem));
             Application.RequestStop();
