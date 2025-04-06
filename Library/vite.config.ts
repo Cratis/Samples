@@ -67,11 +67,11 @@ export default defineConfig({
         open: false,
         proxy: {
             '/api': {
-                target: 'http://localhost:8080',
+                target: 'http://localhost:5000',
                 ws: true
             },
             '/swagger': {
-                target: 'http://localhost:8080'
+                target: 'http://localhost:5000'
             }
         }
     },

@@ -32,7 +32,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger");
-    var resourceName = "Main.SwaggerDark.css";
+    const string resourceName = "Main.SwaggerDark.css";
     using var stream = Assembly.GetEntryAssembly()!.GetManifestResourceStream(resourceName);
     if (stream is not null)
     {
