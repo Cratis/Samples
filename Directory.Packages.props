@@ -21,7 +21,7 @@
     <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
     <!-- Analysis -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.12.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.13.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="$(Orleans)" />
     <PackageVersion Include="Microsoft.Orleans.Server" Version="$(Orleans)" />

@@ -47,7 +47,9 @@ export const DefaultLayout = (props: IDefaultLayoutProps) => {
 
                 <main className={css.appOutlet}>
                     <ErrorBoundary>
-                        <Outlet />
+                        <div className='px-6 py-4 flex flex-col h-full'>
+                            <Outlet />
+                        </div>
                     </ErrorBoundary>
                 </main>
                 <footer className={css.appFooter}>

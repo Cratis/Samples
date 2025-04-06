@@ -11,7 +11,7 @@ import { Validator } from '@cratis/applications/validation';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/books/catalog/register');
+const routeTemplate = Handlebars.compile('/api/authors/register');
 
 export interface IRegisterAuthor {
     authorId?: Guid;
@@ -26,7 +26,7 @@ export class RegisterAuthorValidator extends CommandValidator {
 }
 
 export class RegisterAuthor extends Command<IRegisterAuthor> implements IRegisterAuthor {
-    readonly route: string = '/api/books/catalog/register';
+    readonly route: string = '/api/authors/register';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new RegisterAuthorValidator();
 

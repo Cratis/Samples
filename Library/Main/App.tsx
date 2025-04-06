@@ -9,6 +9,7 @@ import { ConfirmationDialog } from 'Components/Dialogs';
 import { Home } from './Home';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
+import { Authors } from './Authors/Authors';
 import * as mdIcons from 'react-icons/md';
 import * as ioIcons from 'react-icons/io5';
 import * as faIcons from 'react-icons/fa6';
@@ -27,15 +28,22 @@ function App() {
         }
     ];
 
+    const Layout = () => <DefaultLayout menu={menuItems} />
+
     return (
         <LayoutProvider>
             <DialogComponents confirmation={ConfirmationDialog}>
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<Navigate to={'/home'} />} />
-                        <Route path='/home' element={<DefaultLayout menu={menuItems} />}>
+                        <Route path='/home' element={<Layout/>}>
                             <Route path={''} element={<Home />} />
                         </Route>
+
+                        <Route path='/authors' element={<Layout />}>
+                            <Route path={''} element={<Authors />} />
+                        </Route>
+
                     </Routes>
                 </BrowserRouter>
             </DialogComponents>

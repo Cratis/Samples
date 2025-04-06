@@ -3,7 +3,7 @@
 
 namespace Library.Authors.Registration;
 
-[Route("/api/books/catalog")]
+[Route("/api/authors")]
 public class CommandEndpoints : ControllerBase
 {
     [HttpPost("register")]
