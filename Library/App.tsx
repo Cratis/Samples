@@ -13,6 +13,7 @@ import { Authors } from './Authors/Authors';
 import * as mdIcons from 'react-icons/md';
 import * as ioIcons from 'react-icons/io5';
 import * as faIcons from 'react-icons/fa6';
+import { Inventory } from './Books/Inventory/Inventory';
 
 function App() {
     useTheme();
@@ -42,6 +43,10 @@ function App() {
 
                         <Route path='/authors' element={<Layout />}>
                             <Route path={''} element={<Authors />} />
+                        </Route>
+
+                        <Route path='/books' element={<Layout />}>
+                            <Route path={''} element={<Inventory />} />
                         </Route>
 
                     </Routes>
