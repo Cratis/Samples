@@ -6,6 +6,8 @@ import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext';
 import { AddAuthorViewModel } from './AddAuthorViewModel';
 import { withViewModel } from '@cratis/applications.react.mvvm';
+import { FormElement } from 'Components/Common';
+import * as piIcons from 'react-icons/pi';
 
 export interface AddAuthorProps {
     visible: boolean;
@@ -31,14 +33,9 @@ export const AddAuthor = withViewModel<AddAuthorViewModel, AddAuthorProps>(AddAu
 
     return (
         <Dialog header='Add author' visible={props.visible} style={{ width: '20vw' }} modal onHide={cancel} footer={footerContent}>
-            <div className="card flex flex-column md:flex-row gap-3">
-                <div className="p-inputgroup flex-1">
-                    <span className="p-inputgroup-addon">
-                        <i className="pi pi-user"></i>
-                    </span>
-                    <InputText placeholder="Name" value={viewModel.command.name} onChange={e => viewModel.command.name = e.target.value} />
-                </div>
-            </div>
+            <FormElement icon={<piIcons.PiUser />}>
+                <InputText placeholder="Name" value={viewModel.command.name} onChange={e => viewModel.command.name = e.target.value} />
+            </FormElement>
         </Dialog>
     )
 });
