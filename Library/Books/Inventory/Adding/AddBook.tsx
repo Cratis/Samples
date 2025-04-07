@@ -33,8 +33,14 @@ export const AddBook = withViewModel<AddBookViewModel, AddBookProps>(AddBookView
 
     return (
         <Dialog header='Add book' visible={props.visible} style={{ width: '20vw' }} modal onHide={cancel} footer={footerContent}>
-            <FormElement icon={<piIcons.PiUser />}>
+            <FormElement icon={<piIcons.PiBarcode />}>
                 <InputText placeholder="ISBN" value={viewModel.command.ISBN} onChange={e => viewModel.command.ISBN = e.target.value} />
+            </FormElement>
+            <FormElement icon={<piIcons.PiUser />}>
+                <InputText placeholder="Author" value={viewModel.command.ISBN} onChange={e => viewModel.command.ISBN = e.target.value} />
+            </FormElement>
+            <FormElement icon={<piIcons.PiSubtitles />}>
+                <InputText placeholder="Title" value={viewModel.command.title} onChange={e => viewModel.command.title = e.target.value} />
             </FormElement>
         </Dialog>
     )
