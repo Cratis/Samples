@@ -24,7 +24,7 @@ export const Authors = () => {
                 </DataPage.MenuItems>
 
                 <DataPage.Columns>
-                    <Column field='id' header='Identifier' />
+                    <Column field='name' header='Name' />
                 </DataPage.Columns>
             </DataPage>
             <AddAuthor visible={addAuthorDialogVisible} onHide={() => setAddAuthorDialogVisible(false)} />

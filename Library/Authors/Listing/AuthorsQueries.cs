@@ -10,5 +10,7 @@ namespace Library.Authors.Listing;
 public class AuthorsQueries(IMongoCollection<Author> collection) : ControllerBase
 {
     [HttpGet]
-    public ISubject<IEnumerable<Author>> AllAuthors() => collection.Observe();
+    public ISubject<IEnumerable<Author>> AllAuthors() =>
+        collection.Observe();
+
 }

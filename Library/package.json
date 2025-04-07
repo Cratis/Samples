@@ -18,27 +18,27 @@
         "dev:debug": "yarn g:dev:debug"
     },
     "dependencies": {
-        "@cratis/applications": "15.0.17",
-        "@cratis/applications.react": "15.0.15",
-        "@cratis/applications.react.mvvm": "15.0.17",
-        "@cratis/applications.vite": "15.0.17",
-        "allotment": "1.20.2",
+        "@cratis/applications": "15.8.0",
+        "@cratis/applications.react": "15.8.0",
+        "@cratis/applications.react.mvvm": "15.8.0",
+        "@cratis/applications.vite": "15.8.0",
+        "allotment": "1.20.3",
         "echarts": "5.6.0",
-        "mobx": "6.13.5",
+        "mobx": "6.13.7",
         "mobx-react": "9.2.0",
         "primeicons": "7.0.0",
-        "primereact": "10.9.2",
-        "react": "19.0.0",
-        "react-dom": "19.0.0",
-        "react-icons": "5.4.0",
-        "react-router-dom": "7.1.3",
+        "primereact": "10.9.4",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "react-icons": "5.5.0",
+        "react-router-dom": "7.5.0",
         "reflect-metadata": "0.2.2",
         "ts-deepmerge": "7.0.2",
-        "tsyringe": "4.8.0",
-        "usehooks-ts": "3.1.0"
+        "tsyringe": "4.9.1",
+        "usehooks-ts": "3.1.1"
     },
     "devDependencies": {
-        "@types/react": "19.0.8",
-        "@types/react-dom": "19.0.3"
+        "@types/react": "19.1.0",
+        "@types/react-dom": "19.1.1"
     }
 }
