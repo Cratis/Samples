@@ -9,12 +9,12 @@ import { ConfirmationDialog } from 'Components/Dialogs';
 import { Home } from './Home';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
-import { Authors } from './Authors/Authors';
+import { Authors } from './Features/Authors/Authors';
 import * as mdIcons from 'react-icons/md';
 import * as ioIcons from 'react-icons/io5';
 import * as faIcons from 'react-icons/fa6';
-import { Lenders } from './Lenders/Lenders';
-import { Books } from './Books/Books';
+import { Lenders } from './Features/Lenders/Lenders';
+import { Books } from './Features/Books/Books';
 
 function App() {
     useTheme();

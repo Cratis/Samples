@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Column } from 'primereact/column';
-import { DataPage, MenuItem } from '../../Components/DataPage';
+import { DataPage, MenuItem } from '../../../Components/DataPage';
 import { Book, ObserveAllBooks } from './Listing';
 import * as faIcons from 'react-icons/fa';
 import { AddBook } from './Adding/AddBook';
