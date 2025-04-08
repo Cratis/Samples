@@ -4,7 +4,6 @@
 import { injectable } from 'tsyringe';
 import { AddBookToInventory } from './AddBookToInventory';
 import { AllAuthors, Author } from '../../../Authors/Listing';
-import { Guid } from '@cratis/fundamentals';
 
 @injectable()
 export class AddBookViewModel {
