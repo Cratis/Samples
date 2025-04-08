@@ -15,7 +15,4 @@ public class AllBooksQuery(IMongoCollection<Book> collection) : ControllerBase
         var result = await collection.FindAsync(_ => true);
         return result.ToList();
     }
-
-    [HttpGet("observe")]
-    public ISubject<IEnumerable<Book>> ObserveAllBooks() => collection.Observe();
 }

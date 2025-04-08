@@ -2,11 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { injectable } from 'tsyringe';
-import { RegisterAuthor } from './RegisterAuthor';
+import { RegisterLender } from './RegisterLender';
 
 @injectable()
 export class AddAuthorViewModel {
-    constructor(readonly command: RegisterAuthor) {
+    constructor(readonly command: RegisterLender) {
     }
 
     async register() {
