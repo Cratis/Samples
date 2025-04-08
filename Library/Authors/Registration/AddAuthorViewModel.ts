@@ -11,7 +11,6 @@ export class AddAuthorViewModel {
     }
 
     async register() {
-        this.command.authorId = Guid.create();
         const result = await this.command.execute();
         this.command.clear();
     }

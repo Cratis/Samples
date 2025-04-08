@@ -6,4 +6,7 @@ namespace Library.Authors;
 public record AuthorId(Guid Value) : ConceptAs<Guid>(Value)
 {
     public static implicit operator AuthorId(Guid value) => new(value);
+    public static implicit operator EventSourceId(AuthorId value) => value.Value;
+
+    public static AuthorId New() => new(Guid.NewGuid());
 }

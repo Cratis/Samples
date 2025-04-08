@@ -8,6 +8,7 @@ import { AddBookViewModel } from './AddBookViewModel';
 import { withViewModel } from '@cratis/applications.react.mvvm';
 import { FormElement } from 'Components/Common';
 import * as piIcons from 'react-icons/pi';
+import { Dropdown } from 'primereact/dropdown';
 
 export interface AddBookProps {
     visible: boolean;
@@ -16,7 +17,7 @@ export interface AddBookProps {
 
 export const AddBook = withViewModel<AddBookViewModel, AddBookProps>(AddBookViewModel, ({ viewModel, props }) => {
     const ok = async () => {
-        await viewModel.register();
+        await viewModel.add();
         props.onHide?.();
     };
 
@@ -37,7 +38,12 @@ export const AddBook = withViewModel<AddBookViewModel, AddBookProps>(AddBookView
                 <InputText placeholder="ISBN" value={viewModel.command.ISBN} onChange={e => viewModel.command.ISBN = e.target.value} />
             </FormElement>
             <FormElement icon={<piIcons.PiUser />}>
-                <InputText placeholder="Author" value={viewModel.command.ISBN} onChange={e => viewModel.command.ISBN = e.target.value} />
+                <Dropdown
+                    value={viewModel.selectedAuthor}
+                    onChange={(e) => viewModel.selectedAuthor = e.value}
+                    options={viewModel.authors}
+                    optionLabel="name"
+                    placeholder="Select an author" />
             </FormElement>
             <FormElement icon={<piIcons.PiSubtitles />}>
                 <InputText placeholder="Title" value={viewModel.command.title} onChange={e => viewModel.command.title = e.target.value} />

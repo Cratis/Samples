@@ -3,7 +3,7 @@
 
 import { Column } from 'primereact/column';
 import { DataPage, MenuItem } from '../Components/DataPage';
-import { AllAuthors } from './Listing/AllAuthors';
+import { ObserveAllAuthors } from './Listing';
 import * as faIcons from 'react-icons/fa';
 import { AddAuthor } from './Registration/AddAuthor';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export const Authors = () => {
         <>
             <DataPage
                 title='Authors'
-                query={AllAuthors}
+                query={ObserveAllAuthors}
                 dataKey='id'
                 emptyMessage='No authors found'>
 

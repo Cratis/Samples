@@ -6,7 +6,7 @@ using Cratis.Chronicle.Transactions;
 
 namespace Library.Authors.Registration;
 
-public record RegisterAuthor(AuthorId AuthorId, AuthorName Name);
+public record RegisterAuthor(AuthorName Name);
 
 [Route("/api/authors")]
 public class RegisterAuthorHandler(IEventLog eventLog) : ControllerBase
@@ -15,7 +15,7 @@ public class RegisterAuthorHandler(IEventLog eventLog) : ControllerBase
     public Task RegisterAuthor([FromBody] RegisterAuthor command)
     {
         eventLog.Append(
-            command.AuthorId.Value,
+            AuthorId.New(),
             new AuthorRegistered(command.Name));
 
         return Task.CompletedTask;

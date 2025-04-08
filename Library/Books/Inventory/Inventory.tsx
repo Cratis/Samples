@@ -3,7 +3,7 @@
 
 import { Column } from 'primereact/column';
 import { DataPage, MenuItem } from '../../Components/DataPage';
-import { AllBooks } from './Listing/AllBooks';
+import { ObserveAllBooks } from './Listing';
 import * as faIcons from 'react-icons/fa';
 import { AddBook } from './Adding/AddBook';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export const Inventory = () => {
         <>
             <DataPage
                 title='Books Inventory'
-                query={AllBooks}
+                query={ObserveAllBooks}
                 dataKey='id'
                 emptyMessage='No books found'>
 
@@ -24,7 +24,7 @@ export const Inventory = () => {
                 </DataPage.MenuItems>
 
                 <DataPage.Columns>
-                    <Column field='name' header='Name' />
+                    <Column field='title' header='Title' />
                 </DataPage.Columns>
             </DataPage>
             <AddBook visible={addBookDialogVisible} onHide={() => setAddAuthorDialogVisible(false)} />

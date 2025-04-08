@@ -6,3 +6,4 @@
 // eslint-disable-next-line header/header
 export * from './AllBooks';
 export * from './Book';
+export * from './ObserveAllBooks';

@@ -6,4 +6,6 @@ namespace Library.Books;
 public record BookId(Guid Value) : ConceptAs<Guid>(Value)
 {
     public static implicit operator BookId(Guid value) => new(value);
+    public static implicit operator EventSourceId(BookId value) => value.Value;
+    public static BookId New() => new(Guid.NewGuid());
 }

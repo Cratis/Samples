@@ -3,14 +3,24 @@
 
 import { injectable } from 'tsyringe';
 import { AddBookToInventory } from './AddBookToInventory';
+import { AllAuthors, Author } from '../../../Authors/Listing';
+import { Guid } from '@cratis/fundamentals';
 
 @injectable()
 export class AddBookViewModel {
-    constructor(readonly command: AddBookToInventory) {
+    constructor(
+        readonly command: AddBookToInventory,
+        authors: AllAuthors) {
+            authors.perform().then(result => this.authors = result.data)
     }
 
-    async register() {
+    selectedAuthor?: Author;
+    authors: Author[] = [];
+
+    async add() {
+        this.command.author = this.selectedAuthor?.id!;
         const result = await this.command.execute();
         this.command.clear();
+        this.selectedAuthor = null!;
     }
 }

@@ -6,3 +6,4 @@
 // eslint-disable-next-line header/header
 export * from './AllAuthors';
 export * from './Author';
+export * from './ObserveAllAuthors';

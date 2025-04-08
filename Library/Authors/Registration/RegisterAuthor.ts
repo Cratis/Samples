@@ -8,19 +8,16 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
-import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
 const routeTemplate = Handlebars.compile('/api/authors/register');
 
 export interface IRegisterAuthor {
-    authorId?: Guid;
     name?: string;
 }
 
 export class RegisterAuthorValidator extends CommandValidator {
     readonly properties: CommandPropertyValidators = {
-        authorId: new Validator(),
         name: new Validator(),
     };
 }
@@ -30,7 +27,6 @@ export class RegisterAuthor extends Command<IRegisterAuthor> implements IRegiste
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new RegisterAuthorValidator();
 
-    private _authorId!: Guid;
     private _name!: string;
 
     constructor() {
@@ -44,19 +40,10 @@ export class RegisterAuthor extends Command<IRegisterAuthor> implements IRegiste
 
     get properties(): string[] {
         return [
-            'authorId',
             'name',
         ];
     }
 
-    get authorId(): Guid {
-        return this._authorId;
-    }
-
-    set authorId(value: Guid) {
-        this._authorId = value;
-        this.propertyChanged('authorId');
-    }
     get name(): string {
         return this._name;
     }
