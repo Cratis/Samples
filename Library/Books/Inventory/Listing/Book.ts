@@ -21,6 +21,9 @@ export class Book {
     @field(String)
     author!: string;
 
+    @field(Number)
+    stockCount!: number;
+
     @field(Date)
     publishedDate!: Date;
 }

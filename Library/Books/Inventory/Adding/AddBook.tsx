@@ -48,6 +48,9 @@ export const AddBook = withViewModel<AddBookViewModel, AddBookProps>(AddBookView
             <FormElement icon={<piIcons.PiSubtitles />}>
                 <InputText placeholder="Title" value={viewModel.command.title} onChange={e => viewModel.command.title = e.target.value} />
             </FormElement>
+            <FormElement icon={<piIcons.PiResize />}>
+                <InputText placeholder="Initial stock count" value={viewModel.command.initialStockCount?.toString()} onChange={e => viewModel.command.initialStockCount = parseInt(e.target.value)} />
+            </FormElement>
         </Dialog>
     )
 });

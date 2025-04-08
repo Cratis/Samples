@@ -7,15 +7,8 @@ using MongoDB.Driver;
 namespace Library.Books.Inventory.Listing;
 
 [Route("/api/books/inventory")]
-public class QueryEndpoints(IMongoCollection<Book> collection) : ControllerBase
+public class ObserveAllBooksQuery(IMongoCollection<Book> collection) : ControllerBase
 {
-    [HttpGet]
-    public async Task<IEnumerable<Book>> AllBooks()
-    {
-        var result = await collection.FindAsync(_ => true);
-        return result.ToList();
-    }
-
     [HttpGet("observe")]
     public ISubject<IEnumerable<Book>> ObserveAllBooks() => collection.Observe();
 }

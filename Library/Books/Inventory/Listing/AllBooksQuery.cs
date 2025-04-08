@@ -4,19 +4,18 @@
 using System.Reactive.Subjects;
 using MongoDB.Driver;
 
-namespace Library.Authors.Listing;
+namespace Library.Books.Inventory.Listing;
 
-[Route("/api/authors")]
-public class AuthorsQueries(IMongoCollection<Author> collection) : ControllerBase
+[Route("/api/books/inventory")]
+public class AllBooksQuery(IMongoCollection<Book> collection) : ControllerBase
 {
     [HttpGet]
-    public async Task<IEnumerable<Author>> AllAuthors()
+    public async Task<IEnumerable<Book>> AllBooks()
     {
         var result = await collection.FindAsync(_ => true);
         return result.ToList();
     }
 
     [HttpGet("observe")]
-    public ISubject<IEnumerable<Author>> ObserveAllAuthors() =>
-        collection.Observe();
+    public ISubject<IEnumerable<Book>> ObserveAllBooks() => collection.Observe();
 }

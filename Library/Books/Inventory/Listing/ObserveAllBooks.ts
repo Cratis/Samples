@@ -16,6 +16,7 @@ class ObserveAllBooksSortBy {
     private _ISBN: SortingActionsForObservableQuery<Book[]>;
     private _title: SortingActionsForObservableQuery<Book[]>;
     private _author: SortingActionsForObservableQuery<Book[]>;
+    private _stockCount: SortingActionsForObservableQuery<Book[]>;
     private _publishedDate: SortingActionsForObservableQuery<Book[]>;
 
     constructor(readonly query: ObserveAllBooks) {
@@ -23,6 +24,7 @@ class ObserveAllBooksSortBy {
         this._ISBN = new SortingActionsForObservableQuery<Book[]>('ISBN', query);
         this._title = new SortingActionsForObservableQuery<Book[]>('title', query);
         this._author = new SortingActionsForObservableQuery<Book[]>('author', query);
+        this._stockCount = new SortingActionsForObservableQuery<Book[]>('stockCount', query);
         this._publishedDate = new SortingActionsForObservableQuery<Book[]>('publishedDate', query);
     }
 
@@ -38,6 +40,9 @@ class ObserveAllBooksSortBy {
     get author(): SortingActionsForObservableQuery<Book[]> {
         return this._author;
     }
+    get stockCount(): SortingActionsForObservableQuery<Book[]> {
+        return this._stockCount;
+    }
     get publishedDate(): SortingActionsForObservableQuery<Book[]> {
         return this._publishedDate;
     }
@@ -48,6 +53,7 @@ class ObserveAllBooksSortByWithoutQuery {
     private _ISBN: SortingActions  = new SortingActions('ISBN');
     private _title: SortingActions  = new SortingActions('title');
     private _author: SortingActions  = new SortingActions('author');
+    private _stockCount: SortingActions  = new SortingActions('stockCount');
     private _publishedDate: SortingActions  = new SortingActions('publishedDate');
 
     get id(): SortingActions {
@@ -61,6 +67,9 @@ class ObserveAllBooksSortByWithoutQuery {
     }
     get author(): SortingActions {
         return this._author;
+    }
+    get stockCount(): SortingActions {
+        return this._stockCount;
     }
     get publishedDate(): SortingActions {
         return this._publishedDate;

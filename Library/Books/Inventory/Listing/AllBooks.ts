@@ -16,6 +16,7 @@ class AllBooksSortBy {
     private _ISBN: SortingActionsForQuery<Book[]>;
     private _title: SortingActionsForQuery<Book[]>;
     private _author: SortingActionsForQuery<Book[]>;
+    private _stockCount: SortingActionsForQuery<Book[]>;
     private _publishedDate: SortingActionsForQuery<Book[]>;
 
     constructor(readonly query: AllBooks) {
@@ -23,6 +24,7 @@ class AllBooksSortBy {
         this._ISBN = new SortingActionsForQuery<Book[]>('ISBN', query);
         this._title = new SortingActionsForQuery<Book[]>('title', query);
         this._author = new SortingActionsForQuery<Book[]>('author', query);
+        this._stockCount = new SortingActionsForQuery<Book[]>('stockCount', query);
         this._publishedDate = new SortingActionsForQuery<Book[]>('publishedDate', query);
     }
 
@@ -38,6 +40,9 @@ class AllBooksSortBy {
     get author(): SortingActionsForQuery<Book[]> {
         return this._author;
     }
+    get stockCount(): SortingActionsForQuery<Book[]> {
+        return this._stockCount;
+    }
     get publishedDate(): SortingActionsForQuery<Book[]> {
         return this._publishedDate;
     }
@@ -48,6 +53,7 @@ class AllBooksSortByWithoutQuery {
     private _ISBN: SortingActions  = new SortingActions('ISBN');
     private _title: SortingActions  = new SortingActions('title');
     private _author: SortingActions  = new SortingActions('author');
+    private _stockCount: SortingActions  = new SortingActions('stockCount');
     private _publishedDate: SortingActions  = new SortingActions('publishedDate');
 
     get id(): SortingActions {
@@ -61,6 +67,9 @@ class AllBooksSortByWithoutQuery {
     }
     get author(): SortingActions {
         return this._author;
+    }
+    get stockCount(): SortingActions {
+        return this._stockCount;
     }
     get publishedDate(): SortingActions {
         return this._publishedDate;

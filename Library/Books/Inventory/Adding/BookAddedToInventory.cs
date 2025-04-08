@@ -3,7 +3,7 @@
 
 using Library.Authors;
 
-namespace Library.Books.Inventory.Listing;
+namespace Library.Books.Inventory.Adding;
 
 [EventType]
 public record BookAddedToInventory(ISBN ISBN, BootTitle Title, AuthorId Author, DateOnly PublishedDate);

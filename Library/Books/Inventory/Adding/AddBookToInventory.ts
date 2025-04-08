@@ -17,6 +17,7 @@ export interface IAddBookToInventory {
     ISBN?: string;
     title?: string;
     author?: Guid;
+    initialStockCount?: number;
     publishedDate?: Date;
 }
 
@@ -25,6 +26,7 @@ export class AddBookToInventoryValidator extends CommandValidator {
         ISBN: new Validator(),
         title: new Validator(),
         author: new Validator(),
+        initialStockCount: new Validator(),
         publishedDate: new Validator(),
     };
 }
@@ -37,6 +39,7 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
     private _ISBN!: string;
     private _title!: string;
     private _author!: Guid;
+    private _initialStockCount!: number;
     private _publishedDate!: Date;
 
     constructor() {
@@ -53,6 +56,7 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
             'ISBN',
             'title',
             'author',
+            'initialStockCount',
             'publishedDate',
         ];
     }
@@ -80,6 +84,14 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
     set author(value: Guid) {
         this._author = value;
         this.propertyChanged('author');
+    }
+    get initialStockCount(): number {
+        return this._initialStockCount;
+    }
+
+    set initialStockCount(value: number) {
+        this._initialStockCount = value;
+        this.propertyChanged('initialStockCount');
     }
     get publishedDate(): Date {
         return this._publishedDate;
