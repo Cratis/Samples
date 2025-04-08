@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
 
         <OutputType>Exe</OutputType>
-        <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)</CratisProxiesOutputPath>
+        <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
         <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
         <AssemblyName>Library</AssemblyName>
         <RootNamespace>Library</RootNamespace>
