@@ -5,7 +5,7 @@ import { Column } from 'primereact/column';
 import { DataPage, MenuItem } from '../Components/DataPage';
 import { ObserveAllAuthors } from './Listing';
 import * as faIcons from 'react-icons/fa';
-import { AddAuthor } from './Registration/AddAuthor';
+import { RegisterAuthorView } from './Registration/RegisterAuthorView';
 import { useState } from 'react';
 
 export const Authors = () => {
@@ -27,7 +27,7 @@ export const Authors = () => {
                     <Column field='name' header='Name' />
                 </DataPage.Columns>
             </DataPage>
-            <AddAuthor visible={addAuthorDialogVisible} onHide={() => setAddAuthorDialogVisible(false)} />
+            <RegisterAuthorView visible={addAuthorDialogVisible} onHide={() => setAddAuthorDialogVisible(false)} />
         </>
     );
 };

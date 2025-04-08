@@ -4,17 +4,17 @@
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext';
-import { AddAuthorViewModel } from './AddAuthorViewModel';
+import { AddAuthorViewModel } from './RegisterAuthorViewModel';
 import { withViewModel } from '@cratis/applications.react.mvvm';
 import { FormElement } from 'Components/Common';
 import * as piIcons from 'react-icons/pi';
 
-export interface AddAuthorProps {
+export interface RegisterAuthorViewProps {
     visible: boolean;
     onHide?: () => void;
 }
 
-export const AddAuthor = withViewModel<AddAuthorViewModel, AddAuthorProps>(AddAuthorViewModel, ({ viewModel, props }) => {
+export const RegisterAuthorView = withViewModel<AddAuthorViewModel, RegisterAuthorViewProps>(AddAuthorViewModel, ({ viewModel, props }) => {
     const ok = async () => {
         await viewModel.register();
         props.onHide?.();
