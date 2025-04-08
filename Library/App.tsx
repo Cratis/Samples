@@ -31,23 +31,19 @@ function App() {
         }
     ];
 
-    const Layout = () => <DefaultLayout menu={menuItems} />
-
     return (
         <LayoutProvider>
             <DialogComponents confirmation={ConfirmationDialog}>
                 <BrowserRouter>
                     <Routes>
-                        <Route element={<Layout />}>
+                        <Route element={<DefaultLayout menu={menuItems} />}>
                             <Route path='/' element={<Navigate to={'/home'} />} />
                             <Route path='/home' >
                                 <Route path={''} element={<Home />} />
                             </Route>
 
                             <Route path='/authors' element={<Authors />}/>
-
                             <Route path='/books/*' element={<Books />}/>
-
                             <Route path='/lenders' element={<Lenders />}/>
                         </Route>
                     </Routes>
