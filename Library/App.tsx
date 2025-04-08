@@ -25,6 +25,7 @@ function App() {
                 { label: 'Books', url: '/books', icon: mdIcons.MdBook },
                 { label: 'Reservations', url: '/books/reservations', icon: ioIcons.IoBagCheckOutline },
                 { label: 'Overdue books', url: '/books/overdue-books', icon: faIcons.FaRegCalendarXmark },
+                { label: 'Lenders', url: '/lenders', icon: mdIcons.MdPeopleAlt },
             ]
         }
     ];
