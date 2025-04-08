@@ -26,6 +26,7 @@ export const Inventory = () => {
                     <MenuItem id='add' label='Add Book' icon={faIcons.FaPlus} command={() => setAddAuthorDialogVisible(true)} />
                     <MenuItem id='reserve' label='Reserve Book' disableOnUnselected icon={faIcons.FaCalendarCheck} command={() => {}} />
                     <MenuItem id='lend' label='Lend Book' disableOnUnselected icon={faIcons.FaCalendarPlus} command={() => {}} />
+                    <MenuItem id='changeStockCount' label='Change stock count' disableOnUnselected icon={faIcons.FaBoxes} command={() => {}} />
                 </DataPage.MenuItems>
 
                 <DataPage.Columns>
