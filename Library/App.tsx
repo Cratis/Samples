@@ -13,7 +13,8 @@ import { Authors } from './Authors/Authors';
 import * as mdIcons from 'react-icons/md';
 import * as ioIcons from 'react-icons/io5';
 import * as faIcons from 'react-icons/fa6';
-import { Inventory } from './Books/Inventory/Inventory';
+import { Lenders } from './Lenders/Lenders';
+import { Books } from './Books/Books';
 
 function App() {
     useTheme();
@@ -22,9 +23,9 @@ function App() {
         {
             items: [
                 { label: 'Authors', url: '/authors', icon: mdIcons.MdPeopleAlt },
-                { label: 'Books', url: '/books', icon: mdIcons.MdBook },
+                { label: 'Books', url: '/books/inventory', icon: mdIcons.MdBook },
                 { label: 'Reservations', url: '/books/reservations', icon: ioIcons.IoBagCheckOutline },
-                { label: 'Overdue books', url: '/books/overdue-books', icon: faIcons.FaRegCalendarXmark },
+                { label: 'Overdue books', url: '/books/overdue', icon: faIcons.FaRegCalendarXmark },
                 { label: 'Lenders', url: '/lenders', icon: mdIcons.MdPeopleAlt },
             ]
         }
@@ -37,19 +38,18 @@ function App() {
             <DialogComponents confirmation={ConfirmationDialog}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Navigate to={'/home'} />} />
-                        <Route path='/home' element={<Layout/>}>
-                            <Route path={''} element={<Home />} />
-                        </Route>
+                        <Route element={<Layout />}>
+                            <Route path='/' element={<Navigate to={'/home'} />} />
+                            <Route path='/home' >
+                                <Route path={''} element={<Home />} />
+                            </Route>
 
-                        <Route path='/authors' element={<Layout />}>
-                            <Route path={''} element={<Authors />} />
-                        </Route>
+                            <Route path='/authors' element={<Authors />}/>
 
-                        <Route path='/books' element={<Layout />}>
-                            <Route path={''} element={<Inventory />} />
-                        </Route>
+                            <Route path='/books/*' element={<Books />}/>
 
+                            <Route path='/lenders' element={<Lenders />}/>
+                        </Route>
                     </Routes>
                 </BrowserRouter>
             </DialogComponents>
