@@ -4,5 +4,6 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
+export * from './AllLenders';
 export * from './Lender';
 export * from './ObserveAllLenders';
