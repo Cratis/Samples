@@ -12,6 +12,7 @@ import Handlebars from 'handlebars';
 const routeTemplate = Handlebars.compile('/api/lenders/observe');
 
 class ObserveAllLendersSortBy {
+    private _id: SortingActionsForObservableQuery<Lender[]>;
     private _firstName: SortingActionsForObservableQuery<Lender[]>;
     private _lastName: SortingActionsForObservableQuery<Lender[]>;
     private _address: SortingActionsForObservableQuery<Lender[]>;
@@ -20,6 +21,7 @@ class ObserveAllLendersSortBy {
     private _socialSecurityNumber: SortingActionsForObservableQuery<Lender[]>;
 
     constructor(readonly query: ObserveAllLenders) {
+        this._id = new SortingActionsForObservableQuery<Lender[]>('id', query);
         this._firstName = new SortingActionsForObservableQuery<Lender[]>('firstName', query);
         this._lastName = new SortingActionsForObservableQuery<Lender[]>('lastName', query);
         this._address = new SortingActionsForObservableQuery<Lender[]>('address', query);
@@ -28,6 +30,9 @@ class ObserveAllLendersSortBy {
         this._socialSecurityNumber = new SortingActionsForObservableQuery<Lender[]>('socialSecurityNumber', query);
     }
 
+    get id(): SortingActionsForObservableQuery<Lender[]> {
+        return this._id;
+    }
     get firstName(): SortingActionsForObservableQuery<Lender[]> {
         return this._firstName;
     }
@@ -49,6 +54,7 @@ class ObserveAllLendersSortBy {
 }
 
 class ObserveAllLendersSortByWithoutQuery {
+    private _id: SortingActions  = new SortingActions('id');
     private _firstName: SortingActions  = new SortingActions('firstName');
     private _lastName: SortingActions  = new SortingActions('lastName');
     private _address: SortingActions  = new SortingActions('address');
@@ -56,6 +62,9 @@ class ObserveAllLendersSortByWithoutQuery {
     private _city: SortingActions  = new SortingActions('city');
     private _socialSecurityNumber: SortingActions  = new SortingActions('socialSecurityNumber');
 
+    get id(): SortingActions {
+        return this._id;
+    }
     get firstName(): SortingActions {
         return this._firstName;
     }
