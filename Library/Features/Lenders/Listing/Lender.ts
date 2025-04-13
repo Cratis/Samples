@@ -5,8 +5,12 @@
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
 import { field } from '@cratis/fundamentals';
+import { Guid } from '@cratis/fundamentals';
 
 export class Lender {
+
+    @field(Guid)
+    id!: Guid;
 
     @field(String)
     firstName!: string;

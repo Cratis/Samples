@@ -6,6 +6,7 @@ using Library.Common;
 namespace Library.Lenders.Listing;
 
 public record Lender(
+    LenderId Id,
     FirstName FirstName,
     LastName LastName,
     Address Address,
