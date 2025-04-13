@@ -15,7 +15,8 @@ class AllBooksSortBy {
     private _id: SortingActionsForQuery<Book[]>;
     private _ISBN: SortingActionsForQuery<Book[]>;
     private _title: SortingActionsForQuery<Book[]>;
-    private _author: SortingActionsForQuery<Book[]>;
+    private _authorId: SortingActionsForQuery<Book[]>;
+    private _authorName: SortingActionsForQuery<Book[]>;
     private _stockCount: SortingActionsForQuery<Book[]>;
     private _publishedDate: SortingActionsForQuery<Book[]>;
 
@@ -23,7 +24,8 @@ class AllBooksSortBy {
         this._id = new SortingActionsForQuery<Book[]>('id', query);
         this._ISBN = new SortingActionsForQuery<Book[]>('ISBN', query);
         this._title = new SortingActionsForQuery<Book[]>('title', query);
-        this._author = new SortingActionsForQuery<Book[]>('author', query);
+        this._authorId = new SortingActionsForQuery<Book[]>('authorId', query);
+        this._authorName = new SortingActionsForQuery<Book[]>('authorName', query);
         this._stockCount = new SortingActionsForQuery<Book[]>('stockCount', query);
         this._publishedDate = new SortingActionsForQuery<Book[]>('publishedDate', query);
     }
@@ -37,8 +39,11 @@ class AllBooksSortBy {
     get title(): SortingActionsForQuery<Book[]> {
         return this._title;
     }
-    get author(): SortingActionsForQuery<Book[]> {
-        return this._author;
+    get authorId(): SortingActionsForQuery<Book[]> {
+        return this._authorId;
+    }
+    get authorName(): SortingActionsForQuery<Book[]> {
+        return this._authorName;
     }
     get stockCount(): SortingActionsForQuery<Book[]> {
         return this._stockCount;
@@ -52,7 +57,8 @@ class AllBooksSortByWithoutQuery {
     private _id: SortingActions  = new SortingActions('id');
     private _ISBN: SortingActions  = new SortingActions('ISBN');
     private _title: SortingActions  = new SortingActions('title');
-    private _author: SortingActions  = new SortingActions('author');
+    private _authorId: SortingActions  = new SortingActions('authorId');
+    private _authorName: SortingActions  = new SortingActions('authorName');
     private _stockCount: SortingActions  = new SortingActions('stockCount');
     private _publishedDate: SortingActions  = new SortingActions('publishedDate');
 
@@ -65,8 +71,11 @@ class AllBooksSortByWithoutQuery {
     get title(): SortingActions {
         return this._title;
     }
-    get author(): SortingActions {
-        return this._author;
+    get authorId(): SortingActions {
+        return this._authorId;
+    }
+    get authorName(): SortingActions {
+        return this._authorName;
     }
     get stockCount(): SortingActions {
         return this._stockCount;

@@ -41,7 +41,6 @@ function App() {
                             <Route path='/home' >
                                 <Route path={''} element={<Home />} />
                             </Route>
-
                             <Route path='/authors' element={<Authors />}/>
                             <Route path='/books/*' element={<Books />}/>
                             <Route path='/lenders' element={<Lenders />}/>

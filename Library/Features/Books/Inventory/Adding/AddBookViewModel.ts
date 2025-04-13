@@ -17,7 +17,7 @@ export class AddBookViewModel {
     authors: Author[] = [];
 
     async add() {
-        this.command.author = this.selectedAuthor?.id!;
+        this.command.authorId = this.selectedAuthor?.id!;
         const result = await this.command.execute();
         this.command.clear();
         this.selectedAuthor = null!;

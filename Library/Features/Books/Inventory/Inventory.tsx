@@ -31,6 +31,7 @@ export const Inventory = () => {
 
                 <DataPage.Columns>
                     <Column field='title' header='Title' />
+                    <Column field='authorName' header='Author' />
                     <Column field='stockCount' header='Total stock count' />
                 </DataPage.Columns>
             </DataPage>

@@ -16,7 +16,7 @@ const routeTemplate = Handlebars.compile('/api/books/inventory/add');
 export interface IAddBookToInventory {
     ISBN?: string;
     title?: string;
-    author?: Guid;
+    authorId?: Guid;
     initialStockCount?: number;
     publishedDate?: Date;
 }
@@ -25,7 +25,7 @@ export class AddBookToInventoryValidator extends CommandValidator {
     readonly properties: CommandPropertyValidators = {
         ISBN: new Validator(),
         title: new Validator(),
-        author: new Validator(),
+        authorId: new Validator(),
         initialStockCount: new Validator(),
         publishedDate: new Validator(),
     };
@@ -38,7 +38,7 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
 
     private _ISBN!: string;
     private _title!: string;
-    private _author!: Guid;
+    private _authorId!: Guid;
     private _initialStockCount!: number;
     private _publishedDate!: Date;
 
@@ -55,7 +55,7 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
         return [
             'ISBN',
             'title',
-            'author',
+            'authorId',
             'initialStockCount',
             'publishedDate',
         ];
@@ -77,13 +77,13 @@ export class AddBookToInventory extends Command<IAddBookToInventory> implements 
         this._title = value;
         this.propertyChanged('title');
     }
-    get author(): Guid {
-        return this._author;
+    get authorId(): Guid {
+        return this._authorId;
     }
 
-    set author(value: Guid) {
-        this._author = value;
-        this.propertyChanged('author');
+    set authorId(value: Guid) {
+        this._authorId = value;
+        this.propertyChanged('authorId');
     }
     get initialStockCount(): number {
         return this._initialStockCount;

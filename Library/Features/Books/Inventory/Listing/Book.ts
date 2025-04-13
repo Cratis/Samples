@@ -18,8 +18,11 @@ export class Book {
     @field(String)
     title!: string;
 
+    @field(Guid)
+    authorId!: Guid;
+
     @field(String)
-    author!: string;
+    authorName!: string;
 
     @field(Number)
     stockCount!: number;
