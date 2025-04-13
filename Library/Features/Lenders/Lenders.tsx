@@ -17,14 +17,15 @@ export const Lenders = () => {
                 title='Lenders'
                 query={ObserveAllLenders}
                 dataKey='id'
-                emptyMessage='No authors found'>
+                emptyMessage='No lenders found'>
 
                 <DataPage.MenuItems>
                     <MenuItem id='add' label='Add Lender' icon={faIcons.FaPlus} command={() => setAddLenderDialogVisible(true)} />
                 </DataPage.MenuItems>
 
                 <DataPage.Columns>
-                    <Column field='name' header='Name' />
+                    <Column field='firstName' header='First Name' />
+                    <Column field='lastName' header='Last Name' />
                 </DataPage.Columns>
             </DataPage>
             <RegisterLenderView visible={addLenderDialogVisible} onHide={() => setAddLenderDialogVisible(false)} />
