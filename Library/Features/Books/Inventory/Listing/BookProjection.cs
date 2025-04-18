@@ -3,6 +3,7 @@
 
 using Library.Authors.Registration;
 using Library.Books.Inventory.Adding;
+using Library.Books.Inventory.Reserve;
 
 namespace Library.Books.Inventory.Listing;
 
@@ -14,5 +15,7 @@ public class BookProjection : IProjectionFor<Book>
         .Join<AuthorRegistered>(authorBuilder => authorBuilder
             .On(m => m.AuthorId)
             .Set(m => m.AuthorName).To(e => e.Name))
+        .From<BookReserved>(b => b
+            .Increment(m => m.ReserveCount))
         .From<StockChanged>();
 }

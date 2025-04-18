@@ -6,4 +6,13 @@ using Library.Books.Inventory.Adding;
 
 namespace Library.Books.Inventory.Listing;
 
-public record Book(BookId Id, ISBN ISBN, BootTitle Title, AuthorId AuthorId, AuthorName AuthorName, StockCount StockCount, DateOnly PublishedDate);
+public record Book(
+    BookId Id,
+    ISBN ISBN,
+    BootTitle Title,
+    AuthorId AuthorId,
+    AuthorName AuthorName,
+    StockCount StockCount,
+    ReserveCount ReserveCount,
+    LendCount LendCount,
+    DateOnly PublishedDate);
