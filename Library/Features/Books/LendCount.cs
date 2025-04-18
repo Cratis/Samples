@@ -7,5 +7,3 @@ public record LendCount(int Value) : ConceptAs<int>(Value)
 {
     public static implicit operator LendCount(int value) => new(value);
 }
-
-
