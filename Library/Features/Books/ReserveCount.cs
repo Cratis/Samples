@@ -7,5 +7,3 @@ public record ReserveCount(int Value) : ConceptAs<int>(Value)
 {
     public static implicit operator ReserveCount(int value) => new(value);
 }
-
-
