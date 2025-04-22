@@ -18,6 +18,8 @@ class ObserveAllBooksSortBy {
     private _authorId: SortingActionsForObservableQuery<Book[]>;
     private _authorName: SortingActionsForObservableQuery<Book[]>;
     private _stockCount: SortingActionsForObservableQuery<Book[]>;
+    private _reserveCount: SortingActionsForObservableQuery<Book[]>;
+    private _lendCount: SortingActionsForObservableQuery<Book[]>;
     private _publishedDate: SortingActionsForObservableQuery<Book[]>;
 
     constructor(readonly query: ObserveAllBooks) {
@@ -27,6 +29,8 @@ class ObserveAllBooksSortBy {
         this._authorId = new SortingActionsForObservableQuery<Book[]>('authorId', query);
         this._authorName = new SortingActionsForObservableQuery<Book[]>('authorName', query);
         this._stockCount = new SortingActionsForObservableQuery<Book[]>('stockCount', query);
+        this._reserveCount = new SortingActionsForObservableQuery<Book[]>('reserveCount', query);
+        this._lendCount = new SortingActionsForObservableQuery<Book[]>('lendCount', query);
         this._publishedDate = new SortingActionsForObservableQuery<Book[]>('publishedDate', query);
     }
 
@@ -48,6 +52,12 @@ class ObserveAllBooksSortBy {
     get stockCount(): SortingActionsForObservableQuery<Book[]> {
         return this._stockCount;
     }
+    get reserveCount(): SortingActionsForObservableQuery<Book[]> {
+        return this._reserveCount;
+    }
+    get lendCount(): SortingActionsForObservableQuery<Book[]> {
+        return this._lendCount;
+    }
     get publishedDate(): SortingActionsForObservableQuery<Book[]> {
         return this._publishedDate;
     }
@@ -60,6 +70,8 @@ class ObserveAllBooksSortByWithoutQuery {
     private _authorId: SortingActions  = new SortingActions('authorId');
     private _authorName: SortingActions  = new SortingActions('authorName');
     private _stockCount: SortingActions  = new SortingActions('stockCount');
+    private _reserveCount: SortingActions  = new SortingActions('reserveCount');
+    private _lendCount: SortingActions  = new SortingActions('lendCount');
     private _publishedDate: SortingActions  = new SortingActions('publishedDate');
 
     get id(): SortingActions {
@@ -79,6 +91,12 @@ class ObserveAllBooksSortByWithoutQuery {
     }
     get stockCount(): SortingActions {
         return this._stockCount;
+    }
+    get reserveCount(): SortingActions {
+        return this._reserveCount;
+    }
+    get lendCount(): SortingActions {
+        return this._lendCount;
     }
     get publishedDate(): SortingActions {
         return this._publishedDate;

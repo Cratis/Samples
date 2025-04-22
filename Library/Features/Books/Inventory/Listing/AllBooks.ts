@@ -18,6 +18,8 @@ class AllBooksSortBy {
     private _authorId: SortingActionsForQuery<Book[]>;
     private _authorName: SortingActionsForQuery<Book[]>;
     private _stockCount: SortingActionsForQuery<Book[]>;
+    private _reserveCount: SortingActionsForQuery<Book[]>;
+    private _lendCount: SortingActionsForQuery<Book[]>;
     private _publishedDate: SortingActionsForQuery<Book[]>;
 
     constructor(readonly query: AllBooks) {
@@ -27,6 +29,8 @@ class AllBooksSortBy {
         this._authorId = new SortingActionsForQuery<Book[]>('authorId', query);
         this._authorName = new SortingActionsForQuery<Book[]>('authorName', query);
         this._stockCount = new SortingActionsForQuery<Book[]>('stockCount', query);
+        this._reserveCount = new SortingActionsForQuery<Book[]>('reserveCount', query);
+        this._lendCount = new SortingActionsForQuery<Book[]>('lendCount', query);
         this._publishedDate = new SortingActionsForQuery<Book[]>('publishedDate', query);
     }
 
@@ -48,6 +52,12 @@ class AllBooksSortBy {
     get stockCount(): SortingActionsForQuery<Book[]> {
         return this._stockCount;
     }
+    get reserveCount(): SortingActionsForQuery<Book[]> {
+        return this._reserveCount;
+    }
+    get lendCount(): SortingActionsForQuery<Book[]> {
+        return this._lendCount;
+    }
     get publishedDate(): SortingActionsForQuery<Book[]> {
         return this._publishedDate;
     }
@@ -60,6 +70,8 @@ class AllBooksSortByWithoutQuery {
     private _authorId: SortingActions  = new SortingActions('authorId');
     private _authorName: SortingActions  = new SortingActions('authorName');
     private _stockCount: SortingActions  = new SortingActions('stockCount');
+    private _reserveCount: SortingActions  = new SortingActions('reserveCount');
+    private _lendCount: SortingActions  = new SortingActions('lendCount');
     private _publishedDate: SortingActions  = new SortingActions('publishedDate');
 
     get id(): SortingActions {
@@ -79,6 +91,12 @@ class AllBooksSortByWithoutQuery {
     }
     get stockCount(): SortingActions {
         return this._stockCount;
+    }
+    get reserveCount(): SortingActions {
+        return this._reserveCount;
+    }
+    get lendCount(): SortingActions {
+        return this._lendCount;
     }
     get publishedDate(): SortingActions {
         return this._publishedDate;

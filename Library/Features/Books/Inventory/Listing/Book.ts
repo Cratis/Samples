@@ -27,6 +27,12 @@ export class Book {
     @field(Number)
     stockCount!: number;
 
+    @field(Number)
+    reserveCount!: number;
+
+    @field(Number)
+    lendCount!: number;
+
     @field(Date)
     publishedDate!: Date;
 }

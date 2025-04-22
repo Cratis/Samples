@@ -15,11 +15,13 @@ const routeTemplate = Handlebars.compile('/api/books/reservations/reserve');
 
 export interface IReserveBook {
     bookId?: Guid;
+    lenderId?: Guid;
 }
 
 export class ReserveBookValidator extends CommandValidator {
     readonly properties: CommandPropertyValidators = {
         bookId: new Validator(),
+        lenderId: new Validator(),
     };
 }
 
@@ -29,6 +31,7 @@ export class ReserveBook extends Command<IReserveBook> implements IReserveBook {
     readonly validation: CommandValidator = new ReserveBookValidator();
 
     private _bookId!: Guid;
+    private _lenderId!: Guid;
 
     constructor() {
         super(Object, false);
@@ -42,6 +45,7 @@ export class ReserveBook extends Command<IReserveBook> implements IReserveBook {
     get properties(): string[] {
         return [
             'bookId',
+            'lenderId',
         ];
     }
 
@@ -52,6 +56,14 @@ export class ReserveBook extends Command<IReserveBook> implements IReserveBook {
     set bookId(value: Guid) {
         this._bookId = value;
         this.propertyChanged('bookId');
+    }
+    get lenderId(): Guid {
+        return this._lenderId;
+    }
+
+    set lenderId(value: Guid) {
+        this._lenderId = value;
+        this.propertyChanged('lenderId');
     }
 
     static use(initialValues?: IReserveBook): [ReserveBook, SetCommandValues<IReserveBook>, ClearCommandValues] {
