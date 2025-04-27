@@ -1,19 +1,22 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <Fundamentals>6.3.2</Fundamentals>
+    <Applications>15.10.0</Applications>
+    <Chronicle>11.13.4</Chronicle>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="6.3.2" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="6.3.2" />
-    <PackageVersion Include="Cratis.Applications" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Applications.Orleans" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Applications.Swagger" Version="15.10.0" />
-    <PackageVersion Include="Cratis.Chronicle" Version="11.13.2" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="11.13.2" />
-    <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="11.13.2" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="$(Fundamentals)" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="$(Fundamentals)" />
+    <PackageVersion Include="Cratis.Applications" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Applications.MongoDB" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Applications.Orleans" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Applications.Swagger" Version="$(Applications)" />
+    <PackageVersion Include="Cratis.Chronicle" Version="$(Chronicle)" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="$(Chronicle)" />
+    <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="$(Chronicle)" />
     <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <!-- Analysis -->
