@@ -5,4 +5,5 @@ using Library.Lenders;
 
 namespace Library.Books.Inventory.Reserve;
 
+[EventType]
 public record BookReserved(LenderId LenderId);
