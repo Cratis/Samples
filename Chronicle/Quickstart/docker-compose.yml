@@ -1,15 +1,46 @@
 #region Snippet:Quickstart-DockerCompose
 services:
   chronicle:
-    image: cratis/chronicle:latest-development
+    image: ghcr.io/cratis/chronicle:11.14.0-pr1874.f01502d
+    depends_on:
+        mongo:
+            condition: service_healthy
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__AdvertisedHostName=chronicle
+      - Cratis__Chronicle__Storage__ConnectionDetails=mongodb://mongo:27017
     ports:
-      - 27017:27017
       - 8080:8080
       - 11111:11111
       - 30000:30000
       - 35000:35000
+
+  chronicle2:
+    image: ghcr.io/cratis/chronicle:11.14.0-pr1874.f01502d
+    depends_on:
+        mongo:
+            condition: service_healthy
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__AdvertisedHostName=chronicle2
+      - Cratis__Chronicle__Storage__ConnectionDetails=mongodb://mongo:27017
+    ports:
+      - 11112:11111
+      - 30001:30000
+      - 35001:35000
+
+  mongo:
+    image: mongo
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'localhost:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    ports:
+      - 27017:27017
 
   aspire-dashboard:
     image: mcr.microsoft.com/dotnet/aspire-dashboard:latest
