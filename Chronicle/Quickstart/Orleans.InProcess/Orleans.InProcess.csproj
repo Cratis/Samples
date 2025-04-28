@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
         <PackageReference Include="Cratis.Chronicle.Orleans.InProcess" />
         <PackageReference Include="Microsoft.Orleans.Server" />
         <PackageReference Include="MongoDB.Driver" />
