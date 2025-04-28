@@ -19,5 +19,4 @@
         "path": "${workspaceFolder}/eCommerce",
         "outputPath": "${workspaceFolder}/eCommerce/bin/Debug/net9.0/eCommerce.dll"
     }
-
 ]
