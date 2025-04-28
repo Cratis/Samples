@@ -13,5 +13,11 @@
         "name": "Library",
         "path": "${workspaceFolder}/Library/Main",
         "outputPath": "${workspaceFolder}/Library/Main/bin/Debug/net9.0/Main.dll"
+    },
+    {
+        "name": "eCommerce",
+        "path": "${workspaceFolder}/eCommerce",
+        "outputPath": "${workspaceFolder}/eCommerce/bin/Debug/net9.0/eCommerce.dll"
     }
+
 ]
