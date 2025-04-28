@@ -1,36 +1,45 @@
 <Project>
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <ApplicationModel>15.10.0</ApplicationModel>
-    <Fundamentals>6.3.2</Fundamentals>
-    <Chronicle>11.14.0</Chronicle>
-    <Orleans>9.1.2</Orleans>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="$(Fundamentals)" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="$(Fundamentals)" />
-    <PackageVersion Include="Cratis.Applications" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Applications.Orleans" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Applications.Swagger" Version="$(ApplicationModel)" />
-    <PackageVersion Include="Cratis.Chronicle" Version="$(Chronicle)" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="$(Chronicle)" />
-    <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="$(Chronicle)" />
-    <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
-    <!-- Analysis -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.12.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="$(Orleans)" />
-    <PackageVersion Include="Microsoft.Orleans.Server" Version="$(Orleans)" />
-    <PackageVersion Include="MongoDB.Driver" Version="3.3.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.1.6" />
-    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.13.1" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.193" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0" />
-    <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
-  </ItemGroup>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <ApplicationModel>15.10.0</ApplicationModel>
+        <Fundamentals>6.3.2</Fundamentals>
+        <Chronicle>11.14.0</Chronicle>
+        <Orleans>9.1.2</Orleans>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="Cratis.Fundamentals" Version="$(Fundamentals)" />
+        <PackageVersion Include="Cratis.Metrics.Roslyn" Version="$(Fundamentals)" />
+        <PackageVersion Include="Cratis.Applications" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Applications.MongoDB" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Applications.Orleans" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Applications.Swagger" Version="$(ApplicationModel)" />
+        <PackageVersion Include="Cratis.Chronicle" Version="$(Chronicle)" />
+        <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="$(Chronicle)" />
+        <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="$(Chronicle)" />
+        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+        <!-- Analysis -->
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.12.0" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
+        <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="$(Orleans)" />
+        <PackageVersion Include="Microsoft.Orleans.Server" Version="$(Orleans)" />
+        <PackageVersion Include="MongoDB.Driver" Version="3.3.0" />
+        <PackageVersion Include="Scalar.AspNetCore" Version="2.1.6" />
+        <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
+        <PackageVersion Include="Roslynator.Analyzers" Version="4.13.1" />
+        <PackageVersion Include="Meziantou.Analyzer" Version="2.0.193" />
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0" />
+        <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
+
+        <!-- Testing & Specifications -->
+        <PackageVersion Include="Cratis.Specifications" Version="3.0.4" />
+        <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
+        <PackageVersion Include="Testcontainers" Version="4.4.0" />
+        <PackageVersion Include="xunit" Version="2.9.3" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
+        <PackageVersion Include="NSubstitute" Version="5.3.0" />
+        <PackageVersion Include="Microsoft.NET.Test.SDK" Version="17.13.0" />
+        <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.4" />
+    </ItemGroup>
 </Project>
