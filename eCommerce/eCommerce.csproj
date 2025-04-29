@@ -10,6 +10,8 @@
         <AssemblyName>eCommerce</AssemblyName>
         <RootNamespace>eCommerce</RootNamespace>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
+
+        <NoWarn>IDE0073;$(NoWarn)</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
