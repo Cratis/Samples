@@ -23,7 +23,7 @@ export const TopBar = () => {
                     </Button>
                 </div>
                 <div className="flex-1 flex align-center justify-center">
-                    <div className="font-extrabold text-2xl m-2">Library</div>
+                    <div className="font-extrabold text-2xl m-2">eCommerce</div>
                 </div>
 
             </div>
