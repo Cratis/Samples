@@ -12,7 +12,7 @@ CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args)
-    .AddCratisChronicle(options => options.EventStore = "Library")
+    .AddCratisChronicle(options => options.EventStore = "eCommerce")
     .UseCratisApplicationModel();
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
