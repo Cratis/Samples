@@ -1,5 +1,6 @@
 using eCommerce.Carts.AddItem;
 using eCommerce.Carts.RemoveItem;
+using MongoDB.Driver;
 
 namespace eCommerce.Carts.Contents;
 
@@ -15,4 +16,11 @@ public class CartProjection : IProjectionFor<Cart>
         .Children(c => c.Items, cartBuilder => cartBuilder
             .From<ItemAddedToCart>()
             .RemovedWith<ItemRemovedFromCart>());
+}
+
+[Route("/api/carts/{cartId}")]
+public class CartQueries(IMongoCollection<Cart> collection) : ControllerBase
+{
+    [HttpGet]
+    public ISubject<Cart> GetCart([FromRoute] CartId cartId) => collection.ObserveById(cartId);
 }
