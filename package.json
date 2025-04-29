@@ -1,7 +1,8 @@
 {
     "private": true,
     "workspaces": [
-        "Library/**/*"
+        "Library/**/*",
+        "eCommerce/**/*"
     ],
     "engines": {
         "node": ">=23.0.0"
