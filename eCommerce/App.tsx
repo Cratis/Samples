@@ -9,6 +9,7 @@ import { ConfirmationDialog } from 'Components/Dialogs';
 import { Home } from './Home';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
+import * as FaMdb from 'react-icons/fa6';
 
 function App() {
     useTheme();
@@ -16,6 +17,11 @@ function App() {
     const menuItems: IMenuItemGroup[] = [
         {
             items: [
+                {
+                    label: 'Catalog',
+                    url: '/catalog',
+                    icon: FaMdb.FaHouse
+                }
             ]
         }
     ];
@@ -26,8 +32,8 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<DefaultLayout menu={menuItems} />}>
-                            <Route path='/' element={<Navigate to={'/home'} />} />
-                            <Route path='/home' >
+                            <Route path='/' element={<Navigate to={'/catalog'} />} />
+                            <Route path='/catalog' >
                                 <Route path={''} element={<Home />} />
                             </Route>
                         </Route>
