@@ -6,8 +6,6 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { CatalogViewModel } from './CatalogViewModel';
 
-
-
 export const Catalog = withViewModel(CatalogViewModel, ({ viewModel }) => {
     const products = [
         { sku: '123', description: 'Product 1', price: 100 },
