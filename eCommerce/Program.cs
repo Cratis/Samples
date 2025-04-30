@@ -18,6 +18,7 @@ builder.UseCratisMongoDB();
 builder.Services.AddControllers();
 builder.Services.AddMvc();
 builder.Services.AddSwaggerGen(options => options.AddConcepts());
+builder.Services.Configure<ApiBehaviorOptions>(_ => _.SuppressModelStateInvalidFilter = true);
 
 var app = builder.Build();
 app
