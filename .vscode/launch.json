@@ -43,6 +43,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
+                "/home/runner/work/chronicle/chronicle": "/Volumes/Code/Cratis/Chronicle",
                 "/home/runner/work/orleans/orleans": "/Volumes/Code/Microsoft/dotnet/orleans"
             }
         },
