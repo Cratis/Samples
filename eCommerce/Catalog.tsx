@@ -5,9 +5,6 @@ import { withViewModel } from '@cratis/applications.react.mvvm';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { CatalogViewModel } from './CatalogViewModel';
-import { CartContents } from './Features/Carts/Contents/CartContents';
-
-
 
 export const Catalog = withViewModel(CatalogViewModel, ({ viewModel }) => {
     const products = [
