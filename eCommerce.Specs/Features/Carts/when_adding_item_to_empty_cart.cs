@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Chronicle.Events;
+using Cratis.Chronicle.Grains.Observation;
 using Cratis.Json;
 using eCommerce.Carts.AddItem;
 using eCommerce.Carts.Contents;
@@ -17,12 +18,17 @@ public class when_adding_item_to_empty_cart(context context) : Given<context>(co
         public HttpResponseMessage Response { get; private set; }
         public Cart ReadModel { get; private set; }
 
+        public IObserver Observer { get; private set; }
+
+        void Establish()
+        {
+            Observer = GetObserverForProjection<CartProjection>();
+        }
+
         async Task Because()
         {
-            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart("123"), Globals.JsonSerializerOptions);
-
-            var observer = GetObserverForProjection<CartProjection>();
-            await observer.WaitTillReachesEventSequenceNumber(EventSequenceNumber.First);
+            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart(Guid.Empty, "123"), Globals.JsonSerializerOptions);
+            await Observer.WaitTillReachesEventSequenceNumber(EventSequenceNumber.First);
             ReadModel = await GetModel<Cart>(Guid.Empty);
         }
     }

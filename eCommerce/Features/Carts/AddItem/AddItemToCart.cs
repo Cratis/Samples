@@ -1,16 +1,20 @@
+using Cratis.Applications.ModelBinding;
+using Cratis.Chronicle.Models;
 using FluentValidation;
 
 namespace eCommerce.Carts.AddItem;
 
-public record AddItemToCart(Sku Sku);
+public record AddItemToCart(
+    [FromRoute, ModelKey] CartId CartId,
+    Sku Sku);
 
 [Route("/api/carts/{cartId}/items")]
 public class AddItemToCartHandler(IAggregateRootFactory aggregateRootFactory) : ControllerBase
 {
     [HttpPost]
-    public async Task AddItemToCart([FromRoute] CartId cartId, [FromBody] AddItemToCart command)
+    public async Task AddItemToCart([FromRequest] AddItemToCart command)
     {
-        var cart = await aggregateRootFactory.Get<Cart>(cartId);
+        var cart = await aggregateRootFactory.Get<Cart>(command.CartId);
         await cart.AddItem(command.Sku, 42);
     }
 }

@@ -24,14 +24,14 @@ public class when_adding_item_to_cart_with_three_items(context context) : Given<
             await EventStore.EventLog.Append(Guid.Empty, new ItemAddedToCart("Second", 42));
             var result = await EventStore.EventLog.Append(Guid.Empty, new ItemAddedToCart("Third", 42));
             EventSequenceNumber = result.SequenceNumber;
+            var observer = GetObserverForProjection<CartProjection>();
+            await observer.WaitTillReachesEventSequenceNumber(EventSequenceNumber);
         }
 
         async Task Because()
         {
-            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart("123"), Globals.JsonSerializerOptions);
+            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart(Guid.Empty, "123"), Globals.JsonSerializerOptions);
 
-            var observer = GetObserverForProjection<CartProjection>();
-            await observer.WaitTillReachesEventSequenceNumber(EventSequenceNumber);
             ReadModel = await GetModel<Cart>(Guid.Empty);
         }
     }
