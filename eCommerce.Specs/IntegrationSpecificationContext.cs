@@ -10,12 +10,14 @@ public abstract class IntegrationSpecificationContext(GlobalFixture globalFixtur
     public async Task InitializeAsync()
     {
         EnsureBuilt();
+
+        // TODO: This is a workaround for the fact that the test host is not fully initialized when the test starts.
+        await Task.Delay(TimeSpan.FromSeconds(1));
         await OnEstablish();
         await OnBecause();
     }
 
     public new Task DisposeAsync() => OnDestroy();
-
 
     Task OnEstablish()
     {
@@ -34,7 +36,6 @@ public abstract class IntegrationSpecificationContext(GlobalFixture globalFixtur
 
     Task InvokeMethod(string name)
     {
-#nullable disable
         return typeof(SpecificationMethods<,>).MakeGenericType(GetType(), typeof(Specification)).GetMethod(name, BindingFlags.Static | BindingFlags.Public).Invoke(null, [this]) as Task;
     }
 }
