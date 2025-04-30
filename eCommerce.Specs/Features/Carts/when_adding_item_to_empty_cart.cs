@@ -18,7 +18,6 @@ public class when_adding_item_to_empty_cart(context context) : Given<context>(co
         async Task Because()
         {
             Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart("123"), Globals.JsonSerializerOptions);
-            await Task.Delay(TimeSpan.FromSeconds(2));
         }
     }
 

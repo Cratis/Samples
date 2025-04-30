@@ -8,9 +8,4 @@ namespace eCommerce.Specs.Features.Carts.given;
 
 public class an_empty_cart(GlobalFixture globalFixture) : a_client(globalFixture)
 {
-    AggregateRootCommitResult commitResult;
-
-    void Establish()
-    {
-    }
 }
