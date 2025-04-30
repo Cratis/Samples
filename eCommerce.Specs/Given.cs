@@ -14,4 +14,3 @@ public class Given<TSetup> : IClassFixture<TSetup>
 
     public TSetup Context { get; }
 }
-

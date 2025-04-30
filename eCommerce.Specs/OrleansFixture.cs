@@ -136,7 +136,8 @@ public class OrleansFixture(GlobalFixture globalFixture) : WebApplicationFactory
 
     public IObserver GetObserverForProjection<TProjection>() => GrainFactory
         .GetGrain<IObserver>(
-            new ObserverKey(typeof(TProjection).GetProjectionId().Value,
+            new ObserverKey(
+                typeof(TProjection).GetProjectionId().Value,
                 Constants.EventStore,
                 Cratis.Chronicle.Concepts.EventStoreNamespaceName.Default,
                 EventSequenceId.Log));
