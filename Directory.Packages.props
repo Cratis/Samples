@@ -16,6 +16,7 @@
         <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="$(ApplicationModel)" />
         <PackageVersion Include="Cratis.Applications.Swagger" Version="$(ApplicationModel)" />
         <PackageVersion Include="Cratis.Chronicle" Version="$(Chronicle)" />
+        <PackageVersion Include="Cratis.Chronicle.XUnit" Version="$(Chronicle)" />
         <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="$(Chronicle)" />
         <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="$(Chronicle)" />
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
