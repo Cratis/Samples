@@ -18,7 +18,7 @@ public class when_adding_item_to_empty_cart(context context) : Given<context>(co
         public HttpResponseMessage Response { get; private set; }
         public Cart ReadModel { get; private set; }
 
-        public IObserver Observer { get; private set; }
+        public IObserver Observer { get; private set; }
 
         void Establish()
         {
