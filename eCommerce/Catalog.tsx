@@ -8,16 +8,16 @@ import { CatalogViewModel } from './CatalogViewModel';
 
 export const Catalog = withViewModel(CatalogViewModel, ({ viewModel }) => {
     const products = [
-        { sku: '123', description: 'Product 1', price: 100 },
-        { sku: '456', description: 'Product 2', price: 100 },
-        { sku: '789', description: 'Product 3', price: 100 },
+        { sku: '123', description: 'Product 1', price: 42 },
+        { sku: '456', description: 'Product 2', price: 34 },
+        { sku: '789', description: 'Product 3', price: 83 },
     ];
 
     const addToCartTemplate = (item) => {
         return (
             <button
                 className="p-button p-component p-button-text-only"
-                onClick={() => viewModel.addItemToCart(item.sku)}>
+                onClick={() => viewModel.addItemToCart(item.sku, item.price)}>
                 <span className="p-button-text">Add to Cart</span>
             </button>
         )

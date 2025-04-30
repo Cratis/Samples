@@ -1,12 +1,16 @@
 import { injectable } from 'tsyringe';
+import { AddItemToCart } from './Features/Carts/AddItem/AddItemToCart';
+import { Guid } from '@cratis/fundamentals';
 
 @injectable()
 export class CatalogViewModel {
-    constructor() {
-
+    constructor(readonly command: AddItemToCart) {
     }
 
-    addItemToCart(sku: string) {
-        console.log('Add to cart', sku);
+    async addItemToCart(sku: string, price: number) {
+        this.command.cartId = Guid.parse('5675e4e8-50d2-4fed-94aa-372064f67d38');
+        this.command.sku = sku;
+        this.command.price = price;
+        const result = await this.command.execute();
     }
 }

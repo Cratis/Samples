@@ -1,0 +1,30 @@
+using Cratis.Chronicle.Grains.Observation;
+using Cratis.Json;
+using eCommerce.Specs;
+using Context = eCommerce.Carts.AddItem.when_adding_items_to_cart.and_there_are_already_three_items_in_the_cart.Context;
+
+namespace eCommerce.Carts.AddItem.when_adding_items_to_cart;
+
+[Collection(GlobalCollection.Name)]
+public class and_there_are_already_three_items_in_the_cart(Context context) : Given<Context>(context)
+{
+    public class Context(GlobalFixture globalFixture) : given.an_empty_cart(globalFixture)
+    {
+        public HttpResponseMessage Response { get; private set; }
+        public IObserver Observer { get; private set; }
+
+        async Task Establish()
+        {
+            await EventStore.EventLog.Append(Guid.Empty, new ItemAddedToCart("something", 42));
+            await EventStore.EventLog.Append(Guid.Empty, new ItemAddedToCart("something", 42));
+            await EventStore.EventLog.Append(Guid.Empty, new ItemAddedToCart("something", 42));
+        }
+
+        async Task Because()
+        {
+            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart(Guid.Empty, "something", 42), Globals.JsonSerializerOptions);
+        }
+    }
+
+    [Fact] void should_fail() => context.Response.IsSuccessStatusCode.ShouldBeFalse();
+ }

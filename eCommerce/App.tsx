@@ -10,6 +10,7 @@ import { Catalog } from './Catalog';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
 import * as FaMdb from 'react-icons/fa6';
+import { CartContents } from './Features/Carts/Contents/CartContents';
 
 function App() {
     useTheme();
@@ -21,6 +22,11 @@ function App() {
                     label: 'Catalog',
                     url: '/catalog',
                     icon: FaMdb.FaHouse
+                },
+                {
+                    label: 'Cart',
+                    url: '/cart',
+                    icon: FaMdb.FaCartShopping
                 }
             ]
         }
@@ -35,6 +41,9 @@ function App() {
                             <Route path='/' element={<Navigate to={'/catalog'} />} />
                             <Route path='/catalog' >
                                 <Route path={''} element={<Catalog />} />
+                            </Route>
+                            <Route path='/cart' >
+                                <Route path={''} element={<CartContents />} />
                             </Route>
                         </Route>
                     </Routes>
