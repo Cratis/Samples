@@ -31,9 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.InProcess", "Chroni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.AspNetCore", "Chronicle\Quickstart\Common.AspNetCore\Common.AspNetCore.csproj", "{A9822139-6A2C-411E-A565-14540D1F8023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce", "eCommerce\eCommerce.csproj", "{3B95F3A0-85FE-4637-9470-166049298A03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce", "eCommerce\Implementation\eCommerce.csproj", "{3B95F3A0-85FE-4637-9470-166049298A03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.Specs", "eCommerce.Specs\eCommerce.Specs.csproj", "{4D1C2FB0-2FB1-40CF-A1E8-13CC0E6E12DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.Specs", "eCommerce\Specifications\eCommerce.Specs.csproj", "{4D1C2FB0-2FB1-40CF-A1E8-13CC0E6E12DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
