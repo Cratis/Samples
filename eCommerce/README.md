@@ -23,6 +23,13 @@ To be able to run the code, you'll need the following:
 - [Docker](https://www.docker.com/products/docker-desktop/) or compatible container engine.
 - Optional: [MongoDB Compass](https://www.mongodb.com/products/tools/compass) or preferred tooling for managing MongoDB.
 
+## 🏘️ Projects
+
+You'll find next to this README file the [.NET solution file](./eCommerce.sln).
+Within it you'll find 2 C# projects; **eCommerce** and **eCommerce.Specs**, if you're using VSCode or other
+editor/IDE that shows you the folder structure, these are located in [Implementation](./Implementation/) and
+[Specifications](./Specifications/).
+
 ## 🍕 Vertical slices
 
 The project has been setup with a vertical slices type of structure which also includes frontend
