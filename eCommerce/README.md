@@ -14,6 +14,18 @@ can model systems using the Event Modelling technique.
 - 📗 [Get the book](https://leanpub.com/eventmodeling-and-eventsourcing)
 - 💻 [Original repository from the book](https://github.com/dilgerma/eventsourcing-book)
 
+## 📚 Cratis Stack
+
+The eCommerce sample leverages the entire Cratis Stack:
+
+| Project | Description |
+| ------- | ----------- |
+| [Specifications](https://github.com/cratis/specifictions) | Thin wrapper for xUnit/NUnit for writing BDD Specification by Example type of specs |
+| [Application Model](https://github.com/cratis/applicationmodel) | The Cratis application model |
+| [Chronicle](https://github.com/cratis/chronicle) | Chronicle for event sourcing |
+
+For more details on how to leverage the stack, you can go [here](https://cratis.io).
+
 ## 📋 Pre-requisites
 
 To be able to run the code, you'll need the following:
@@ -85,3 +97,9 @@ Once everything is running, the backend is exposed on http://localhost:5000 and 
 on http://localhost:9000.
 
 Cratis Chronicle Workbench should be available on: http://localhost:8080
+
+## 🧪 Running specifications
+
+From the [Specifications](./Specifications/) folder you can run the specifications by
+running `dotnet test`. In your IDE/Editor of choice, you might have a test explorer that will
+automatically populate with the available **specifications**.
