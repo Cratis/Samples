@@ -6,7 +6,7 @@ be found [here](https://www.youtube.com/live/WvBB3WnMIxM).
 
 ## 📖 About the book
 
-*Understanding Event Sourcing* by Martin Dilger wølks you through what Event Sourcing is and how you
+*Understanding Event Sourcing* by Martin Dilger walks you through what Event Sourcing is and how you
 can model systems using the Event Modelling technique.
 
 - 𝌭 [Learn about Event Modelling from the source](https://eventmodeling.org/posts/what-is-event-modeling/)
