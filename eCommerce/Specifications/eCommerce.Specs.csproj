@@ -37,8 +37,4 @@
         <PackageReference Include="Cratis.Chronicle.Orleans.InProcess" />
         <PackageReference Include="Testcontainers" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Features\Carts\AddItem\" />
-    </ItemGroup>
 </Project>

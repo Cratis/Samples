@@ -11,7 +11,7 @@
         <RootNamespace>eCommerce</RootNamespace>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
 
-        <NoWarn>IDE0073;$(NoWarn)</NoWarn>
+        <NoWarn>$(NoWarn)</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
