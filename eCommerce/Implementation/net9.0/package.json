@@ -1,0 +1,44 @@
+{
+    "name": "ecommerce",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "clean": "yarn g:clean",
+        "build": "yarn g:build",
+        "lint": "yarn g:lint",
+        "lint:ci": "yarn g:lint:ci",
+        "test": "yarn g:test",
+        "test:watch": "yarn g:test:watch",
+        "test:debug": "yarn g:test:debug",
+        "ci": "yarn g:ci",
+        "update": "yarn g:update",
+        "preview": "yarn g:preview",
+        "dev": "yarn g:dev",
+        "dev:debug": "yarn g:dev:debug"
+    },
+    "dependencies": {
+        "@cratis/applications": "15.10.0",
+        "@cratis/applications.react": "15.10.0",
+        "@cratis/applications.react.mvvm": "15.10.0",
+        "@cratis/applications.vite": "15.10.0",
+        "allotment": "1.20.3",
+        "echarts": "5.6.0",
+        "mobx": "6.13.7",
+        "mobx-react": "9.2.0",
+        "primeicons": "7.0.0",
+        "primereact": "10.9.4",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "react-icons": "5.5.0",
+        "react-router-dom": "7.5.1",
+        "reflect-metadata": "0.2.2",
+        "ts-deepmerge": "7.0.2",
+        "tsyringe": "4.10.0",
+        "usehooks-ts": "3.1.1"
+    },
+    "devDependencies": {
+        "@types/react": "19.1.2",
+        "@types/react-dom": "19.1.2"
+    }
+}
