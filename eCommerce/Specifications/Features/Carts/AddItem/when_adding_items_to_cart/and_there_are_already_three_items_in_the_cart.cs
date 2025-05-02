@@ -1,3 +1,6 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using Cratis.Chronicle.Grains.Observation;
 using Cratis.Json;
 using eCommerce.Specs;
@@ -11,7 +14,6 @@ public class and_there_are_already_three_items_in_the_cart(context context) : Gi
     public class context(GlobalFixture globalFixture) : given.an_empty_cart(globalFixture)
     {
         public HttpResponseMessage Response { get; private set; }
-        public IObserver Observer { get; private set; }
 
         async Task Establish()
         {
@@ -26,5 +28,5 @@ public class and_there_are_already_three_items_in_the_cart(context context) : Gi
         }
     }
 
-    [Fact] void should_fail() => context.Response.IsSuccessStatusCode.ShouldBeFalse();
+    [Fact] void should_fail() => Context.Response.IsSuccessStatusCode.ShouldBeFalse();
  }
