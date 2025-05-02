@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../Implementation/Implementation.csproj" />
+        <ProjectReference Include="../Implementation/eCommerce.csproj" />
     </ItemGroup>
 
     <ItemGroup>
