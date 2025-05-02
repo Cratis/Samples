@@ -1,14 +1,14 @@
 using Cratis.Chronicle.Grains.Observation;
 using Cratis.Json;
 using eCommerce.Specs;
-using Context = eCommerce.Carts.AddItem.when_adding_items_to_cart.and_there_are_already_three_items_in_the_cart.Context;
+using context = eCommerce.Carts.AddItem.when_adding_items_to_cart.and_there_are_already_three_items_in_the_cart.context;
 
 namespace eCommerce.Carts.AddItem.when_adding_items_to_cart;
 
 [Collection(GlobalCollection.Name)]
-public class and_there_are_already_three_items_in_the_cart(Context context) : Given<Context>(context)
+public class and_there_are_already_three_items_in_the_cart(context context) : Given<context>(context)
 {
-    public class Context(GlobalFixture globalFixture) : given.an_empty_cart(globalFixture)
+    public class context(GlobalFixture globalFixture) : given.an_empty_cart(globalFixture)
     {
         public HttpResponseMessage Response { get; private set; }
         public IObserver Observer { get; private set; }
