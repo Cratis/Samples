@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <OutputType>Exe</OutputType>
+        <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
+        <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
+        <AssemblyName>eCommerce</AssemblyName>
+        <RootNamespace>eCommerce</RootNamespace>
+        <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
+
+        <NoWarn>$(NoWarn)</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Fundamentals" />
+        <PackageReference Include="Cratis.Applications" />
+        <PackageReference Include="Cratis.Applications.MongoDB" />
+        <PackageReference Include="Cratis.Applications.ProxyGenerator.Build" />
+        <PackageReference Include="Cratis.Applications.Swagger" />
+        <PackageReference Include="Cratis.Chronicle"/>
+        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="SwaggerDark.css" />
+    </ItemGroup>
+</Project>

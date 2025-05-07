@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <AssemblyName>eCommerce.Specs</AssemblyName>
+        <RootNamespace>eCommerce</RootNamespace>
+        <IsTestProject>true</IsTestProject>
+        <Nullable>disable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <ImplicitUsings>true</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);SA1600;CA1034;CS8981;SA1201;ORLEANS0010;IDE0051;RCS1213;xUnit1031;CA2213;CA1051;SA1306;SA1134</NoWarn>
+        <NuGetAuditMode>all</NuGetAuditMode>
+
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../Implementation/Library.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="Cratis.Applications.MongoDB" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Fundamentals" />
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="Cratis.Specifications.XUnit" />
+        <PackageReference Include="Cratis.Chronicle.XUnit" />
+        <PackageReference Include="Cratis.Chronicle.XUnit.Integration" />
+        <PackageReference Include="Cratis.Chronicle.Orleans.InProcess" />
+        <PackageReference Include="Testcontainers" />
+    </ItemGroup>
+</Project>
