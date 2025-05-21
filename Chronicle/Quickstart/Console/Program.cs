@@ -18,6 +18,8 @@ await eventStore.RegisterAll();
 
 MongoDBDefaults.Initialize();
 
+Cratis.Chronicle.Contracts.Events.EventType e;
+
 var mongoClient = new MongoClient("mongodb://localhost:27017");
 Globals.Database = mongoClient.GetDatabase("Quickstart");
 Globals.EventStore = eventStore;

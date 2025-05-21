@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
-        <AssemblyName>eCommerce.Specs</AssemblyName>
-        <RootNamespace>eCommerce</RootNamespace>
+        <AssemblyName>Library.Specs</AssemblyName>
+        <RootNamespace>Library</RootNamespace>
         <IsTestProject>true</IsTestProject>
         <Nullable>disable</Nullable>
 

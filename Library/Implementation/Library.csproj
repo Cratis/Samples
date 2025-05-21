@@ -7,8 +7,8 @@
         <OutputType>Exe</OutputType>
         <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
         <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
-        <AssemblyName>eCommerce</AssemblyName>
-        <RootNamespace>eCommerce</RootNamespace>
+        <AssemblyName>Library</AssemblyName>
+        <RootNamespace>Library</RootNamespace>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
 
         <NoWarn>$(NoWarn)</NoWarn>
