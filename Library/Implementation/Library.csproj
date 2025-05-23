@@ -26,6 +26,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Remove="package.json" />
+        <None Remove="package.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Include="SwaggerDark.css" />
     </ItemGroup>
 </Project>
