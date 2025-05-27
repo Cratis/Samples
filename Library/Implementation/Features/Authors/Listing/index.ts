@@ -4,5 +4,6 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-export * from './AddAuthorViewModel';
-export * from './Register';
+export * from './Author';
+export * from './GetAll';
+export * from './ObserveAll';

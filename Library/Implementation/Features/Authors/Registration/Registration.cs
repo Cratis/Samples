@@ -19,7 +19,7 @@ public class RegisterAuthorHandler(IEventLog eventLog) : ControllerBase
     public async Task Register([FromRequest] RegisterAuthor command)
     {
         var authorId = Guid.NewGuid();
-        await eventLog.Append(authorId, new AuthorRegistered(command.Name), "Author");
+        await eventLog.Transactional.Append(authorId, new AuthorRegistered(command.Name), "Author");
     }
 }
 
@@ -32,13 +32,4 @@ public class UniqueAuthorName : IConstraint
         .Unique(_ => _
             .On<AuthorRegistered>(e => e.Name)
             .WithMessage("Author name must be unique"));
-}
-
-public record Author(AuthorId Id, AuthorName Name);
-
-public class AuthorProjection : IProjectionFor<Author>
-{
-    public void Define(IProjectionBuilderFor<Author> builder) => builder
-        .AutoMap()
-        .From<AuthorRegistered>();
 }

@@ -4,5 +4,14 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-export * from './AddAuthorViewModel';
-export * from './Register';
+import { field } from '@cratis/fundamentals';
+import { Guid } from '@cratis/fundamentals';
+
+export class Author {
+
+    @field(Guid)
+    id!: Guid;
+
+    @field(String)
+    name!: string;
+}

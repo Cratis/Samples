@@ -9,13 +9,21 @@ import { ConfirmationDialog } from 'Components/Dialogs';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
 import { Home } from './Home';
+import * as mdIcons from 'react-icons/md';
+import { Authors } from './Features/Authors/Authors';
 
 function App() {
     useTheme();
 
     const menuItems: IMenuItemGroup[] = [
         {
-            items: []
+            items: [
+                {
+                    label: 'Authors',
+                    url: '/authors',
+                    icon: mdIcons.MdOutlinePeople,
+                }
+            ]
         }
     ];
 
@@ -25,7 +33,8 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<DefaultLayout menu={menuItems} />}>
-                            <Route path='/' element={<Home/>} />
+                            <Route path='/' element={<Home />} />
+                            <Route path='/authors' element={<Authors />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>
