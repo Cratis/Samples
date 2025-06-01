@@ -1,20 +1,26 @@
-import { get } from 'http';
-import { GetAll } from './GetAll';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ObserveAll } from './ObserveAll';
 
+const pageSize = 5;
+
 export const Listing = () => {
-    const [observeAllResult, , setPage] = ObserveAll.useWithPaging(50);
+    const [observeAllResult, , setPage] = ObserveAll.useWithPaging(pageSize);
 
     return (
-        <>
-            <DataTable
-                value={observeAllResult.data}>
-                <Column field="name" header="Name" />
-            </DataTable>
-            <button onClick={() => setPage(0)}>First</button>
-            <button onClick={() => setPage(1)}>Second</button>
-        </>
+        <DataTable
+            lazy
+            paginator
+            value={observeAllResult.data}
+            rows={pageSize}
+            totalRecords={observeAllResult.paging.totalItems}
+            alwaysShowPaginator={false}
+            first={observeAllResult.paging.page * pageSize}
+            onPage={(e) => setPage(e.page ?? 0)}
+            scrollable
+            scrollHeight={'flex'}
+            emptyMessage="No authors found.">
+            <Column field="name" header="Name" />
+        </DataTable>
     );
 }

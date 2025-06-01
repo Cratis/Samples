@@ -7,6 +7,7 @@ import * as mdIcons from 'react-icons/md';
 import { AddAuthor } from './Registration/AddAuthor';
 import { Listing } from './Listing/Listing';
 import { useDialog } from '@cratis/applications.react/dialogs';
+import { Page } from '../../Components/Common';
 
 export const Authors = () => {
     const [AddAuthorDialog, showAddAuthorDialog] = useDialog(AddAuthor);
@@ -22,11 +23,11 @@ export const Authors = () => {
     ];
 
     return (
-        <div>
+        <Page title="Authors">
             <Menubar model={menuItems} />
             <Listing />
 
             <AddAuthorDialog />
-        </div>
+        </Page>
     );
 };
