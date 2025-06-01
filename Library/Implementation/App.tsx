@@ -4,8 +4,8 @@
 import { useTheme } from './Utils/useTheme';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LayoutProvider } from './Layout/Default/context/LayoutContext';
-import { DialogComponents } from '@cratis/applications.react.mvvm/dialogs';
-import { ConfirmationDialog } from 'Components/Dialogs';
+import { DialogComponents } from '@cratis/applications.react/dialogs';
+import { BusyIndicatorDialog, ConfirmationDialog } from 'Components/Dialogs';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
 import { Home } from './Home';
@@ -29,7 +29,7 @@ function App() {
 
     return (
         <LayoutProvider>
-            <DialogComponents confirmation={ConfirmationDialog}>
+            <DialogComponents confirmation={ConfirmationDialog} busyIndicator={BusyIndicatorDialog}>
                 <BrowserRouter>
                     <Routes>
                         <Route element={<DefaultLayout menu={menuItems} />}>
