@@ -1,16 +1,14 @@
-import { useDialogRequest } from '@cratis/applications.react.mvvm/dialogs';
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Menubar } from 'primereact/menubar'
 import { MenuItem } from 'primereact/menuitem';
 import * as mdIcons from 'react-icons/md';
-import { AddAuthor, AddAuthorRequest, AddAuthorResponse } from './Registration/AddAuthor';
-import { withViewModel } from '@cratis/applications.react.mvvm';
-import { AuthorsViewModel } from './AuthorsViewModel';
+import { AddAuthor } from './Registration/AddAuthor';
 import { Listing } from './Listing/Listing';
-import { useDialog } from './useDialog';
+import { useDialog } from '@cratis/applications.react/dialogs';
 
-export const Authors = withViewModel(AuthorsViewModel, ({ viewModel }) => {
-    const [AddAuthorDialogWrapper] = useDialogRequest<AddAuthorRequest, AddAuthorResponse>(AddAuthorRequest);
-
+export const Authors = () => {
     const [AddAuthorDialog, showAddAuthorDialog] = useDialog(AddAuthor);
 
     const menuItems: MenuItem[] = [
@@ -18,8 +16,7 @@ export const Authors = withViewModel(AuthorsViewModel, ({ viewModel }) => {
             label: 'Add Author',
             icon: mdIcons.MdPersonAdd,
             command: async () => {
-                const result = await showAddAuthorDialog();
-                // viewModel.addAuthor();
+                await showAddAuthorDialog();
             }
         }
     ];
@@ -27,16 +24,9 @@ export const Authors = withViewModel(AuthorsViewModel, ({ viewModel }) => {
     return (
         <div>
             <Menubar model={menuItems} />
-            <Listing/>
+            <Listing />
 
-            <AddAuthorDialog/>
-
-            {/* <AddAuthorDialogWrapper>
-                <AddAuthor />
-            </AddAuthorDialogWrapper> */}
+            <AddAuthorDialog />
         </div>
     );
-});
-
-
-
+};

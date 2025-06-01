@@ -1,34 +1,26 @@
-import { withViewModel } from '@cratis/applications.react.mvvm';
-import { useDialogContext } from '@cratis/applications.react.mvvm/dialogs';
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { DialogResult, useDialogContext } from '@cratis/applications.react/dialogs';
 import { InputText } from 'primereact/inputtext';
-import { useState } from 'react';
 import { Register } from './Register';
-import { AddAuthorViewModel } from './AddAuthorViewModel';
+import { useState } from 'react';
 
-export class AddAuthorRequest {
-}
-
-export class AddAuthorResponse {
-}
-
-export const AddAuthor = withViewModel<AddAuthorViewModel>(AddAuthorViewModel, ({ viewModel }) => {
+export const AddAuthor = () => {
     const [name, setName] = useState<string>('');
-    const { resolver } = useDialogContext<AddAuthorRequest, AddAuthorResponse>();
+    const { closeDialog } = useDialogContext();
     const [registerAuthor] = Register.use();
 
     const handleAdd = async () => {
-        // await viewModel.register(name);
-
         registerAuthor.name = name;
         await registerAuthor.execute();
-
-        resolver(new AddAuthorResponse());
+        closeDialog(DialogResult.Ok);
     };
 
     return (
-        <Dialog header="Add author" visible={true} style={{ width: '50vw' }} onHide={() => resolver(new AddAuthorResponse())}>
+        <Dialog header="Add author" visible={true} style={{ width: '50vw' }} onHide={() => closeDialog(DialogResult.Cancelled)}>
             <div className="card flex flex-column md:flex-row gap-3">
                 <div className="p-inputgroup flex-1">
                     <span className="p-inputgroup-addon">
@@ -40,8 +32,8 @@ export const AddAuthor = withViewModel<AddAuthorViewModel>(AddAuthorViewModel, (
 
             <div className="card flex flex-wrap justify-content-center gap-3 mt-8">
                 <Button label="Add" icon="pi pi-check" onClick={handleAdd} autoFocus />
-                <Button label="Cancel" icon="pi pi-times" severity='secondary' onClick={() => resolver(new AddAuthorResponse())} />
+                <Button label="Cancel" icon="pi pi-times" severity='secondary' onClick={() => closeDialog(DialogResult.Cancelled)} />
             </div>
         </Dialog>
     );
-});
+};
