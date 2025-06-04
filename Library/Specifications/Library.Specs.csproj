@@ -7,7 +7,7 @@
         <IsPackable>false</IsPackable>
         <ImplicitUsings>true</ImplicitUsings>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);SA1600;CA1034;CS8981;SA1201;ORLEANS0010;IDE0051;RCS1213;xUnit1031;CA2213;CA1051;SA1306;SA1134;CS7022</NoWarn>
+        <NoWarn>$(NoWarn);SA1600;CA1034;CS8981;SA1201;ORLEANS0010;IDE0051;RCS1213;xUnit1031;CA2213;CA1051;SA1306;SA1134;CS7022;CS8618;CS8601</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
