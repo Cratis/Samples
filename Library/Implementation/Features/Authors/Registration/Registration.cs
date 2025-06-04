@@ -16,10 +16,11 @@ public record RegisterAuthor(AuthorName Name);
 public class RegisterAuthorHandler(IEventLog eventLog) : ControllerBase
 {
     [HttpPost]
-    public async Task Register([FromRequest] RegisterAuthor command)
+    public async Task<AuthorId> Register([FromRequest] RegisterAuthor command)
     {
         var authorId = Guid.NewGuid();
         await eventLog.Transactional.Append(authorId, new AuthorRegistered(command.Name), "Author");
+        return authorId;
     }
 }
 

@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ObserveAll } from './ObserveAll';
 
-const pageSize = 15;
+const pageSize = 5;
 
 export const Listing = () => {
     const [observeAllResult, , setPage] = ObserveAll.useWithPaging(pageSize);

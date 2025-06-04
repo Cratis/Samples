@@ -8,6 +8,7 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
 const routeTemplate = Handlebars.compile('/api/authors/register');
@@ -22,7 +23,7 @@ export class RegisterValidator extends CommandValidator {
     };
 }
 
-export class Register extends Command<IRegister> implements IRegister {
+export class Register extends Command<IRegister, Guid> implements IRegister {
     readonly route: string = '/api/authors/register';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new RegisterValidator();
@@ -30,7 +31,7 @@ export class Register extends Command<IRegister> implements IRegister {
     private _name!: string;
 
     constructor() {
-        super(Object, false);
+        super(Guid, false);
     }
 
     get requestArguments(): string[] {
