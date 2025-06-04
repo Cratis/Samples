@@ -3,15 +3,11 @@
         <AssemblyName>Library.Specs</AssemblyName>
         <RootNamespace>Library</RootNamespace>
         <IsTestProject>true</IsTestProject>
-        <Nullable>disable</Nullable>
 
         <IsPackable>false</IsPackable>
         <ImplicitUsings>true</ImplicitUsings>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);SA1600;CA1034;CS8981;SA1201;ORLEANS0010;IDE0051;RCS1213;xUnit1031;CA2213;CA1051;SA1306;SA1134</NoWarn>
-        <NuGetAuditMode>all</NuGetAuditMode>
-
-        <TargetFramework>net9.0</TargetFramework>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);SA1600;CA1034;CS8981;SA1201;ORLEANS0010;IDE0051;RCS1213;xUnit1031;CA2213;CA1051;SA1306;SA1134;CS7022</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,7 +26,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-
+        <PackageReference Include="NSubstitute" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Cratis.Specifications.XUnit" />
         <PackageReference Include="Cratis.Chronicle.XUnit" />

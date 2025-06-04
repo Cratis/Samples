@@ -11,14 +11,14 @@
         <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="16.0.0" />
         <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="16.0.0" />
         <PackageVersion Include="Cratis.Applications.Swagger" Version="16.0.0" />
-        <PackageVersion Include="Cratis.Chronicle" Version="11.18.1" />
-        <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="11.18.1" />
-        <PackageVersion Include="Cratis.Chronicle.XUnit" Version="11.18.1" />
-        <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="11.18.1" />
-        <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="11.18.1" />
+        <PackageVersion Include="Cratis.Chronicle" Version="11.18.2" />
+        <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="11.18.2" />
+        <PackageVersion Include="Cratis.Chronicle.XUnit" Version="11.18.2" />
+        <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="11.18.2" />
+        <PackageVersion Include="Cratis.Chronicle.Orleans.InProcess" Version="11.18.2" />
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
         <!-- Analysis -->
-        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.14.0" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.13.0" />
         <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
         <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.1.2" />
         <PackageVersion Include="Microsoft.Orleans.Server" Version="9.1.2" />

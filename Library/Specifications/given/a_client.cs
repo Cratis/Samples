@@ -2,32 +2,21 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Chronicle.Events;
-using Cratis.Chronicle.XUnit.Integration;
 using MongoDB.Driver;
 
-namespace Library.given.Specs;
+namespace Library.given;
 
-public class a_client(ChronicleFixture chronicleFixture) : IntegrationSpecificationContext(chronicleFixture)
+public class a_client(ChronicleOutOfProcessFixture fixture) : SpecificationContext(fixture)
 {
-    protected HttpClient HttpClient;
-    readonly ChronicleFixture _chronicleFixture = chronicleFixture;
-
-    protected async Task<TModel> GetModel<TModel>(EventSourceId eventSourceId)
-    {
-        var isGuid = Guid.TryParse(eventSourceId.ToString(), out var guid);
-        var filter = isGuid ?
-            Builders<TModel>.Filter.Eq(new StringFieldDefinition<TModel, Guid>("_id"), guid) :
-            Builders<TModel>.Filter.Eq(new StringFieldDefinition<TModel, string>("_id"), eventSourceId);
-
-        var result = await _chronicleFixture.ReadModels.Database.GetCollection<TModel>().FindAsync(filter);
-        return result.FirstOrDefault();
-    }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+    protected HttpClient Client { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     void Establish()
     {
-        HttpClient = CreateClient(new()
+        Client = CreateClient(new()
         {
-            BaseAddress = new Uri("http://localhost:5000/")
+            BaseAddress = new("http://localhost:8080")
         });
     }
 }

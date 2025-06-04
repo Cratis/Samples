@@ -17,6 +17,8 @@
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
 
         <TargetFramework>net9.0</TargetFramework>
+
+        <NoWarn>NU1507</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'==''">
