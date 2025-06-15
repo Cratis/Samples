@@ -11,6 +11,7 @@ import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
 import { Home } from './Home';
 import * as mdIcons from 'react-icons/md';
 import { Authors } from './Features/Authors/Authors';
+import { Inventory } from './Features/Inventory/Inventory';
 
 function App() {
     useTheme();
@@ -21,6 +22,11 @@ function App() {
                 {
                     label: 'Authors',
                     url: '/authors',
+                    icon: mdIcons.MdOutlinePeople,
+                },
+                {
+                    label: 'Inventory',
+                    url: '/inventory',
                     icon: mdIcons.MdOutlinePeople,
                 }
             ]
@@ -35,6 +41,7 @@ function App() {
                         <Route element={<DefaultLayout menu={menuItems} />}>
                             <Route path='/' element={<Home />} />
                             <Route path='/authors' element={<Authors />} />
+                            <Route path='/inventory' element={<Inventory />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

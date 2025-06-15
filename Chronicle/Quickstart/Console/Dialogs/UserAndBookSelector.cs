@@ -24,8 +24,8 @@ public partial class UserAndBookSelector
         };
         AddButton(okButton);
 
-        _allUsers = Globals.Users.GetAll().ToList();
-        _allBooks = Globals.Books.GetAll().ToList();
+        _allUsers = [..Globals.Users.GetAll()];
+        _allBooks = [..Globals.Books.GetAll()];
         _borrowers.Source = new ListWrapper<User>([.. _allUsers]);
         _books.Source = new ListWrapper<Book>([.. _allBooks]);
 
