@@ -11,9 +11,7 @@ using Terminal.Gui;
 using Cratis.Chronicle;
 
 using var client = new ChronicleClient("chronicle://localhost:35000");
-var eventStore = client.GetEventStore("Quickstart");
-await eventStore.DiscoverAll();
-await eventStore.RegisterAll();
+var eventStore = await client.GetEventStore("Quickstart");
 #endregion Snippet:Quickstart-Console-Setup
 
 MongoDBDefaults.Initialize();
