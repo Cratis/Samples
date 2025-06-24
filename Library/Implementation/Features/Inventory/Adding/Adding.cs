@@ -15,12 +15,6 @@ public class AddBookTitleToInventoryHandler(IEventLog eventLog) : ControllerBase
     [HttpPost]
     public Task AddBookTitleToInventory(AddBookTitleToInventory command) =>
         eventLog.Transactional.Append((string)command.ISBN, new BookAddedToInventory(command.Title, command.AuthorId, command.Count));
-
-    public void Sometihng()
-    {
-        // This is a placeholder for any additional logic that might be needed.
-        // For example, you could validate the command or perform some business logic.
-    }
 }
 
 [EventType]
