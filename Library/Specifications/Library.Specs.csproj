@@ -31,7 +31,7 @@
         <PackageReference Include="Cratis.Specifications.XUnit" />
         <PackageReference Include="Cratis.Chronicle.XUnit" />
         <PackageReference Include="Cratis.Chronicle.XUnit.Integration" />
-        <PackageReference Include="Cratis.Chronicle.Orleans.InProcess" />
+        <PackageReference Include="Cratis.Chronicle.InProcess" />
         <PackageReference Include="Testcontainers" />
     </ItemGroup>
 </Project>

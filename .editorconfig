@@ -124,7 +124,7 @@ dotnet_diagnostic.IDE0055.severity = none
 # prefere brace indentation when creating objects etc
 csharp_indent_braces = false
 
-[{**/*.Specs/**/*.cs,Integration/**/*.cs}]
+[{**/*.Specs/**/*.cs,Integration/**/*.cs,**/when_*/*.cs,**/given/*.cs}]
 # Resharper specific
 resharper_inconsistent_naming_highlighting = none
 resharper_check_namespace_highlighting = none

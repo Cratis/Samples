@@ -25,6 +25,25 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     </ItemGroup>
 
+    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+        <IsTestProject>true</IsTestProject>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="Cratis.Specifications.XUnit" />
+        <PackageReference Include="Cratis.Chronicle.XUnit" />
+        <PackageReference Include="Cratis.Chronicle.XUnit.Integration" />
+        <PackageReference Include="Testcontainers" />
+    </ItemGroup>
+
     <ItemGroup>
         <Content Remove="package.json" />
         <None Remove="package.json" />

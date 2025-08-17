@@ -3,13 +3,13 @@
 
 using Cratis.Applications.ModelBinding;
 using Cratis.Chronicle.EventSequences;
-using Cratis.Chronicle.Models;
+using Cratis.Chronicle.ReadModels;
 using FluentValidation;
 
 namespace eCommerce.Carts.AddItem;
 
 public record AddItemToCart(
-    [FromRoute, ModelKey] CartId CartId,
+    [FromRoute, ReadModelKey] CartId CartId,
     Sku Sku,
     Price Price);
 

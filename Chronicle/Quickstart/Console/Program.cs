@@ -10,7 +10,7 @@ using Terminal.Gui;
 #region Snippet:Quickstart-Console-Setup
 using Cratis.Chronicle;
 
-using var client = new ChronicleClient("chronicle://localhost:35000");
+using var client = new ChronicleClient("http://localhost:35000");
 var eventStore = await client.GetEventStore("Quickstart");
 #endregion Snippet:Quickstart-Console-Setup
 
