@@ -24,9 +24,7 @@ public class and_there_already_exists_one_with_same_name(context context) : Give
         }
     }
 
-    [Fact]
-    void should_not_be_successful() => Context.Result.IsSuccess.ShouldBeFalse();
+    [Fact] void should_not_be_successful() => Context.Result.IsSuccess.ShouldBeFalse();
 
-    [Fact]
-    void should_have_appended_only_one_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
+    [Fact] void should_have_appended_only_one_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
 }
