@@ -1,19 +1,19 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Cratis.Applications.Commands;
 using Cratis.Chronicle.Grains.Observation;
 using Cratis.Json;
-using eCommerce.Specs;
 using context = eCommerce.Carts.AddItem.when_adding_items_to_cart.and_there_are_already_three_items_in_the_cart.context;
 
 namespace eCommerce.Carts.AddItem.when_adding_items_to_cart;
 
-[Collection(GlobalCollection.Name)]
+[Collection(ChronicleCollection.Name)]
 public class and_there_are_already_three_items_in_the_cart(context context) : Given<context>(context)
 {
-    public class context(GlobalFixture globalFixture) : given.an_empty_cart(globalFixture)
+    public class context(ChronicleOutOfProcessFixture fixture) : given.an_empty_cart(fixture)
     {
-        public HttpResponseMessage Response { get; private set; }
+        public CommandResult<Guid> Result;
 
         async Task Establish()
         {
@@ -24,9 +24,9 @@ public class and_there_are_already_three_items_in_the_cart(context context) : Gi
 
         async Task Because()
         {
-            Response = await HttpClient.PostAsJsonAsync($"/api/carts/{Guid.Empty}/items", new AddItemToCart(Guid.Empty, "something", 42), Globals.JsonSerializerOptions);
+            Result = await Client.ExecuteCommand<AddItemToCart, Guid>($"/api/carts/{Guid.Empty}/items", new AddItemToCart(Guid.Empty, "something", 42));
         }
     }
 
-    [Fact] void should_fail() => Context.Response.IsSuccessStatusCode.ShouldBeFalse();
+    [Fact] void should_not_be_successful() => Context.Result.IsSuccess.ShouldBeFalse();
  }

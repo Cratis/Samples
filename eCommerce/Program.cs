@@ -45,3 +45,5 @@ app.UseSwaggerUI(options =>
 app.MapFallbackToFile("/index.html");
 
 await app.RunAsync();
+
+public partial class Program;
