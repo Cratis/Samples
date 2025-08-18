@@ -16,10 +16,7 @@ public class and_there_already_exists_one_with_same_name(context context) : Give
         public const string AuthorName = "John Doe";
         public CommandResult<Guid> Result;
 
-        async Task Establish()
-        {
-            await EventStore.EventLog.Append(AuthorId.New(), new AuthorRegistered(AuthorName));
-        }
+        Task Establish() => EventStore.EventLog.Append(AuthorId.New(), new AuthorRegistered(AuthorName));
 
         async Task Because()
         {
