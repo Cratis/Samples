@@ -5,16 +5,24 @@
             "label": "build",
             "command": "dotnet",
             "type": "process",
+            "isBuildCommand": true,
             "args": [
                 "build",
                 "--no-restore",
-                "/property:GenerateFullPaths=true",
+                "/p:MaxCpuCount=0",
+                "/p:GenerateFullPaths=true",
+                "/clp:ErrorsOnly",
                 "/consoleloggerparameters:NoSummary",
+                "/p:UseSharedCompilation=true",
                 "${input:project}"
             ],
             "problemMatcher": "$msCompile",
             "runOptions": {
                 "reevaluateOnRerun": false
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         },
         {
