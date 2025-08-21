@@ -31,7 +31,7 @@
                 "moduleFilter": {
                     "mode": "loadOnlyIncluded",
                     "includedModules": [
-                        "Cratis.*.dll"
+                        "Cratis.*"
                     ]
                 },
                 "searchPaths": [],
@@ -43,7 +43,8 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/home/runner/work/orleans/orleans": "/Volumes/Code/Microsoft/dotnet/orleans"
+                "/home/runner/work/orleans/orleans": "/Volumes/Code/Microsoft/dotnet/orleans",
+                "/home/runner/work/chronicle/chronicle": "/Volumes/Code/Cratis/Chronicle"
             }
         },
         {
