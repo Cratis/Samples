@@ -48,6 +48,19 @@
     "typescript.suggest.autoImports": true,
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.tsdk": "./node_modules/typescript/lib",
+    "dotnet.unitTestDebuggingOptions": {
+        "justMyCode": false,
+        "requireExactSource": false,
+        "symbolOptions": {
+            "searchPaths": [],
+            "searchMicrosoftSymbolServer": false,
+            "searchNuGetOrgSymbolServer": true
+        },
+        "suppressJITOptimizations": true,
+        "sourceFileMap": {
+            "/home/runner/work/Chronicle/Chronicle": "/Volumes/Code/Cratis/Chronicle"
+        }
+    },
     "npm.packageManager": "yarn",
     "cSpell.words": [
         "appsettings",
