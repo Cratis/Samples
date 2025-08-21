@@ -20,7 +20,7 @@ export const AddAuthor = () => {
     };
 
     return (
-        <Dialog header="Add author" visible={true} style={{ width: '50vw' }} onHide={() => closeDialog(DialogResult.Cancelled)}>
+        <Dialog header="Register author" visible={true} style={{ width: '50vw' }} onHide={() => closeDialog(DialogResult.Cancelled)}>
             <div className="card flex flex-column md:flex-row gap-3">
                 <div className="p-inputgroup flex-1">
                     <span className="p-inputgroup-addon">
