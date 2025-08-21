@@ -12,7 +12,7 @@
     {
         "name": "Library",
         "path": "${workspaceFolder}/Library",
-        "outputPath": "${workspaceFolder}/Library/Implementation/bin/Debug/net9.0/Library.dll"
+        "outputPath": "${workspaceFolder}/Library/bin/Debug/net9.0/Library.dll"
     },
     {
         "name": "eCommerce",
