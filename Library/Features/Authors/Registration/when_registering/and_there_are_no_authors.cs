@@ -11,7 +11,7 @@ namespace Library.Authors.Registration.when_registering;
 [Collection(ChronicleCollection.Name)]
 public class and_there_are_no_authors(context context) : Given<context>(context)
 {
-    public class context(ChronicleOutOfProcessFixture fixture) : given.a_client(fixture)
+    public class context(ChronicleOutOfProcessFixture fixture) : given.an_http_client(fixture)
     {
         public const string AuthorName = "John Doe";
         public CommandResult<Guid> Result;

@@ -4,9 +4,9 @@
 using Cratis.Chronicle.Events;
 using MongoDB.Driver;
 
-namespace Library.given;
+namespace eCommerce.given;
 
-public class a_client(ChronicleOutOfProcessFixture fixture) : SpecificationContext(fixture)
+public class an_http_client(ChronicleOutOfProcessFixture fixture) : Specification(fixture)
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     protected HttpClient Client { get; private set; }

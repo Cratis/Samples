@@ -6,4 +6,4 @@ using eCommerce.given;
 
 namespace eCommerce.Carts.AddItem.given;
 
-public class an_empty_cart(ChronicleOutOfProcessFixture fixture) : a_client(fixture);
+public class an_empty_cart(ChronicleOutOfProcessFixture fixture) : an_http_client(fixture);

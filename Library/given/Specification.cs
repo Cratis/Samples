@@ -5,4 +5,4 @@ namespace Library.given;
 
 #pragma warning disable CS0436
 
-public class SpecificationContext(ChronicleOutOfProcessFixture fixture) : IntegrationSpecificationContext<ChronicleOutOfProcessFixture, ApiWebApplicationFactory, Program>(fixture);
+public class Specification(ChronicleOutOfProcessFixture fixture) : Specification<ChronicleOutOfProcessFixture, ApiWebApplicationFactory, Program>(fixture);
