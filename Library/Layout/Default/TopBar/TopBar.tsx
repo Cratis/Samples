@@ -5,7 +5,6 @@ import { useLayoutContext } from '../context/LayoutContext';
 import { Button } from 'primereact/button';
 import css from './TopBar.module.css';
 import { FaBars } from 'react-icons/fa6';
-import { useParams } from 'react-router-dom';
 
 export const TopBar = () => {
     const { toggleLeftSidebarOpen } = useLayoutContext();
@@ -17,15 +16,13 @@ export const TopBar = () => {
                     <Button
                         onClick={toggleLeftSidebarOpen}
                         text
-                        rounded
-                        className='p-2'>
+                        className={css.hamburgerMenuButton}>
                         <FaBars />
                     </Button>
                 </div>
                 <div className="flex-1 flex align-center justify-center">
                     <div className="font-extrabold text-2xl m-2">Library</div>
                 </div>
-
             </div>
             <div className="flex-1 flex items-center justify-end px-5 gap-6">
                 <div>
