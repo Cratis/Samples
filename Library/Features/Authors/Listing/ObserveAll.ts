@@ -52,7 +52,7 @@ export class ObserveAll extends ObservableQueryFor<Author[]> {
         this._sortBy = new ObserveAllSortBy(this);
     }
 
-    get requiredRequestArguments(): string[] {
+    get requiredRequestParameters(): string[] {
         return [
         ];
     }

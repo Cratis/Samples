@@ -43,7 +43,7 @@ export class AddBookTitleToInventory extends Command<IAddBookTitleToInventory> i
         super(Object, false);
     }
 
-    get requestArguments(): string[] {
+    get requestParameter(): string[] {
         return [
         ];
     }

@@ -52,7 +52,7 @@ export class GetAll extends QueryFor<Author[]> {
         this._sortBy = new GetAllSortBy(this);
     }
 
-    get requiredRequestArguments(): string[] {
+    get requiredRequestParameters(): string[] {
         return [
         ];
     }

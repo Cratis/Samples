@@ -4,7 +4,7 @@
 import { Menubar } from 'primereact/menubar'
 import { MenuItem } from 'primereact/menuitem';
 import * as mdIcons from 'react-icons/md';
-import { AddAuthor } from './Registration/RegisterAuthor';
+import { AddAuthor } from './Registration';
 import { Listing } from './Listing/Listing';
 import { DialogResult, useDialog } from '@cratis/applications.react/dialogs';
 import { Page } from '../../Components/Common';

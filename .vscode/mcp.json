@@ -1,0 +1,13 @@
+{
+    "servers": {
+        "vertical-slices-dev": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "${workspaceFolder}/../VerticalSlices/Source/VerticalSlices.csproj",
+            ]
+        }
+    }
+}

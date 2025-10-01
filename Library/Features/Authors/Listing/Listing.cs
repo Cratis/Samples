@@ -6,6 +6,11 @@ using MongoDB.Driver;
 
 namespace Library.Authors.Listing;
 
+/// <summary>
+/// Represents an author.
+/// </summary>
+/// <param name="Id">The unique identifier of the author.</param>
+/// <param name="Name">The name of the author.</param>
 public record Author(AuthorId Id, AuthorName Name);
 
 public class AuthorProjection : IProjectionFor<Author>
