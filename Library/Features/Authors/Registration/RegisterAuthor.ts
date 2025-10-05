@@ -34,7 +34,7 @@ export class RegisterAuthor extends Command<IRegisterAuthor, Guid> implements IR
         super(Guid, false);
     }
 
-    get requestParameter(): string[] {
+    get requestParameters(): string[] {
         return [
         ];
     }
