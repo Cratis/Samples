@@ -5,13 +5,13 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { DialogResult, useDialogContext } from '@cratis/applications.react/dialogs';
 import { InputText } from 'primereact/inputtext';
-import { Register } from './Register';
+import { RegisterAuthor } from './RegisterAuthor';
 import { useState } from 'react';
 
 export const AddAuthor = () => {
     const [name, setName] = useState<string>('');
     const { closeDialog } = useDialogContext();
-    const [registerAuthor] = Register.use();
+    const [registerAuthor] = RegisterAuthor.use();
 
     const handleAdd = async () => {
         registerAuthor.name = name;
