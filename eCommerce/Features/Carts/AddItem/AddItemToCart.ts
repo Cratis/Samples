@@ -40,7 +40,7 @@ export class AddItemToCart extends Command<IAddItemToCart> implements IAddItemTo
         super(Object, false);
     }
 
-    get requestArguments(): string[] {
+    get requestParameters(): string[] {
         return [
             'cartId',
         ];

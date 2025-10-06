@@ -1,6 +1,7 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Cratis.Applications.Queries.ModelBound;
 using Library.Authors.Registration;
 using MongoDB.Driver;
 
@@ -11,26 +12,22 @@ namespace Library.Authors.Listing;
 /// </summary>
 /// <param name="Id">The unique identifier of the author.</param>
 /// <param name="Name">The name of the author.</param>
-public record Author(AuthorId Id, AuthorName Name);
+[ReadModel]
+public record Author(AuthorId Id, AuthorName Name)
+{
+    public static async Task<IEnumerable<Author>> GetAll(IMongoCollection<Author> collection)
+    {
+        var result = await collection.FindAsync(_ => true);
+        return result.ToList();
+    }
+
+    public static ISubject<IEnumerable<Author>> ObserveAll(IMongoCollection<Author> collection) =>
+        collection.Observe();
+}
 
 public class AuthorProjection : IProjectionFor<Author>
 {
     public void Define(IProjectionBuilderFor<Author> builder) => builder
         .AutoMap()
         .From<AuthorRegistered>();
-}
-
-[Route("/api/authors")]
-public class AuthorQueries(IMongoCollection<Author> collection) : ControllerBase
-{
-    [HttpGet]
-    public async Task<IEnumerable<Author>> GetAll()
-    {
-        var result = await collection.FindAsync(_ => true);
-        return result.ToList();
-    }
-
-    [HttpGet("observe")]
-    public ISubject<IEnumerable<Author>> ObserveAll() =>
-        collection.Observe();
 }

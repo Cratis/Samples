@@ -13,10 +13,10 @@ import Handlebars from 'handlebars';
 const routeTemplate = Handlebars.compile('/api/carts/{{cartId}}');
 
 
-export interface GetCartArguments {
+export interface GetCartParameters {
     cartId: Guid;
 }
-export class GetCart extends ObservableQueryFor<Cart, GetCartArguments> {
+export class GetCart extends ObservableQueryFor<Cart, GetCartParameters> {
     readonly route: string = '/api/carts/{cartId}';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly defaultValue: Cart = {} as any;
@@ -25,15 +25,15 @@ export class GetCart extends ObservableQueryFor<Cart, GetCartArguments> {
         super(Cart, false);
     }
 
-    get requiredRequestArguments(): string[] {
+    get requiredRequestParameters(): string[] {
         return [
             'cartId',
         ];
     }
 
 
-    static use(args?: GetCartArguments): [QueryResultWithState<Cart>] {
-        const [result] = useObservableQuery<Cart, GetCart, GetCartArguments>(GetCart, args);
+    static use(args?: GetCartParameters): [QueryResultWithState<Cart>] {
+        const [result] = useObservableQuery<Cart, GetCart, GetCartParameters>(GetCart, args);
         return [result];
     }
 }
