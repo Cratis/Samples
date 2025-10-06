@@ -16,7 +16,7 @@ public record RegisterAuthor(AuthorName Name)
     public async Task<AuthorId> Handle(IEventLog eventLog)
     {
         var authorId = Guid.NewGuid();
-        await eventLog.Transactional.Append(authorId, new AuthorRegistered(Name), "Author");
+        await eventLog.Append(authorId, new AuthorRegistered(Name), "Author");
         return authorId;
     }
 }

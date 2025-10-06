@@ -11,7 +11,7 @@ import { Validator } from '@cratis/applications/validation';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/authors/registration/register-author');
+const routeTemplate = Handlebars.compile('/api/authors/registration');
 
 export interface IRegisterAuthor {
     name?: string;
@@ -24,7 +24,7 @@ export class RegisterAuthorValidator extends CommandValidator {
 }
 
 export class RegisterAuthor extends Command<IRegisterAuthor, Guid> implements IRegisterAuthor {
-    readonly route: string = '/api/authors/registration/register-author';
+    readonly route: string = '/api/authors/registration';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new RegisterAuthorValidator();
 
@@ -34,7 +34,7 @@ export class RegisterAuthor extends Command<IRegisterAuthor, Guid> implements IR
         super(Guid, false);
     }
 
-    get requestParameter(): string[] {
+    get requestParameters(): string[] {
         return [
         ];
     }

@@ -12,7 +12,12 @@ CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args)
-    .UseCratisApplicationModel()
+    .UseCratisApplicationModel(options =>
+    {
+        options.GeneratedApis.RoutePrefix = "api";
+        options.GeneratedApis.IncludeCommandNameInRoute = false;
+        options.GeneratedApis.SegmentsToSkipForRoute = 1;
+    })
     .AddCratisChronicle(options => options.EventStore = "Library");
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();

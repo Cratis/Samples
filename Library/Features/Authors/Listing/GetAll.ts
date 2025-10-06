@@ -4,44 +4,26 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-import { QueryFor, QueryResultWithState, Sorting, SortingActions, SortingActionsForQuery, Paging } from '@cratis/applications/queries';
+import { QueryFor, QueryResultWithState, Sorting, Paging } from '@cratis/applications/queries';
 import { useQuery, useQueryWithPaging, PerformQuery, SetSorting, SetPage, SetPageSize } from '@cratis/applications.react/queries';
 import { Author } from './Author';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/authors');
+const routeTemplate = Handlebars.compile('/api/authors/listing/get-all');
 
 class GetAllSortBy {
-    private _id: SortingActionsForQuery<Author[]>;
-    private _name: SortingActionsForQuery<Author[]>;
 
     constructor(readonly query: GetAll) {
-        this._id = new SortingActionsForQuery<Author[]>('id', query);
-        this._name = new SortingActionsForQuery<Author[]>('name', query);
     }
 
-    get id(): SortingActionsForQuery<Author[]> {
-        return this._id;
-    }
-    get name(): SortingActionsForQuery<Author[]> {
-        return this._name;
-    }
 }
 
 class GetAllSortByWithoutQuery {
-    private _id: SortingActions  = new SortingActions('id');
-    private _name: SortingActions  = new SortingActions('name');
 
-    get id(): SortingActions {
-        return this._id;
-    }
-    get name(): SortingActions {
-        return this._name;
-    }
 }
 
 export class GetAll extends QueryFor<Author[]> {
-    readonly route: string = '/api/authors';
+    readonly route: string = '/api/authors/listing/get-all';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly defaultValue: Author[] = [];
     private readonly _sortBy: GetAllSortBy;

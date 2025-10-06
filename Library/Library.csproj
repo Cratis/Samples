@@ -6,11 +6,13 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
         <OutputType>Exe</OutputType>
-        <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
-        <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
         <AssemblyName>Library</AssemblyName>
         <RootNamespace>Library</RootNamespace>
+
+        <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
+        <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
+        <CratisProxiesSkipCommandNameInRoute>true</CratisProxiesSkipCommandNameInRoute>
 
         <NoWarn>$(NoWarn)</NoWarn>
     </PropertyGroup>
