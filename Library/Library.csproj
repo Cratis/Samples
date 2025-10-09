@@ -8,9 +8,10 @@
         <OutputType>Exe</OutputType>
         <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
         <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
+        <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
+        <CratisProxiesSkipCommandNameInRoute>true</CratisProxiesSkipCommandNameInRoute>
         <AssemblyName>Library</AssemblyName>
         <RootNamespace>Library</RootNamespace>
-        <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
 
         <NoWarn>$(NoWarn)</NoWarn>
     </PropertyGroup>
@@ -21,8 +22,10 @@
         <PackageReference Include="Cratis.Applications.MongoDB" />
         <PackageReference Include="Cratis.Applications.ProxyGenerator.Build" />
         <PackageReference Include="Cratis.Applications.Swagger" />
+
         <PackageReference Include="Cratis.Chronicle"/>
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Cratis.Chronicle.Applications" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     </ItemGroup>
 
