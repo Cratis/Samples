@@ -1,5 +1,5 @@
 import { injectable } from 'tsyringe';
-import { AddItemToCart } from './Features/Carts/AddItem/AddItemToCart';
+import { AddItemToCart } from '../Carts/AddItem/AddItemToCart';
 import { Guid } from '@cratis/fundamentals';
 
 @injectable()

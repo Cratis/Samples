@@ -4,6 +4,7 @@
 using System.Globalization;
 using System.Reflection;
 using Cratis.Applications.Swagger;
+using Cratis.Chronicle.AspNetCore;
 
 // Force invariant culture for the Backend
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
@@ -12,8 +13,13 @@ CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args)
-    .UseCratisApplicationModel()
-    .AddCratisChronicle(options => options.EventStore = "eCommerce");
+    .UseCratisApplicationModel(options =>
+    {
+        options.GeneratedApis.RoutePrefix = "api";
+        options.GeneratedApis.IncludeCommandNameInRoute = false;
+        options.GeneratedApis.SegmentsToSkipForRoute = 1;
+    })
+    .AddCratisChronicle(options => options.EventStore = "eCommerce", configure: _ => _.WithApplicationModel());
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
 builder.Services.AddMvc();

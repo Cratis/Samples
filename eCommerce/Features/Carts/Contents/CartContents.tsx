@@ -1,10 +1,10 @@
 import { DataTable } from 'primereact/datatable';
-import { GetCart } from './GetCart';
 import { Column } from 'primereact/column';
 import { Guid } from '@cratis/fundamentals';
+import { CartById } from './CartById';
 
 export const CartContents = () => {
-    const [cart] = GetCart.use({ cartId: Guid.empty })
+    const [cart] = CartById.use({ cartId: Guid.empty })
 
     return (
         <>

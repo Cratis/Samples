@@ -3,6 +3,7 @@
 
 global using System.Reactive.Subjects;
 global using Cratis.Applications.Commands.ModelBound;
+global using Cratis.Applications.Queries.ModelBound;
 global using Cratis.Chronicle.Aggregates;
 global using Cratis.Chronicle.Events;
 global using Cratis.Chronicle.Events.Constraints;

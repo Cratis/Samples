@@ -8,10 +8,11 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { ItemAddedToCart } from './ItemAddedToCart';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/carts/{{cartId}}/items');
+const routeTemplate = Handlebars.compile('/api/carts/add-item');
 
 export interface IAddItemToCart {
     cartId?: Guid;
@@ -27,8 +28,8 @@ export class AddItemToCartValidator extends CommandValidator {
     };
 }
 
-export class AddItemToCart extends Command<IAddItemToCart> implements IAddItemToCart {
-    readonly route: string = '/api/carts/{cartId}/items';
+export class AddItemToCart extends Command<IAddItemToCart, ItemAddedToCart> implements IAddItemToCart {
+    readonly route: string = '/api/carts/add-item';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new AddItemToCartValidator();
 
@@ -37,12 +38,11 @@ export class AddItemToCart extends Command<IAddItemToCart> implements IAddItemTo
     private _price!: number;
 
     constructor() {
-        super(Object, false);
+        super(ItemAddedToCart, false);
     }
 
-    get requestArguments(): string[] {
+    get requestParameters(): string[] {
         return [
-            'cartId',
         ];
     }
 

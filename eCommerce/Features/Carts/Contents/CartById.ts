@@ -10,14 +10,14 @@ import { Guid } from '@cratis/fundamentals';
 import { Cart } from './Cart';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/carts/{{cartId}}');
+const routeTemplate = Handlebars.compile('/api/carts/contents/cart-by-id?cartId={{cartId}}');
 
 
-export interface GetCartArguments {
+export interface CartByIdParameters {
     cartId: Guid;
 }
-export class GetCart extends ObservableQueryFor<Cart, GetCartArguments> {
-    readonly route: string = '/api/carts/{cartId}';
+export class CartById extends ObservableQueryFor<Cart, CartByIdParameters> {
+    readonly route: string = '/api/carts/contents/cart-by-id?cartId={cartId}';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly defaultValue: Cart = {} as any;
 
@@ -25,15 +25,15 @@ export class GetCart extends ObservableQueryFor<Cart, GetCartArguments> {
         super(Cart, false);
     }
 
-    get requiredRequestArguments(): string[] {
+    get requiredRequestParameters(): string[] {
         return [
             'cartId',
         ];
     }
 
 
-    static use(args?: GetCartArguments): [QueryResultWithState<Cart>] {
-        const [result] = useObservableQuery<Cart, GetCart, GetCartArguments>(GetCart, args);
+    static use(args?: CartByIdParameters): [QueryResultWithState<Cart>] {
+        const [result] = useObservableQuery<Cart, CartById, CartByIdParameters>(CartById, args);
         return [result];
     }
 }

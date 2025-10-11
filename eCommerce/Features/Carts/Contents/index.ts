@@ -5,5 +5,6 @@
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
 export * from './Cart';
+export * from './CartById';
+export * from './CartContents';
 export * from './CartItem';
-export * from './GetCart';

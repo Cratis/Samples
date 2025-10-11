@@ -6,7 +6,12 @@ using MongoDB.Driver;
 
 namespace eCommerce.Carts.Contents;
 
-public record Cart(CartId Id, IEnumerable<CartItem> Items, Price TotalPrice);
+[ReadModel]
+public record Cart(CartId Id, IEnumerable<CartItem> Items, Price TotalPrice)
+{
+    public static ISubject<Cart> CartById(CartId cartId, IMongoCollection<Cart> collection) =>
+        collection.ObserveById(cartId);
+}
 
 public record CartItem(Sku Sku, Price Price);
 
@@ -17,11 +22,4 @@ public class CartProjection : IProjectionFor<Cart>
         .From<ItemAddedToCart>(e => e.Add(m => m.TotalPrice).With(e => e.Price))
         .Children(c => c.Items, childrenBuilder => childrenBuilder
             .From<ItemAddedToCart>());
-}
-
-[Route("/api/carts/{cartId}")]
-public class CartQueries(IMongoCollection<Cart> collection) : ControllerBase
-{
-    [HttpGet]
-    public ISubject<Cart> GetCart([FromRoute] CartId cartId) => collection.ObserveById(cartId);
 }

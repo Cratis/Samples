@@ -4,5 +4,13 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-export * from './AddItemToCart';
-export * from './ItemAddedToCart';
+import { field } from '@cratis/fundamentals';
+
+export class ItemAddedToCart {
+
+    @field(String)
+    sku!: string;
+
+    @field(Number)
+    price!: number;
+}

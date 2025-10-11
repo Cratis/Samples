@@ -1,27 +1,18 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Cratis.Applications.ModelBinding;
-using Cratis.Chronicle.EventSequences;
-using Cratis.Chronicle.ReadModels;
+using Cratis.Chronicle.Keys;
 using FluentValidation;
 
 namespace eCommerce.Carts.AddItem;
 
+[Command]
 public record AddItemToCart(
-    [FromRoute, ReadModelKey] CartId CartId,
+    [Key] CartId CartId,
     Sku Sku,
-    Price Price);
-
-[Route("/api/carts/{cartId}/items")]
-public class AddItemToCartHandler(IAggregateRootFactory aggregateRootFactory) : ControllerBase
+    Price Price)
 {
-    [HttpPost]
-    public async Task AddItemToCart([FromRequest] AddItemToCart command)
-    {
-        var cart = await aggregateRootFactory.Get<Cart>(command.CartId);
-        await cart.AddItem(command.Sku, command.Price);
-    }
+    public ItemAddedToCart Handle() => new(Sku, Price);
 }
 
 public class AddItemToCartRules : RulesFor<AddItemToCartRules, AddItemToCart>
@@ -38,3 +29,6 @@ public class AddItemToCartRules : RulesFor<AddItemToCartRules, AddItemToCart>
     public override void DefineState(IProjectionBuilderFor<AddItemToCartRules> builder) => builder
         .From<ItemAddedToCart>(_ => _.Count(m => m.NumberOfItems));
 }
+
+[EventType]
+public record ItemAddedToCart(Sku Sku, Price Price);
