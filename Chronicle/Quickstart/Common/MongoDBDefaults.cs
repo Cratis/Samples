@@ -22,7 +22,7 @@ public static class MongoDBDefaults
             new IgnoreExtraElementsConvention(true),
 
             // Chronicle uses camelCase for element names, so we need to use this convention
-            // new CamelCaseElementNameConvention()
+            new CamelCaseElementNameConvention()
         };
         ConventionRegistry.Register("conventions", pack, t => true);
         #endregion Snippet:Quickstart-MongoDBDefaults
