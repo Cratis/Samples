@@ -1,6 +1,7 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Cratis.Chronicle.Applications.Commands;
 using Cratis.Chronicle.Keys;
 using FluentValidation;
 
@@ -10,8 +11,10 @@ namespace eCommerce.Carts.AddItem;
 public record AddItemToCart(
     [Key] CartId CartId,
     Sku Sku,
-    Price Price)
+    Price Price) : ICanProvideEventSourceId
 {
+    public EventSourceId GetEventSourceId() => Guid.Empty;
+
     public ItemAddedToCart Handle() => new(Sku, Price);
 }
 
