@@ -4,6 +4,10 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-export * from './AddBook';
-export * from './AddBookTitleToInventory';
-export * from './BookAddedToInventory';
+import { field } from '@cratis/fundamentals';
+
+export class AuthorRegistered {
+
+    @field(String)
+    name!: string;
+}

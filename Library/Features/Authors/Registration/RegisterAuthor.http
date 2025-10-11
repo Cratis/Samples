@@ -1,0 +1,6 @@
+POST http://localhost:5000/api/authors/registration
+Content-Type: application/json
+
+{
+    "name": "Someone"
+}

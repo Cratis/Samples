@@ -4,7 +4,6 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
+export * from './AllAuthors';
 export * from './Author';
-export * from './GetAll';
 export * from './Listing';
-export * from './ObserveAll';

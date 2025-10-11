@@ -8,7 +8,7 @@ import { InputText } from 'primereact/inputtext';
 import { AddBookTitleToInventory } from './AddBookTitleToInventory';
 import { useState } from 'react';
 import { Guid } from '@cratis/fundamentals';
-import { GetAll as GetAllAuthors } from '../../Authors/Listing/GetAll';
+import { AllAuthors } from '../../Authors/Listing/AllAuthors';
 
 export const AddBook = () => {
     const [title, setTitle] = useState('');
@@ -17,7 +17,7 @@ export const AddBook = () => {
     const [authorId, setAuthorId] = useState(Guid.empty);
     const { closeDialog } = useDialogContext();
     const [command] = AddBookTitleToInventory.use();
-    const [authors]  = GetAllAuthors.use();
+    const [authors]  = AllAuthors.use();
 
     const handleAdd = async () => {
         command.title = title;

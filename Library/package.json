@@ -18,10 +18,10 @@
         "dev:debug": "yarn g:dev:debug"
     },
     "dependencies": {
-        "@cratis/applications": "17.9.7",
-        "@cratis/applications.react": "17.9.7",
-        "@cratis/applications.react.mvvm": "17.9.7",
-        "@cratis/applications.vite": "17.9.7",
+        "@cratis/applications": "17.16.2",
+        "@cratis/applications.react": "17.16.2",
+        "@cratis/applications.react.mvvm": "17.16.2",
+        "@cratis/applications.vite": "17.16.2",
         "allotment": "1.20.4",
         "echarts": "6.0.0",
         "mobx": "6.15.0",
@@ -38,7 +38,7 @@
         "usehooks-ts": "3.1.1"
     },
     "devDependencies": {
-        "@types/react": "19.1.16",
-        "@types/react-dom": "19.1.9"
+        "@types/react": "19.2.2",
+        "@types/react-dom": "19.2.1"
     }
 }

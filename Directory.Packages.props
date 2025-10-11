@@ -3,31 +3,30 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
     <ItemGroup>
-        <PackageVersion Include="Cratis.Fundamentals" Version="7.0.0" />
-        <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.0.0" />
-        <PackageVersion Include="Cratis.Applications" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Applications.Orleans" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Applications.Swagger" Version="17.9.7" />
-        <PackageVersion Include="Cratis.Chronicle" Version="14.0.14" />
-        <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.0.14" />
-        <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.0.14" />
-        <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.0.14" />
-        <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.0.14" />
+        <PackageVersion Include="Cratis.Fundamentals" Version="7.2.0" />
+        <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.0" />
+        <PackageVersion Include="Cratis.Applications" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Applications.Orleans" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Applications.Swagger" Version="17.16.2" />
+        <PackageVersion Include="Cratis.Chronicle" Version="14.2.2" />
+        <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.2.2" />
+        <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.2.2" />
+        <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.2.2" />
+        <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.2.2" />
+        <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.2.2" />
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
         <!-- Analysis -->
-        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.14.0" />
-        <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" />
         <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.2.1" />
         <PackageVersion Include="Microsoft.Orleans.Server" Version="9.2.1" />
         <PackageVersion Include="MongoDB.Driver" Version="3.5.0" />
-        <PackageVersion Include="Scalar.AspNetCore" Version="2.8.8" />
+        <PackageVersion Include="Scalar.AspNetCore" Version="2.8.10" />
         <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
-        <PackageVersion Include="Roslynator.Analyzers" Version="4.14.0" />
-        <PackageVersion Include="Meziantou.Analyzer" Version="2.0.222" />
-        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.5" />
+        <PackageVersion Include="Roslynator.Analyzers" Version="4.14.1" />
+        <PackageVersion Include="Meziantou.Analyzer" Version="2.0.224" />
+        <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
         <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
 
         <!-- Testing & Specifications -->
@@ -37,7 +36,7 @@
         <PackageVersion Include="xunit" Version="2.9.3" />
         <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
         <PackageVersion Include="NSubstitute" Version="5.3.0" />
-        <PackageVersion Include="Microsoft.NET.Test.SDK" Version="17.14.1" />
+        <PackageVersion Include="Microsoft.NET.Test.SDK" Version="18.0.0" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.9" />
     </ItemGroup>
 </Project>

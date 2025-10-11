@@ -1,21 +1,21 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { ObserveAll } from './ObserveAll';
+import { AllAuthors } from './AllAuthors';
 
 const pageSize = 5;
 
 export const Listing = () => {
-    const [observeAllResult, , setPage] = ObserveAll.useWithPaging(pageSize);
+    const [allAuthorsResult, , setPage] = AllAuthors.useWithPaging(pageSize);
 
     return (
         <DataTable
             lazy
             paginator
-            value={observeAllResult.data}
+            value={allAuthorsResult.data}
             rows={pageSize}
-            totalRecords={observeAllResult.paging.totalItems}
+            totalRecords={allAuthorsResult.paging.totalItems}
             alwaysShowPaginator={false}
-            first={observeAllResult.paging.page * pageSize}
+            first={allAuthorsResult.paging.page * pageSize}
             onPage={(e) => setPage(e.page ?? 0)}
             scrollable
             scrollHeight={'flex'}

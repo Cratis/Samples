@@ -8,10 +8,11 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { BookAddedToInventory } from './BookAddedToInventory';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
-const routeTemplate = Handlebars.compile('/api/inventory/add');
+const routeTemplate = Handlebars.compile('/api/inventory/adding');
 
 export interface IAddBookTitleToInventory {
     title?: string;
@@ -29,8 +30,8 @@ export class AddBookTitleToInventoryValidator extends CommandValidator {
     };
 }
 
-export class AddBookTitleToInventory extends Command<IAddBookTitleToInventory> implements IAddBookTitleToInventory {
-    readonly route: string = '/api/inventory/add';
+export class AddBookTitleToInventory extends Command<IAddBookTitleToInventory, BookAddedToInventory> implements IAddBookTitleToInventory {
+    readonly route: string = '/api/inventory/adding';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new AddBookTitleToInventoryValidator();
 
@@ -40,10 +41,10 @@ export class AddBookTitleToInventory extends Command<IAddBookTitleToInventory> i
     private _count!: number;
 
     constructor() {
-        super(Object, false);
+        super(BookAddedToInventory, false);
     }
 
-    get requestParameter(): string[] {
+    get requestParameters(): string[] {
         return [
         ];
     }

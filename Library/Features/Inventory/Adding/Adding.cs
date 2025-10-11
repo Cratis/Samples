@@ -7,14 +7,10 @@ using SharpCompress.Archives;
 
 namespace Library.Inventory.Adding;
 
-public record AddBookTitleToInventory(BookTitle Title, ISBN ISBN, AuthorId AuthorId, int Count);
-
-[Route("api/inventory/add")]
-public class AddBookTitleToInventoryHandler(IEventLog eventLog) : ControllerBase
+[Command]
+public record AddBookTitleToInventory(BookTitle Title, ISBN ISBN, AuthorId AuthorId, int Count)
 {
-    [HttpPost]
-    public Task AddBookTitleToInventory(AddBookTitleToInventory command) =>
-        eventLog.Transactional.Append((string)command.ISBN, new BookAddedToInventory(command.Title, command.AuthorId, command.Count));
+    public BookAddedToInventory Handle() => new(Title, AuthorId, Count);
 }
 
 [EventType]

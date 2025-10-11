@@ -4,6 +4,4 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-export * from './AddBook';
-export * from './AddBookTitleToInventory';
-export * from './BookAddedToInventory';
+export * from './Result`2';

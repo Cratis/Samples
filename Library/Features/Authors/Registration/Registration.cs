@@ -13,11 +13,10 @@ namespace Library.Authors.Registration;
 [Command]
 public record RegisterAuthor(AuthorName Name)
 {
-    public async Task<AuthorId> Handle(IEventLog eventLog)
+    public (AuthorId, AuthorRegistered) Handle()
     {
-        var authorId = Guid.NewGuid();
-        await eventLog.Transactional.Append(authorId, new AuthorRegistered(Name), "Author");
-        return authorId;
+        var authorId = AuthorId.New();
+        return (authorId, new(Name));
     }
 }
 
