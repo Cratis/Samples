@@ -19,6 +19,8 @@ In forms were you have to select multiple items you use the arrow keys to
 select and then use **TAB** to switch between the different items that needs
 to be selected. Hitting enter will then perform the action.
 
+> **Note**: It is also possible to use the mouse to navigate the UI.
+
 On the startup screen you will see at the top a menu item "Initialize demo data",
 this will give you users and books to work with, hit enter on this to start with.
 
