@@ -1,7 +1,10 @@
 # 📚 Library
 
-This sample is a "make believe" Library system. The intention of the sample is to show the entire Cratis Stack at work and how you
-set up an application that has both a frontend and a backend and how we see that fitting together.
+This sample shows how a Library system could be built using the entire Cratis Stack.
+The intention of the sample is to show the entire Cratis Stack at work and how you set up an
+application that has both a frontend and a backend and how we see that fitting together.
+
+It also shows how we think about structure and "Vertical Slices" - in fact, more like just "Slices".
 
 ## 📚 Cratis Stack
 
