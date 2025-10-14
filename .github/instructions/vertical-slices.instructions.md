@@ -15,6 +15,8 @@ applyTo: "**/Features/**/*.*"
 
 ## General
 
+- **MANDATORY: Each vertical slice MUST have its own folder with a single C# file containing ALL backend artifacts (commands, events, validators, constraints, etc.).**
+- **MANDATORY: Commands have Handle() methods defined directly on them - DO NOT create separate handler classes.**
 - Always write specs for the behavior added.
 - Build to get proxy objects generated for frontend.
 - Abide by all the guidelines and consider this document an override for anything that contradicts the general guidelines.
@@ -22,6 +24,7 @@ applyTo: "**/Features/**/*.*"
   to get information about existing vertical slices and their structure, to be able to consume events from other slices.
 - Drop the `.Features` part of the namespace when working within the `Features` folder. (e.g. `Library.Authors.Registration` instead of `Library.Features.Authors.Registration`)
 - Keep data integrity high, protect inputs, validate commands, and enforce business rules - we don't want to produce erroneous events.
+- When given instructions to work on multiple slices, finish end to end for one slice before moving to the next slice.
 
 ## CQRS
 
@@ -78,29 +81,132 @@ There are only 4 types of vertical slices. Each type has a specific purpose and 
 
 - Within the Features folder we add Features, within this folder we add vertical slices.
 - Each slice has a specific type (State Change, State View, Automation, Translation).
-- Each slice has its own folder.
+- **CRITICAL: Each slice MUST have its own folder. This is MANDATORY.**
 - Stay away from postfixing the slice folder with the type of slice it is. The folder name should represent the domain concept or its purpose. (e.g. Registration, Listing, Removal, Notification)
 - Within each slice folder we have:
-  - A single C# file with all the backend artifacts for the slice - name the file the same as the folder.
+  - **A single C# file with all the backend artifacts for the slice - name the file the same as the folder.**
+  - **DO NOT split commands, events, validators, constraints, read models, projections, or any other slice artifacts into separate files.**
+  - **DO NOT create separate handler classes - the Handle() method goes directly on the command record.**
   - Any frontend React components (.tsx files) that belong to this slice.
   - Any slice-specific specs in `when_*` folders.
 - If the slice grows too big, we can split it into multiple files, but try to keep related functionality together within the slice folder.
 - Frontend code should live in the same slice folder as the backend code it interacts with, not at the feature root level.
 
-**Example folder structure:**
+**❌ WRONG - Do NOT do this:**
+```
+Features/
+├── Authors/
+│   ├── Commands/
+│   │   └── RegisterAuthor.cs
+│   ├── Handlers/
+│   │   └── RegisterAuthorHandler.cs
+│   ├── Events/
+│   │   └── AuthorRegistered.cs
+│   └── Validators/
+│       └── RegisterAuthorValidator.cs
+```
+
+**✅ CORRECT - Do this:**
 ```
 Features/
 ├── Authors/
 │   ├── Authors.tsx                    // Feature composition page
 │   ├── Registration/
-│   │   ├── Registration.cs            // Backend slice file
+│   │   ├── Registration.cs            // Backend slice file - ALL artifacts in ONE file
 │   │   ├── AddAuthor.tsx              // Frontend component for this slice
 │   │   └── when_registering/          // Specs for this slice
 │   │       ├── and_name_is_unique.cs
 │   │       └── and_name_already_exists.cs
 │   └── Listing/
-│       ├── Listing.cs                 // Backend slice file
+│       ├── Listing.cs                 // Backend slice file - ALL artifacts in ONE file
 │       └── Listing.tsx                // Frontend component for this slice
+```
+
+## What Goes in a Single Slice File
+
+**A single slice file (e.g., `Registration.cs`) MUST contain ALL of the following artifacts that belong to that slice:**
+
+- **Commands** - `[Command]` decorated records with `Handle()` methods defined directly on them
+- **Command Validators** - `CommandValidator<TCommand>` classes (if validation is needed)
+- **Business Rules** - `RulesFor<,>` classes (if business rules are needed)
+- **Constraints** - `IConstraint` implementations (if constraints are needed)
+- **Events** - `[EventType]` decorated records
+- **Read Models** - `[ReadModel]` decorated records (if this is a State View slice)
+- **Projections** - `IProjectionFor<>` implementations (if this is a State View slice)
+- **Reactors** - `IReactor` implementations (if this is a Translation/Automation slice)
+- **Slice-specific Concepts** - `ConceptAs<T>` types used only in this slice
+
+**DO NOT:**
+- Create separate files for each artifact type
+- Create separate handler classes
+- Split slice artifacts across multiple directories
+- Create Commands/, Events/, Handlers/, or similar folders within a feature
+
+**Example of a complete State Change slice file (`Registration.cs`):**
+
+```csharp
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace Library.Authors.Registration;
+
+// Command - with Handle() method defined directly on it
+[Command]
+public record RegisterAuthor(AuthorName Name)
+{
+    public (AuthorRegistered, AuthorId) Handle()
+    {
+        var authorId = AuthorId.New();
+        return (new AuthorRegistered(Name), authorId);
+    }
+}
+
+// Validator (if needed)
+public class RegisterAuthorValidator : CommandValidator<RegisterAuthor>
+{
+    public RegisterAuthorValidator()
+    {
+        RuleFor(c => c.Name).NotEmpty().WithMessage("Author name is required");
+    }
+}
+
+// Constraint (if needed)
+public class UniqueAuthorName : IConstraint
+{
+    public void Define(IConstraintBuilder builder) => builder
+        .Unique(_ => _
+            .On<AuthorRegistered>(e => e.Name)
+            .WithMessage("Author name must be unique"));
+}
+
+// Event
+[EventType]
+public record AuthorRegistered(AuthorName Name);
+```
+
+**Example of a complete State View slice file (`Listing.cs`):**
+
+```csharp
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace Library.Authors.Listing;
+
+// Read Model - with query methods defined directly on it
+[ReadModel]
+public record Author(AuthorId Id, AuthorName Name)
+{
+    public static ISubject<IEnumerable<Author>> AllAuthors(IMongoCollection<Author> collection) =>
+        collection.Observe();
+}
+
+// Projection
+public class AuthorProjection : IProjectionFor<Author>
+{
+    public void Define(IProjectionBuilderFor<Author> builder) => builder
+        .AutoMap()
+        .From<AuthorRegistered>();
+}
 ```
 
 ## Concepts
@@ -117,6 +223,10 @@ Features/
 - Commands are represented as `record` types.
 - Commands are immutable and should use positional parameters.
 - Commands should be prefixed with the `[Command]` attribute from `Cratis.Applications.Commands.ModelBound` namespace.
+- **Commands should have a single method `Handle()` that returns the side effects of the command.**
+- **CRITICAL: The Handle() method is defined directly on the command record itself.**
+- **DO NOT create separate handler classes (e.g., ICommandHandler implementations) - this is NOT the pattern we use.**
+- **DO NOT create separate files for handlers - the Handle() method lives on the command record.**
 - Commands should have a single method `Handle` that returns the side effects of the command.
     - A Single event instance
     - A collection of event instances - represented as `IEnumerable<T>`.
@@ -128,13 +238,26 @@ Features/
     - If the command has a parameter with a type that implements `EventSourceId` from `Cratis.Chronicle.Events` namespace, this is used as the `EventSourceId`.
     - If the command implements the `ICanProvideEventSourceId` interface from `Cratis.Chronicle.Applications.Commands` namespace, the `EventSourceId` property is used as the `EventSourceId`.
 
-Example:
+**✅ CORRECT Example:**
 
 ```csharp
 [Command]
 public record AddBookTitleToInventory(BookTitle Title, ISBN ISBN, AuthorId AuthorId, int Count)
 {
     public BookAddedToInventory Handle() => new(Title, AuthorId, Count);
+}
+```
+
+**❌ WRONG - Do NOT create separate handler classes:**
+
+```csharp
+// ❌ DO NOT DO THIS
+public class AddBookTitleToInventoryHandler : ICommandHandler<AddBookTitleToInventory>
+{
+    public Task<BookAddedToInventory> Handle(AddBookTitleToInventory command)
+    {
+        // ...
+    }
 }
 ```
 
@@ -173,6 +296,7 @@ public class AddItemToCartValidators : CommandValidator<AddItemToCart>
 - If the command needs to validate from projected values that can be represented in a read model that an instance is resolved by the same `EventSourceId` as the command
   we can use the `CommandValidator<T>` and create a specific read model for the purpose of validation and a projection that projects the events to the read model.
 - If the command needs to validate disregarding the `EventSourceId` it has to use the `RuleFor<T>` class from `Cratis.Chronicle.Rules` namespace to validate the command.
+- Rules can not depend on read models coming from the database, as these are eventual consistent, it can depend on state that is built from events in the same transaction - such as a passive projection.
 
 Example of using `RuleFor<T>`:
 
