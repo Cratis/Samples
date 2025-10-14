@@ -26,6 +26,35 @@ applyTo: "**/Features/**/*.*"
 - Keep data integrity high, protect inputs, validate commands, and enforce business rules - we don't want to produce erroneous events.
 - When given instructions to work on multiple slices, finish end to end for one slice before moving to the next slice.
 
+## Development Workflow
+
+**CRITICAL: Work feature-by-feature and slice-by-slice. Complete each slice end-to-end before moving to the next.**
+
+### Feature-by-Feature Approach
+
+- Work on one complete feature at a time
+- Each feature contains one or more vertical slices
+- Do not start a new feature until the current feature is fully complete
+
+### Slice-by-Slice Approach
+
+Within each feature, work on one slice at a time following this EXACT procedure:
+
+1. **Add Backend Code** - Implement the C# slice (command/query/aggregator/projector with events, validators, constraints)
+2. **Add Specs** - Write comprehensive specifications for state change slices (commands that produce events)
+3. **Build** - Run `dotnet build` to generate TypeScript proxies from the backend code
+4. **Add Frontend** - Implement the React component(s) that consume the backend slice
+5. **Update Composition** - Register the frontend component in the composition root (typically `index.ts` or similar)
+6. **Update Routes** - Add or update routing configuration if the slice introduces new pages or navigation
+
+### Important Rules
+
+- **Every slice MUST have both frontend and backend components** - do not create backend-only or frontend-only slices
+- **State change slices MUST have specs** - any slice that modifies state through commands/events requires comprehensive test coverage
+- **Complete one slice fully before starting the next** - do not partially implement multiple slices
+- **Always build after backend changes** - the build step generates TypeScript proxies needed for frontend development
+- **Follow the exact order** - backend → specs → build → frontend → composition → routes
+
 ## CQRS
 
 - System separates commands and queries.
