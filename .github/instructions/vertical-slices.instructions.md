@@ -236,7 +236,7 @@ public class AuthorProjection : IProjectionFor<Author>
 - Events are appended to the event log based on a convention for what the `EventSourceId`is
     - If the command has a parameter marked with the `[Key]`attribute from `Cratis.Chronicle.Keys` namespace, this is used as the `EventSourceId`.
     - If the command has a parameter with a type that implements `EventSourceId` from `Cratis.Chronicle.Events` namespace, this is used as the `EventSourceId`.
-    - If the command implements the `ICanProvideEventSourceId` interface from `Cratis.Chronicle.Applications.Commands` namespace, the `EventSourceId` property is used as the `EventSourceId`.
+    - As a last resort, if one can't resolve the `EventSourceId` and it has to be programatically provided, the command can implement `ICanProvideEventSourceId` interface from `Cratis.Chronicle.Applications.Commands` namespace, the `GetEventSourceId()` method is then used to resolve the `EventSourceId`. Most things does not need to do this, as the other two options are preferred.
 
 **✅ CORRECT Example:**
 
