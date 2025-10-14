@@ -419,11 +419,20 @@ public record BookAddedToInventory(BookTitle Title, AuthorId Author, int Count);
 - Read Models are produced by projecting events from other slices.
 - More details about all the capabilities of projections can be found in the [Cratis documentation](https://www.cratis.io/docs/Chronicle/recipes/projections).
 
-Example:
+## Projections
+
+- **ALWAYS use `.AutoMap()` at the root of the projection before any `.From<>()` statements to automatically map matching properties.**
+- **CRITICAL: Projections MUST join events, NOT read models.**
+- When joining data from other slices, use the event type from the Registration slice (e.g., `BookCatalog.Registration.BookRegistered`).
+- **DO NOT join read models** (e.g., `BookCatalog.Listing.Book`) - this is INCORRECT.
+- Joins allow enriching read models with data from events in other slices.
+- Use `.On()` to specify the join key and `.Set()` to map properties from the event to the read model.
+
+**✅ CORRECT Example - Simple projection with AutoMap:**
 
 ```csharp
 [ReadModel]
-public record Author(AuthorId Id, AuthorName Name)
+public record Author(AuthorId Id, FirstName FirstName, LastName LastName)
 {
     public static ISubject<IEnumerable<Author>> AllAuthors(IMongoCollection<Author> collection) =>
         collection.Observe();
@@ -433,7 +442,65 @@ public class AuthorProjection : IProjectionFor<Author>
 {
     public void Define(IProjectionBuilderFor<Author> builder) => builder
         .AutoMap()
-        .From<AuthorRegistered>();
+        .From<Registration.AuthorRegistered>();
+}
+```
+
+**✅ CORRECT Example - Projection with joins to events:**
+
+```csharp
+[ReadModel]
+public record LendingItem(LendingId Id, ISBN ISBN, BookTitle Title, MemberId MemberId, MemberFirstName FirstName, MemberLastName LastName, DateTimeOffset LentAt)
+{
+    public static ISubject<IEnumerable<LendingItem>> AllLendings(IMongoCollection<LendingItem> collection) =>
+        collection.Observe();
+}
+
+public class LendingItemProjection : IProjectionFor<LendingItem>
+{
+    public void Define(IProjectionBuilderFor<LendingItem> builder) => builder
+        .AutoMap()
+        .From<LendOut.BookLent>(_ => _
+            .UsingKey(ev => ev.ISBN))
+        .Join<BookCatalog.Registration.BookRegistered>(_ => _
+            .On(m => m.ISBN)
+            .Set(m => m.Title).To(ev => ev.Title))
+        .Join<Members.Registration.MemberRegistered>(_ => _
+            .On(m => m.MemberId)
+            .Set(m => m.FirstName).To(ev => ev.FirstName)
+            .Set(m => m.LastName).To(ev => ev.LastName));
+}
+```
+
+**❌ WRONG - Do NOT join read models:**
+
+```csharp
+// ❌ DO NOT DO THIS - joining read models instead of events
+public class LendingItemProjection : IProjectionFor<LendingItem>
+{
+    public void Define(IProjectionBuilderFor<LendingItem> builder) => builder
+        .From<LendOut.BookLent>(_ => _
+            .Set(m => m.ISBN).To(ev => ev.ISBN)
+            .Set(m => m.MemberId).To(ev => ev.MemberId))
+        .Join<BookCatalog.Listing.Book>(_ => _  // ❌ WRONG - this is a read model
+            .On(m => m.ISBN))
+        .Join<Members.Listing.Member>(_ => _    // ❌ WRONG - this is a read model
+            .On(m => m.MemberId));
+}
+```
+
+**❌ WRONG - Do NOT manually set properties that AutoMap can handle:**
+
+```csharp
+// ❌ DO NOT DO THIS - manually setting properties when AutoMap would handle them
+public class LendingItemProjection : IProjectionFor<LendingItem>
+{
+    public void Define(IProjectionBuilderFor<LendingItem> builder) => builder
+        .From<LendOut.BookLent>(_ => _
+            .UsingKey(ev => ev.ISBN)
+            .Set(m => m.ISBN).To(ev => ev.ISBN)      // ❌ Unnecessary - AutoMap handles this
+            .Set(m => m.MemberId).To(ev => ev.MemberId)  // ❌ Unnecessary - AutoMap handles this
+            .Set(m => m.LentAt).To(ev => ev.LentAt));    // ❌ Unnecessary - AutoMap handles this
 }
 ```
 
