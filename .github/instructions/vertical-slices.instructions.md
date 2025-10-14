@@ -109,6 +109,7 @@ Features/
 - Concepts that are shared between slices should be placed in the feature folder.
 - Concepts that are specific to a slice should be placed in the slice folder.
 - Concepts that are shared between features should be placed in the `Features` folder.
+- Don't reference concepts from other features or slices, if you need to share concepts between features, place them in the `Features` folder and have correct namespace.
 - Prefer one file per concept type, as that makes it easier to find and possible move them.
 
 ## Commands
@@ -234,6 +235,7 @@ public class UserConstraints : IConstraint
 - Events are represented as `record` types.
 - Events are immutable and should use positional parameters.
 - Events should be prefixed with the `[EventType]` attribute from `Cratis.Events` namespace.
+- There is no need to give a name as an argument for `[EventType]` as the system uses the type name as the event name.
 
 Example:
 
