@@ -208,7 +208,7 @@ public class UniqueAuthorName : IConstraint
             .WithMessage("Author name must be unique"));
 }
 
-// Event
+// Event - IMPORTANT: [EventType] has NO arguments
 [EventType]
 public record AuthorRegistered(AuthorName Name);
 ```
@@ -388,12 +388,26 @@ public class UserConstraints : IConstraint
 - Events are represented as `record` types.
 - Events are immutable and should use positional parameters.
 - Events should be prefixed with the `[EventType]` attribute from `Cratis.Events` namespace.
-- There is no need to give a name as an argument for `[EventType]` as the system uses the type name as the event name.
+- **CRITICAL: The `[EventType]` attribute MUST NOT have any arguments - use `[EventType]` with empty parentheses, NOT `[EventType("some-id")]`.**
+- **DO NOT add GUID strings, names, or any other identifiers as arguments to `[EventType]`.**
+- The system automatically uses the type name as the event name.
 
-Example:
+**✅ CORRECT Example:**
 
 ```csharp
 [EventType]
+public record BookAddedToInventory(BookTitle Title, AuthorId Author, int Count);
+```
+
+**❌ WRONG - Do NOT do this:**
+
+```csharp
+// ❌ DO NOT add GUID or any identifier
+[EventType("ce956ea9-1ee0-4ce3-a2a2-a21e4c5a33d0")]
+public record BookAddedToInventory(BookTitle Title, AuthorId Author, int Count);
+
+// ❌ DO NOT add custom names
+[EventType("BookAdded")]
 public record BookAddedToInventory(BookTitle Title, AuthorId Author, int Count);
 ```
 
@@ -463,6 +477,7 @@ public record DecreaseStock(ISBN Isbn, BookStock stockBeforeDecrease)
     public StockDecreased Handle() => new(Isbn, stockBeforeDecrease);
 }
 
+// Event - IMPORTANT: [EventType] has NO arguments
 [EventType]
 public record StockDecreased(ISBN Isbn, BookStock StockBeforeDecrease);
 ```
