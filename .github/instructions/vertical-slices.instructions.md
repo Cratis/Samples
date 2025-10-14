@@ -201,6 +201,7 @@ public class AddItemToCartRules : RulesFor<AddItemToCartRules, AddItemToCart>
 - There are 2 types of constraints:
     - Unique value per event source - ensures that a value is unique for a given event source. It needs to include all event types that can produce the value, and event types that can remove the value.
     - Unique event type - ensures that an event type is only produced once for a given `EventSourceId`.
+- On<>() methods are used to specify a property on an event and it does not handle complex expressions.
 
 Example for unique property based on multiple event types:
 
@@ -209,9 +210,9 @@ public class UniqueAuthorName : IConstraint
 {
     public void Define(IConstraintBuilder builder) => builder
         .Unique(_ => _
-            .On<AuthorRegistered>(e => e.Name)
-            .On<AuthorNameChanged>(e => e.OldName)
-            .RemovedWith<AuthorNameChanged>()
+            .On<AuthorRegistered>(e => e.FirstName, e => e.LastName)
+            .On<AuthorNameChanged>(e => e.FirstName, e => e.LastName)
+            .RemovedWith<AuthorRemoved>()
             .WithMessage("Author name must be unique"));
 }
 ```
