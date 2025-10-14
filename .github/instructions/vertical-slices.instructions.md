@@ -204,7 +204,7 @@ public class UniqueAuthorName : IConstraint
 {
     public void Define(IConstraintBuilder builder) => builder
         .Unique(_ => _
-            .On<AuthorRegistered>(e => e.Name)
+            .On<AuthorRegistered>(e => e.FirstName, e => e.LastName)  // Multiple properties if needed
             .WithMessage("Author name must be unique"));
 }
 
