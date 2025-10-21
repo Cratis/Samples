@@ -20,6 +20,9 @@ var builder = WebApplication.CreateBuilder(args)
     .AddCratisChronicle(options => options.EventStore = "Quickstart");
 #endregion Snippet:Quickstart-AspNetCore-WebApplicationBuilder
 
+builder.Services.AddSingleton(Globals.JsonSerializerOptions);
+
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.AddMongoDBServices();
@@ -30,6 +33,7 @@ var app = builder.Build();
 app.UseCratisChronicle();
 #endregion Snippet:Quickstart-AspNetCore-WebApplication
 
+app.MapControllers();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
