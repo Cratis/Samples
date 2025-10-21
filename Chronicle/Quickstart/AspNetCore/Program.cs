@@ -22,14 +22,6 @@ var builder = WebApplication.CreateBuilder(args)
 
 builder.Services.AddOpenApi();
 
-#region Snippet:Quickstart-AspNetCore-ServiceValidation
-builder.Host.UseDefaultServiceProvider(_ =>
-   {
-       _.ValidateScopes = false;
-       _.ValidateOnBuild = false;
-   });
-#endregion Snippet:Quickstart-AspNetCore-ServiceValidation
-
 builder.AddMongoDBServices();
 builder.AddArtifacts();
 
