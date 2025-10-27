@@ -38,9 +38,7 @@ To be able to run the code, you'll need the following:
 ## 🏘️ Projects
 
 You'll find next to this README file the [.NET solution file](./eCommerce.sln).
-Within it you'll find 2 C# projects; **eCommerce** and **eCommerce.Specs**, if you're using VSCode or other
-editor/IDE that shows you the folder structure, these are located in [Implementation](./Implementation/) and
-[Specifications](./Specifications/).
+The sample is built around the concept of high cohesion and mixes everything into one project; backend, frontend and specs (tests).
 
 ## 🍕 Vertical slices
 
@@ -56,8 +54,6 @@ that is easy to navigate and collaborate around.
 
 To get started, the sample is setup with Chronicle running as a container, this is configured using
 [a docker compose file](./docker-compose.yml).
-
-Navigate to the [Implementation](./Implementation/) folder and run the following in your terminal:
 
 ```shell
 docker compose up -d
@@ -100,6 +96,5 @@ Cratis Chronicle Workbench should be available on: http://localhost:8080
 
 ## 🧪 Running specifications
 
-From the [Specifications](./Specifications/) folder you can run the specifications by
-running `dotnet test`. In your IDE/Editor of choice, you might have a test explorer that will
-automatically populate with the available **specifications**.
+You can run the specifications by running `dotnet test` in the terminal. In your IDE/Editor of choice, you might have a test
+explorer that will automatically populate with the available **specifications**.
