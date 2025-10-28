@@ -10,6 +10,11 @@
         "outputPath": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore/bin/Debug/net9.0/AspNetCore.dll"
     },
     {
+        "name": "Chronicle Quickstart Orleans InProcess",
+        "path": "${workspaceFolder}/Chronicle/Quickstart/Orleans.InProcess",
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Orleans.InProcess/bin/Debug/net9.0/Orleans.InProcess.dll"
+    },
+    {
         "name": "Library",
         "path": "${workspaceFolder}/Library",
         "outputPath": "${workspaceFolder}/Library/bin/Debug/net9.0/Library.dll"
