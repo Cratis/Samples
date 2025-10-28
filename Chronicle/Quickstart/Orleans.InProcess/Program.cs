@@ -4,6 +4,7 @@
 using System.Security.AccessControl;
 using Cratis.Chronicle;
 using Cratis.Chronicle.EventSequences;
+using Cratis.Chronicle.Setup;
 using Cratis.DependencyInjection;
 using Cratis.Json;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseOrleans(static siloBuilder =>
 {
     siloBuilder.UseLocalhostClustering();
-    siloBuilder.AddChronicleToSilo();
+    siloBuilder.AddChronicleToSilo(builder => builder.WithMongoDB("mongodb://localhost:27017"));
     siloBuilder.AddMemoryGrainStorage("urls");
 });
 
