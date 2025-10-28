@@ -20,7 +20,7 @@ builder.UseCratisMongoDB(
     mongo =>
     {
         mongo.Server = "mongodb://localhost:27017";
-        mongo.Database = "orleans";
+        mongo.Database = "Quickstart";
     });
 
 builder.Services
