@@ -9,12 +9,14 @@ using Cratis.DependencyInjection;
 using Cratis.Json;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using Orleans.Metadata;
 using Quickstart;
 using Quickstart.Common;
 using Quickstart.Common.AspNetCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.UseCratisApplicationModel();
 builder.AddCratisChronicle();
 builder.UseCratisMongoDB(
     mongo =>
