@@ -5,12 +5,12 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.2.1" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.1" />
-    <PackageVersion Include="Cratis.Applications" Version="17.20.5" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.20.5" />
-    <PackageVersion Include="Cratis.Applications.Orleans" Version="17.20.5" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.20.5" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.20.5" />
-    <PackageVersion Include="Cratis.Applications.Swagger" Version="17.20.5" />
+    <PackageVersion Include="Cratis.Applications" Version="17.22.0" />
+    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.22.0" />
+    <PackageVersion Include="Cratis.Applications.Orleans" Version="17.22.0" />
+    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.22.0" />
+    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.22.0" />
+    <PackageVersion Include="Cratis.Applications.Swagger" Version="17.22.0" />
     <PackageVersion Include="Cratis.Chronicle" Version="14.2.9" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.2.9" />
     <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.2.9" />
@@ -25,13 +25,13 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.9.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.14.1" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.238" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="2.0.239" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
     <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
     <!-- Testing & Specifications -->
     <PackageVersion Include="Cratis.Specifications" Version="3.0.4" />
     <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
-    <PackageVersion Include="Testcontainers" Version="4.8.0" />
+    <PackageVersion Include="Testcontainers" Version="4.8.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
