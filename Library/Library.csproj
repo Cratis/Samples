@@ -22,8 +22,6 @@
         <PackageReference Include="Cratis.Applications.MongoDB" />
         <PackageReference Include="Cratis.Applications.ProxyGenerator.Build" />
         <PackageReference Include="Cratis.Applications.Swagger" />
-
-        <PackageReference Include="Cratis.Chronicle"/>
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
         <PackageReference Include="Cratis.Chronicle.Applications" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
