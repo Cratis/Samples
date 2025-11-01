@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Applications.ModelBinding;
+using Cratis.Chronicle.Keys;
 using Cratis.Execution;
 
 namespace Library.Authors.Registration;
@@ -19,6 +20,12 @@ public record RegisterAuthor(AuthorName Name)
         return (authorId, new(Name));
     }
 }
+
+
+// public record RenameAuthor([Key]AuthorId Id, AuthorName NewName)
+// {
+//     public AuthorRenamed Handle() => new(NewName);
+// }
 
 /// <summary>
 /// Represents an event that occurs when a new author is registered.
