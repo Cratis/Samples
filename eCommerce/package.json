@@ -18,7 +18,7 @@
         "dev:debug": "yarn g:dev:debug"
     },
     "dependencies": {
-        "@cratis/applications": "17.16.2",
+        "@cratis/applications": "17.22.10",
         "@cratis/applications.react": "17.16.2",
         "@cratis/applications.react.mvvm": "17.16.2",
         "@cratis/applications.vite": "17.16.2",
