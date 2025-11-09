@@ -5,6 +5,7 @@ using System.Security.AccessControl;
 using Cratis.Chronicle;
 using Cratis.Chronicle.EventSequences;
 using Cratis.DependencyInjection;
+using Cratis.Execution;
 using Cratis.Json;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -21,7 +22,6 @@ var builder = WebApplication.CreateBuilder(args)
 #endregion Snippet:Quickstart-AspNetCore-WebApplicationBuilder
 
 builder.Services.AddSingleton(Globals.JsonSerializerOptions);
-
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
