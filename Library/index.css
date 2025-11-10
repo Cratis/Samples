@@ -62,3 +62,24 @@ h1 {
     border-radius: var(--border-radius);
     color: var(--menu-text-color);
 }
+
+/* Ensure dialog content is visible and has proper dimensions */
+.p-dialog.p-dialog-enter-done,
+.p-dialog.p-dialog-enter-active,
+.p-dialog {
+  max-height: 90vh !important;
+  min-height: fit-content !important;
+  height: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.p-dialog-content {
+  min-height: 100px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.p-dialog-mask {
+  pointer-events: auto !important;
+}
