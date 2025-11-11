@@ -9,7 +9,7 @@
     <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.22.12" />
     <PackageVersion Include="Cratis.Applications.Orleans" Version="17.22.12" />
     <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.22.12" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.22.12" />
+    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.22.13" />
     <PackageVersion Include="Cratis.Applications.Swagger" Version="17.22.13" />
     <PackageVersion Include="Cratis.Chronicle" Version="14.8.9" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.8.9" />
