@@ -17,7 +17,7 @@
     <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.8.9" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.8.9" />
     <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.8.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.2.1" />
     <PackageVersion Include="Microsoft.Orleans.Server" Version="9.2.1" />
