@@ -5,6 +5,7 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis.Chronicle" />
+        <PackageReference Include="Cratis.Fundamentals" VersionOverride="7.2.3" />
         <PackageReference Include="MongoDB.Driver" />
     </ItemGroup>
 
