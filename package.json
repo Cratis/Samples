@@ -44,7 +44,7 @@
         "@vitejs/plugin-react": "5.1.0",
         "@vitest/coverage-v8": "4.0.9",
         "autoprefixer": "10.4.21",
-        "chai": "6.2.0",
+        "chai": "6.2.1",
         "chai-as-promised": "8.0.2",
         "edit-json-file": "1.8.1",
         "eslint": "9.39.1",
