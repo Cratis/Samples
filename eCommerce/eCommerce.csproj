@@ -57,6 +57,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Cratis.Chronicle.InProcess" />
         <EmbeddedResource Include="SwaggerDark.css" />
     </ItemGroup>
 </Project>
