@@ -39,7 +39,7 @@
         "@types/node": "24.10.0",
         "@types/sinon": "17.0.4",
         "@types/sinon-chai": "4.0.0",
-        "@typescript-eslint/eslint-plugin": "8.46.3",
+        "@typescript-eslint/eslint-plugin": "8.46.4",
         "@typescript-eslint/parser": "8.46.3",
         "@vitejs/plugin-react": "5.1.0",
         "@vitest/coverage-v8": "4.0.9",
