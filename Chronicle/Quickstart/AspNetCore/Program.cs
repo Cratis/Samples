@@ -12,7 +12,6 @@ using MongoDB.Driver;
 using Quickstart;
 using Quickstart.Common;
 using Quickstart.Common.AspNetCore;
-using Scalar.AspNetCore;
 
 MongoDBDefaults.Initialize();
 
@@ -23,7 +22,6 @@ var builder = WebApplication.CreateBuilder(args)
 
 builder.Services.AddSingleton(Globals.JsonSerializerOptions);
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
 builder.AddMongoDBServices();
 builder.AddArtifacts();
@@ -34,9 +32,6 @@ app.UseCratisChronicle();
 #endregion Snippet:Quickstart-AspNetCore-WebApplication
 
 app.MapControllers();
-app.MapOpenApi();
-app.MapScalarApiReference();
-
 app.MapApi();
 
 await app.RunAsync();

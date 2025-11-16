@@ -21,12 +21,6 @@ public record RegisterAuthor(AuthorName Name)
     }
 }
 
-
-// public record RenameAuthor([Key]AuthorId Id, AuthorName NewName)
-// {
-//     public AuthorRenamed Handle() => new(NewName);
-// }
-
 /// <summary>
 /// Represents an event that occurs when a new author is registered.
 /// </summary>

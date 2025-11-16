@@ -23,7 +23,6 @@
         <PackageReference Include="Cratis.Applications.Swagger" />
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
         <PackageReference Include="Cratis.Chronicle.Applications" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">

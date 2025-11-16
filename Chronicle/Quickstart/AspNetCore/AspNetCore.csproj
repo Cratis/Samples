@@ -8,8 +8,6 @@
     <ItemGroup>
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
         <PackageReference Include="MongoDB.Driver" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-        <PackageReference Include="Scalar.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup>
