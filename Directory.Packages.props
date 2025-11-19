@@ -12,7 +12,7 @@
     <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.22.15" />
     <PackageVersion Include="Cratis.Applications.Swagger" Version="17.22.15" />
     <PackageVersion Include="Cratis.Chronicle" Version="14.10.3" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.10.3" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.10.4" />
     <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.10.3" />
     <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.10.3" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.10.3" />
