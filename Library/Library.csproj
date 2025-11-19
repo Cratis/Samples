@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
         <OutputType>Exe</OutputType>
         <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)/Features</CratisProxiesOutputPath>
         <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
@@ -12,7 +9,7 @@
         <AssemblyName>Library</AssemblyName>
         <RootNamespace>Library</RootNamespace>
 
-        <NoWarn>$(NoWarn)</NoWarn>
+        <NoWarn>$(NoWarn);CS7022</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
