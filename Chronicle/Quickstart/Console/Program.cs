@@ -28,7 +28,6 @@ Globals.Users = new Users(Globals.Database.GetCollection<User>("users"));
 Globals.DemoData = new DemoData(Globals.EventStore.EventLog);
 
 Application.Init();
-
 try
 {
     Application.Run(new Library());

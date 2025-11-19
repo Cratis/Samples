@@ -8,7 +8,7 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
-import { Result`2 } from '../../Monads/Result`2';
+import { PropertyDescriptor } from '@cratis/applications/reflection';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
@@ -26,16 +26,20 @@ export class ReserveBookValidator extends CommandValidator {
     };
 }
 
-export class ReserveBook extends Command<IReserveBook, Result`2> implements IReserveBook {
+export class ReserveBook extends Command<IReserveBook> implements IReserveBook {
     readonly route: string = '/api/lending/reserving';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new ReserveBookValidator();
+    readonly propertyDescriptors: PropertyDescriptor[] = [
+        new PropertyDescriptor('isbn', String),
+        new PropertyDescriptor('memberId', Guid),
+    ];
 
     private _isbn!: string;
     private _memberId!: Guid;
 
     constructor() {
-        super(Result`2, false);
+        super(Object, false);
     }
 
     get requestParameters(): string[] {

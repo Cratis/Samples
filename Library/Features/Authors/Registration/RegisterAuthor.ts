@@ -8,6 +8,7 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { PropertyDescriptor } from '@cratis/applications/reflection';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
 
@@ -27,6 +28,9 @@ export class RegisterAuthor extends Command<IRegisterAuthor, Guid> implements IR
     readonly route: string = '/api/authors/registration';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new RegisterAuthorValidator();
+    readonly propertyDescriptors: PropertyDescriptor[] = [
+        new PropertyDescriptor('name', String),
+    ];
 
     private _name!: string;
 

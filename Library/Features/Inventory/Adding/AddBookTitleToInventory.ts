@@ -8,6 +8,7 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { PropertyDescriptor } from '@cratis/applications/reflection';
 import { BookAddedToInventory } from './BookAddedToInventory';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
@@ -34,6 +35,12 @@ export class AddBookTitleToInventory extends Command<IAddBookTitleToInventory, B
     readonly route: string = '/api/inventory/adding';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new AddBookTitleToInventoryValidator();
+    readonly propertyDescriptors: PropertyDescriptor[] = [
+        new PropertyDescriptor('title', String),
+        new PropertyDescriptor('ISBN', String),
+        new PropertyDescriptor('authorId', Guid),
+        new PropertyDescriptor('count', Number),
+    ];
 
     private _title!: string;
     private _ISBN!: string;
