@@ -8,6 +8,7 @@
 import { Command, CommandPropertyValidators, CommandValidator } from '@cratis/applications/commands';
 import { useCommand, SetCommandValues, ClearCommandValues } from '@cratis/applications.react/commands';
 import { Validator } from '@cratis/applications/validation';
+import { PropertyDescriptor } from '@cratis/applications/reflection';
 import { ItemAddedToCart } from './ItemAddedToCart';
 import { Guid } from '@cratis/fundamentals';
 import Handlebars from 'handlebars';
@@ -32,6 +33,11 @@ export class AddItemToCart extends Command<IAddItemToCart, ItemAddedToCart> impl
     readonly route: string = '/api/carts/add-item';
     readonly routeTemplate: Handlebars.TemplateDelegate = routeTemplate;
     readonly validation: CommandValidator = new AddItemToCartValidator();
+    readonly propertyDescriptors: PropertyDescriptor[] = [
+        new PropertyDescriptor('cartId', Guid),
+        new PropertyDescriptor('sku', String),
+        new PropertyDescriptor('price', Number),
+    ];
 
     private _cartId!: Guid;
     private _sku!: string;
