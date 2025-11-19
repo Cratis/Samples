@@ -12,7 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
     optimizeDeps: {
-        exclude: ['tslib'],
+        exclude: ['tslib']
     },
     esbuild: {
         supported: {
@@ -37,11 +37,6 @@ export default defineConfig({
         isolate: false,
         fileParallelism: false,
         pool: 'threads',
-        poolOptions: {
-            forks: {
-                isolate: false,
-            },
-        },
         coverage: {
             provider: 'v8',
             exclude: [
@@ -65,7 +60,7 @@ export default defineConfig({
         EmitMetadataPlugin() as any
     ],
     server: {
-        port: 9000,
+        port: process.env.PORT ? parseInt(process.env.PORT) : 9000,
         open: false,
         proxy: {
             '/api': {
