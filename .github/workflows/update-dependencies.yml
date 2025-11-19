@@ -18,6 +18,9 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: Pull latest changes
+        run: git pull --rebase
+
       - name: Update Cratis.* NuGet packages
         run: |
           # Get all Cratis.* packages from Directory.Packages.props
@@ -40,7 +43,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git pull --rebase
           git add Directory.Packages.props
           if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -52,7 +54,9 @@ jobs:
 
       - name: Push NuGet updates
         if: steps.commit-nuget.outputs.has_changes == 'true'
-        run: git push
+        run: |
+          git pull --rebase
+          git push
 
   update-npm:
     name: Update npm Packages
@@ -70,6 +74,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Pull latest changes
+        run: git pull --rebase
 
       - name: Update @cratis/* packages in ${{ matrix.folder }}
         working-directory: ${{ matrix.folder }}
@@ -95,7 +102,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git pull --rebase
           git add package.json
           if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -107,4 +113,6 @@ jobs:
 
       - name: Push npm updates
         if: steps.commit-npm.outputs.has_changes == 'true'
-        run: git push
+        run: |
+          git pull --rebase
+          git push
