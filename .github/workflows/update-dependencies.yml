@@ -1,0 +1,108 @@
+name: Update Dependencies
+
+on:
+  repository_dispatch:
+    types: [update-dependencies]
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-nuget:
+    name: Update NuGet Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Update Cratis.* NuGet packages
+        run: |
+          # Get all Cratis.* packages from Directory.Packages.props
+          PACKAGES=$(grep -oP 'PackageVersion Include="Cratis\.\K[^"]+' Directory.Packages.props | sed 's/^/Cratis./')
+
+          # Update each package to latest version
+          for package in $PACKAGES; do
+            echo "Updating $package..."
+            LATEST=$(dotnet nuget search "$package" --take 1 --format json | jq -r '.[0].version')
+            if [ ! -z "$LATEST" ] && [ "$LATEST" != "null" ]; then
+              echo "Latest version: $LATEST"
+              # Update the version in Directory.Packages.props
+              sed -i "s/PackageVersion Include=\"$package\" Version=\"[^\"]*\"/PackageVersion Include=\"$package\" Version=\"$LATEST\"/" Directory.Packages.props
+            fi
+          done
+
+      - name: Commit NuGet updates
+        id: commit-nuget
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add Directory.Packages.props
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No NuGet package updates found"
+          else
+            git commit -m "chore: update Cratis.* NuGet packages to latest versions"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push NuGet updates
+        if: steps.commit-nuget.outputs.has_changes == 'true'
+        run: git push
+
+  update-npm:
+    name: Update npm Packages
+    runs-on: ubuntu-latest
+    needs: update-nuget
+    strategy:
+      matrix:
+        folder: [eCommerce, Library]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main # Ensure we get the latest changes from the NuGet job
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Update @cratis/* packages in ${{ matrix.folder }}
+        working-directory: ${{ matrix.folder }}
+        run: |
+          # Get all @cratis/* packages from package.json
+          PACKAGES=$(jq -r '.dependencies | keys[] | select(startswith("@cratis/"))' package.json)
+
+          # Update each package to latest version
+          for package in $PACKAGES; do
+            echo "Updating $package..."
+            LATEST=$(npm view "$package" version 2>/dev/null || echo "")
+            if [ ! -z "$LATEST" ]; then
+              echo "Latest version: $LATEST"
+              # Update the version in package.json using jq
+              jq ".dependencies[\"$package\"] = \"$LATEST\"" package.json > package.json.tmp
+              mv package.json.tmp package.json
+            fi
+          done
+
+      - name: Commit npm updates for ${{ matrix.folder }}
+        id: commit-npm
+        working-directory: ${{ matrix.folder }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add package.json
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No npm package updates found in ${{ matrix.folder }}"
+          else
+            git commit -m "chore: update @cratis/* npm packages in ${{ matrix.folder }} to latest versions"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push npm updates
+        if: steps.commit-npm.outputs.has_changes == 'true'
+        run: git push
