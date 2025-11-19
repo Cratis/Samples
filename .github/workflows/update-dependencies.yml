@@ -26,7 +26,8 @@ jobs:
           # Update each package to latest version
           for package in $PACKAGES; do
             echo "Updating $package..."
-            LATEST=$(dotnet nuget search "$package" --take 1 --format json | jq -r '.[0].version')
+            # Use NuGet API directly to get latest version
+            LATEST=$(curl -s "https://api.nuget.org/v3-flatcontainer/${package,,}/index.json" | jq -r '.versions[-1]')
             if [ ! -z "$LATEST" ] && [ "$LATEST" != "null" ]; then
               echo "Latest version: $LATEST"
               # Update the version in Directory.Packages.props
@@ -55,7 +56,6 @@ jobs:
   update-npm:
     name: Update npm Packages
     runs-on: ubuntu-latest
-    needs: update-nuget
     strategy:
       matrix:
         folder: [eCommerce, Library]
