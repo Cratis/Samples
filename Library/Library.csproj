@@ -24,7 +24,8 @@
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <Compile Remove="**/when_*/*.cs" />
-        <Compile Remove="./given/*.cs" />
+        <Compile Remove="**/for_*/*.cs" />
+        <Compile Remove="**/given/*.cs" />
         <Compile Remove="./Specs/*.cs" />
     </ItemGroup>
 

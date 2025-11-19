@@ -13,7 +13,6 @@ using Orleans.Metadata;
 using Quickstart;
 using Quickstart.Common;
 using Quickstart.Common.AspNetCore;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.UseCratisApplicationModel();
@@ -38,16 +37,11 @@ builder.Host.UseOrleans(static siloBuilder =>
     siloBuilder.AddMemoryGrainStorage("urls");
 });
 
-builder.Services.AddOpenApi();
-
 builder.AddMongoDBServices();
 builder.AddArtifacts();
 
 var app = builder.Build();
 app.UseCratisChronicle();
-
-app.MapOpenApi();
-app.MapScalarApiReference();
 
 app.MapApi();
 
