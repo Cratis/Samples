@@ -1,5 +1,8 @@
 # Cratis Samples
 
+[![Build Samples Solution](https://github.com/Cratis/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/build.yml)
+[![Trigger documentation build](https://github.com/Cratis/Samples/actions/workflows/documentation.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/documentation.yml)
+
 This repository consists of samples for the things you find in the Cratis universe.
 
 | Project | Description |
