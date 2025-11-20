@@ -7,11 +7,18 @@ on:
 
 jobs:
   update-nuget:
+
     name: Update NuGet Packages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Wait for NuGet validation
+        if: >
+          github.event_name == 'repository_dispatch' &&
+          github.event.action == 'update-dependencies'
+        run: sleep 600
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
