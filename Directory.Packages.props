@@ -5,12 +5,12 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.2.3" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.3" />
-    <PackageVersion Include="Cratis.Applications" Version="17.24.2" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.24.2" />
-    <PackageVersion Include="Cratis.Applications.Orleans" Version="17.24.2" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.24.2" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.24.2" />
-    <PackageVersion Include="Cratis.Applications.Swagger" Version="17.24.2" />
+    <PackageVersion Include="Cratis.Applications" Version="17.24.3" />
+    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.24.3" />
+    <PackageVersion Include="Cratis.Applications.Orleans" Version="17.24.3" />
+    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.24.3" />
+    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.24.3" />
+    <PackageVersion Include="Cratis.Applications.Swagger" Version="17.24.3" />
     <PackageVersion Include="Cratis.Chronicle" Version="14.11.1" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.11.1" />
     <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.11.1" />
