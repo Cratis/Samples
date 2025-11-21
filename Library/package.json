@@ -18,10 +18,10 @@
     "dev:debug": "yarn g:dev:debug"
   },
   "dependencies": {
-    "@cratis/applications": "17.24.2",
-    "@cratis/applications.react": "17.24.2",
-    "@cratis/applications.react.mvvm": "17.24.2",
-    "@cratis/applications.vite": "17.24.2",
+    "@cratis/applications": "17.24.3",
+    "@cratis/applications.react": "17.24.3",
+    "@cratis/applications.react.mvvm": "17.24.3",
+    "@cratis/applications.vite": "17.24.3",
     "allotment": "1.20.4",
     "echarts": "6.0.0",
     "mobx": "6.15.0",
