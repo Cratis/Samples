@@ -5,10 +5,10 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.2.3" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.3" />
-    <PackageVersion Include="Cratis.Applications" Version="17.24.6" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.24.6" />
+    <PackageVersion Include="Cratis.Applications" Version="17.24.8" />
+    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.24.8" />
     <PackageVersion Include="Cratis.Applications.Orleans" Version="17.24.8" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.24.6" />
+    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.24.8" />
     <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.24.8" />
     <PackageVersion Include="Cratis.Applications.Swagger" Version="17.24.8" />
     <PackageVersion Include="Cratis.Chronicle" Version="14.11.4" />
