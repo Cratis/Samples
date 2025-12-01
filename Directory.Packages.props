@@ -11,7 +11,7 @@
     <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.Swagger" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Chronicle" Version="14.12.1" />
+    <PackageVersion Include="Cratis.Chronicle" Version="14.12.3" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.12.3" />
     <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.12.3" />
     <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.12.3" />
