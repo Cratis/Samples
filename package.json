@@ -29,7 +29,7 @@
         "update": "node ./run-task-on-workspaces.js update"
     },
     "devDependencies": {
-        "@eslint/eslintrc": "3.3.1",
+        "@eslint/eslintrc": "3.3.3",
         "@eslint/js": "9.39.1",
         "@tailwindcss/postcss": "4.1.17",
         "@tailwindcss/vite": "4.1.17",
