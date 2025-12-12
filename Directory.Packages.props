@@ -3,20 +3,20 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.2.6" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.6" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.2.8" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.2.8" />
     <PackageVersion Include="Cratis.Applications" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.Orleans" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.26.1" />
     <PackageVersion Include="Cratis.Applications.Swagger" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Chronicle" Version="14.13.8" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.13.8" />
-    <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.13.8" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.13.8" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.13.8" />
-    <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.13.8" />
+    <PackageVersion Include="Cratis.Chronicle" Version="14.13.9" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="14.13.9" />
+    <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.13.9" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.13.9" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="14.13.9" />
+    <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.13.9" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.2.1" />
     <PackageVersion Include="Microsoft.Orleans.Server" Version="9.2.1" />
