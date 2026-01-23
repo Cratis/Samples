@@ -19,7 +19,7 @@
     <PackageVersion Include="Cratis.Chronicle.InProcess" Version="14.13.10" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.2.1" />
-    <PackageVersion Include="Microsoft.Orleans.Server" Version="9.2.1" />
+    <PackageVersion Include="Microsoft.Orleans.Server" Version="10.0.0" />
     <PackageVersion Include="MongoDB.Driver" Version="3.6.0" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.10.3" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
