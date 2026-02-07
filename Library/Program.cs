@@ -3,7 +3,7 @@
 
 using System.Globalization;
 using System.Reflection;
-using Cratis.Applications.Swagger;
+using Cratis.Arc.Swagger;
 using Cratis.Chronicle.AspNetCore;
 
 // Force invariant culture for the Backend

@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 global using System.Reactive.Subjects;
-global using Cratis.Applications.Commands.ModelBound;
-global using Cratis.Applications.Queries.ModelBound;
+global using Cratis.Arc.Commands;
+global using Cratis.Arc.Commands.ModelBound;
+global using Cratis.Arc.Queries;
+global using Cratis.Arc.Queries.ModelBound;
 global using Cratis.Chronicle.Aggregates;
 global using Cratis.Chronicle.Events;
 global using Cratis.Chronicle.Events.Constraints;

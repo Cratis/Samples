@@ -251,7 +251,7 @@ public class AuthorProjection : IProjectionFor<Author>
 
 - Commands are represented as `record` types.
 - Commands are immutable and should use positional parameters.
-- Commands should be prefixed with the `[Command]` attribute from `Cratis.Applications.Commands.ModelBound` namespace.
+- Commands should be prefixed with the `[Command]` attribute from `Cratis.Arc.Commands.ModelBound` namespace.
 - **Commands should have a single method `Handle()` that returns the side effects of the command.**
 - **CRITICAL: The Handle() method is defined directly on the command record itself.**
 - **DO NOT create separate handler classes (e.g., ICommandHandler implementations) - this is NOT the pattern we use.**
@@ -265,7 +265,7 @@ public class AuthorProjection : IProjectionFor<Author>
 - Events are appended to the event log based on a convention for what the `EventSourceId`is
     - If the command has a parameter marked with the `[Key]`attribute from `Cratis.Chronicle.Keys` namespace, this is used as the `EventSourceId`.
     - If the command has a parameter with a type that implements `EventSourceId` from `Cratis.Chronicle.Events` namespace, this is used as the `EventSourceId`.
-    - As a last resort, if one can't resolve the `EventSourceId` and it has to be programatically provided, the command can implement `ICanProvideEventSourceId` interface from `Cratis.Chronicle.Applications.Commands` namespace, the `GetEventSourceId()` method is then used to resolve the `EventSourceId`. Most things does not need to do this, as the other two options are preferred.
+    - As a last resort, if one can't resolve the `EventSourceId` and it has to be programatically provided, the command can implement `ICanProvideEventSourceId` interface from `Cratis.Arc.Chronicle.Commands` namespace, the `GetEventSourceId()` method is then used to resolve the `EventSourceId`. Most things does not need to do this, as the other two options are preferred.
 
 **✅ CORRECT Example:**
 
@@ -293,7 +293,7 @@ public class AddBookTitleToInventoryHandler : ICommandHandler<AddBookTitleToInve
 ## Command Input Validation
 
 - Input validation should be done using concepts that encapsulate the validation logic.
-- Use the `CommandValidator<T>` class from `Cratis.Applications.Commands` namespace to validate commands.
+- Use the `CommandValidator<T>` class from `Cratis.Arc.Commands` namespace to validate commands.
 
 Example:
 
@@ -415,7 +415,7 @@ public record BookAddedToInventory(BookTitle Title, AuthorId Author, int Count);
 
 - Read Models are represented as `record` types.
 - Read Models are immutable and should use positional parameters.
-- Read Models should be prefixed with the `[ReadModel]` attribute from `Cratis.Applications.Queries.ModelBound` namespace.
+- Read Models should be prefixed with the `[ReadModel]` attribute from `Cratis.Arc.Queries.ModelBound` namespace.
 - Read Models are produced by projecting events from other slices.
 - More details about all the capabilities of projections can be found in the [Cratis documentation](https://www.cratis.io/docs/Chronicle/recipes/projections).
 
@@ -561,7 +561,7 @@ public record StockDecreased(ISBN Isbn, BookStock StockBeforeDecrease);
 Example of an integration spec:
 
 ```csharp
-using Cratis.Applications.Commands;
+using Cratis.Arc.Commands;
 using Cratis.Chronicle.Events;
 using Cratis.Chronicle.XUnit.Integration.Events;
 using context = Library.Authors.Registration.when_registering.and_there_already_exists_one_with_same_name.context;

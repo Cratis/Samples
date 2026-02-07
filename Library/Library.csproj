@@ -13,13 +13,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Cratis.Arc.Chronicle" />
         <PackageReference Include="Cratis.Fundamentals" />
-        <PackageReference Include="Cratis.Applications" />
-        <PackageReference Include="Cratis.Applications.MongoDB" />
-        <PackageReference Include="Cratis.Applications.ProxyGenerator.Build" />
-        <PackageReference Include="Cratis.Applications.Swagger" />
+        <PackageReference Include="Cratis.Arc" />
+        <PackageReference Include="Cratis.Arc.MongoDB" />
+        <PackageReference Include="Cratis.Arc.ProxyGenerator.Build" />
+        <PackageReference Include="Cratis.Arc.Swagger" />
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
-        <PackageReference Include="Cratis.Chronicle.Applications" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">

@@ -10,7 +10,7 @@
         <PackageReference Include="MongoDB.Driver" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Cratis.Applications" />
+        <PackageReference Include="Cratis.Arc" />
         <ProjectReference Include="../Common/Common.csproj" />
         <ProjectReference Include="../Common.AspNetCore/Common.AspNetCore.csproj" />
     </ItemGroup>
