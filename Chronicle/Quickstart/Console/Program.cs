@@ -11,7 +11,7 @@ using Terminal.Gui;
 using Cratis.Chronicle;
 
 // Explicitly use the Chronicle Options to set the naming policy to camelCase for the projection/reducer sinks
-using var client = new ChronicleClient(ChronicleOptions.FromUrl("http://localhost:35000").WithCamelCaseNamingPolicy());
+using var client = new ChronicleClient(ChronicleOptions.FromDevelopmentConnectionString().WithCamelCaseNamingPolicy());
 var eventStore = await client.GetEventStore("Quickstart");
 #endregion Snippet:Quickstart-Console-Setup
 
