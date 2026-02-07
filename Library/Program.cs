@@ -3,6 +3,7 @@
 
 using System.Globalization;
 using System.Reflection;
+using Cratis.Arc;
 using Cratis.Arc.Swagger;
 using Cratis.Chronicle.AspNetCore;
 
@@ -13,13 +14,15 @@ CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 
 var builder = WebApplication.CreateBuilder(args)
-    .UseCratisApplicationModel(options =>
-    {
-        options.GeneratedApis.RoutePrefix = "api";
-        options.GeneratedApis.IncludeCommandNameInRoute = false;
-        options.GeneratedApis.SegmentsToSkipForRoute = 1;
-    })
-    .AddCratisChronicle(options => options.EventStore = "Library", configure: _ => _.WithApplicationModel());
+    .AddCratisArc(
+        options =>
+        {
+            options.GeneratedApis.RoutePrefix = "api";
+            options.GeneratedApis.IncludeCommandNameInRoute = false;
+            options.GeneratedApis.SegmentsToSkipForRoute = 1;
+        },
+        builder => builder.WithChronicle())
+    .AddCratisChronicle(options => options.EventStore = "Library");
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
 builder.Services.AddMvc();
@@ -35,7 +38,7 @@ app.UseStaticFiles();
 
 app.UseWebSockets();
 app.MapControllers();
-app.UseCratisApplicationModel();
+app.UseCratisArc();
 app.UseCratisChronicle();
 
 app.UseSwagger();

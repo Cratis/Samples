@@ -13,12 +13,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cratis.Arc.Chronicle" />
         <PackageReference Include="Cratis.Fundamentals" />
         <PackageReference Include="Cratis.Arc" />
         <PackageReference Include="Cratis.Arc.MongoDB" />
         <PackageReference Include="Cratis.Arc.ProxyGenerator.Build" />
         <PackageReference Include="Cratis.Arc.Swagger" />
+        <PackageReference Include="Cratis.Arc.Chronicle" />
         <PackageReference Include="Cratis.Chronicle.AspNetCore" />
     </ItemGroup>
 
@@ -43,7 +43,7 @@
         <PackageReference Include="NSubstitute" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Cratis.Specifications.XUnit" />
-        <PackageReference Include="Cratis.Chronicle.XUnit" />
+        <PackageReference Include="Cratis.Chronicle.Testing" />
         <PackageReference Include="Cratis.Chronicle.XUnit.Integration" />
         <PackageReference Include="Testcontainers" />
     </ItemGroup>
