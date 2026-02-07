@@ -5,27 +5,22 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.5.0" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.5.0" />
-    <PackageVersion Include="Cratis.Applications" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Applications.MongoDB" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Applications.Orleans" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Applications.Orleans.MongoDB" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Applications.ProxyGenerator.Build" Version="17.26.1" />
-    <PackageVersion Include="Cratis.Applications.Swagger" Version="17.26.1" />
+    <PackageVersion Include="Cratis.Arc" Version="19.0.1" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="19.0.1" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="19.0.1" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="19.0.1" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="19.0.1" />
     <PackageVersion Include="Cratis.Chronicle" Version="15.1.3" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.1.3" />
-    <PackageVersion Include="Cratis.Chronicle.Applications" Version="14.13.10" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit" Version="14.13.10" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.1.3" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.1.3" />
     <PackageVersion Include="Cratis.Chronicle.InProcess" Version="15.1.3" />
     <!-- Analysis -->
-    <PackageVersion Include="Microsoft.Orleans.Analyzers" Version="9.2.1" />
-    <PackageVersion Include="Microsoft.Orleans.Server" Version="10.0.0" />
     <PackageVersion Include="MongoDB.Driver" Version="3.6.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.10.3" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.298" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.0.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
     <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
     <!-- Testing & Specifications -->
     <PackageVersion Include="Cratis.Specifications" Version="3.0.4" />
@@ -35,6 +30,6 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="Microsoft.NET.Test.SDK" Version="18.0.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.2" />
   </ItemGroup>
 </Project>
