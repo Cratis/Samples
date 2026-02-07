@@ -3,7 +3,7 @@
 
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { DialogResult, useDialogContext } from '@cratis/applications.react/dialogs';
+import { DialogResult, useDialogContext } from '@cratis/arc.react/dialogs';
 import { InputText } from 'primereact/inputtext';
 import { AddBookTitleToInventory } from './AddBookTitleToInventory';
 import { useState } from 'react';

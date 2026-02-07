@@ -4,7 +4,7 @@
 import { useTheme } from './Utils/useTheme';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LayoutProvider } from './Layout/Default/context/LayoutContext';
-import { DialogComponents } from '@cratis/applications.react/dialogs';
+import { DialogComponents } from '@cratis/arc.react/dialogs';
 import { BusyIndicatorDialog, ConfirmationDialog } from 'Components/Dialogs';
 import { DefaultLayout } from './Layout/Default/DefaultLayout';
 import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';

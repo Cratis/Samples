@@ -6,7 +6,7 @@ import { MenuItem } from 'primereact/menuitem';
 import * as mdIcons from 'react-icons/md';
 import { AddBook } from './Adding/AddBook';
 import { Listing } from './Listing/Listing';
-import { DialogResult, useDialog } from '@cratis/applications.react/dialogs';
+import { DialogResult, useDialog } from '@cratis/arc.react/dialogs';
 import { Page } from '../../Components/Common';
 
 export const Inventory = () => {

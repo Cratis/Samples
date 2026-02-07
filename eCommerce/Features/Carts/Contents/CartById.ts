@@ -4,8 +4,8 @@
 
 /* eslint-disable sort-imports */
 // eslint-disable-next-line header/header
-import { ObservableQueryFor, QueryResultWithState } from '@cratis/applications/queries';
-import { useObservableQuery } from '@cratis/applications.react/queries';
+import { ObservableQueryFor, QueryResultWithState } from '@cratis/arc/queries';
+import { useObservableQuery } from '@cratis/arc.react/queries';
 import { Guid } from '@cratis/fundamentals';
 import { Cart } from './Cart';
 import Handlebars from 'handlebars';
