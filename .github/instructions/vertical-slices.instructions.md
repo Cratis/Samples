@@ -628,7 +628,7 @@ Example of a dialog that sits inside a slice folder called `Registration` (in th
 ```tsx
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { DialogResult, useDialogContext } from '@cratis/applications.react/dialogs';
+import { DialogResult, useDialogContext } from '@cratis/arc.react/dialogs';
 import { InputText } from 'primereact/inputtext';
 import { RegisterAuthor } from './Registration'; // Import from the same slice folder
 import { useState } from 'react';
@@ -712,7 +712,7 @@ import { MenuItem } from 'primereact/menuitem';
 import * as mdIcons from 'react-icons/md';
 import { AddAuthor } from './Registration/AddAuthor'; // Import from slice folder
 import { Listing } from './Listing/Listing'; // Import from slice folder
-import { DialogResult, useDialog } from '@cratis/applications.react/dialogs';
+import { DialogResult, useDialog } from '@cratis/arc.react/dialogs';
 import { Page } from '../../Components/Common';
 
 export const Authors = () => {
