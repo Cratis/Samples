@@ -13,13 +13,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cratis.Fundamentals" />
-        <PackageReference Include="Cratis.Arc" />
+        <PackageReference Include="Cratis" />
         <PackageReference Include="Cratis.Arc.MongoDB" />
         <PackageReference Include="Cratis.Arc.ProxyGenerator.Build" />
-        <PackageReference Include="Cratis.Arc.Swagger" />
-        <PackageReference Include="Cratis.Arc.Chronicle" />
-        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">

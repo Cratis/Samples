@@ -9,6 +9,7 @@ services:
       - 11111:11111
       - 30000:30000
       - 35000:35000
+    pull_policy: always
 
   aspire-dashboard:
     image: mcr.microsoft.com/dotnet/aspire-dashboard:latest
