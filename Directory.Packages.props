@@ -6,11 +6,11 @@
     <PackageVersion Include="Cratis.Fundamentals" Version="7.5.1" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.5.1" />
     <PackageVersion Include="Cratis" Version="19.0.3" />
-    <PackageVersion Include="Cratis.Arc" Version="19.0.4" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="19.0.4" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="19.0.4" />
-    <PackageVersion Include="Cratis.Arc.Swagger" Version="19.0.4" />
-    <PackageVersion Include="Cratis.Arc.Chronicle" Version="19.0.4" />
+    <PackageVersion Include="Cratis.Arc" Version="19.0.6" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="19.0.6" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="19.0.6" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="19.0.6" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="19.0.6" />
     <PackageVersion Include="Cratis.Chronicle" Version="15.1.4" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.1.4" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.1.4" />
