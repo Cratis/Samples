@@ -18,7 +18,7 @@
     "dev:debug": "yarn g:dev:debug"
   },
   "dependencies": {
-    "@cratis/arc": "19.1.1",
+    "@cratis/arc": "19.1.2",
     "@cratis/arc.react": "19.1.1",
     "@cratis/arc.react.mvvm": "19.1.1",
     "@cratis/arc.vite": "19.1.1",
