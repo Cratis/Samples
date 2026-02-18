@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Solution>
+    <Configurations>
+        <Platform Name="Any CPU" />
+        <Platform Name="x64" />
+        <Platform Name="x86" />
+    </Configurations>
+    <Folder Name="/Chronicle/" />
+    <Folder Name="/Chronicle/Quickstart/">
+        <Project Path="Chronicle/Quickstart/AspNetCore/AspNetCore.csproj" />
+        <Project Path="Chronicle/Quickstart/Common.AspNetCore/Common.AspNetCore.csproj" />
+        <Project Path="Chronicle/Quickstart/Common/Common.csproj" />
+        <Project Path="Chronicle/Quickstart/Console/Console.csproj" />
+    </Folder>
+    <Project Path="Library/Library.csproj" />
+</Solution>
