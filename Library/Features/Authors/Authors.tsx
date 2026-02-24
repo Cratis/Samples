@@ -6,7 +6,7 @@ import { MenuItem } from 'primereact/menuitem';
 import * as mdIcons from 'react-icons/md';
 import { AddAuthor } from './Registration';
 import { Listing } from './Listing/Listing';
-import { DialogResult, useDialog } from '@cratis/arc.react/dialogs';
+import { useDialog } from '@cratis/arc.react/dialogs';
 import { Page } from '../../Components/Common';
 
 export const Authors = () => {
@@ -23,7 +23,7 @@ export const Authors = () => {
     ];
 
     return (
-        <Page title="Authors">
+        <Page title="Authors" panel>
             <Menubar model={menuItems} />
             <Listing />
 
