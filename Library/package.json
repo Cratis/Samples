@@ -21,7 +21,7 @@
     "@cratis/arc": "19.6.0",
     "@cratis/arc.react": "19.6.0",
     "@cratis/arc.react.mvvm": "19.6.0",
-    "@cratis/arc.vite": "19.6.0",
+    "@cratis/arc.vite": "19.6.1",
     "allotment": "1.20.5",
     "echarts": "6.0.0",
     "mobx": "6.15.0",
