@@ -45,7 +45,7 @@
         "@typescript-eslint/parser": "8.55.0",
         "@vitejs/plugin-react": "5.1.4",
         "@vitest/coverage-v8": "4.0.18",
-        "autoprefixer": "10.4.24",
+        "autoprefixer": "10.4.27",
         "chai": "6.2.2",
         "chai-as-promised": "8.0.2",
         "edit-json-file": "1.8.1",
