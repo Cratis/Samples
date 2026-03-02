@@ -32,7 +32,7 @@
         "@eslint/eslintrc": "3.3.4",
         "@eslint/js": "10.0.1",
         "@tailwindcss/postcss": "4.2.1",
-        "@tailwindcss/vite": "4.1.18",
+        "@tailwindcss/vite": "4.2.1",
         "@types/chai": "5.2.3",
         "@types/chai-as-promised": "8.0.2",
         "@types/mocha": "10.0.10",
