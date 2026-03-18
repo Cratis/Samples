@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@cratis/arc": "19.9.8",
-    "@cratis/arc.react": "19.9.8",
+    "@cratis/arc.react": "19.10.5",
     "@cratis/arc.react.mvvm": "19.9.8",
     "@cratis/arc.vite": "19.9.8",
     "allotment": "1.20.5",
