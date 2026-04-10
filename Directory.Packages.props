@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.7.3" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.7.3" />
-    <PackageVersion Include="Cratis" Version="20.4.0" />
+    <PackageVersion Include="Cratis" Version="20.5.1" />
     <PackageVersion Include="Cratis.Arc" Version="20.5.1" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.5.1" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.5.1" />
