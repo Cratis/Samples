@@ -18,10 +18,10 @@
     "dev:debug": "yarn g:dev:debug"
   },
   "dependencies": {
-    "@cratis/arc": "20.5.1",
-    "@cratis/arc.react": "20.5.1",
-    "@cratis/arc.react.mvvm": "20.5.1",
-    "@cratis/arc.vite": "20.5.1",
+    "@cratis/arc": "20.7.0",
+    "@cratis/arc.react": "20.7.0",
+    "@cratis/arc.react.mvvm": "20.7.0",
+    "@cratis/arc.vite": "20.7.0",
     "allotment": "1.20.5",
     "echarts": "6.0.0",
     "mobx": "6.15.0",
