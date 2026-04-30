@@ -11,10 +11,10 @@
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.11.1" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="20.11.1" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="20.11.1" />
-    <PackageVersion Include="Cratis.Chronicle" Version="15.19.1" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.19.1" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.19.1" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.19.1" />
+    <PackageVersion Include="Cratis.Chronicle" Version="15.19.2" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.19.2" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.19.2" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.19.2" />
     <PackageVersion Include="Cratis.Chronicle.InProcess" Version="15.3.0" />
     <!-- Analysis -->
     <PackageVersion Include="MongoDB.Driver" Version="3.7.1" />
@@ -24,8 +24,8 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
     <PackageVersion Include="Terminal.Gui" Version="2.0.0" />
     <!-- Testing & Specifications -->
-    <PackageVersion Include="Cratis.Specifications" Version="3.0.4" />
-    <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.4" />
+    <PackageVersion Include="Cratis.Specifications" Version="3.0.5" />
+    <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.5" />
     <PackageVersion Include="Testcontainers" Version="4.11.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
