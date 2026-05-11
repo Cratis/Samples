@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args)
             options.GeneratedApis.IncludeCommandNameInRoute = false;
             options.GeneratedApis.SegmentsToSkipForRoute = 1;
         },
-        builder => builder.WithChronicle())
+        builder => Microsoft.AspNetCore.Builder.ArcBuilderExtensions.WithChronicle(builder))
     .AddCratisChronicle(options => options.EventStore = "Library");
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
