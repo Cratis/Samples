@@ -3,9 +3,7 @@
 
 using System.Globalization;
 using System.Reflection;
-using Cratis.Arc;
-using Cratis.Arc.Swagger;
-using Cratis.Chronicle.AspNetCore;
+using AspNetCoreArcBuilderExtensions = Microsoft.AspNetCore.Builder.ArcBuilderExtensions;
 
 // Force invariant culture for the Backend
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
@@ -21,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args)
             options.GeneratedApis.IncludeCommandNameInRoute = false;
             options.GeneratedApis.SegmentsToSkipForRoute = 1;
         },
-        builder => Microsoft.AspNetCore.Builder.ArcBuilderExtensions.WithChronicle(builder))
+        arcBuilder => AspNetCoreArcBuilderExtensions.WithChronicle(arcBuilder))
     .AddCratisChronicle(options => options.EventStore = "Library");
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
