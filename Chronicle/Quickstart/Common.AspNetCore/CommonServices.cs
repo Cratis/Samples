@@ -24,7 +24,6 @@ public static class CommonServices
         builder.Services.AddTransient<OverdueBooks>();
         builder.Services.AddTransient<ReservedBooks>();
         builder.Services.AddTransient<Users>();
-        builder.Services.AddTransient<DemoData>();
         #endregion Snippet:Quickstart-AspNetCore-Services
     }
 }

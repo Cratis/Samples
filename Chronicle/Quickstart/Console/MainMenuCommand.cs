@@ -5,7 +5,6 @@ namespace Quickstart;
 
 public enum MainMenuCommand
 {
-    InitializeWithBooks,
     AddBookToInventory,
     BorrowBook,
     ReturnBook,

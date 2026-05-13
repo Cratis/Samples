@@ -11,7 +11,6 @@ public static class Api
 {
     public static void MapApi(this WebApplication app)
     {
-        app.MapGet("/api/demo-data", ([FromServices] DemoData demoData) => demoData.Initialize());
         app.MapPost("/api/books/reserve", async ([FromServices] IEventLog eventLog) =>
             await eventLog.Append(Guid.NewGuid(), new BookReservationPlaced(Guid.NewGuid())));
 

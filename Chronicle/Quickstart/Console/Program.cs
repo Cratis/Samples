@@ -26,7 +26,6 @@ Globals.BorrowedBooks = new BorrowedBooks(Globals.Database.GetCollection<Borrowe
 Globals.OverdueBooks = new OverdueBooks(Globals.Database.GetCollection<OverdueBook>("overdueBooks"));
 Globals.ReservedBooks = new ReservedBooks(Globals.Database.GetCollection<ReservedBook>("reservedBooks"));
 Globals.Users = new Users(Globals.Database.GetCollection<User>("users"));
-Globals.DemoData = new DemoData(Globals.EventStore.EventLog);
 
 Application.Init();
 try

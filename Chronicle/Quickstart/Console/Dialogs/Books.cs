@@ -2,14 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.ObjectModel;
-using MongoDB.Driver;
 using Terminal.Gui;
 
 namespace Quickstart.Dialogs;
 
 public partial class Books
 {
-    public Books(Action<Book>? returnAction = default)
+    public Books(Func<Book, Task>? returnAction = default)
     {
         InitializeComponent();
 
@@ -20,12 +19,20 @@ public partial class Books
         };
         AddButton(button);
 
-        var books = Globals.Books.GetAll();
-        _books.Source = new ListWrapper<string>([.. books.Select(_ => _.Title)]);
+        IList<Book> books = [.. Globals.Books.GetAll()];
+        _books.Source = books.Count > 0
+            ? new ListWrapper<string>([.. books.Select(b => b.Title ?? string.Empty)])
+            : new ListWrapper<string>(["(No books in inventory)"]);
 
-        button.Accepting += (s, e) =>
+        button.Accepting += async (s, e) =>
         {
-            returnAction?.Invoke(books.ElementAt(_books.SelectedItem));
+            var index = _books.SelectedItem;
+
+            if (returnAction is not null && books.Count > 0 && index >= 0 && index < books.Count)
+            {
+                await returnAction(books[index]);
+            }
+
             Application.RequestStop();
         };
     }
