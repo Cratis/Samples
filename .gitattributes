@@ -9,3 +9,4 @@
 
 *.cs diff=csharp
 *.sln text eol=crlf
+*.slnx text eol=lf
