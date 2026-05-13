@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using Cratis.Serialization;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Quickstart;
@@ -9,12 +10,9 @@ using Terminal.Gui;
 
 #region Snippet:Quickstart-Console-Setup
 using Cratis.Chronicle;
-using Cratis.Serialization;
 
-// Explicitly use the Chronicle Options to set the naming policy to camelCase for the projection/reducer sinks
-using var client = new ChronicleClient(
-    options: ChronicleOptions.FromDevelopmentConnectionString(),
-    namingPolicy: new CamelCaseNamingPolicy());
+// Explicitly set the naming policy to camelCase for the projection/reducer sinks
+using var client = new ChronicleClient(ChronicleOptions.FromDevelopmentConnectionString(), namingPolicy: new CamelCaseNamingPolicy());
 var eventStore = await client.GetEventStore("Quickstart");
 #endregion Snippet:Quickstart-Console-Setup
 
