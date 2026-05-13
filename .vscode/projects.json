@@ -2,26 +2,21 @@
     {
         "name": "Chronicle Quickstart Console",
         "path": "${workspaceFolder}/Chronicle/Quickstart/Console",
-        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Console/bin/Debug/net9.0/Console.dll"
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Console/bin/Debug/net10.0/Console.dll"
     },
     {
         "name": "Chronicle Quickstart AspNetCore",
         "path": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore",
-        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore/bin/Debug/net9.0/AspNetCore.dll"
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/AspNetCore/bin/Debug/net10.0/AspNetCore.dll"
     },
     {
         "name": "Chronicle Quickstart Orleans InProcess",
         "path": "${workspaceFolder}/Chronicle/Quickstart/Orleans.InProcess",
-        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Orleans.InProcess/bin/Debug/net9.0/Orleans.InProcess.dll"
+        "outputPath": "${workspaceFolder}/Chronicle/Quickstart/Orleans.InProcess/bin/Debug/net10.0/Orleans.InProcess.dll"
     },
     {
         "name": "Library",
         "path": "${workspaceFolder}/Library",
-        "outputPath": "${workspaceFolder}/Library/bin/Debug/net9.0/Library.dll"
-    },
-    {
-        "name": "eCommerce",
-        "path": "${workspaceFolder}/eCommerce",
-        "outputPath": "${workspaceFolder}/eCommerce/bin/Debug/net9.0/eCommerce.dll"
+        "outputPath": "${workspaceFolder}/Library/bin/Debug/net10.0/Library.dll"
     }
 ]

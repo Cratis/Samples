@@ -59,7 +59,7 @@ jobs:
     needs: frontend-install
     strategy:
       matrix:
-        project: [Library, eCommerce]
+        project: [Library]
 
     steps:
     - name: Checkout code
