@@ -23,13 +23,13 @@ jobs:
         dotnet-version: '10.0.x'  # Use .NET 10
 
     - name: Restore dependencies
-      run: dotnet restore Samples.sln
+      run: dotnet restore Samples.slnx
 
     - name: Build
-      run: dotnet build Samples.sln --configuration Release --no-restore
+      run: dotnet build Samples.slnx --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test Samples.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test Samples.slnx --configuration Release --no-build --verbosity normal
 
   frontend-install:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
     needs: frontend-install
     strategy:
       matrix:
-        project: [Library, eCommerce]
+        project: [Library]
 
     steps:
     - name: Checkout code

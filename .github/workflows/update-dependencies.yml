@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: [eCommerce, Library]
+        folder: [Library]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
