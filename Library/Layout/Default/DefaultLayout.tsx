@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { LayoutContext } from './context/LayoutContext';
-import { generatePath, Outlet, useParams } from 'react-router-dom';
+import { generatePath, Outlet } from 'react-router-dom';
 import { IMenuItemGroup } from './Sidebar/MenuItem/MenuItem';
 import { MenuProvider } from './context/MenuContext';
 import { SidebarMenu } from './Sidebar/SidebarMenu';
@@ -10,7 +10,7 @@ import css from './DefaultLayout.module.css';
 import { TopBar } from './TopBar/TopBar';
 import { Footer } from './Footer';
 import { ErrorBoundary } from '@cratis/components/Common';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 interface IDefaultLayoutProps {
     menu?: IMenuItemGroup[];

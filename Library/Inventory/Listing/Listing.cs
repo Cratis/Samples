@@ -22,7 +22,7 @@ public class AuthorQueries(IMongoCollection<Book> collection) : ControllerBase
     public async Task<IEnumerable<Book>> GetAll()
     {
         var result = await collection.FindAsync(_ => true);
-        return result.ToList();
+        return await result.ToListAsync();
     }
 
     [HttpGet("observe")]
