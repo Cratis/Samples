@@ -1,0 +1,34 @@
+{
+    "extends": "../../.frontend/tsconfig.base.json",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "baseUrl": "..",
+        "paths": {
+            "Components/*": [
+                "Components/*"
+            ],
+            "Components": [
+                "Components/index"
+            ],
+            "Layout/*": [
+                "Layout/*"
+            ],
+            "Authors/*": [
+                "Authors/*"
+            ],
+            "Inventory/*": [
+                "Inventory/*"
+            ],
+            "Lending/*": [
+                "Lending/*"
+            ]
+        }
+    },
+    "include": [
+        "../**/*.ts",
+        "../**/*.tsx"
+    ],
+    "exclude": [
+        "vite.config.ts"
+    ]
+}

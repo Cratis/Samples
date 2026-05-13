@@ -4,18 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "clean": "yarn g:clean",
+    "dev": "yarn g:dev",
     "build": "yarn g:build",
     "lint": "yarn g:lint",
     "lint:ci": "yarn g:lint:ci",
     "test": "yarn g:test",
     "test:watch": "yarn g:test:watch",
-    "test:debug": "yarn g:test:debug",
-    "ci": "yarn g:ci",
-    "update": "yarn g:update",
+    "compile": "yarn g:compile",
     "preview": "yarn g:preview",
-    "dev": "yarn g:dev",
-    "dev:debug": "yarn g:dev:debug"
+    "up": "yarn g:up",
+    "ci": "cd $INIT_CWD && yarn test && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
     "@cratis/arc": "20.18.3",
