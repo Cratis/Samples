@@ -3,8 +3,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.9.10" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.9.10" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.9.11" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.9.11" />
     <PackageVersion Include="Cratis" Version="20.8.3" />
     <PackageVersion Include="Cratis.Arc" Version="20.18.8" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.18.8" />
