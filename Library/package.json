@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@cratis/arc": "20.26.15",
-    "@cratis/arc.react": "20.26.15",
-    "@cratis/arc.react.mvvm": "20.26.15",
-    "@cratis/arc.vite": "20.26.15",
+    "@cratis/arc.react": "20.26.17",
+    "@cratis/arc.react.mvvm": "20.26.17",
+    "@cratis/arc.vite": "20.26.17",
     "allotment": "1.20.5",
     "echarts": "6.0.0",
     "mobx": "6.15.3",
