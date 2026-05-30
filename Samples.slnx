@@ -12,5 +12,5 @@
         <Project Path="Chronicle/Quickstart/Common/Common.csproj" />
         <Project Path="Chronicle/Quickstart/Console/Console.csproj" />
     </Folder>
-    <Project Path="Library/Library.csproj" />
+    <Project Path="Library/Lending/Lending.csproj" />
 </Solution>
