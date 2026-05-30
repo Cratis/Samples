@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+        <PackageReference Include="Cratis.Chronicle.Aspire" />
+        <PackageReference Include="Aspire.Hosting.JavaScript" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../Lending/Lending.csproj" IsAspireProjectResource="true" />
+        <ProjectReference Include="../Members/Members.csproj" IsAspireProjectResource="true" />
+    </ItemGroup>
+</Project>

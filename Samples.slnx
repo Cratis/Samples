@@ -13,4 +13,6 @@
         <Project Path="Chronicle/Quickstart/Console/Console.csproj" />
     </Folder>
     <Project Path="Library/Lending/Lending.csproj" />
+    <Project Path="Library/Members/Members.csproj" />
+    <Project Path="Library/Composition/Composition.csproj" />
 </Solution>

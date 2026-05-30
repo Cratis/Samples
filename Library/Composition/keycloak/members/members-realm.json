@@ -1,0 +1,55 @@
+{
+    "realm": "members",
+    "enabled": true,
+    "sslRequired": "none",
+    "registrationAllowed": false,
+    "users": [
+        {
+            "username": "alice",
+            "enabled": true,
+            "email": "alice@members.local",
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "alice",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["member"]
+        },
+        {
+            "username": "bob",
+            "enabled": true,
+            "email": "bob@members.local",
+            "firstName": "Bob",
+            "lastName": "Jones",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "bob",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["member"]
+        }
+    ],
+    "roles": {
+        "realm": [
+            { "name": "member", "description": "Portal member role" }
+        ]
+    },
+    "clients": [
+        {
+            "clientId": "members-app",
+            "secret": "members-secret",
+            "enabled": true,
+            "publicClient": false,
+            "standardFlowEnabled": true,
+            "directAccessGrantsEnabled": true,
+            "redirectUris": ["*"],
+            "webOrigins": ["*"]
+        }
+    ]
+}
