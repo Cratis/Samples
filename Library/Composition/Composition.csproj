@@ -8,8 +8,9 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting.AppHost" />
-        <PackageReference Include="Cratis.Chronicle.Aspire" />
         <PackageReference Include="Aspire.Hosting.JavaScript" />
+        <PackageReference Include="Cratis.AuthProxy.Aspire" />
+        <PackageReference Include="Cratis.Chronicle.Aspire" />
     </ItemGroup>
 
     <ItemGroup>

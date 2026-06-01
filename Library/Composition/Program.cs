@@ -1,6 +1,8 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Cratis.AuthProxy.Aspire;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 // HashiCorp Vault running in dev mode with a fixed root token for local development
@@ -55,60 +57,50 @@ var membersFrontend = builder.AddViteApp("members-frontend", "../Members")
     .WithYarn()
     .WithHttpEndpoint(targetPort: 9001, name: "http");
 
-// AuthProxy for Lending - authenticates users via Keycloak and proxies to Lending backend/frontend
-builder.AddContainer("authproxy-lending", "cratis/authproxy")
+var keycloakLendingEndpoint = keycloakLending.GetEndpoint("http");
+var keycloakMembersEndpoint = keycloakMembers.GetEndpoint("http");
+
+// AuthProxy for Lending - authenticates users via Keycloak and proxies to Lending backend/frontend.
+// WithOidcProvider only accepts a static string for authority; we override it with a
+// WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
+builder.AddAuthProxy("authproxy-lending")
     .WithHttpEndpoint(targetPort: 8080, name: "http")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Name",
-        "Keycloak")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Type",
-        "Custom")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Authority",
-        ReferenceExpression.Create($"{keycloakLending.GetEndpoint("http")}/realms/lending"))
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__ClientId",
-        "lending-app")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__ClientSecret",
-        "lending-secret")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Services__app__Backend__BaseUrl",
-        lending.GetEndpoint("http"))
-    .WithEnvironment(
-        "Cratis__AuthProxy__Services__app__Frontend__BaseUrl",
-        lendingFrontend.GetEndpoint("http"))
+    .WithBackend("main", lending)
+    .WithFrontend("main", lendingFrontend)
+    .WithOidcProvider(
+        "Keycloak",
+        OidcProviderType.Custom,
+        authority: string.Empty,
+        clientId: "lending-app",
+        clientSecret: "lending-secret")
+    .WithEnvironment(ctx =>
+        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__Authority"] =
+            ReferenceExpression.Create($"{keycloakLendingEndpoint}/realms/lending"))
+    .WithSpecifiedTenantResolution("default")
     .WaitFor(keycloakLending)
     .WaitFor(lending)
     .WaitFor(lendingFrontend);
 
-// AuthProxy for Members - authenticates users via Keycloak and proxies to Members backend/frontend
-builder.AddContainer("authproxy-members", "cratis/authproxy")
+// AuthProxy for Members - authenticates users via Keycloak and proxies to Members backend/frontend.
+// WithOidcProvider only accepts a static string for authority; we override it with a
+// WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
+builder.AddAuthProxy("authproxy-members")
     .WithHttpEndpoint(targetPort: 8080, name: "http")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Name",
-        "Keycloak")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Type",
-        "Custom")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__Authority",
-        ReferenceExpression.Create($"{keycloakMembers.GetEndpoint("http")}/realms/members"))
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__ClientId",
-        "members-app")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Authentication__OidcProviders__0__ClientSecret",
-        "members-secret")
-    .WithEnvironment(
-        "Cratis__AuthProxy__Services__app__Backend__BaseUrl",
-        members.GetEndpoint("http"))
-    .WithEnvironment(
-        "Cratis__AuthProxy__Services__app__Frontend__BaseUrl",
-        membersFrontend.GetEndpoint("http"))
+    .WithBackend("main", members)
+    .WithFrontend("main", membersFrontend)
+    .WithOidcProvider(
+        "Keycloak",
+        OidcProviderType.Custom,
+        authority: string.Empty,
+        clientId: "members-app",
+        clientSecret: "members-secret")
+    .WithEnvironment(ctx =>
+        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__Authority"] =
+            ReferenceExpression.Create($"{keycloakMembersEndpoint}/realms/members"))
+    .WithSpecifiedTenantResolution("default")
     .WaitFor(keycloakMembers)
     .WaitFor(members)
     .WaitFor(membersFrontend);
 
 await builder.Build().RunAsync();
+
