@@ -77,6 +77,8 @@ DATABASE_TYPE=postgresql dotnet run --project Composition/Composition.csproj
 
 When the AppHost is running, the Aspire dashboard is available at **http://localhost:15888**.
 
+> **⚠️ Local development only** — The docker-compose files embed hardcoded credentials (PostgreSQL password `chronicle`, SQL Server SA password `Chronicle_Str0ng!`, Vault root token `root`, Keycloak admin `admin`/`admin`). These are intentionally weak and must never be used in any environment beyond your local machine.
+
 ## 🐳 Running with docker compose
 
 Pass the `--docker` flag to a script, or use docker compose profiles directly:
