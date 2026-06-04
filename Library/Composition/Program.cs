@@ -1,9 +1,26 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Aspire.Hosting.ApplicationModel;
 using Cratis.AuthProxy.Aspire;
+using Cratis.Chronicle.Aspire;
 
 var builder = DistributedApplication.CreateBuilder(args);
+
+// Select the database backend. Accepted values (case-insensitive):
+//   mongodb (default), postgresql, mssql, sqlite
+// Override at runtime:
+//   DATABASE_TYPE=postgresql dotnet run --project Library/Composition
+var databaseType = (builder.Configuration["DATABASE_TYPE"] ?? "mongodb").ToLowerInvariant();
+
+// Resolve which Chronicle projection sink type id to pass to the microservices.
+// MongoDB sink:  22202c41-2be1-4547-9c00-f0b1f797fd75
+// SQL sink:      f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a
+var sinkTypeId = string.Equals(databaseType, "postgresql", StringComparison.Ordinal)
+                 || string.Equals(databaseType, "mssql", StringComparison.Ordinal)
+                 || string.Equals(databaseType, "sqlite", StringComparison.Ordinal)
+    ? "f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a"
+    : "22202c41-2be1-4547-9c00-f0b1f797fd75";
 
 // HashiCorp Vault running in dev mode with a fixed root token for local development
 var vault = builder.AddContainer("vault", "hashicorp/vault")
@@ -12,9 +29,32 @@ var vault = builder.AddContainer("vault", "hashicorp/vault")
     .WithArgs("server", "-dev")
     .WithHttpEndpoint(targetPort: 8200, name: "http");
 
-// Chronicle running in development mode (embedded MongoDB)
-// Configured to use Vault for compliance encryption key storage
-var chronicle = builder.AddCratisChronicle("chronicle")
+// Chronicle — storage backend is selected dynamically based on DATABASE_TYPE.
+// When no configure callback is supplied AddCratisChronicle uses the development image (embedded MongoDB).
+// For any explicit database choice we supply a callback to switch to the production image.
+IResourceBuilder<ChronicleResource> chronicle;
+if (string.Equals(databaseType, "postgresql", StringComparison.Ordinal))
+{
+    var db = builder.AddPostgres("postgres").AddDatabase("chronicle");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithPostgreSql(db));
+}
+else if (string.Equals(databaseType, "mssql", StringComparison.Ordinal))
+{
+    var db = builder.AddSqlServer("mssql").AddDatabase("chronicle");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithMsSql(db));
+}
+else if (string.Equals(databaseType, "sqlite", StringComparison.Ordinal))
+{
+    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithSqlite("Data Source=/data/chronicle.db"));
+}
+else
+{
+    // mongodb — use the development image which bundles MongoDB so no extra container is needed
+    chronicle = builder.AddCratisChronicle("chronicle");
+}
+
+// Wire Vault compliance key storage into Chronicle
+chronicle
     .WithEnvironment(
         "Cratis__Chronicle__Compliance__KeyStore__Vault__Address",
         vault.GetEndpoint("http"))
@@ -37,14 +77,16 @@ var keycloakMembers = builder.AddContainer("keycloak-members", "quay.io/keycloak
     .WithEnvironment("KEYCLOAK_ADMIN_PASSWORD", "admin")
     .WithHttpEndpoint(targetPort: 8080, name: "http");
 
-// Lending backend - connected to Chronicle
+// Lending backend - connected to Chronicle; projection sink type flows from DATABASE_TYPE
 var lending = builder.AddProject<Projects.Lending>("lending")
     .WithReference(chronicle)
+    .WithEnvironment("Cratis__Chronicle__DefaultSinkTypeId", sinkTypeId)
     .WaitFor(chronicle);
 
-// Members backend - connected to Chronicle
+// Members backend - connected to Chronicle; projection sink type flows from DATABASE_TYPE
 var members = builder.AddProject<Projects.Members>("members")
     .WithReference(chronicle)
+    .WithEnvironment("Cratis__Chronicle__DefaultSinkTypeId", sinkTypeId)
     .WaitFor(chronicle);
 
 // Lending frontend (Vite dev server via yarn, port 9000)

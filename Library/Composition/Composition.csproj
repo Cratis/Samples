@@ -9,6 +9,9 @@
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting.AppHost" />
         <PackageReference Include="Aspire.Hosting.JavaScript" />
+        <PackageReference Include="Aspire.Hosting.MongoDB" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+        <PackageReference Include="Aspire.Hosting.SqlServer" />
         <PackageReference Include="Cratis.AuthProxy.Aspire" />
         <PackageReference Include="Cratis.Chronicle.Aspire" />
     </ItemGroup>
