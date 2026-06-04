@@ -6,6 +6,7 @@
     <PackageVersion Include="Cratis.Fundamentals" Version="7.10.6" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.10.6" />
     <PackageVersion Include="Cratis" Version="20.8.3" />
+<<<<<<< copilot/full-sample-of-everything
     <PackageVersion Include="Cratis.Arc" Version="20.33.11" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.33.11" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.33.11" />
@@ -17,6 +18,13 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.3.5" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.3.5" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.4.0" />
+=======
+    <PackageVersion Include="Cratis.Arc" Version="20.33.17" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.33.17" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.33.17" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="20.33.17" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="20.33.17" />
+>>>>>>> main
     <PackageVersion Include="Cratis.Chronicle" Version="15.32.3" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.32.3" />
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="15.32.3" />
