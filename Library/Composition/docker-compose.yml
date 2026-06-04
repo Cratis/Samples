@@ -46,7 +46,7 @@ services:
       - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
       - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
       - Cratis__Chronicle__Storage__Type=PostgreSql
-      - Cratis__Chronicle__Storage__ConnectionDetails=Host=postgres;Database=chronicle;Username=chronicle;******
+      - Cratis__Chronicle__Storage__ConnectionDetails=Host=postgres;Database=chronicle;Username=chronicle;Password=chronicle
     ports:
       - "8080:8080"
       - "35000:35000"
@@ -71,7 +71,7 @@ services:
       - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
       - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
       - Cratis__Chronicle__Storage__Type=MsSql
-      - Cratis__Chronicle__Storage__ConnectionDetails=Server=mssql;Database=chronicle;User Id=sa;******;TrustServerCertificate=true
+      - Cratis__Chronicle__Storage__ConnectionDetails=Server=mssql;Database=chronicle;User Id=sa;Password=Chronicle_Str0ng!;TrustServerCertificate=true
     ports:
       - "8080:8080"
       - "35000:35000"

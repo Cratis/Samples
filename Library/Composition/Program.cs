@@ -14,13 +14,15 @@ var builder = DistributedApplication.CreateBuilder(args);
 var databaseType = (builder.Configuration["DATABASE_TYPE"] ?? "mongodb").ToLowerInvariant();
 
 // Resolve which Chronicle projection sink type id to pass to the microservices.
-// MongoDB sink:  22202c41-2be1-4547-9c00-f0b1f797fd75
-// SQL sink:      f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a
+// MongoDB sink:  22202c41-2be1-4547-9c00-f0b1f797fd75 (WellKnownSinkTypes.MongoDB)
+// SQL sink:      f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a (WellKnownSinkTypes.SQL)
+const string mongoDbSinkTypeId = "22202c41-2be1-4547-9c00-f0b1f797fd75";
+const string sqlSinkTypeId = "f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a";
 var sinkTypeId = string.Equals(databaseType, "postgresql", StringComparison.Ordinal)
                  || string.Equals(databaseType, "mssql", StringComparison.Ordinal)
                  || string.Equals(databaseType, "sqlite", StringComparison.Ordinal)
-    ? "f7d3a1e2-4b5c-4d6e-8f9a-0b1c2d3e4f5a"
-    : "22202c41-2be1-4547-9c00-f0b1f797fd75";
+    ? sqlSinkTypeId
+    : mongoDbSinkTypeId;
 
 // HashiCorp Vault running in dev mode with a fixed root token for local development
 var vault = builder.AddContainer("vault", "hashicorp/vault")
