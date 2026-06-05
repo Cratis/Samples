@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Members.Profiles.Registration;
-using MongoDB.Driver;
 
 namespace Members.Profiles.Listing;
 
@@ -15,8 +14,8 @@ namespace Members.Profiles.Listing;
 [ReadModel]
 public record MemberProfile(MemberId Id, MemberName Name, string Email)
 {
-    public static ISubject<IEnumerable<MemberProfile>> AllMembers(IMongoCollection<MemberProfile> collection) =>
-        collection.Observe();
+    public static IObservable<IEnumerable<MemberProfile>> AllMembers(IMaterializedReadModels readModels) =>
+        readModels.ObserveInstances<MemberProfile>();
 }
 
 public class MemberProfileProjection : IProjectionFor<MemberProfile>
