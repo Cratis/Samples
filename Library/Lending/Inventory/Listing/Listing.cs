@@ -15,7 +15,7 @@ public class BookProjection : IProjectionFor<Book>
 }
 
 [Route("/api/books")]
-public class AuthorQueries(IEventStore eventStore) : ControllerBase
+public class BookQueries(IEventStore eventStore) : ControllerBase
 {
     [HttpGet]
     public async Task<IEnumerable<Book>> GetAll() =>
