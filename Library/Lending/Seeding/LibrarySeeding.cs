@@ -36,10 +36,10 @@ public sealed class LibrarySeeding : ICanSeedEvents
 
     static void SeedAuthors(IEventSeedingBuilder builder) =>
         builder
-            .For<AuthorRegistered>(_tolkienId, [new AuthorRegistered("J.R.R. Tolkien")])
-            .For<AuthorRegistered>(_herbertId, [new AuthorRegistered("Frank Herbert")])
-            .For<AuthorRegistered>(_asimovId, [new AuthorRegistered("Isaac Asimov")])
-            .For<AuthorRegistered>(_leGuinId, [new AuthorRegistered("Ursula K. Le Guin")]);
+            .For(_tolkienId, [new AuthorRegistered("J.R.R. Tolkien")])
+            .For(_herbertId, [new AuthorRegistered("Frank Herbert")])
+            .For(_asimovId, [new AuthorRegistered("Isaac Asimov")])
+            .For(_leGuinId, [new AuthorRegistered("Ursula K. Le Guin")]);
 
     static void SeedBooks(IEventSeedingBuilder builder) =>
         builder
@@ -47,17 +47,17 @@ public sealed class LibrarySeeding : ICanSeedEvents
                 new BookAddedToInventory("The Hobbit", _tolkienId, 5),
                 new BookReserved("978-0547928227", _aliceId)
             ])
-            .For<BookAddedToInventory>("978-0618346257", [
+            .For("978-0618346257", [
                 new BookAddedToInventory("The Fellowship of the Ring", _tolkienId, 3)
             ])
             .ForEventSource("978-0441013593", [
                 new BookAddedToInventory("Dune", _herbertId, 4),
                 new BookReserved("978-0441013593", _bobId)
             ])
-            .For<BookAddedToInventory>("978-0553293357", [
+            .For("978-0553293357", [
                 new BookAddedToInventory("Foundation", _asimovId, 3)
             ])
-            .For<BookAddedToInventory>("978-0441478125", [
+            .For("978-0441478125", [
                 new BookAddedToInventory("The Left Hand of Darkness", _leGuinId, 2)
             ]);
 }

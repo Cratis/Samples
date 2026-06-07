@@ -24,7 +24,7 @@ public sealed class MembersSeeding : ICanSeedEvents
     /// <inheritdoc/>
     public void Seed(IEventSeedingBuilder builder) =>
         builder
-            .For<MemberRegistered>(_aliceId, [new MemberRegistered("Alice Johnson", "alice@library.example.com")])
-            .For<MemberRegistered>(_bobId, [new MemberRegistered("Bob Smith", "bob@library.example.com")])
-            .For<MemberRegistered>(_carolId, [new MemberRegistered("Carol White", "carol@library.example.com")]);
+            .For(_aliceId, [new MemberRegistered("Alice Johnson", "alice@library.example.com")])
+            .For(_bobId, [new MemberRegistered("Bob Smith", "bob@library.example.com")])
+            .For(_carolId, [new MemberRegistered("Carol White", "carol@library.example.com")]);
 }
