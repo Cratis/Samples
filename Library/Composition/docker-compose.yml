@@ -1,0 +1,134 @@
+services:
+  # ─── HashiCorp Vault (all profiles) ────────────────────────────────────────────
+  vault:
+    image: hashicorp/vault
+    command: server -dev
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=root
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+    cap_add: [IPC_LOCK]
+    ports:
+      - "8200:8200"
+
+  # ─── MongoDB (default profile) ────────────────────────────────────────────────
+  # Chronicle development image bundles MongoDB — no extra container needed.
+  chronicle-mongodb:
+    image: cratis/chronicle:latest-development
+    profiles: [mongodb, ""]
+    depends_on: [vault]
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+    ports:
+      - "27017:27017"
+      - "8080:8080"
+      - "35000:35000"
+    pull_policy: always
+
+  # ─── PostgreSQL ────────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16
+    profiles: [postgresql]
+    environment:
+      - POSTGRES_DB=chronicle
+      - POSTGRES_USER=chronicle
+      - POSTGRES_PASSWORD=chronicle
+    ports:
+      - "5432:5432"
+
+  chronicle-postgresql:
+    image: cratis/chronicle:latest
+    profiles: [postgresql]
+    depends_on: [vault, postgres]
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Storage__Type=PostgreSql
+      - Cratis__Chronicle__Storage__ConnectionDetails=Host=postgres;Database=chronicle;Username=chronicle;Password=chronicle
+    ports:
+      - "8080:8080"
+      - "35000:35000"
+    pull_policy: always
+
+  # ─── Microsoft SQL Server ──────────────────────────────────────────────────────
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    profiles: [mssql]
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Chronicle_Str0ng!
+    ports:
+      - "1433:1433"
+
+  chronicle-mssql:
+    image: cratis/chronicle:latest
+    profiles: [mssql]
+    depends_on: [vault, mssql]
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Storage__Type=MsSql
+      - Cratis__Chronicle__Storage__ConnectionDetails=Server=mssql;Database=chronicle;User Id=sa;Password=Chronicle_Str0ng!;TrustServerCertificate=true
+    ports:
+      - "8080:8080"
+      - "35000:35000"
+    pull_policy: always
+
+  # ─── SQLite ────────────────────────────────────────────────────────────────────
+  chronicle-sqlite:
+    image: cratis/chronicle:latest
+    profiles: [sqlite]
+    depends_on: [vault]
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
+      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Storage__Type=Sqlite
+      - Cratis__Chronicle__Storage__ConnectionDetails=Data Source=/data/chronicle.db
+    volumes:
+      - chronicle-sqlite-data:/data
+    ports:
+      - "8080:8080"
+      - "35000:35000"
+    pull_policy: always
+
+  # ─── Keycloak – Lending realm ──────────────────────────────────────────────────
+  keycloak-lending:
+    image: quay.io/keycloak/keycloak
+    command: start-dev --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./keycloak/lending:/opt/keycloak/data/import:ro
+    ports:
+      - "8090:8080"
+
+  # ─── Keycloak – Members realm ──────────────────────────────────────────────────
+  keycloak-members:
+    image: quay.io/keycloak/keycloak
+    command: start-dev --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    volumes:
+      - ./keycloak/members:/opt/keycloak/data/import:ro
+    ports:
+      - "8091:8080"
+
+  # ─── Aspire dashboard (all profiles) ──────────────────────────────────────────
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:latest
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+      - ALLOW_UNSECURED_TRANSPORT=true
+      - DOTNET_ENVIRONMENT=Development
+    ports:
+      - "18888:18888"
+      - "4317:18889"
+
+volumes:
+  chronicle-sqlite-data:

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Solution>
-    <Configurations>
-        <Platform Name="Any CPU" />
-        <Platform Name="x64" />
-        <Platform Name="x86" />
-    </Configurations>
-    <Project Path="Library.csproj" />
+    <Project Path="Lending/Lending.csproj" />
+    <Project Path="Members/Members.csproj" />
+    <Project Path="Composition/Composition.csproj" />
 </Solution>

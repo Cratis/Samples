@@ -1,0 +1,56 @@
+{
+    "realm": "lending",
+    "enabled": true,
+    "sslRequired": "none",
+    "registrationAllowed": false,
+    "users": [
+        {
+            "username": "librarian",
+            "enabled": true,
+            "email": "librarian@library.local",
+            "firstName": "Head",
+            "lastName": "Librarian",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "librarian",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["librarian"]
+        },
+        {
+            "username": "borrower",
+            "enabled": true,
+            "email": "borrower@library.local",
+            "firstName": "Regular",
+            "lastName": "Borrower",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "borrower",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["borrower"]
+        }
+    ],
+    "roles": {
+        "realm": [
+            { "name": "librarian", "description": "Library staff role" },
+            { "name": "borrower", "description": "Library borrower role" }
+        ]
+    },
+    "clients": [
+        {
+            "clientId": "lending-app",
+            "secret": "lending-secret",
+            "enabled": true,
+            "publicClient": false,
+            "standardFlowEnabled": true,
+            "directAccessGrantsEnabled": true,
+            "redirectUris": ["*"],
+            "webOrigins": ["*"]
+        }
+    ]
+}

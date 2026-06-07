@@ -1,0 +1,19 @@
+{
+    "extends": "../../.frontend/tsconfig.base.json",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "baseUrl": "..",
+        "paths": {
+            "Profiles/*": [
+                "Profiles/*"
+            ]
+        }
+    },
+    "include": [
+        "../**/*.ts",
+        "../**/*.tsx"
+    ],
+    "exclude": [
+        "vite.config.ts"
+    ]
+}

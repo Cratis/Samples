@@ -5,14 +5,21 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.14.0" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.14.0" />
-    <PackageVersion Include="Cratis" Version="20.8.3" />
+    <PackageVersion Include="Cratis" Version="20.39.1" />
     <PackageVersion Include="Cratis.Arc" Version="20.39.1" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.39.1" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.39.1" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="20.39.1" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="20.39.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.3.5" />
+    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.4.0" />
     <PackageVersion Include="Cratis.Chronicle" Version="15.33.3" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.33.3" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="15.33.3" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.33.3" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.33.3" />
     <PackageVersion Include="Cratis.Chronicle.InProcess" Version="15.3.0" />
@@ -26,7 +33,7 @@
     <!-- Testing & Specifications -->
     <PackageVersion Include="Cratis.Specifications" Version="3.0.5" />
     <PackageVersion Include="Cratis.Specifications.XUnit" Version="3.0.5" />
-    <PackageVersion Include="Testcontainers" Version="4.11.0" />
+    <PackageVersion Include="Testcontainers" Version="4.12.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
