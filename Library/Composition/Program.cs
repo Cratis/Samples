@@ -29,7 +29,7 @@ var vault = builder.AddContainer("vault", "hashicorp/vault")
     .WithEnvironment("VAULT_DEV_ROOT_TOKEN_ID", "root")
     .WithEnvironment("VAULT_DEV_LISTEN_ADDRESS", "0.0.0.0:8200")
     .WithArgs("server", "-dev")
-    .WithHttpEndpoint(targetPort: 8200, name: "http");
+    .WithHttpEndpoint(port: 8200, targetPort: 8200, name: "http");
 
 // Chronicle — storage backend is selected dynamically based on DATABASE_TYPE.
 // When no configure callback is supplied AddCratisChronicle uses the development image (embedded MongoDB).
@@ -37,12 +37,12 @@ var vault = builder.AddContainer("vault", "hashicorp/vault")
 IResourceBuilder<ChronicleResource> chronicle;
 if (string.Equals(databaseType, "postgresql", StringComparison.Ordinal))
 {
-    var db = builder.AddPostgres("postgres").AddDatabase("chronicle");
+    var db = builder.AddPostgres("postgres").AddDatabase("chronicle-db");
     chronicle = builder.AddCratisChronicle("chronicle", c => c.WithPostgreSql(db));
 }
 else if (string.Equals(databaseType, "mssql", StringComparison.Ordinal))
 {
-    var db = builder.AddSqlServer("mssql").AddDatabase("chronicle");
+    var db = builder.AddSqlServer("mssql").AddDatabase("chronicle-db");
     chronicle = builder.AddCratisChronicle("chronicle", c => c.WithMsSql(db));
 }
 else if (string.Equals(databaseType, "sqlite", StringComparison.Ordinal))
@@ -51,17 +51,21 @@ else if (string.Equals(databaseType, "sqlite", StringComparison.Ordinal))
 }
 else
 {
-    // mongodb — use the development image which bundles MongoDB so no extra container is needed
-    chronicle = builder.AddCratisChronicle("chronicle");
+    // mongodb — the latest-development image no longer bundles MongoDB, so spin up a dedicated container
+    var mongo = builder.AddMongoDB("mongodb").AddDatabase("chronicle-db");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithMongoDB(mongo));
 }
 
-// Wire Vault compliance key storage into Chronicle
+// Wire Vault compliance key storage into Chronicle and pin to stable host ports.
+// Management (workbench) runs on 8080, gRPC on 35000 — same as the container target ports.
 chronicle
     .WithEnvironment(
         "Cratis__Chronicle__Compliance__KeyStore__Vault__Address",
         vault.GetEndpoint("http"))
     .WithEnvironment("Cratis__Chronicle__Compliance__KeyStore__Vault__Token", "root")
-    .WaitFor(vault);
+    .WaitFor(vault)
+    .WithEndpoint("management", endpoint => endpoint.Port = 8080)
+    .WithEndpoint("grpc", endpoint => endpoint.Port = 35000);
 
 // Keycloak for Lending - pre-seeded with librarian and borrower users
 var keycloakLending = builder.AddContainer("keycloak-lending", "quay.io/keycloak/keycloak")
@@ -69,7 +73,7 @@ var keycloakLending = builder.AddContainer("keycloak-lending", "quay.io/keycloak
     .WithBindMount("./keycloak/lending", "/opt/keycloak/data/import", isReadOnly: true)
     .WithEnvironment("KEYCLOAK_ADMIN", "admin")
     .WithEnvironment("KEYCLOAK_ADMIN_PASSWORD", "admin")
-    .WithHttpEndpoint(targetPort: 8080, name: "http");
+    .WithHttpEndpoint(port: 8090, targetPort: 8080, name: "http");
 
 // Keycloak for Members - pre-seeded with member users
 var keycloakMembers = builder.AddContainer("keycloak-members", "quay.io/keycloak/keycloak")
@@ -77,7 +81,7 @@ var keycloakMembers = builder.AddContainer("keycloak-members", "quay.io/keycloak
     .WithBindMount("./keycloak/members", "/opt/keycloak/data/import", isReadOnly: true)
     .WithEnvironment("KEYCLOAK_ADMIN", "admin")
     .WithEnvironment("KEYCLOAK_ADMIN_PASSWORD", "admin")
-    .WithHttpEndpoint(targetPort: 8080, name: "http");
+    .WithHttpEndpoint(port: 8091, targetPort: 8080, name: "http");
 
 // Lending backend - connected to Chronicle; projection sink type flows from DATABASE_TYPE
 var lending = builder.AddProject<Projects.Lending>("lending")
@@ -94,12 +98,12 @@ var members = builder.AddProject<Projects.Members>("members")
 // Lending frontend (Vite dev server via yarn, port 9000)
 var lendingFrontend = builder.AddViteApp("lending-frontend", "../Lending")
     .WithYarn()
-    .WithHttpEndpoint(targetPort: 9000, name: "http");
+    .WithHttpEndpoint(port: 9000, targetPort: 9000, name: "http", isProxied: false);
 
 // Members frontend (Vite dev server via yarn, port 9001)
 var membersFrontend = builder.AddViteApp("members-frontend", "../Members")
     .WithYarn()
-    .WithHttpEndpoint(targetPort: 9001, name: "http");
+    .WithHttpEndpoint(port: 9001, targetPort: 9001, name: "http", isProxied: false);
 
 var keycloakLendingEndpoint = keycloakLending.GetEndpoint("http");
 var keycloakMembersEndpoint = keycloakMembers.GetEndpoint("http");
@@ -108,7 +112,7 @@ var keycloakMembersEndpoint = keycloakMembers.GetEndpoint("http");
 // WithOidcProvider only accepts a static string for authority; we override it with a
 // WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
 builder.AddAuthProxy("authproxy-lending")
-    .WithHttpEndpoint(targetPort: 8080, name: "http")
+    .WithHttpEndpoint(port: 7000, targetPort: 8080, name: "http")
     .WithBackend("main", lending)
     .WithFrontend("main", lendingFrontend)
     .WithOidcProvider(
@@ -129,7 +133,7 @@ builder.AddAuthProxy("authproxy-lending")
 // WithOidcProvider only accepts a static string for authority; we override it with a
 // WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
 builder.AddAuthProxy("authproxy-members")
-    .WithHttpEndpoint(targetPort: 8080, name: "http")
+    .WithHttpEndpoint(port: 7001, targetPort: 8080, name: "http")
     .WithBackend("main", members)
     .WithFrontend("main", membersFrontend)
     .WithOidcProvider(
