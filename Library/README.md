@@ -4,7 +4,7 @@ This sample shows a full Library system built on the entire Cratis Stack across 
 
 ## 🏛️ Architecture
 
-```
+```text
 Library/
 ├── Lending/       — Book lending domain (catalogue, loans, reservations)
 ├── Members/       — Member management domain (registration, profiles)
@@ -31,14 +31,13 @@ Both microservices are structured around vertical slices — each feature folder
 - [.NET 10](https://dot.net)
 - [Node.js](https://nodejs.org) + [Yarn](https://yarnpkg.com)
 - [Docker](https://www.docker.com/products/docker-desktop/) or compatible container engine
-- [.NET Aspire workload](https://learn.microsoft.com/dotnet/aspire/fundamentals/setup-tooling): `dotnet workload install aspire`
 
 ## 🗄️ Database Backends
 
 Chronicle supports multiple storage backends. The Composition AppHost and docker-compose files both support the same set of profiles. **MongoDB is the default** when no database type is specified.
 
-| Database | `DATABASE_TYPE` value | Notes |
-|----------|----------------------|-------|
+| Database | DATABASE_TYPE value | Notes |
+|----------|---------------------|-------|
 | MongoDB | `mongodb` _(default)_ | Uses Chronicle development image (embedded MongoDB) |
 | PostgreSQL | `postgresql` | Starts a `postgres:16` container |
 | Microsoft SQL Server | `mssql` | Starts `mcr.microsoft.com/mssql/server:2022-latest` |
@@ -75,7 +74,7 @@ Or set `DATABASE_TYPE` directly:
 DATABASE_TYPE=postgresql dotnet run --project Composition/Composition.csproj
 ```
 
-When the AppHost is running, the Aspire dashboard is available at **http://localhost:15888**.
+The Aspire dashboard opens automatically at [http://localhost:15888](http://localhost:15888) (no login token required).
 
 > **⚠️ Local development only** — The docker-compose files embed hardcoded credentials (PostgreSQL password `chronicle`, SQL Server SA password `Chronicle_Str0ng!`, Vault root token `root`, Keycloak admin `admin`/`admin`). These are intentionally weak and must never be used in any environment beyond your local machine.
 
@@ -115,26 +114,47 @@ cd Members && yarn dev
 
 ## 🔗 Service URLs
 
+### Aspire
+
 | Service | URL |
 |---------|-----|
-| Lending (via AuthProxy) | http://localhost:5000 (backend) / http://localhost:9000 (frontend) |
-| Members (via AuthProxy) | http://localhost:5001 (backend) / http://localhost:9001 (frontend) |
-| Chronicle Workbench | http://localhost:8080 |
-| HashiCorp Vault | http://localhost:8200 |
-| Keycloak – Lending | http://localhost:8090 |
-| Keycloak – Members | http://localhost:8091 |
-| Aspire Dashboard | http://localhost:15888 |
+| Lending app (via AuthProxy) | [http://localhost:7000](http://localhost:7000) |
+| Members app (via AuthProxy) | [http://localhost:7001](http://localhost:7001) |
+| Lending backend Swagger | [http://localhost:5000/swagger](http://localhost:5000/swagger) |
+| Members backend Swagger | [http://localhost:5001/swagger](http://localhost:5001/swagger) |
+| Lending frontend (direct) | [http://localhost:9000](http://localhost:9000) |
+| Members frontend (direct) | [http://localhost:9001](http://localhost:9001) |
+| Chronicle Workbench | [http://localhost:8080](http://localhost:8080) |
+| HashiCorp Vault | [http://localhost:8200](http://localhost:8200) |
+| Keycloak – Lending | [http://localhost:8090](http://localhost:8090) |
+| Keycloak – Members | [http://localhost:8091](http://localhost:8091) |
+| Aspire Dashboard | [http://localhost:15888](http://localhost:15888) |
+
+> **Note:** The backend root (`/`) returns 404 because no static files are built in Aspire dev mode — the frontend is served by the Vite dev servers at 9000/9001. Use the `/swagger` path to verify the backend is alive, or access the full app via AuthProxy.
+
+### docker compose
+
+| Service | URL |
+|---------|-----|
+| Lending backend | [http://localhost:5000](http://localhost:5000) |
+| Members backend | [http://localhost:5001](http://localhost:5001) |
+| Lending frontend | [http://localhost:9000](http://localhost:9000) |
+| Members frontend | [http://localhost:9001](http://localhost:9001) |
+| Chronicle Workbench | [http://localhost:8080](http://localhost:8080) |
+| HashiCorp Vault | [http://localhost:8200](http://localhost:8200) |
+| Keycloak – Lending | [http://localhost:8090](http://localhost:8090) |
+| Keycloak – Members | [http://localhost:8091](http://localhost:8091) |
 
 ### Demo users
 
-**Lending realm** (http://localhost:8090/realms/lending)
+**Lending realm** ([http://localhost:8090/realms/lending](http://localhost:8090/realms/lending))
 
 | Username | Password | Role |
 |----------|----------|------|
 | `librarian` | `librarian` | Librarian |
 | `borrower` | `borrower` | Borrower |
 
-**Members realm** (http://localhost:8091/realms/members)
+**Members realm** ([http://localhost:8091/realms/members](http://localhost:8091/realms/members))
 
 | Username | Password |
 |----------|----------|
