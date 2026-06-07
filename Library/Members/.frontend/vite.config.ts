@@ -36,7 +36,7 @@ export default defineConfig({
         pool: 'threads',
         exclude: ['../dist/**', '../node_modules/**', 'node_modules/**', '../wwwroot/**', 'wwwroot/**', '../**/given/**'],
         include: ['../**/for_*/when_*/**/*.ts', '../**/for_*/**/when_*.ts'],
-        setupFiles: fileURLToPath(new URL('../../.frontend/vitest.setup.ts', import.meta.url))
+        setupFiles: fileURLToPath(new URL('../../../.frontend/vitest.setup.ts', import.meta.url))
     },
     plugins: [
         react(),

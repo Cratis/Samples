@@ -1,7 +1,9 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Cratis.Arc.MongoDB;
 using Library.Authors.Registration;
+using MongoDB.Driver;
 
 namespace Library.Authors.Listing;
 
@@ -13,12 +15,21 @@ namespace Library.Authors.Listing;
 [ReadModel]
 public record Author(AuthorId Id, AuthorName Name)
 {
-    public static IObservable<IEnumerable<Author>> AllAuthors(IMaterializedReadModels readModels) =>
-        readModels.ObserveInstances<Author>();
+    /// <summary>
+    /// Observes all authors, pushing updates when the collection changes.
+    /// </summary>
+    /// <param name="collection">The MongoDB collection to observe.</param>
+    /// <returns>A subject that emits the full author list on each change.</returns>
+    public static ISubject<IEnumerable<Author>> ObserveAll(IMongoCollection<Author> collection) =>
+        collection.Observe();
 }
 
+/// <summary>
+/// Defines the projection from <see cref="AuthorRegistered"/> to <see cref="Author"/>.
+/// </summary>
 public class AuthorProjection : IProjectionFor<Author>
 {
+    /// <inheritdoc/>
     public void Define(IProjectionBuilderFor<Author> builder) => builder
         .AutoMap()
         .From<AuthorRegistered>();

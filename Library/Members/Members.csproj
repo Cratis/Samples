@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis" />
+        <PackageReference Include="Cratis.Chronicle" />
         <PackageReference Include="Cratis.Arc.MongoDB" />
         <PackageReference Include="Cratis.Arc.ProxyGenerator.Build" />
     </ItemGroup>
