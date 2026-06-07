@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Arc.ModelBinding;
+using Cratis.Chronicle.Compliance.GDPR;
 
 namespace Members.Profiles.Registration;
 
@@ -26,7 +27,7 @@ public record RegisterMember(MemberName Name, string Email)
 /// <param name="Name">The full name of the member.</param>
 /// <param name="Email">The email address of the member.</param>
 [EventType]
-public record MemberRegistered(MemberName Name, string Email);
+public record MemberRegistered(MemberName Name, [PII("Email address used for member communication")] string Email);
 
 /// <summary>
 /// Holds the constraint that member email addresses must be unique.
