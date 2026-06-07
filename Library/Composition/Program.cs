@@ -35,34 +35,44 @@ var vault = builder.AddContainer("vault", "hashicorp/vault")
 // When no configure callback is supplied AddCratisChronicle uses the development image (embedded MongoDB).
 // For any explicit database choice we supply a callback to switch to the production image.
 IResourceBuilder<ChronicleResource> chronicle;
+var vaultEndpoint = vault.GetEndpoint("http");
+
 if (string.Equals(databaseType, "postgresql", StringComparison.Ordinal))
 {
-    var db = builder.AddPostgres("postgres").AddDatabase("chronicle-db");
-    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithPostgreSql(db));
+    var pgUser = builder.AddParameter("postgres-user", "chronicle");
+    var pgPassword = builder.AddParameter("postgres-password", "chronicle", secret: true);
+    var db = builder.AddPostgres("postgres", userName: pgUser, password: pgPassword, port: 5432)
+        .AddDatabase("chronicle-db", databaseName: "chronicle");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c
+        .WithPostgreSql(db)
+        .WithHashiCorpVault(vaultEndpoint, "root"));
 }
 else if (string.Equals(databaseType, "mssql", StringComparison.Ordinal))
 {
-    var db = builder.AddSqlServer("mssql").AddDatabase("chronicle-db");
-    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithMsSql(db));
+    var mssqlPassword = builder.AddParameter("mssql-password", "Chronicle_Str0ng!", secret: true);
+    var db = builder.AddSqlServer("mssql", password: mssqlPassword, port: 1433)
+        .AddDatabase("chronicle-db", databaseName: "chronicle");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c
+        .WithMsSql(db)
+        .WithHashiCorpVault(vaultEndpoint, "root"));
 }
 else if (string.Equals(databaseType, "sqlite", StringComparison.Ordinal))
 {
-    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithSqlite("Data Source=/data/chronicle.db"));
+    chronicle = builder.AddCratisChronicle("chronicle", c => c
+        .WithSqlite("Data Source=/data/chronicle.db")
+        .WithHashiCorpVault(vaultEndpoint, "root"));
 }
 else
 {
     // mongodb — the latest-development image no longer bundles MongoDB, so spin up a dedicated container
-    var mongo = builder.AddMongoDB("mongodb").AddDatabase("chronicle-db");
-    chronicle = builder.AddCratisChronicle("chronicle", c => c.WithMongoDB(mongo));
+    var mongo = builder.AddMongoDB("mongodb", port: 27017).AddDatabase("chronicle-db", databaseName: "chronicle");
+    chronicle = builder.AddCratisChronicle("chronicle", c => c
+        .WithMongoDB(mongo)
+        .WithHashiCorpVault(vaultEndpoint, "root"));
 }
 
-// Wire Vault compliance key storage into Chronicle and pin to stable host ports.
-// Management (workbench) runs on 8080, gRPC on 35000 — same as the container target ports.
+// Pin to stable host ports. Management (workbench) runs on 8080, gRPC on 35000.
 chronicle
-    .WithEnvironment(
-        "Cratis__Chronicle__Compliance__KeyStore__Vault__Address",
-        vault.GetEndpoint("http"))
-    .WithEnvironment("Cratis__Chronicle__Compliance__KeyStore__Vault__Token", "root")
     .WaitFor(vault)
     .WithEndpoint("management", endpoint => endpoint.Port = 8080)
     .WithEndpoint("grpc", endpoint => endpoint.Port = 35000);

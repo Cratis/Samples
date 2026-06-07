@@ -18,8 +18,9 @@ services:
     depends_on: [vault]
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Compliance__Encryption__Storage__Type=vault
+      - Cratis__Chronicle__Compliance__Encryption__Storage__ConnectionDetails=http://vault:8200
+      - VAULT_TOKEN=root
     ports:
       - "27017:27017"
       - "8080:8080"
@@ -43,8 +44,9 @@ services:
     depends_on: [vault, postgres]
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Compliance__Encryption__Storage__Type=vault
+      - Cratis__Chronicle__Compliance__Encryption__Storage__ConnectionDetails=http://vault:8200
+      - VAULT_TOKEN=root
       - Cratis__Chronicle__Storage__Type=PostgreSql
       - Cratis__Chronicle__Storage__ConnectionDetails=Host=postgres;Database=chronicle;Username=chronicle;Password=chronicle
     ports:
@@ -68,8 +70,9 @@ services:
     depends_on: [vault, mssql]
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Compliance__Encryption__Storage__Type=vault
+      - Cratis__Chronicle__Compliance__Encryption__Storage__ConnectionDetails=http://vault:8200
+      - VAULT_TOKEN=root
       - Cratis__Chronicle__Storage__Type=MsSql
       - Cratis__Chronicle__Storage__ConnectionDetails=Server=mssql;Database=chronicle;User Id=sa;Password=Chronicle_Str0ng!;TrustServerCertificate=true
     ports:
@@ -84,8 +87,9 @@ services:
     depends_on: [vault]
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Address=http://vault:8200
-      - Cratis__Chronicle__Compliance__KeyStore__Vault__Token=root
+      - Cratis__Chronicle__Compliance__Encryption__Storage__Type=vault
+      - Cratis__Chronicle__Compliance__Encryption__Storage__ConnectionDetails=http://vault:8200
+      - VAULT_TOKEN=root
       - Cratis__Chronicle__Storage__Type=Sqlite
       - Cratis__Chronicle__Storage__ConnectionDetails=Data Source=/data/chronicle.db
     volumes:

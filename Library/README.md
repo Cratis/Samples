@@ -161,6 +161,168 @@ cd Members && yarn dev
 | `alice` | `alice` |
 | `bob` | `bob` |
 
+## 🔍 Inspecting the Data
+
+### Chronicle Workbench
+
+The Chronicle Workbench at [http://localhost:8080](http://localhost:8080) lets you browse the event log, observe projections, and inspect read models directly — regardless of which database backend is running. This is the primary tool for understanding what Chronicle has stored.
+
+### HashiCorp Vault
+
+Vault stores the compliance encryption keys that Chronicle uses to encrypt personal data fields. In dev mode it runs with a fixed root token of `root`.
+
+**Web UI** — open [http://localhost:8200/ui](http://localhost:8200/ui), choose **Token** authentication, and enter `root`.
+
+Navigate to **Secrets → secret** to browse the KV v2 store. Chronicle writes keys under:
+
+```text
+secret/<event-store>/<namespace>/<identifier>/<revision>
+```
+
+For example, a key for the default event store and namespace would appear at:
+
+```text
+secret/system/default/<encryption-key-id>/1
+```
+
+**CLI** — set the Vault address and token, then list or read secrets:
+
+```shell
+export VAULT_ADDR=http://localhost:8200
+export VAULT_TOKEN=root
+
+# List all secret paths (top-level)
+vault kv list secret/
+
+# List keys for a specific event store and namespace
+vault kv list secret/system/default/
+
+# Read a specific key
+vault kv get secret/system/default/<identifier>/1
+```
+
+### MongoDB
+
+Applies when `DATABASE_TYPE=mongodb` (the default).
+
+MongoDB runs on port 27017 in both Aspire and docker-compose. In docker-compose mode it is embedded inside the Chronicle development image; in Aspire mode it runs as a separate managed container.
+
+**Connection string:** `mongodb://localhost:27017`
+
+Recommended tools:
+
+- [MongoDB Compass](https://www.mongodb.com/products/compass) — GUI, connect with the connection string above
+- `mongosh` CLI:
+
+```shell
+mongosh mongodb://localhost:27017
+
+# Chronicle stores event logs in the chronicle-db database
+use chronicle-db
+
+# List collections
+show collections
+
+# Inspect event log entries
+db.event_log.find().limit(10)
+```
+
+### PostgreSQL
+
+Applies when `DATABASE_TYPE=postgresql`.
+
+| Setting | Value |
+|---------|-------|
+| Host | `localhost` |
+| Port | `5432` |
+| Database | `chronicle` |
+| Username | `chronicle` |
+| Password | `chronicle` |
+
+Recommended tools:
+
+- [pgAdmin](https://www.pgadmin.org) — full GUI, register a server with the credentials above
+- [TablePlus](https://tableplus.com) / [DBeaver](https://dbeaver.io) — cross-database GUI clients
+- `psql` CLI:
+
+```shell
+psql -h localhost -U chronicle -d chronicle
+```
+
+```shell
+# List all tables
+\dt
+
+# Show the event log table
+SELECT * FROM event_log LIMIT 10;
+
+# Count events by event store
+SELECT event_store_id, COUNT(*) FROM event_log GROUP BY event_store_id;
+```
+
+### Microsoft SQL Server
+
+Applies when `DATABASE_TYPE=mssql`.
+
+| Setting | Value |
+|---------|-------|
+| Host | `localhost` |
+| Port | `1433` |
+| Database | `chronicle` |
+| Username | `sa` |
+| Password | `Chronicle_Str0ng!` |
+
+Recommended tools:
+
+- [Azure Data Studio](https://azure.microsoft.com/products/data-studio) — free, cross-platform GUI
+- [DBeaver](https://dbeaver.io) — cross-database GUI client
+- `sqlcmd` CLI:
+
+```shell
+sqlcmd -S "localhost,1433" -U sa -P "Chronicle_Str0ng!" -d chronicle
+```
+
+```sql
+-- List tables
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';
+GO
+
+-- Sample event log rows
+SELECT TOP 10 * FROM event_log;
+GO
+```
+
+### SQLite
+
+Applies when `DATABASE_TYPE=sqlite`. The database file lives inside the Chronicle container at `/data/chronicle.db`. It is persisted in a named Docker volume (`chronicle-sqlite-data`).
+
+**Copy the file out of the running container:**
+
+```shell
+# Find the container name (look for chronicle)
+docker ps --format '{{.Names}}' | grep chronicle
+
+# Copy the database file to the current directory
+docker cp <container-name>:/data/chronicle.db ./chronicle.db
+```
+
+Or open it directly with an interactive shell:
+
+```shell
+docker exec -it <container-name> sh
+sqlite3 /data/chronicle.db
+```
+
+```sql
+-- List tables
+.tables
+
+-- Sample event log rows
+SELECT * FROM event_log LIMIT 10;
+```
+
+Recommended desktop tool: [DB Browser for SQLite](https://sqlitebrowser.org) — open the copied `chronicle.db` file directly.
+
 ## 🧪 Running specifications
 
 ```shell
