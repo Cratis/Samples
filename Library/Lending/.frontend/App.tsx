@@ -1,17 +1,17 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { useTheme } from './Utils/useTheme';
+import { useTheme } from '../Utils/useTheme';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { LayoutProvider } from './Layout/Default/context/LayoutContext';
+import { LayoutProvider } from '../Layout/Default/context/LayoutContext';
 import { DialogComponents } from '@cratis/arc.react/dialogs';
 import { BusyIndicatorDialog, ConfirmationDialog } from 'Components/Dialogs';
-import { DefaultLayout } from './Layout/Default/DefaultLayout';
-import { IMenuItemGroup } from './Layout/Default/Sidebar/MenuItem/MenuItem';
-import { Home } from './Home';
+import { DefaultLayout } from '../Layout/Default/DefaultLayout';
+import { IMenuItemGroup } from '../Layout/Default/Sidebar/MenuItem/MenuItem';
+import { Home } from '../Home';
 import * as mdIcons from 'react-icons/md';
-import { Authors } from './Authors/Authors';
-import { Inventory } from './Inventory/Inventory';
+import { Authors } from '../Authors/Authors';
+import { Inventory } from '../Inventory/Inventory';
 
 function App() {
     useTheme();

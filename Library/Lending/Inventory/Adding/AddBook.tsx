@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { AddBookTitleToInventory } from './AddBookTitleToInventory';
-import { AllAuthors } from '../../Authors/Listing/AllAuthors';
+import { ObserveAll as AllAuthors } from '../../Authors/Listing/ObserveAll';
 import { CommandDialog } from '@cratis/components/CommandDialog';
 import { InputTextField, NumberField, DropdownField } from '@cratis/components/CommandForm';
 
@@ -19,7 +19,7 @@ export const AddBook = () => {
             <DropdownField<AddBookTitleToInventory>
                 value={c => c.authorId}
                 title="Author"
-                options={authors.data}
+                options={authors.data as unknown as Record<string, unknown>[]}
                 optionValue="id"
                 optionLabel="name"
                 placeholder="Select an author"

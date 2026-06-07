@@ -3,9 +3,9 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DialogComponents } from '@cratis/arc.react/dialogs';
-import { MembersHome } from './Home';
-import { MembersList } from './Profiles/Listing/MembersList';
-import { RegisterMember } from './Profiles/Registration/RegisterMemberPanel';
+import { MembersHome } from '../Home';
+import { MembersList } from '../Profiles/Listing/MembersList';
+import { RegisterMember } from '../Profiles/Registration/RegisterMemberPanel';
 
 function App() {
     return (

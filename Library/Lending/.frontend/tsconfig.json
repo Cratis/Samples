@@ -1,5 +1,5 @@
 {
-    "extends": "../../.frontend/tsconfig.base.json",
+    "extends": "../../../.frontend/tsconfig.base.json",
     "compilerOptions": {
         "allowImportingTsExtensions": true,
         "baseUrl": "..",

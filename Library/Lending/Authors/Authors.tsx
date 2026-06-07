@@ -13,7 +13,7 @@ export const Authors = () => {
     return (
         <Page title="Authors" panel>
             <Toolbar orientation="horizontal">
-                <ToolbarButton icon="pi pi-user" text="Add Author" tooltip="Add Author" onClick={() => showAddAuthorDialog()} />
+                <ToolbarButton icon="pi pi-user" text="Add Author" title="Add Author" onClick={() => showAddAuthorDialog()} />
             </Toolbar>
             <Listing />
 

@@ -13,7 +13,7 @@ export const Inventory = () => {
     return (
         <Page title="Books" panel>
             <Toolbar orientation="horizontal">
-                <ToolbarButton icon="pi pi-book" text="Add book" tooltip="Add book" onClick={() => showAddBookDialog()} />
+                <ToolbarButton icon="pi pi-book" text="Add book" title="Add book" onClick={() => showAddBookDialog()} />
             </Toolbar>
             <Listing />
 

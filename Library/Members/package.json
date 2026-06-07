@@ -20,6 +20,7 @@
     "@cratis/arc.react": "20.39.1",
     "@cratis/arc.react.mvvm": "20.39.1",
     "@cratis/arc.vite": "20.39.1",
+    "@cratis/components": "^1.10.2",
     "mobx": "6.15.3",
     "mobx-react": "9.2.1",
     "primeicons": "7.0.0",
