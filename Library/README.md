@@ -250,16 +250,16 @@ Pass the `--docker` flag to a script, or use docker compose profiles directly:
 
 ```shell
 # MongoDB (default — profile can be omitted)
-docker compose --profile mongodb -f Composition/docker-compose.yml up -d
+docker compose --profile mongodb -f docker-compose.yml up -d
 
 # PostgreSQL
-docker compose --profile postgresql -f Composition/docker-compose.yml up -d
+docker compose --profile postgresql -f docker-compose.yml up -d
 
 # Microsoft SQL Server
-docker compose --profile mssql -f Composition/docker-compose.yml up -d
+docker compose --profile mssql -f docker-compose.yml up -d
 
 # SQLite
-docker compose --profile sqlite -f Composition/docker-compose.yml up -d
+docker compose --profile sqlite -f docker-compose.yml up -d
 ```
 
 After the infrastructure is running, start the backends and frontends manually:
