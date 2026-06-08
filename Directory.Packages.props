@@ -23,7 +23,6 @@
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="15.33.8" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.33.8" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.33.8" />
-    <PackageVersion Include="Cratis.Chronicle.InProcess" Version="15.3.0" />
     <!-- Analysis -->
     <PackageVersion Include="MongoDB.Driver" Version="3.9.0" />
     <PackageVersion Include="SharpCompress" Version="1.0.0" />

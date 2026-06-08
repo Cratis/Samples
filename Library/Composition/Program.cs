@@ -78,11 +78,16 @@ chronicle
     .WithEndpoint("grpc", endpoint => endpoint.Port = 35000);
 
 // Keycloak for Lending - pre-seeded with librarian and borrower users
+// KC_HOSTNAME pins the public-facing URL used in the discovery document so the browser is
+// redirected to localhost:8090 (not an internal Docker hostname).
+// KC_HOSTNAME_STRICT=true prevents start-dev from overriding KC_HOSTNAME with the request hostname.
 var keycloakLending = builder.AddContainer("keycloak-lending", "quay.io/keycloak/keycloak")
     .WithArgs("start-dev", "--import-realm")
     .WithBindMount("./keycloak/lending", "/opt/keycloak/data/import", isReadOnly: true)
     .WithEnvironment("KEYCLOAK_ADMIN", "admin")
     .WithEnvironment("KEYCLOAK_ADMIN_PASSWORD", "admin")
+    .WithEnvironment("KC_HOSTNAME", "http://localhost:8090")
+    .WithEnvironment("KC_HOSTNAME_STRICT", "true")
     .WithHttpEndpoint(port: 8090, targetPort: 8080, name: "http");
 
 // Keycloak for Members - pre-seeded with member users
@@ -91,6 +96,8 @@ var keycloakMembers = builder.AddContainer("keycloak-members", "quay.io/keycloak
     .WithBindMount("./keycloak/members", "/opt/keycloak/data/import", isReadOnly: true)
     .WithEnvironment("KEYCLOAK_ADMIN", "admin")
     .WithEnvironment("KEYCLOAK_ADMIN_PASSWORD", "admin")
+    .WithEnvironment("KC_HOSTNAME", "http://localhost:8091")
+    .WithEnvironment("KC_HOSTNAME_STRICT", "true")
     .WithHttpEndpoint(port: 8091, targetPort: 8080, name: "http");
 
 // Lending backend - connected to Chronicle; projection sink type flows from DATABASE_TYPE
@@ -119,8 +126,9 @@ var keycloakLendingEndpoint = keycloakLending.GetEndpoint("http");
 var keycloakMembersEndpoint = keycloakMembers.GetEndpoint("http");
 
 // AuthProxy for Lending - authenticates users via Keycloak and proxies to Lending backend/frontend.
-// WithOidcProvider only accepts a static string for authority; we override it with a
-// WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
+// Authority is set to the public localhost URL (what the browser redirects to and what the token
+// issuer claim uses). BackchannelAuthority is the internal Docker DNS URL used exclusively for
+// server-to-server calls (discovery fetch, token exchange) from inside the AuthProxy container.
 builder.AddAuthProxy("authproxy-lending")
     .WithHttpEndpoint(port: 7000, targetPort: 8080, name: "http")
     .WithBackend("main", lending)
@@ -128,11 +136,11 @@ builder.AddAuthProxy("authproxy-lending")
     .WithOidcProvider(
         "Keycloak",
         OidcProviderType.Custom,
-        authority: string.Empty,
+        authority: "http://localhost:8090/realms/lending",
         clientId: "lending-app",
         clientSecret: "lending-secret")
     .WithEnvironment(ctx =>
-        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__Authority"] =
+        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__BackchannelAuthority"] =
             ReferenceExpression.Create($"{keycloakLendingEndpoint}/realms/lending"))
     .WithSpecifiedTenantResolution("default")
     .WaitFor(keycloakLending)
@@ -140,8 +148,6 @@ builder.AddAuthProxy("authproxy-lending")
     .WaitFor(lendingFrontend);
 
 // AuthProxy for Members - authenticates users via Keycloak and proxies to Members backend/frontend.
-// WithOidcProvider only accepts a static string for authority; we override it with a
-// WithEnvironment callback so Aspire resolves the dynamic Keycloak endpoint at startup.
 builder.AddAuthProxy("authproxy-members")
     .WithHttpEndpoint(port: 7001, targetPort: 8080, name: "http")
     .WithBackend("main", members)
@@ -149,11 +155,11 @@ builder.AddAuthProxy("authproxy-members")
     .WithOidcProvider(
         "Keycloak",
         OidcProviderType.Custom,
-        authority: string.Empty,
+        authority: "http://localhost:8091/realms/members",
         clientId: "members-app",
         clientSecret: "members-secret")
     .WithEnvironment(ctx =>
-        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__Authority"] =
+        ctx.EnvironmentVariables["Cratis__AuthProxy__Authentication__OidcProviders__0__BackchannelAuthority"] =
             ReferenceExpression.Create($"{keycloakMembersEndpoint}/realms/members"))
     .WithSpecifiedTenantResolution("default")
     .WaitFor(keycloakMembers)
