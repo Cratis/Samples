@@ -19,6 +19,10 @@
         <PackageReference Include="Cratis.Arc.ProxyGenerator.Build" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="../Lending.Contracts/Lending.Contracts.csproj" />
+    </ItemGroup>
+
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
         <Compile Remove="**/when_*/*.cs" />
         <Compile Remove="**/for_*/*.cs" />

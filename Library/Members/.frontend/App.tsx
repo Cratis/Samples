@@ -4,8 +4,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DialogComponents } from '@cratis/arc.react/dialogs';
 import { MembersHome } from '../Home';
-import { MembersList } from '../Profiles/Listing/MembersList';
-import { RegisterMember } from '../Profiles/Registration/RegisterMemberPanel';
+import { MyProfile } from '../Profiles/MyProfile';
 
 function App() {
     return (
@@ -13,8 +12,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<MembersHome />} />
-                    <Route path='/members' element={<MembersList />} />
-                    <Route path='/members/register' element={<RegisterMember />} />
+                    <Route path='/profile' element={<MyProfile />} />
                 </Routes>
             </BrowserRouter>
         </DialogComponents>

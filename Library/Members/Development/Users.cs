@@ -10,8 +10,8 @@ public class Users : ICanProvideUsers
 {
     public Task<IEnumerable<User>> Provide() => Task.FromResult<IEnumerable<User>>(
     [
-        CreateUser("00000000-1000-0000-0000-000000000001", "Alice Smith", "alice@members.local"),
-        CreateUser("00000000-1000-0000-0000-000000000002", "Bob Jones", "bob@members.local"),
+        CreateUser("b2000000-0000-0000-0000-000000000001", "Alice Johnson", "alice@library.example.com"),
+        CreateUser("b2000000-0000-0000-0000-000000000002", "Bob Smith", "bob@library.example.com"),
     ]);
 
     static User CreateUser(string userId, string displayName, string email) =>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <AssemblyName>Lending.Contracts</AssemblyName>
+        <RootNamespace>Lending.Contracts</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Chronicle" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="Cratis.Chronicle.Events.EventStoreAttribute">
+            <_Parameter1>Lending</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+</Project>
