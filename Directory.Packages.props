@@ -8,7 +8,7 @@
     <PackageVersion Include="Cratis" Version="20.48.0" />
     <PackageVersion Include="Cratis.Arc" Version="20.51.0" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.51.0" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.49.2" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="20.51.0" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="20.51.0" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="20.51.0" />
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
