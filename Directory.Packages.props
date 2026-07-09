@@ -18,11 +18,11 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.4.6" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.4.0" />
-    <PackageVersion Include="Cratis.Chronicle" Version="15.39.1" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.39.1" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="15.39.1" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.39.1" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.39.1" />
+    <PackageVersion Include="Cratis.Chronicle" Version="15.40.0" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="15.40.0" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="15.40.0" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="15.40.0" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="15.40.0" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
     <PackageVersion Include="MongoDB.Driver" Version="3.9.0" />
