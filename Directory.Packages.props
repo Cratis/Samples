@@ -3,8 +3,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.16.4" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.16.4" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.16.5" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.16.5" />
     <PackageVersion Include="Cratis" Version="20.48.0" />
     <PackageVersion Include="Cratis.Arc" Version="20.54.3" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="20.54.3" />
@@ -17,7 +17,7 @@
     <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.4.6" />
-    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.5.0" />
+    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.6.3" />
     <PackageVersion Include="Cratis.Chronicle" Version="16.0.6" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="16.0.6" />
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="16.0.6" />
