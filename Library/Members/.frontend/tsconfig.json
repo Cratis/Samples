@@ -2,10 +2,9 @@
     "extends": "../../../.frontend/tsconfig.base.json",
     "compilerOptions": {
         "allowImportingTsExtensions": true,
-        "baseUrl": "..",
         "paths": {
             "Profiles/*": [
-                "Profiles/*"
+                "../Profiles/*"
             ]
         }
     },
