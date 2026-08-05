@@ -6,7 +6,6 @@ using Cratis.Serialization;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Quickstart;
-using Terminal.Gui;
 
 #region Snippet:Quickstart-Console-Setup
 using Cratis.Chronicle;

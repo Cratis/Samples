@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.ObjectModel;
-using Terminal.Gui;
 
 namespace Quickstart.Dialogs;
 
