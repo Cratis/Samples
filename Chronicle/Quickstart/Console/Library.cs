@@ -3,7 +3,6 @@
 
 using System.Collections.ObjectModel;
 using Quickstart.Dialogs;
-using Terminal.Gui;
 
 namespace Quickstart;
 

@@ -17,30 +17,30 @@ namespace Quickstart {
     using System.Drawing;
 
 
-    public partial class Library : Terminal.Gui.Window {
+    public partial class Library : Terminal.Gui.Views.Window {
 
-        private Terminal.Gui.ListView _mainMenu;
+        private Terminal.Gui.Views.ListView _mainMenu;
 
         private void InitializeComponent() {
-            this._mainMenu = new Terminal.Gui.ListView();
+            this._mainMenu = new Terminal.Gui.Views.ListView();
             this.Width = Dim.Fill(0);
             this.Height = Dim.Fill(0);
             this.X = 0;
             this.Y = 0;
             this.Visible = true;
-            this.Arrangement = (Terminal.Gui.ViewArrangement.Movable | Terminal.Gui.ViewArrangement.Overlapped);
+            this.Arrangement = (Terminal.Gui.ViewBase.ViewArrangement.Movable | Terminal.Gui.ViewBase.ViewArrangement.Overlapped);
             this.Modal = false;
-            this.TextAlignment = Terminal.Gui.Alignment.Start;
+            this.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
             this.Title = "Library (ESC to quit)";
             this._mainMenu.Width = Dim.Fill(1);
             this._mainMenu.Height = Dim.Fill(1);
             this._mainMenu.X = 1;
             this._mainMenu.Y = 1;
             this._mainMenu.Visible = true;
-            this._mainMenu.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this._mainMenu.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this._mainMenu.Data = "_mainMenu";
-            this._mainMenu.TextAlignment = Terminal.Gui.Alignment.Start;
-            this._mainMenu.Source = new Terminal.Gui.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
+            this._mainMenu.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
+            this._mainMenu.Source = new Terminal.Gui.Views.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
                             "Initialize with books",
                             "Add book to inventory",
                             "Borrow book",
