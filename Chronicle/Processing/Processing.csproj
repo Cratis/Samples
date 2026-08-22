@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <RootNamespace>Processing</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Processing.Specs/**/*.cs" />
+        <Content Remove="Processing.Specs/**" />
+        <None Remove="Processing.Specs/**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Cratis.Fundamentals" />
+    </ItemGroup>
+</Project>
