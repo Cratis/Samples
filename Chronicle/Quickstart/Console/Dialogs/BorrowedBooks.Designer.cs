@@ -17,30 +17,30 @@ namespace Quickstart.Dialogs {
     using System.Drawing;
     
     
-    public partial class BorrowedBooks : Terminal.Gui.Dialog {
+    public partial class BorrowedBooks : Terminal.Gui.Views.Dialog {
         
-        private Terminal.Gui.ListView _books;
+        private Terminal.Gui.Views.ListView _books;
         
         private void InitializeComponent() {
-            this._books = new Terminal.Gui.ListView();
+            this._books = new Terminal.Gui.Views.ListView();
             this.Width = Dim.Percent(90);
             this.Height = Dim.Percent(80);
             this.X = Pos.Center();
             this.Y = Pos.Center();
             this.Visible = true;
-            this.Arrangement = Terminal.Gui.ViewArrangement.Movable;
+            this.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Movable;
             this.Modal = true;
-            this.TextAlignment = Terminal.Gui.Alignment.Start;
+            this.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
             this.Title = "";
             this._books.Width = Dim.Fill(1);
             this._books.Height = Dim.Fill(1);
             this._books.X = 1;
             this._books.Y = 1;
             this._books.Visible = true;
-            this._books.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this._books.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this._books.Data = "_books";
-            this._books.TextAlignment = Terminal.Gui.Alignment.Start;
-            this._books.Source = new Terminal.Gui.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
+            this._books.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
+            this._books.Source = new Terminal.Gui.Views.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
                             "Item1",
                             "Item2",
                             "Item3"}));

@@ -17,49 +17,49 @@ namespace Quickstart.Dialogs {
     using System.Drawing;
     
     
-    public partial class UserAndBookSelector : Terminal.Gui.Dialog {
+    public partial class UserAndBookSelector : Terminal.Gui.Views.Dialog {
         
-        private Terminal.Gui.Label label;
+        private Terminal.Gui.Views.Label label;
         
-        private Terminal.Gui.ListView _borrowers;
+        private Terminal.Gui.Views.ListView _borrowers;
         
-        private Terminal.Gui.Label label2;
+        private Terminal.Gui.Views.Label label2;
         
-        private Terminal.Gui.ListView _books;
+        private Terminal.Gui.Views.ListView _books;
         
         private void InitializeComponent() {
-            this._books = new Terminal.Gui.ListView();
-            this.label2 = new Terminal.Gui.Label();
-            this._borrowers = new Terminal.Gui.ListView();
-            this.label = new Terminal.Gui.Label();
+            this._books = new Terminal.Gui.Views.ListView();
+            this.label2 = new Terminal.Gui.Views.Label();
+            this._borrowers = new Terminal.Gui.Views.ListView();
+            this.label = new Terminal.Gui.Views.Label();
             this.Width = Dim.Percent(90);
             this.Height = Dim.Percent(90);
             this.X = Pos.Center();
             this.Y = Pos.Center();
             this.Visible = true;
-            this.Arrangement = Terminal.Gui.ViewArrangement.Movable;
+            this.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Movable;
             this.Modal = true;
-            this.TextAlignment = Terminal.Gui.Alignment.Start;
+            this.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
             this.Title = "";
             this.label.Width = Dim.Auto();
             this.label.Height = 1;
             this.label.X = 1;
             this.label.Y = 1;
             this.label.Visible = true;
-            this.label.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this.label.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this.label.Data = "label";
             this.label.Text = "Borrower";
-            this.label.TextAlignment = Terminal.Gui.Alignment.Start;
+            this.label.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
             this.Add(this.label);
             this._borrowers.Width = Dim.Fill(1);
             this._borrowers.Height = 10;
             this._borrowers.X = 1;
             this._borrowers.Y = 2;
             this._borrowers.Visible = true;
-            this._borrowers.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this._borrowers.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this._borrowers.Data = "_borrowers";
-            this._borrowers.TextAlignment = Terminal.Gui.Alignment.Start;
-            this._borrowers.Source = new Terminal.Gui.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
+            this._borrowers.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
+            this._borrowers.Source = new Terminal.Gui.Views.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
                             "Item1",
                             "Item2",
                             "Item3"}));
@@ -71,20 +71,20 @@ namespace Quickstart.Dialogs {
             this.label2.X = 1;
             this.label2.Y = 13;
             this.label2.Visible = true;
-            this.label2.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this.label2.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this.label2.Data = "label2";
             this.label2.Text = "Book";
-            this.label2.TextAlignment = Terminal.Gui.Alignment.Start;
+            this.label2.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
             this.Add(this.label2);
             this._books.Width = Dim.Fill(1);
             this._books.Height = 10;
             this._books.X = 1;
             this._books.Y = 14;
             this._books.Visible = true;
-            this._books.Arrangement = Terminal.Gui.ViewArrangement.Fixed;
+            this._books.Arrangement = Terminal.Gui.ViewBase.ViewArrangement.Fixed;
             this._books.Data = "_books";
-            this._books.TextAlignment = Terminal.Gui.Alignment.Start;
-            this._books.Source = new Terminal.Gui.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
+            this._books.TextAlignment = Terminal.Gui.ViewBase.Alignment.Start;
+            this._books.Source = new Terminal.Gui.Views.ListWrapper<string>(new System.Collections.ObjectModel.ObservableCollection<string>(new string[] {
                             "Item1",
                             "Item2",
                             "Item3"}));
