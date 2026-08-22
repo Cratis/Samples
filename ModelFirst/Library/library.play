@@ -1,0 +1,51 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// A deliberately small model-first sample: one command, one fact, and two model specifications.
+domain Library
+
+concept BookId     : Uuid
+concept BookTitle  : String
+concept AuthorName : String
+
+module Library
+  description "A small catalog model used to demonstrate the model-first developer journey"
+
+  feature Catalog
+    description "Adding a book to the library catalog"
+
+    slice StateChange AddBook
+      description "Adds one identified book to the catalog"
+
+      command AddBook
+        bookId     BookId identifier
+        title      BookTitle
+        authorName AuthorName
+
+        validate
+          title not empty       message "A title is required"
+          authorName not empty  message "An author name is required"
+
+        produces BookAddedToCatalog
+          title      = title
+          authorName = authorName
+
+      event BookAddedToCatalog
+        title      BookTitle
+        authorName AuthorName
+
+      specification AddingABook
+        when AddBook
+          bookId     = "75926956-26c2-4e60-a239-10367a2afbd8"
+          title      = "The Quiet Archive"
+          authorName = "Mara North"
+        then BookAddedToCatalog
+          title      = "The Quiet Archive"
+          authorName = "Mara North"
+
+      specification RejectingABookWithoutATitle
+        when AddBook
+          bookId     = "69064f39-6a76-458a-8a34-088eb4752650"
+          title      = ""
+          authorName = "Mara North"
+        then error "A title is required"
