@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --config .frontend/vite.config.ts",
-    "build": "vite build --config .frontend/vite.config.ts",
-    "lint": "eslint --config eslint.config.mjs --fix .",
-    "lint:ci": "eslint --config eslint.config.mjs .",
-    "test": "vitest run --config .frontend/vite.config.ts",
-    "compile": "tsc -b .frontend/tsconfig.json",
+    "dev": "yarn g:dev",
+    "build": "yarn g:build",
+    "lint": "yarn g:lint",
+    "lint:ci": "yarn g:lint:ci",
+    "test": "yarn g:test",
+    "compile": "yarn g:compile",
     "ci": "yarn test && yarn lint:ci && yarn compile && yarn build"
   },
   "dependencies": {

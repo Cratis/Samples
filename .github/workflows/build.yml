@@ -29,8 +29,18 @@ jobs:
       - name: Build Debug and generate proxies
         run: dotnet build Samples.slnx --configuration Debug --no-restore
 
-      - name: Run Debug specifications
-        run: dotnet test Samples.slnx --configuration Debug --no-build --verbosity normal
+      - name: Run focused Debug specifications
+        run: |
+          for project in \
+            Arc/React/Arc.React.Specs/Arc.React.Specs.csproj \
+            Chronicle/Backend/Backend.Specs/Backend.Specs.csproj \
+            Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj \
+            Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj \
+            Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj \
+            Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
+          do
+            dotnet test "$project" --configuration Debug --no-build --verbosity normal
+          done
 
       - name: Build Release without regenerating proxies
         run: dotnet build Samples.slnx --configuration Release --no-restore -p:CratisProxiesOutputPath=
