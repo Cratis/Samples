@@ -39,7 +39,7 @@ jobs:
             Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj \
             Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
           do
-            dotnet test "$project" --configuration Debug --no-build --verbosity normal
+            dotnet test "$project" --configuration Debug --verbosity normal
           done
 
       - name: Build Release without regenerating proxies

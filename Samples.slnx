@@ -7,7 +7,6 @@
     </Configurations>
     <Folder Name="/Arc/React/">
         <Project Path="Arc/React/Arc.React.csproj" />
-        <Project Path="Arc/React/Arc.React.Specs/Arc.React.Specs.csproj" />
     </Folder>
     <Folder Name="/Chronicle/" />
     <Folder Name="/Chronicle/Backend/">
