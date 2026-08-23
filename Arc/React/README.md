@@ -42,7 +42,12 @@ The write path stores current state directly. Arc still owns the command/query b
 
 ## Prerequisites
 
-Use the SDK and Node/Yarn versions pinned by the Samples repository. Install the repository's existing centrally managed dependencies from the repository root; this sample intentionally does not add or modify package manifests.
+Requires .NET 10, Node.js 23 or newer, and the repository-pinned Yarn 4.5.3. Install the frontend dependencies once from the Samples root:
+
+```bash
+corepack enable
+yarn install
+```
 
 ## Run it
 

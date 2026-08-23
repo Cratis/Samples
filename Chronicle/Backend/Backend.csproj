@@ -6,5 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+    <PackageReference Include="Cratis.Fundamentals" />
   </ItemGroup>
 </Project>

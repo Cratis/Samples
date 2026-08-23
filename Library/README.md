@@ -50,18 +50,23 @@ Stop the AppHost with `Ctrl+C`.
 ```mermaid
 flowchart LR
     Browser[Browser]
+    LendingProxy[Lending AuthProxy]
+    MembersProxy[Members AuthProxy]
     LendingUI[Lending React UI]
     MembersUI[Members React UI]
     Lending[Lending · Arc]
     Members[Members · Arc]
-    Chronicle[Chronicle]
-    MongoDB[(MongoDB)]
+    LibraryStore[(Chronicle · Library store)]
+    MembersStore[(Chronicle · Members store)]
+    MongoDB[(MongoDB read models)]
+    Keycloak[Keycloak realms]
 
-    Browser --> LendingUI --> Lending
-    Browser --> MembersUI --> Members
-    Lending --> Chronicle
-    Members --> Chronicle
-    Chronicle --> MongoDB
+    Browser --> LendingProxy
+    Browser --> MembersProxy
+    LendingProxy --> LendingUI --> Lending --> LibraryStore --> MongoDB
+    MembersProxy --> MembersUI --> Members --> MembersStore --> MongoDB
+    LendingProxy -. sign in .-> Keycloak
+    MembersProxy -. sign in .-> Keycloak
 ```
 
 - **React + Cratis Components** render commands, observable queries, tables, dialogs, and member-facing cards.
@@ -77,7 +82,7 @@ Library/
 ├── Composition/        Aspire AppHost and local Keycloak realm imports
 ├── Lending/            Librarian UI, authors, inventory, lending behavior, and specs
 ├── Lending.Contracts/  Borrowing integration event contracts
-├── Members/            Member portal, profiles, borrowed books, and specs
+├── Members/            Member portal, identity, profiles, and borrowed-book views
 ├── Library.slnx        Application solution
 └── run-mongodb.sh      Recommended local entry point
 ```
@@ -101,6 +106,18 @@ Lending/Authors/
 ```
 
 Concept types make domain intent visible at every boundary: `AuthorName` is a `ConceptAs<string>`, `ISBN` is an `EventSourceId`, and identifiers such as `AuthorId` and `MemberId` are dedicated types rather than loose primitives. A Debug build regenerates the TypeScript commands, queries, and models used by each React slice.
+
+## Build and verify
+
+From the Samples repository root:
+
+```bash
+dotnet build Library/Library.slnx --configuration Debug
+dotnet test Library/Library.slnx --configuration Debug --no-build
+dotnet build Library/Library.slnx --configuration Release -p:CratisProxiesOutputPath=
+yarn --cwd Library/Lending build
+yarn --cwd Library/Members build
+```
 
 ## Ideas to try
 

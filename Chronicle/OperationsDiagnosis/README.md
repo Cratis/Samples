@@ -1,36 +1,39 @@
-# Chronicle operations diagnosis
+<div align="center">
 
-> One event. One reactor that falls over on purpose. Zero repair commands.
+# Chronicle Operations Diagnosis
 
-**A tiny local fixture for learning how to read a Chronicle failure before touching it.**
+### Create one known failure. Find it. Understand it. Stop before repair.
+
+**Chronicle · CLI · Workbench · Failed partitions**
+
+[Back to all samples](../../README.md)
+
+</div>
 
 ---
 
-The sample appends a `ProbeRequested` event to a stable event source. `FailingProbeReactor` always throws `ProbeConfiguredToFail` with marker `OD-001`, leaving a failed observer partition that is easy to find with the current `cratis chronicle` CLI or Chronicle Workbench.
+## The idea
+
+The sample appends one `ProbeRequested` event. `FailingProbeReactor` deliberately throws an exception marked `OD-001`, giving you a predictable failed partition to inspect.
 
 ```mermaid
 flowchart LR
-    Trigger[POST fixture] -->|ProbeRequested| Log[(Chronicle event log)]
-    Log --> Reactor[FailingProbeReactor]
-    Reactor -->|OD-001| Failed[Failed partition]
-    CLI[CLI / Workbench] -. read only .-> Log
-    CLI -. read only .-> Failed
+    request[POST failure fixture] --> log[Chronicle event log]
+    log --> reactor[FailingProbeReactor]
+    reactor --> failure[Failed partition · OD-001]
+    cli[CLI / Workbench] -. read only .-> failure
 ```
 
-The domain is deliberately small: `ProbeId : EventSourceId<Guid>`, `ProbeName : ConceptAs<string>`, one event, and one reactor. Package references use the repository's centrally managed versions.
+The model stays tiny: `ProbeId : EventSourceId<Guid>`, `ProbeName : ConceptAs<string>`, one event, and one reactor.
 
-## Build and test
+## Prerequisites
 
-From the repository root:
+- .NET 10 SDK
+- Docker with Compose support
+- `curl`
+- A Cratis CLI version supporting the Chronicle commands shown below
 
-```bash
-dotnet build Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj
-dotnet test Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj
-```
-
-The sample is intentionally standalone and is not added to the root solution.
-
-## Create the local symptom
+## Run it
 
 Start the existing Chronicle development container:
 
@@ -38,36 +41,27 @@ Start the existing Chronicle development container:
 docker compose -f Chronicle/Quickstart/docker-compose.yml up -d chronicle
 ```
 
-Run the fixture API:
+Start the fixture API:
 
 ```bash
 dotnet run --project Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj
 ```
 
-In another terminal, append the one deliberate failure event:
+Create the known failure:
 
 ```bash
 curl --request POST http://localhost:5078/fixture/failure
 ```
 
-The response names the store, namespace, event type, expected exception, and stable event source:
+The stable event source is:
 
 ```text
 00000000-0000-0000-0000-00000000d1a6
 ```
 
-This POST is fixture setup and does mutate the local event log. Everything below is diagnosis and is read-only.
+## Find it with the CLI
 
-## Read-only CLI runbook
-
-The installed CLI catalog is the versioned authority. If your CLI differs, check it before continuing:
-
-```bash
-cratis llm-context
-cratis chronicle --help
-```
-
-Pin every command to the local server and fixture store so there is no context ambiguity:
+Pin the target so every command is unambiguous:
 
 ```bash
 SERVER=chronicle://localhost:35000
@@ -76,60 +70,62 @@ NAMESPACE=Default
 SOURCE=00000000-0000-0000-0000-00000000d1a6
 ```
 
-### 1. Orient
+Start broad:
 
 ```bash
-cratis chronicle event-stores list --server "$SERVER" -o plain
-cratis chronicle namespaces list --server "$SERVER" -e "$STORE" -o plain
 cratis chronicle diagnose --server "$SERVER" -e "$STORE" -n "$NAMESPACE" -o plain
-```
-
-Expected signal: the store is reachable and reports a failed partition. `diagnose --watch --interval 2` is also read-only; press Ctrl+C once the failure appears.
-
-### 2. Find the observer and failed partition
-
-```bash
 cratis chronicle observers list --server "$SERVER" -e "$STORE" -n "$NAMESPACE" --type reactor -o plain
 cratis chronicle failed-partitions list --server "$SERVER" -e "$STORE" -n "$NAMESPACE" -o plain
 ```
 
-Copy the `FailingProbeReactor` observer id from the output, then inspect both sides of the failure:
+Copy the `FailingProbeReactor` observer id, then inspect the partition:
 
 ```bash
-cratis chronicle observers show <OBSERVER_ID> --server "$SERVER" -e "$STORE" -n "$NAMESPACE" -o json
-cratis chronicle failed-partitions show <OBSERVER_ID> "$SOURCE" --server "$SERVER" -e "$STORE" -n "$NAMESPACE" --detailed -o json
+cratis chronicle failed-partitions show \
+  <OBSERVER_ID> "$SOURCE" \
+  --server "$SERVER" -e "$STORE" -n "$NAMESPACE" \
+  --detailed -o json
 ```
 
-Expected signal: the partition key is the stable source id and the detailed error contains `ProbeConfiguredToFail` and `OD-001`.
-
-### 3. Prove the input exists
+The error contains `ProbeConfiguredToFail` and marker `OD-001`. Confirm the input event is present:
 
 ```bash
-cratis chronicle events get --server "$SERVER" -e "$STORE" -n "$NAMESPACE" --event-source-id "$SOURCE" -o json
-cratis chronicle event-types show ProbeRequested --server "$SERVER" -e "$STORE" -n "$NAMESPACE" -o json
+cratis chronicle events get \
+  --server "$SERVER" -e "$STORE" -n "$NAMESPACE" \
+  --event-source-id "$SOURCE" -o json
 ```
 
-Diagnosis is complete when the event is present, the reactor is registered, and the failed partition explains the stable `OD-001` exception. Stop there.
-
-## Chronicle Workbench: forensics mode
-
-Open the live terminal workbench against the same explicit target:
+## Open Workbench
 
 ```bash
-cratis chronicle workbench --server "$SERVER" -e "$STORE" -n "$NAMESPACE" --interval 2
+cratis chronicle workbench \
+  --server "$SERVER" -e "$STORE" -n "$NAMESPACE" --interval 2
 ```
 
-Use the read-only path:
+Use **Overview**, **Observers**, **Failures**, and **Event Sequences** to follow the same failure visually.
 
-1. **Overview** (`1`) — confirm the failure count.
-2. **Observers** (`2`) — select `FailingProbeReactor` and inspect its details.
-3. **Failures** (`3`) — select the stable partition and read the exception.
-4. **Event Sequences** (`6`) — filter for `ProbeRequested` or the source id.
+## Code tour
 
-Useful controls are arrow keys, `F` to filter, `Esc` to clear a filter, `?` for help, `Ctrl+C` to copy detail, and `Q` to quit. The Workbench also exposes operational actions; do not invoke them during this runbook.
+| File | What it shows |
+| --- | --- |
+| [`Program.cs`](./Program.cs) | Chronicle setup and the fixture endpoint |
+| [`ProbeId.cs`](./ProbeId.cs) | Stable typed event-source identity |
+| [`ProbeName.cs`](./ProbeName.cs) | `ConceptAs<string>` domain value |
+| [`Events.cs`](./Events.cs) | The input fact |
+| [`FailingProbeReactor.cs`](./FailingProbeReactor.cs) | A deterministic observer failure |
 
-## Safety boundary
+## Build and test
 
-This diagnosis flow does **not** replay an observer, retry a partition, clear quarantine, remove data, redact events, perform recommendations, manage users or applications, or pass `--yes`. Those are separate operations requiring an understood cause, an approved target, and an explicit recovery plan.
+```bash
+dotnet build Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj
+dotnet test Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj
+```
 
-A failed partition is evidence. Read it before changing it.
+## Make it yours—safely
+
+- Compare `plain` and `json` output from the diagnosis commands.
+- Match the observer id shown by `observers list` with the failed partition details.
+- Change the local fixture marker and identity, then repeat the same read-only inspection.
+
+> [!IMPORTANT]
+> The POST creates local fixture data. The diagnosis flow is read-only: do not replay, retry, clear quarantine, redact events, or run administrative actions as part of this sample.

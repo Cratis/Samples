@@ -6,7 +6,6 @@ using Chronicle.Backend;
 var builder = WebApplication.CreateBuilder(args)
     .AddCratisChronicle(options => options.EventStore = ChronicleConfiguration.EventStore);
 
-builder.Services.AddScoped<ChronicleReadiness>();
 builder.Services.AddScoped<Timeline>();
 
 var app = builder.Build();

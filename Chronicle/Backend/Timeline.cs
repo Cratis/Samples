@@ -8,7 +8,7 @@ namespace Chronicle.Backend;
 
 sealed class Timeline(IEventLog eventLog)
 {
-    public async Task<AppendResult> Record(TimelineId timelineId, string text) =>
+    public async Task<AppendResult> Record(TimelineId timelineId, TimelineEntryText text) =>
         await eventLog.Append(timelineId, new TimelineEntryRecorded(text));
 
     public async Task<IReadOnlyList<TimelineHistoryEntry>> GetHistory(TimelineId timelineId)

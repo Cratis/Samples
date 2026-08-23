@@ -35,9 +35,9 @@ flowchart LR
 
 | Style | Artifact | What it shows |
 | --- | --- | --- |
-| Model-bound projection | `WorkItemDetails` | `[FromEvent<T>]` and AutoMap for a direct event-to-view mapping. |
-| Typed reducer | `WorkItemProgressReducer` | Prior-state accumulation, coordinated calculations, and immutable `with` transitions. |
-| Deterministic reactor | `CompletionSummaryReactor` | A stateless follow-up event derived only from the triggering event. |
+| Model-bound projection | [`WorkItemDetails`](./WorkItemDetails.cs) | `[FromEvent<T>]` and AutoMap for a direct event-to-view mapping. |
+| Typed reducer | [`WorkItemProgressReducer`](./WorkItemProgress.cs) | Prior-state accumulation, coordinated calculations, and immutable `with` transitions. |
+| Deterministic reactor | [`CompletionSummaryReactor`](./CompletionSummaryReactor.cs) | A stateless follow-up event derived only from the triggering event. |
 
 The domain uses `WorkItemId : EventSourceId<Guid>` for stream identity and small `ConceptAs<T>` values for titles, work points, and completion summaries. This keeps events and read models strongly typed without distracting from the processing flow.
 
@@ -93,7 +93,7 @@ The endpoint uses `WaitForCompletion` with a ten-second deadline before reading 
 
 ## Build and test
 
-The sample is intentionally not added to the root solution. Target its projects directly:
+Build it on its own while exploring, or as part of the root Samples solution:
 
 ```bash
 dotnet build Chronicle/Processing/Processing.csproj
@@ -102,6 +102,16 @@ dotnet test Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
 
 The three focused specifications show the projection binding, reducer fold, and deterministic reactor result without introducing external infrastructure.
 
+## Code tour
+
+| File | What it shows |
+| --- | --- |
+| [`Program.cs`](./Program.cs) | Appending the event batch, awaiting completion, and reading the results |
+| [`WorkItemDetails.cs`](./WorkItemDetails.cs) | Direct model-bound projection |
+| [`WorkItemProgress.cs`](./WorkItemProgress.cs) | Prior-state reducer |
+| [`CompletionSummaryReactor.cs`](./CompletionSummaryReactor.cs) | Follow-up event from a reactor |
+| [`Processing.Specs`](./Processing.Specs/) | One focused specification per processing style |
+
 ## Learning points
 
 - Use `EventSourceId<T>` for stream identities and `ConceptAs<T>` for meaningful domain values.
@@ -109,6 +119,12 @@ The three focused specifications show the projection binding, reducer fold, and 
 - Choose a reducer when the next state genuinely depends on prior state.
 - Keep reactors stateless; use event data directly and return follow-up events instead of injecting `IEventLog`.
 - Await an observable processing boundary when a request truly needs read-after-write consistency.
+
+## Make it yours
+
+- Change the planned and completed points to produce a missed-plan summary.
+- Add a priority concept and project it into `WorkItemDetails`.
+- Add another progress event and watch the reducer fold it into prior state.
 
 ## Limitations
 

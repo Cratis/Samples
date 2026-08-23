@@ -119,7 +119,7 @@ curl --get http://localhost:5097/api/items/listing/item-by-id \
 
 ## Build and verify
 
-The sample intentionally remains outside the shared solution; target its projects directly:
+Build it directly while exploring, or as part of the root Samples solution:
 
 ```bash
 dotnet build Chronicle/MultiTenancy/MultiTenancy.csproj

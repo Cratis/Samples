@@ -10,4 +10,4 @@ namespace Chronicle.Backend;
 /// </summary>
 /// <param name="Text">The text captured in the timeline.</param>
 [EventType]
-public record TimelineEntryRecorded(string Text);
+public record TimelineEntryRecorded(TimelineEntryText Text);

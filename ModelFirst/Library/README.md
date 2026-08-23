@@ -1,30 +1,64 @@
-# Model-first Library
+<div align="center">
 
-This bounded sample exercises the current experimental model-first tooling: author one Cratis Screenplay file, compile it, and ask Stage to run the specifications embedded in the model.
+# Model-First Library
 
-`library.play` contains one catalog state change:
+### Write the behavior once. Compile it. Run the specifications.
 
-- strongly typed book, title, and author concepts;
-- an `AddBook` command with two required-value rules;
-- the `BookAddedToCatalog` fact; and
-- one accepted-path and one rejected-path model specification.
+**Screenplay · Stage · Commands · Events · Model specifications**
 
-## Verify it
+[Back to all samples](../../README.md)
 
-The sample intentionally has no project or dependency manifest. It uses the dependencies and command-line entry points owned by current local Screenplay and Stage checkouts.
+</div>
 
-From this directory, point the variables at already-built sibling checkouts and run. `--no-build --no-restore` keeps this verification offline and uses those product-owned build outputs:
+---
 
-```shell
-export SCREENPLAY_REPO=/path/to/Screenplay
-export STAGE_REPO=/path/to/Stage
+## The idea
 
-# Compile the model and fail on warnings.
+[`library.play`](./library.play) describes one small catalog workflow as a software model:
+
+```text
+AddBook command
+    │
+    ├── validates title and author
+    │
+    ▼
+BookAddedToCatalog event
+```
+
+The same file contains one accepted example and one rejected example. Screenplay compiles the model; Stage runs those examples as model-level specifications.
+
+```mermaid
+flowchart LR
+    model[library.play] --> compiler[Screenplay compiler]
+    compiler --> stage[Stage specification runner]
+    stage --> result[2 model specifications]
+```
+
+## What is in the model
+
+- `BookId`, `BookTitle`, and `AuthorName` concepts;
+- an `AddBook` state-change slice;
+- required title and author rules;
+- the `BookAddedToCatalog` fact;
+- one successful scenario;
+- one expected validation rejection.
+
+Open [`library.play`](./library.play) before running anything—the complete behavior fits on one screen.
+
+## Run it
+
+This sample uses already-built local Screenplay and Stage checkouts. With the standard Cratis sibling-repository layout, run these commands from this directory:
+
+```bash
+export SCREENPLAY_REPO=${SCREENPLAY_REPO:-../../../Screenplay}
+export STAGE_REPO=${STAGE_REPO:-../../../Stage}
+
+# Compile the model and treat warnings as errors.
 dotnet run --no-build --no-restore \
   --project "$SCREENPLAY_REPO/Source/DotNET/Tool/Tool.csproj" -- \
   "$PWD/library.play" --warnaserror
 
-# Run Stage's model-level specifications.
+# Run the specifications embedded in the model.
 RESULTS_PATH="${TMPDIR:-/tmp}/cratis-library-stage-results.json"
 dotnet run --no-build --no-restore \
   --project "$STAGE_REPO/Source/SpecRunner/SpecRunner.csproj" -- \
@@ -33,10 +67,14 @@ dotnet run --no-build --no-restore \
 cat "$RESULTS_PATH"
 ```
 
-A successful run compiles one file with no diagnostics and records two `Passed` specification outcomes. Read the result file rather than relying only on the Stage process exit code: the runner uses exit code `0` when a run completes even if an individual model specification fails.
+The current model compiles without diagnostics and produces two passing specification results.
 
-## Truthful scope
+## Make it yours
 
-Stage's specification runner verifies this sample at the **model level**: referenced commands and events resolve, and the required-value rules agree with the expected rejection. It does not execute the command against a live Chronicle.
+- Add an ISBN concept and require it on `AddBook`.
+- Add a second rejection for an empty author name.
+- Introduce a read model after exploring the focused state-change slice.
+- Change an expected event value and watch the specification catch it.
 
-This bounded sample does **not** demonstrate query results, Scene UI, complete source generation, or a Studio round trip. Those are intentionally left for later samples.
+> [!NOTE]
+> This is the first bounded model-first step. It verifies compilation and model specifications; it does not yet demonstrate a live Chronicle command, query results, Scene UI, complete source generation, or a Studio round trip.

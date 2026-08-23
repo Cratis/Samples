@@ -21,16 +21,8 @@ static class TimelineEndpoints
     static async Task<IResult> RecordEntry(
         Guid timelineId,
         RecordTimelineEntryRequest request,
-        ChronicleReadiness readiness,
         Timeline timeline)
     {
-        var unavailable = await readiness.GetUnavailableResult();
-
-        if (unavailable is not null)
-        {
-            return unavailable;
-        }
-
         if (string.IsNullOrWhiteSpace(request.Text))
         {
             return Results.ValidationProblem(new Dictionary<string, string[]>
@@ -40,7 +32,8 @@ static class TimelineEndpoints
         }
 
         TimelineId typedTimelineId = timelineId;
-        var appendResult = await timeline.Record(typedTimelineId, request.Text.Trim());
+        TimelineEntryText entryText = request.Text.Trim();
+        var appendResult = await timeline.Record(typedTimelineId, entryText);
 
         if (!appendResult.IsSuccess)
         {
@@ -57,16 +50,8 @@ static class TimelineEndpoints
 
     static async Task<IResult> GetHistory(
         Guid timelineId,
-        ChronicleReadiness readiness,
         Timeline timeline)
     {
-        var unavailable = await readiness.GetUnavailableResult();
-
-        if (unavailable is not null)
-        {
-            return unavailable;
-        }
-
         TimelineId typedTimelineId = timelineId;
         var history = await timeline.GetHistory(typedTimelineId);
 

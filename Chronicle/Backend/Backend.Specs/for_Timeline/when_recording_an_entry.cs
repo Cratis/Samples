@@ -27,5 +27,5 @@ public class when_recording_an_entry : Specification
     [Fact]
     async Task should_append_the_typed_event() => await _eventLog.Received(1).Append(
         (EventSourceId)_timelineId,
-        Arg.Is<TimelineEntryRecorded>(@event => @event.Text == EntryText));
+        Arg.Is<TimelineEntryRecorded>(@event => @event.Text.Value == EntryText));
 }
