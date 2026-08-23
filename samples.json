@@ -1,0 +1,288 @@
+{
+  "$schema": "./samples.schema.json",
+  "schemaVersion": 1,
+  "tracks": [
+    {
+      "id": "getting-started",
+      "title": "Getting started",
+      "description": "Meet Chronicle in a small application and follow an event from append to observation."
+    },
+    {
+      "id": "event-processing",
+      "title": "Event processing",
+      "description": "Turn recorded facts into useful views and follow-up behavior with projections, reducers, and reactors."
+    },
+    {
+      "id": "full-stack-cqrs",
+      "title": "Full-stack CQRS",
+      "description": "Build typed commands and observable queries from C# through generated contracts to React."
+    },
+    {
+      "id": "boundaries",
+      "title": "Boundaries and isolation",
+      "description": "Keep tenant data and bounded contexts separate while allowing explicit, typed communication."
+    },
+    {
+      "id": "operations",
+      "title": "Operations",
+      "description": "Create a known local symptom and learn to inspect Chronicle before taking action."
+    },
+    {
+      "id": "model-first",
+      "title": "Model-first",
+      "description": "Describe behavior as an executable model, compile it, and run its specifications."
+    },
+    {
+      "id": "full-applications",
+      "title": "Full applications",
+      "description": "Explore how Cratis products fit together across backend, frontend, runtime, and local composition."
+    }
+  ],
+  "samples": [
+    {
+      "id": "chronicle-backend",
+      "title": "Chronicle Backend",
+      "tagline": "Append an immutable fact and read one event source's history through a focused HTTP API.",
+      "track": "getting-started",
+      "path": "Chronicle/Backend",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/Backend",
+      "ui": "None",
+      "level": "Start here",
+      "products": ["Chronicle"],
+      "runtime": ["ASP.NET Core", "Chronicle"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Configure one named Chronicle event store",
+        "Use ConceptAs and EventSourceId for clear domain values and identities",
+        "Read the stored history without introducing a projection"
+      ],
+      "verification": [
+        "dotnet build Chronicle/Backend/Backend.csproj --configuration Debug",
+        "dotnet test Chronicle/Backend/Backend.Specs/Backend.Specs.csproj"
+      ],
+      "limitations": [
+        "The sample teaches the event log directly and intentionally leaves out projections and a frontend.",
+        "Its tests specify the Chronicle-facing behavior without starting external infrastructure."
+      ],
+      "featured": true
+    },
+    {
+      "id": "chronicle-processing",
+      "title": "Chronicle Processing",
+      "tagline": "See one event stream feed a projection, reducer, and reactor without timing guesses.",
+      "track": "event-processing",
+      "path": "Chronicle/Processing",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/Processing",
+      "ui": "None",
+      "level": "Focused",
+      "products": ["Chronicle", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "Chronicle"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Use ConceptAs values and an EventSourceId identity throughout the model",
+        "Compare a model-bound projection with a prior-state reducer",
+        "Return a deterministic follow-up event from a reactor"
+      ],
+      "verification": [
+        "dotnet build Chronicle/Processing/Processing.csproj --configuration Debug",
+        "dotnet test Chronicle/Processing/Processing.Specs/Processing.Specs.csproj"
+      ],
+      "limitations": [
+        "The endpoint uses fixed sample data so the processing styles stay in focus.",
+        "The sample is backend-only and uses local Chronicle development infrastructure."
+      ],
+      "featured": true
+    },
+    {
+      "id": "arc-react",
+      "title": "Idea Loom — Arc + React",
+      "tagline": "Build a polished command-and-query experience with generated contracts and no event sourcing.",
+      "track": "full-stack-cqrs",
+      "path": "Arc/React",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Arc/React",
+      "ui": "React",
+      "level": "Focused",
+      "products": ["Arc", "Components", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "React"],
+      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "Yarn"],
+      "highlights": [
+        "Use ConceptAs values and validators in a model-bound Arc command",
+        "Generate TypeScript command, query, and read-model contracts",
+        "Compose React MVVM, an observable query, and a Cratis CommandDialog"
+      ],
+      "verification": [
+        "dotnet build Arc/React/Arc.React.csproj --configuration Debug",
+        "dotnet test Arc/React/Arc.React.Specs/Arc.React.Specs.csproj",
+        "yarn --cwd Arc/React build"
+      ],
+      "limitations": [
+        "The current-state store is in memory so the Arc and React boundary stays easy to see.",
+        "This sample deliberately does not use Chronicle."
+      ],
+      "featured": true
+    },
+    {
+      "id": "chronicle-multi-tenancy",
+      "title": "Chronicle Multi-Tenancy",
+      "tagline": "Use Arc header tenancy to isolate the same workflow in separate Chronicle namespaces.",
+      "track": "boundaries",
+      "path": "Chronicle/MultiTenancy",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/MultiTenancy",
+      "ui": "None",
+      "level": "Focused",
+      "products": ["Arc", "Chronicle", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Resolve the tenant from Arc's standard header",
+        "Map tenant context to Chronicle namespaces",
+        "Use the same EventSourceId safely in tenant A, tenant B, and Default"
+      ],
+      "verification": [
+        "dotnet build Chronicle/MultiTenancy/MultiTenancy.csproj --configuration Debug",
+        "dotnet test Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj"
+      ],
+      "limitations": [
+        "The tenant header selects context but is not an authorization policy.",
+        "The sample is backend-only and uses local development infrastructure."
+      ],
+      "featured": true
+    },
+    {
+      "id": "chronicle-cross-store",
+      "title": "Chronicle Cross-Store",
+      "tagline": "Connect two named event stores through a typed outbox, filtered inbox, and local translation.",
+      "track": "boundaries",
+      "path": "Chronicle/CrossStore",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/CrossStore",
+      "ui": "None",
+      "level": "Advanced",
+      "products": ["Chronicle", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "Chronicle"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Keep Orders and Fulfillment in separate event stores",
+        "Forward one narrow contract through source outbox and target inbox",
+        "Translate the contract into a target-owned event and read model"
+      ],
+      "verification": [
+        "dotnet build Chronicle/CrossStore/CrossStore.csproj --configuration Debug",
+        "dotnet test Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj"
+      ],
+      "limitations": [
+        "Cross-store processing is asynchronous and is not a distributed transaction.",
+        "The sample does not claim exactly-once delivery."
+      ],
+      "featured": true
+    },
+    {
+      "id": "chronicle-aspnetcore-quickstart",
+      "title": "Chronicle with ASP.NET Core",
+      "tagline": "Host the same event-processing concepts behind a small HTTP API.",
+      "track": "getting-started",
+      "path": "Chronicle/Quickstart/AspNetCore",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/Quickstart/AspNetCore",
+      "ui": "None",
+      "level": "Start here",
+      "products": ["Chronicle"],
+      "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Configure Chronicle through ASP.NET Core dependency injection",
+        "Register reducers, projections, reactors, and query services",
+        "Append events through minimal HTTP endpoints"
+      ],
+      "verification": [
+        "dotnet build Chronicle/Quickstart/AspNetCore/AspNetCore.csproj --configuration Debug"
+      ],
+      "limitations": [
+        "The sample concentrates on backend hosting and does not include a browser frontend.",
+        "Its HTTP surface is deliberately small."
+      ],
+      "featured": true
+    },
+    {
+      "id": "chronicle-operations-diagnosis",
+      "title": "Chronicle Operations Diagnosis",
+      "tagline": "Create one deterministic failed partition and find it with the CLI and Workbench.",
+      "track": "operations",
+      "path": "Chronicle/OperationsDiagnosis",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/OperationsDiagnosis",
+      "ui": "Workbench and CLI",
+      "level": "Focused",
+      "products": ["Chronicle", "Cratis CLI", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "Chronicle", "CLI", "Workbench"],
+      "prerequisites": [".NET 10 SDK", "Docker", "Cratis CLI", "curl"],
+      "highlights": [
+        "Use typed probe identity and name values",
+        "Create one stable reactor failure",
+        "Inspect the event, observer, and failed partition without repair actions"
+      ],
+      "verification": [
+        "dotnet build Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj --configuration Debug",
+        "dotnet test Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj"
+      ],
+      "limitations": [
+        "The POST endpoint intentionally creates local fixture data.",
+        "Replay, retry, quarantine changes, redaction, and administration are outside the sample."
+      ],
+      "featured": true
+    },
+    {
+      "id": "model-first-library",
+      "title": "Model-First Library",
+      "tagline": "Compile one Screenplay model and run its accepted and rejected examples through Stage.",
+      "track": "model-first",
+      "path": "ModelFirst/Library",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/ModelFirst/Library",
+      "ui": "None",
+      "level": "Focused",
+      "products": ["Screenplay", "Stage"],
+      "runtime": ["Screenplay compiler", "Stage specification runner"],
+      "prerequisites": [".NET 10 SDK", "Built Screenplay checkout", "Built Stage checkout"],
+      "highlights": [
+        "Describe concepts, a command, validation, and an event in one model",
+        "Keep accepted and rejected examples beside the behavior",
+        "Compile with Screenplay and run model specifications with Stage"
+      ],
+      "verification": [
+        "dotnet run --no-build --no-restore --project ../../../Screenplay/Source/DotNET/Tool/Tool.csproj -- library.play --warnaserror",
+        "dotnet run --no-build --no-restore --project ../../../Stage/Source/SpecRunner/SpecRunner.csproj -- --model ."
+      ],
+      "limitations": [
+        "The sample verifies the model and its specifications without running a live Chronicle command.",
+        "Scene UI, source generation, and Studio round trips are intentionally outside this first step."
+      ],
+      "featured": true
+    },
+    {
+      "id": "library-showcase",
+      "title": "Library",
+      "tagline": "Tour a larger Cratis application with separate lending and membership experiences.",
+      "track": "full-applications",
+      "path": "Library",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Library",
+      "ui": "React",
+      "level": "Showcase",
+      "products": ["Arc", "Chronicle", "Components"],
+      "runtime": ["ASP.NET Core", "React", "Aspire", "Chronicle", "MongoDB"],
+      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "Corepack/Yarn", "Docker", "Bash"],
+      "highlights": [
+        "Organize behavior as cohesive vertical slices",
+        "Generate TypeScript contracts from backend commands and queries",
+        "Compose separate lending and membership applications for local development"
+      ],
+      "verification": [
+        "dotnet build Library/Library.slnx --configuration Debug",
+        "dotnet build Library/Library.slnx --configuration Release -p:CratisProxiesOutputPath=",
+        "yarn --cwd Library/Lending build",
+        "yarn --cwd Library/Members build"
+      ],
+      "limitations": [
+        "The MongoDB profile is the current reference path for the demonstrated read models.",
+        "Some domain flows are backend examples and are not yet represented by a dedicated screen."
+      ],
+      "featured": true
+    }
+  ]
+}

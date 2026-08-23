@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cratis.io/schemas/samples.schema.json",
+  "title": "Cratis samples catalog",
+  "type": "object",
+  "required": ["schemaVersion", "tracks", "samples"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "tagline",
+          "track",
+          "path",
+          "sourceUrl",
+          "ui",
+          "level",
+          "products",
+          "runtime",
+          "prerequisites",
+          "highlights",
+          "verification",
+          "limitations"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "tagline": { "type": "string", "minLength": 1 },
+          "track": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "path": { "type": "string", "minLength": 1 },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "previewUrl": { "type": "string", "format": "uri-reference" },
+          "previewLabel": { "type": "string", "minLength": 1 },
+          "ui": { "enum": ["None", "Terminal", "React", "Workbench and CLI"] },
+          "level": { "enum": ["Start here", "Focused", "Advanced", "Showcase"] },
+          "products": { "$ref": "#/$defs/nonEmptyStrings" },
+          "runtime": { "$ref": "#/$defs/nonEmptyStrings" },
+          "prerequisites": { "$ref": "#/$defs/nonEmptyStrings" },
+          "highlights": { "$ref": "#/$defs/nonEmptyStrings" },
+          "verification": { "$ref": "#/$defs/nonEmptyStrings" },
+          "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+          "featured": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

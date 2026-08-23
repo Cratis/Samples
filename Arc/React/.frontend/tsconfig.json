@@ -1,0 +1,21 @@
+{
+    "extends": "../../../.frontend/tsconfig.base.json",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "baseUrl": "..",
+        "moduleResolution": "bundler",
+        "types": [
+            "chai",
+            "react",
+            "react-dom",
+            "vitest/globals"
+        ]
+    },
+    "include": [
+        "../**/*.ts",
+        "../**/*.tsx"
+    ],
+    "exclude": [
+        "vite.config.ts"
+    ]
+}

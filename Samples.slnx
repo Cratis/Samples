@@ -5,12 +5,35 @@
         <Platform Name="x64" />
         <Platform Name="x86" />
     </Configurations>
+    <Folder Name="/Arc/React/">
+        <Project Path="Arc/React/Arc.React.csproj" />
+        <Project Path="Arc/React/Arc.React.Specs/Arc.React.Specs.csproj" />
+    </Folder>
     <Folder Name="/Chronicle/" />
+    <Folder Name="/Chronicle/Backend/">
+        <Project Path="Chronicle/Backend/Backend.csproj" />
+        <Project Path="Chronicle/Backend/Backend.Specs/Backend.Specs.csproj" />
+    </Folder>
+    <Folder Name="/Chronicle/CrossStore/">
+        <Project Path="Chronicle/CrossStore/CrossStore.csproj" />
+        <Project Path="Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj" />
+    </Folder>
+    <Folder Name="/Chronicle/MultiTenancy/">
+        <Project Path="Chronicle/MultiTenancy/MultiTenancy.csproj" />
+        <Project Path="Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj" />
+    </Folder>
+    <Folder Name="/Chronicle/OperationsDiagnosis/">
+        <Project Path="Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj" />
+        <Project Path="Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj" />
+    </Folder>
+    <Folder Name="/Chronicle/Processing/">
+        <Project Path="Chronicle/Processing/Processing.csproj" />
+        <Project Path="Chronicle/Processing/Processing.Specs/Processing.Specs.csproj" />
+    </Folder>
     <Folder Name="/Chronicle/Quickstart/">
         <Project Path="Chronicle/Quickstart/AspNetCore/AspNetCore.csproj" />
         <Project Path="Chronicle/Quickstart/Common.AspNetCore/Common.AspNetCore.csproj" />
         <Project Path="Chronicle/Quickstart/Common/Common.csproj" />
-        <Project Path="Chronicle/Quickstart/Console/Console.csproj" />
     </Folder>
     <Project Path="Library/Lending/Lending.csproj" />
     <Project Path="Library/Members/Members.csproj" />
