@@ -1,13 +1,13 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Arc.React.Ideas.Board;
-
 using System.Reactive.Subjects;
 using System.Threading;
 using Cratis.Arc.Authorization;
 using Cratis.Arc.Commands.ModelBound;
 using Cratis.Arc.Queries.ModelBound;
+
+namespace Arc.React.Ideas.Board;
 
 /// <summary>
 /// Captures a new idea in the current-state board.
@@ -48,7 +48,7 @@ public record Idea(IdeaId Id, IdeaTitle Title, IdeaSummary Summary)
 public sealed class IdeaStore : IDisposable
 {
     readonly Lock _gate = new();
-    readonly BehaviorSubject<IEnumerable<Idea>> _ideas = new(Array.Empty<Idea>());
+    readonly BehaviorSubject<IEnumerable<Idea>> _ideas = new([]);
 
     /// <summary>
     /// Gets a snapshot of the current ideas.
@@ -59,7 +59,7 @@ public sealed class IdeaStore : IDisposable
         {
             lock (_gate)
             {
-                return _ideas.Value.ToArray();
+                return [.. _ideas.Value];
             }
         }
     }
@@ -72,7 +72,7 @@ public sealed class IdeaStore : IDisposable
     {
         lock (_gate)
         {
-            _ideas.OnNext(new[] { idea }.Concat(_ideas.Value).ToArray());
+            _ideas.OnNext([idea, .. _ideas.Value]);
         }
     }
 

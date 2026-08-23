@@ -1,11 +1,11 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Arc.React.Specs.for_IdeaStore.when_capturing_an_idea;
-
 using Arc.React.Ideas.Board;
 using Cratis.Specifications;
 using Xunit;
+
+namespace Arc.React.Specs.for_IdeaStore.when_capturing_an_idea;
 
 public class with_valid_details : Specification
 {

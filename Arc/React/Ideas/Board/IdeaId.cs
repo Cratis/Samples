@@ -1,9 +1,9 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Arc.React.Ideas.Board;
-
 using Cratis.Concepts;
+
+namespace Arc.React.Ideas.Board;
 
 /// <summary>
 /// Represents the identifier of an idea stored as current state.

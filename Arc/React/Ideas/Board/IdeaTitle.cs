@@ -1,11 +1,11 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Arc.React.Ideas.Board;
-
 using Cratis.Arc.Validation;
 using Cratis.Concepts;
 using FluentValidation;
+
+namespace Arc.React.Ideas.Board;
 
 /// <summary>
 /// Represents the concise title of an idea.

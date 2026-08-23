@@ -3,8 +3,8 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <RootNamespace>Arc.React.Specs</RootNamespace>
-        <!-- Cratis Specifications uses snake_case facts, inline attributes, and convention-based teardown; NU1506 comes from root entries. -->
-        <NoWarn>$(NoWarn);CA1001;IDE1006;NU1506;SA1134</NoWarn>
+        <!-- Cratis Specifications uses snake_case facts, inline attributes, and convention-based teardown. -->
+        <NoWarn>$(NoWarn);CA1001;IDE1006;SA1134</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
