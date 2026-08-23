@@ -12,7 +12,7 @@ if (process.argv.length < 3) {
 
 const path = require('path');
 const fs = require('fs');
-const spawn = require('child_process').spawnSync;
+const spawnSync = require('child_process').spawnSync;
 const editJsonFile = require('edit-json-file');
 const rootPackageJson = require('./package.json')
 const glob = require('glob').sync;
@@ -24,13 +24,22 @@ const distFolder = `dist${path.sep}`
 for (const workspaceDef of rootPackageJson.workspaces) {
     console.log(`Getting packages for workspace definition '${workspaceDef}' \n`);
 
-    const files = glob(workspaceDef, { cwd: process.cwd() });
+    const packagePattern = workspaceDef.endsWith('package.json')
+        ? workspaceDef
+        : `${workspaceDef.replace(/\/$/, '')}/package.json`;
+    const files = glob(packagePattern, { cwd: process.cwd() });
 
     const packages = files
-        .filter(_ => path.basename(_) === 'package.json' && _.indexOf(distFolder) < 0 && _.indexOf('node_modules') < 0)
+        .filter(_ => !_.includes(distFolder) && !_.includes('node_modules'))
         .sort((a, b) => a.length - b.length);
     packages.forEach(_ => {
-        const localPackage = JSON.parse(fs.readFileSync(_).toString());
+        let localPackage;
+        try {
+            localPackage = JSON.parse(fs.readFileSync(_).toString());
+        } catch (error) {
+            console.error(`Could not read workspace package '${_}':`, error.message);
+            process.exit(1);
+        }
 
         workspaces[localPackage.name] = path.dirname(_);
         console.log(`Including workspace '${localPackage.name}' at '${workspaces[localPackage.name]}'`);
@@ -80,12 +89,12 @@ for (const workspaceName in workspaces) {
     if (fs.existsSync(packageJsonFile)) {
         const file = editJsonFile(packageJsonFile, { stringify_width: 4 });
         const packageJson = file.toObject();
-        if (packageJson.private === true) {
-            console.log(`Workspace private '${workspaceName}' at '${workspaceRelativeLocation}'`);
-            continue;
-        }
-
         if (task === 'publish-version') {
+            if (packageJson.private === true) {
+                console.log(`Skipping private workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
+                continue;
+            }
+
             if (args.length === 1) {
                 const version = args[0];
                 file.set('version', version);
@@ -99,7 +108,7 @@ for (const workspaceName in workspaces) {
                 }
 
                 console.log(`Publishing workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
-                const result = spawn('npm', ['publish'], { cwd: workspaceAbsoluteLocation, shell: true });
+                const result = spawnSync('npm', ['publish'], { cwd: workspaceAbsoluteLocation, shell: false });
                 console.log(result.stdout.toString());
                 if (result.status !== 0) {
                     console.log(`Error publishing workspace '${workspaceName}'`);
@@ -108,14 +117,14 @@ for (const workspaceName in workspaces) {
             }
         } else {
 
-            if (!packageJson.scripts || !packageJson.scripts.hasOwnProperty(task)) {
+            if (!packageJson.scripts || !Object.hasOwn(packageJson.scripts, task)) {
                 console.log(`Skipping workspace '${workspaceName}' - no script with name '${task}'`);
                 continue;
             }
 
             console.log(`Workspace '${workspaceName}' at '${workspaceRelativeLocation}'`);
 
-            const result = spawn('yarn', [task], { cwd: workspaceAbsoluteLocation, shell: true });
+            const result = spawnSync('yarn', [task], { cwd: workspaceAbsoluteLocation, shell: false });
             if (result.error) {
                 console.log(`Error running task '${task}' on workspace '${workspaceName}':`,
                     result.error.message);

@@ -1,12 +1,11 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-/// <reference types="vitest/config" />
-
 import { EmitMetadataPlugin } from '@cratis/arc.vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
-import { defineConfig, type PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 const backend = 'http://localhost:5064';
 

@@ -6,8 +6,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
         <OutputType>Exe</OutputType>
-        <!-- Arc artifacts form a public API; NU1506 is inherited from the root's case-variant test SDK entries. -->
-        <NoWarn>$(NoWarn);CA1515;NU1506</NoWarn>
+        <NoWarn>$(NoWarn);CA1515</NoWarn>
         <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)</CratisProxiesOutputPath>
         <CratisProxiesSegmentsToSkip>2</CratisProxiesSegmentsToSkip>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>

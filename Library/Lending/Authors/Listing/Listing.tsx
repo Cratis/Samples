@@ -23,4 +23,4 @@ export const Listing = () => {
             <Column field="name" header="Name" />
         </DataTable>
     );
-}
+};

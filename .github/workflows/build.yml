@@ -10,78 +10,72 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  dotnet:
+    name: .NET samples
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: '10.0.x'  # Use .NET 10
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
 
-    - name: Restore dependencies
-      run: dotnet restore Samples.slnx
+      - name: Restore dependencies
+        run: dotnet restore Samples.slnx
 
-    - name: Build
-      run: dotnet build Samples.slnx --configuration Release --no-restore
+      - name: Build Debug and generate proxies
+        run: dotnet build Samples.slnx --configuration Debug --no-restore
 
-    - name: Run tests
-      run: dotnet test Samples.slnx --configuration Release --no-build --verbosity normal
+      - name: Run Debug specifications
+        run: dotnet test Samples.slnx --configuration Debug --no-build --verbosity normal
 
-  frontend-install:
+      - name: Build Release without regenerating proxies
+        run: dotnet build Samples.slnx --configuration Release --no-restore -p:CratisProxiesOutputPath=
+
+  frontend:
+    name: Frontend — ${{ matrix.project }}
     runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - uses: actions/cache@v3
-      id: yarn-cache
-      with:
-        path: |
-          .yarn/cache
-          **/node_modules
-          **/.eslintcache
-          **/yarn.lock
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
-    - name: Install dependencies
-      run: yarn
-
-  frontend-build:
-    runs-on: ubuntu-latest
-    needs: frontend-install
     strategy:
+      fail-fast: false
       matrix:
-        project: [Library]
+        project:
+          - Arc/React
+          - Library/Lending
+          - Library/Members
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - uses: actions/cache@v3
-      id: yarn-cache
-      with:
-        path: |
-          .yarn/cache
-          **/node_modules
-          **/.eslintcache
-          **/yarn.lock
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
 
-    - name: Install dependencies
-      run: yarn
+      - name: Enable Corepack
+        run: corepack enable
 
-    - name: Build ${{ matrix.project }}
-      run: yarn build
-      working-directory: ${{ matrix.project }}
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Validate sample catalog
+        run: yarn samples:validate
+
+      - name: Lint ${{ matrix.project }}
+        working-directory: ${{ matrix.project }}
+        run: yarn lint:ci
+
+      - name: Compile ${{ matrix.project }}
+        working-directory: ${{ matrix.project }}
+        run: yarn compile
+
+      - name: Test ${{ matrix.project }}
+        working-directory: ${{ matrix.project }}
+        run: yarn test --passWithNoTests
+
+      - name: Build ${{ matrix.project }}
+        working-directory: ${{ matrix.project }}
+        run: yarn build
