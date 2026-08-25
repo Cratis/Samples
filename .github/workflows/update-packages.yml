@@ -1,8 +1,10 @@
 name: Update Packages
 
+# No schedule here on purpose: Samples already receives dependency updates through
+# the repository_dispatch driven "Update Dependencies" workflow every time an
+# upstream Cratis package publishes (21 bot commits in the last week alone). The
+# daily cron on top of that was redundant load. Manual dispatch remains available.
 on:
-  schedule:
-    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
