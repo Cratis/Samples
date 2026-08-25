@@ -68,10 +68,11 @@ export const MembersHome = () => {
 
                 <div className='grid gap-4' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
                     {borrowedBooks.map(book => (
-                        <Card
+                        <Card.Root
                             key={book.id.toString()}
                             style={{ border: '1px solid var(--surface-border)' }}
                         >
+                            <Card.Body>
                             <div className='flex flex-row items-start gap-4'>
                                 <div
                                     className='flex h-16 w-12 shrink-0 items-center justify-center rounded'
@@ -88,7 +89,8 @@ export const MembersHome = () => {
                                     </span>
                                 </div>
                             </div>
-                        </Card>
+                            </Card.Body>
+                        </Card.Root>
                     ))}
                 </div>
             </div>

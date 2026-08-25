@@ -4,8 +4,6 @@
 import '@cratis/components/tokens';
 import '@cratis/components/styles';
 import 'primeicons/primeicons.css';
-import 'primereact/resources/primereact.min.css';
-import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'reflect-metadata';
 import './index.css';
 import { Bindings } from '@cratis/arc.react.mvvm';
