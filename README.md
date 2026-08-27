@@ -2,9 +2,9 @@
 
 # Cratis Samples
 
-### Learn the Cratis stack by running real applications
+### Runnable event sourcing and CQRS samples for the Cratis stack
 
-From a small Chronicle process to a React application composed with Arc, Components, and Aspire.
+From a small Chronicle event-sourcing process to a React application composed with Arc, Components, and Aspire — covering the Chronicle event store, Arc CQRS for ASP.NET Core, React Components, the CLI, Workbench, and the model-first Screenplay and Stage (experimental).
 
 [![Build](https://github.com/Cratis/Samples/actions/workflows/build.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/build.yml)
 [![Update dependencies](https://github.com/Cratis/Samples/actions/workflows/update-dependencies.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/update-dependencies.yml)
@@ -42,6 +42,10 @@ Model-first: .play model → Screenplay compiler → Stage specifications
 ```
 
 Choose the path matching what you want to learn. The focused samples keep one idea in view; Library brings several paths together in a larger application.
+
+- **Arc** — CQRS for ASP.NET Core: typed commands, observable queries, and TypeScript proxy generation. [Arc documentation](https://www.cratis.io/arc/)
+- **Chronicle** — the event store: append immutable events, then build projections and reactions over the history. [Chronicle documentation](https://www.cratis.io/chronicle/)
+- **Model-first (experimental)** — describe a workflow in a [Screenplay](https://github.com/Cratis/Screenplay) model and let [Stage](https://github.com/Cratis/Stage) render it into a runnable application.
 
 ## Run locally
 
@@ -102,6 +106,20 @@ A sample should be enjoyable to explore and easy to understand:
 4. Add tests for the behavior the sample teaches.
 5. Add the entry to [`samples.json`](./samples.json).
 6. Run `yarn samples:validate` and the sample's own build and test commands.
+
+## The wider Cratis ecosystem
+
+These samples are part of [Cratis](https://www.cratis.io) — free, MIT-licensed tools for building event-sourced and CQRS applications.
+
+- **[Chronicle](https://github.com/Cratis/Chronicle)** — event-sourcing database and runtime. Orleans-based kernel, pluggable storage (MongoDB default; PostgreSQL, SQL Server, SQLite, in-memory), language-agnostic gRPC contracts. [Docs](https://www.cratis.io/chronicle/)
+- **Chronicle clients** — first-class [.NET SDK](https://github.com/Cratis/Chronicle), plus [TypeScript](https://github.com/Cratis/Chronicle.TypeScript), [Kotlin/Java](https://github.com/Cratis/Chronicle.Kotlin), and [Elixir](https://github.com/Cratis/Chronicle.Elixir); [Python](https://github.com/Cratis/Chronicle.Python) coming soon (pre-alpha). AI agents connect through the [Chronicle MCP server](https://github.com/Cratis/Chronicle.Mcp).
+- **[Arc](https://github.com/Cratis/Arc)** — opinionated CQRS framework for ASP.NET Core with commands, queries, validation, authorization, and TypeScript proxy generation. Works without event sourcing. [Docs](https://www.cratis.io/arc/)
+- **[Components](https://github.com/Cratis/Components)** — React components aligned with Arc patterns. [Docs](https://www.cratis.io/components/)
+- **[CLI](https://github.com/Cratis/cli) + Workbench** — inspect and diagnose Chronicle from the terminal or the browser. [Docs](https://www.cratis.io/cli/)
+- **Model-first layer (experimental)** — [Studio](https://github.com/Cratis/Studio), [Screenplay](https://github.com/Cratis/Screenplay), [Stage](https://github.com/Cratis/Stage), [Scene](https://github.com/Cratis/Scene), [Prologue](https://github.com/Cratis/Prologue)
+- **Supporting** — [Fundamentals](https://github.com/Cratis/Fundamentals), [Specifications](https://github.com/Cratis/Specifications), [Synopsis](https://github.com/Cratis/Synopsis), [Lens](https://github.com/Cratis/Lens), [Narrator](https://github.com/Cratis/Narrator), and free [AI tooling](https://github.com/Cratis/AI) (preview); [Ensemble](https://github.com/Cratis/Ensemble) coming soon (pre-release)
+
+Everything Cratis publishes today is MIT licensed and free to use.
 
 ---
 
