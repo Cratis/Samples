@@ -1,0 +1,25 @@
+{
+    "name": "@cratis/sample-chronicle-typescript",
+    "version": "0.0.0",
+    "description": "Minimal Node.js TypeScript sample for the Cratis Chronicle client: append an event, react to it, and read the history",
+    "author": "Cratis",
+    "license": "MIT",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "compile": "tsc -b",
+        "build": "tsc -b",
+        "start": "tsx index.ts",
+        "clean": "rm -rf dist *.tsbuildinfo"
+    },
+    "dependencies": {
+        "@cratis/chronicle": "3.1.0",
+        "@cratis/fundamentals": "7.18.2",
+        "reflect-metadata": "0.2.2"
+    },
+    "devDependencies": {
+        "@types/node": "26.4.0",
+        "tsx": "4.23.12",
+        "typescript": "6.0.3"
+    }
+}
