@@ -33,8 +33,8 @@
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.114" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.1" />
     <!-- Testing & Specifications -->
-    <PackageVersion Include="Cratis.Specifications" Version="4.0.0" />
-    <PackageVersion Include="Cratis.Specifications.XUnit" Version="4.0.0" />
+    <PackageVersion Include="Cratis.Specifications" Version="4.0.1" />
+    <PackageVersion Include="Cratis.Specifications.XUnit" Version="4.0.1" />
     <PackageVersion Include="Testcontainers" Version="4.14.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
