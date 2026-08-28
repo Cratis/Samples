@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cratis.Chronicle" />
     <PackageReference Include="Cratis.Specifications" />
     <PackageReference Include="Cratis.Specifications.XUnit" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
