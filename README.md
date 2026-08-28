@@ -21,6 +21,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | Sample | Experience | Products | Start here |
 | --- | --- | --- | --- |
 | **[Chronicle Backend](./Chronicle/Backend/README.md)** | HTTP API | Chronicle | Append one immutable fact and read an event source's history. |
+| **[Chronicle TypeScript Client](./Chronicle/TypeScript/README.md)** | Terminal | Chronicle | Append a fact from Node.js, let a reactor respond, and read the history. |
 | **[Chronicle Processing](./Chronicle/Processing/README.md)** | HTTP API | Chronicle, Fundamentals | Compare a projection, reducer, and reactor on one event stream. |
 | **[Idea Loom — Arc + React](./Arc/React/README.md)** | React | Arc, Components, Fundamentals | Follow a typed command and observable query from C# to a polished UI. |
 | **[Chronicle Multi-Tenancy](./Chronicle/MultiTenancy/README.md)** | HTTP API | Arc, Chronicle, Fundamentals | Isolate the same typed workflow across tenant namespaces. |

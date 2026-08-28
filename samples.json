@@ -67,6 +67,34 @@
       "featured": true
     },
     {
+      "id": "chronicle-typescript",
+      "title": "Chronicle TypeScript Client",
+      "tagline": "Append a fact from Node.js, let a reactor respond, and read the combined history.",
+      "track": "getting-started",
+      "path": "Chronicle/TypeScript",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/TypeScript",
+      "ui": "Terminal",
+      "level": "Start here",
+      "products": ["Chronicle"],
+      "runtime": ["Node.js", "Chronicle"],
+      "prerequisites": ["Node.js 23 or newer", "npm", "Docker"],
+      "highlights": [
+        "Connect to Chronicle from Node.js with the @cratis/chronicle client",
+        "Append an immutable event and wait for its observers to catch up",
+        "Return a side-effect event from a reactor and read both facts back"
+      ],
+      "verification": [
+        "npm --prefix Chronicle/TypeScript install",
+        "npm --prefix Chronicle/TypeScript run compile"
+      ],
+      "limitations": [
+        "The sample is a single console run and intentionally leaves out projections, read models, and a frontend.",
+        "It runs against the local Chronicle development container and does not include automated specs.",
+        "The published @cratis/chronicle client must match the Chronicle server's gRPC contracts; the README lists the currently verified server tag."
+      ],
+      "featured": true
+    },
+    {
       "id": "chronicle-processing",
       "title": "Chronicle Processing",
       "tagline": "See one event stream feed a projection, reducer, and reactor without timing guesses.",
