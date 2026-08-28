@@ -13,7 +13,7 @@
         "clean": "rm -rf dist *.tsbuildinfo"
     },
     "dependencies": {
-        "@cratis/chronicle": "3.1.0",
+        "@cratis/chronicle": "3.1.1",
         "@cratis/fundamentals": "7.18.2",
         "reflect-metadata": "0.2.2"
     },

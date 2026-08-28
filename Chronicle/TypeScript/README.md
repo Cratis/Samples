@@ -30,19 +30,12 @@ There is no HTTP API, projection, or frontend in the way. This sample is about t
 
 | Piece | Version |
 | --- | --- |
-| [`@cratis/chronicle`](https://www.npmjs.com/package/@cratis/chronicle) | `3.1.0` |
+| [`@cratis/chronicle`](https://www.npmjs.com/package/@cratis/chronicle) | `3.1.1` |
 | [`@cratis/fundamentals`](https://www.npmjs.com/package/@cratis/fundamentals) | `7.18.2` |
 | Chronicle server image | `cratis/chronicle:latest-development` |
 | Node.js | 23 or newer |
 
 The npm dependencies are pinned exactly in [`package.json`](./package.json). The `latest-development` image tag is a moving development tag; the sample intentionally tracks the current development build of the Chronicle server.
-
-> [!WARNING]
-> **Known incompatibility (2026-08-28):** the published `@cratis/chronicle` 3.1.0 client uses gRPC contracts (16.13.4) that call `EventStores/Ensure`, while Chronicle servers from v16.33.1 onward renamed that RPC to `EnsureEventStore`. Until a client release adopts the renamed contracts, `latest-development` fails with `UNIMPLEMENTED: Service is unimplemented`. The last verified compatible server tag is `cratis/chronicle:16.33.0-development`:
->
-> ```bash
-> docker run --rm -p 35000:35000 -p 8080:8080 cratis/chronicle:16.33.0-development
-> ```
 
 ## Run it
 
