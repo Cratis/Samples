@@ -16,10 +16,10 @@
     "ci": "cd $INIT_CWD && yarn test && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
-    "@cratis/arc": "22.6.0",
-    "@cratis/arc.react": "22.6.0",
-    "@cratis/arc.react.mvvm": "22.6.0",
-    "@cratis/arc.vite": "22.6.0",
+    "@cratis/arc": "22.6.2",
+    "@cratis/arc.react": "22.6.2",
+    "@cratis/arc.react.mvvm": "22.6.2",
+    "@cratis/arc.vite": "22.6.2",
     "@cratis/components": "3.6.1",
     "@primereact/core": "11.1.0",
     "@primereact/headless": "11.1.0",
