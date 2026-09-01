@@ -6,11 +6,11 @@
     <PackageVersion Include="Cratis.Fundamentals" Version="7.18.3" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.18.3" />
     <PackageVersion Include="Cratis" Version="20.48.0" />
-    <PackageVersion Include="Cratis.Arc" Version="22.8.2" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.8.2" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.8.2" />
-    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.8.2" />
-    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.8.2" />
+    <PackageVersion Include="Cratis.Arc" Version="22.9.0" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.9.0" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.9.0" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.9.0" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.9.0" />
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.4.6" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.6" />
@@ -33,8 +33,8 @@
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.114" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.1" />
     <!-- Testing & Specifications -->
-    <PackageVersion Include="Cratis.Specifications" Version="4.0.1" />
-    <PackageVersion Include="Cratis.Specifications.XUnit" Version="4.0.1" />
+    <PackageVersion Include="Cratis.Specifications" Version="4.1.0" />
+    <PackageVersion Include="Cratis.Specifications.XUnit" Version="4.1.0" />
     <PackageVersion Include="Testcontainers" Version="4.14.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
