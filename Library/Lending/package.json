@@ -20,7 +20,7 @@
     "@cratis/arc.react": "22.7.0",
     "@cratis/arc.react.mvvm": "22.7.0",
     "@cratis/arc.vite": "22.7.0",
-    "@cratis/components": "4.0.0",
+    "@cratis/components": "4.1.0",
     "@primereact/core": "11.1.0",
     "@primereact/headless": "11.1.0",
     "@primereact/hooks": "11.1.0",
