@@ -309,3 +309,6 @@ Benchmarks/results
 .mono
 .target
 **/coverage
+
+# Local AI work artifacts (plans, handovers, session notes) — never tracked
+.ai-work/

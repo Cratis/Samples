@@ -7,9 +7,8 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import noNull from 'eslint-plugin-no-null';
 import globals from 'globals';
+import header from 'eslint-plugin-header';
 import tseslint from 'typescript-eslint';
-
-header.rules.header.meta.schema = false;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +22,7 @@ const getRules = configArray => {
     let rules = {};
 
     const addRulesFromObject = config => {
-        if (config.hasOwnProperty('rules')) {
+        if (Object.hasOwn(config, 'rules')) {
             rules = {
                 ...rules,
                 ...config.rules,
@@ -67,15 +66,6 @@ const rules = {
         '@typescript-eslint/ban-ts-comment': 0,
         "@typescript-eslint/no-empty-interface": 0,
 
-        'header/header': [
-            2,
-            'line',
-            [
-                ' Copyright (c) Cratis. All rights reserved.',
-                ' Licensed under the MIT license. See LICENSE file in the project root for full license information.'
-            ],
-            1
-        ],
     },
 };
 
@@ -122,6 +112,12 @@ const defaultConfig = [
             react: {
                 version: 'detect',
             },
+        },
+    },
+    {
+        files: ['Library/**/*.ts'],
+        rules: {
+            '@typescript-eslint/no-explicit-any': 'off',
         },
     },
     {

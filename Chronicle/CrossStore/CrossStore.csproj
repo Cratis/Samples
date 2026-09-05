@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <RootNamespace>CrossStore</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="CrossStore.Specs/**/*.cs" />
+        <Content Remove="CrossStore.Specs/**" />
+        <None Remove="CrossStore.Specs/**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
+        <PackageReference Include="Cratis.Fundamentals" />
+    </ItemGroup>
+</Project>
