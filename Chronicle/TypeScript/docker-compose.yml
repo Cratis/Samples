@@ -1,0 +1,6 @@
+services:
+  chronicle:
+    image: cratis/chronicle:latest-development
+    ports:
+      - 35000:35000
+      - 8080:8080

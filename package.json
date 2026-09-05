@@ -1,6 +1,7 @@
 {
     "private": true,
     "workspaces": [
+        "Arc/React",
         "Library/Lending",
         "Library/Members"
     ],
@@ -24,8 +25,10 @@
         "clean": "node ./run-task-on-workspaces.cjs clean",
         "build": "node ./run-task-on-workspaces.cjs build",
         "lint": "node ./run-task-on-workspaces.cjs lint",
+        "lint:ci": "node ./run-task-on-workspaces.cjs lint:ci",
         "test": "node ./run-task-on-workspaces.cjs test",
         "ci": "node ./run-task-on-workspaces.cjs ci",
+        "samples:validate": "node ./scripts/validate-samples.mjs",
         "publish-version": "node ./run-task-on-workspaces.cjs publish-version $*",
         "update": "node ./run-task-on-workspaces.cjs update"
     },
