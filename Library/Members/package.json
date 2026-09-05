@@ -19,7 +19,7 @@
     "@cratis/arc": "22.10.2",
     "@cratis/arc.react": "22.10.2",
     "@cratis/arc.react.mvvm": "22.10.2",
-    "@cratis/arc.vite": "22.10.1",
+    "@cratis/arc.vite": "22.10.2",
     "@cratis/components": "4.1.1",
     "@primereact/core": "11.1.0",
     "@primereact/headless": "11.1.0",
