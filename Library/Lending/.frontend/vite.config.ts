@@ -1,8 +1,6 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-/// <reference types="vitest/config" />
-
 import { defineConfig } from 'vitest/config';
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from 'node:url';
@@ -55,7 +53,7 @@ export default defineConfig({
     plugins: [
         react(),
         tailwindcss(),
-        EmitMetadataPlugin({ tsconfigPath: fileURLToPath(new URL('./tsconfig.json', import.meta.url)) }) as any
+        EmitMetadataPlugin({ tsconfigPath: fileURLToPath(new URL('./tsconfig.json', import.meta.url)) })
     ],
     server: {
         port: 9000,

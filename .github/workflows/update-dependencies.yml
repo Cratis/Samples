@@ -5,11 +5,17 @@ on:
     types: [update-dependencies]
   workflow_dispatch: # Allow manual trigger
 
+# Serialize overlapping runs; max-parallel and push retries below cover races inside a run.
+concurrency:
+  group: update-dependencies
+  cancel-in-progress: false
+
 jobs:
   update-nuget:
 
     name: Update NuGet Packages
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -52,25 +58,29 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add Directory.Packages.props
           if git diff --staged --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No NuGet package updates found"
           else
             git commit -m "chore: update Cratis.* NuGet packages to latest versions"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Push NuGet updates
         if: steps.commit-nuget.outputs.has_changes == 'true'
-        run: |
-          git pull --rebase
-          git push
+        run: .github/scripts/push-with-retry.sh
 
   update-npm:
     name: Update npm Packages
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
+      fail-fast: false
+      max-parallel: 1
       matrix:
-        folder: [Library]
+        folder:
+          - Arc/React
+          - Library/Lending
+          - Library/Members
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -80,7 +90,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '23'
 
       - name: Pull latest changes
         run: git pull --rebase
@@ -94,7 +104,12 @@ jobs:
           # Update each package to latest version
           for package in $PACKAGES; do
             echo "Updating $package..."
-            LATEST=$(npm view "$package" version 2>/dev/null || echo "")
+            if [ "$package" = "@cratis/components" ]; then
+              # @cratis/components 4.x removed APIs these samples use; remain on latest 3.x.
+              LATEST=$(npm view "$package@<4" version --json 2>/dev/null | jq -r 'if type == "array" then last elif type == "string" then . else empty end' || echo "")
+            else
+              LATEST=$(npm view "$package" version 2>/dev/null || echo "")
+            fi
             if [ ! -z "$LATEST" ]; then
               echo "Latest version: $LATEST"
               # Update the version in package.json using jq
@@ -111,15 +126,13 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add package.json
           if git diff --staged --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No npm package updates found in ${{ matrix.folder }}"
           else
             git commit -m "chore: update @cratis/* npm packages in ${{ matrix.folder }} to latest versions"
-            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Push npm updates
         if: steps.commit-npm.outputs.has_changes == 'true'
-        run: |
-          git pull --rebase
-          git push
+        run: .github/scripts/push-with-retry.sh
