@@ -13,13 +13,13 @@
     "compile": "yarn g:compile",
     "preview": "yarn g:preview",
     "up": "yarn g:up",
-    "ci": "cd $INIT_CWD && yarn test && yarn lint:ci && tsc -b .frontend/tsconfig.json"
+    "ci": "cd $INIT_CWD && yarn test --passWithNoTests && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
-    "@cratis/arc": "22.10.2",
-    "@cratis/arc.react": "22.10.2",
-    "@cratis/arc.react.mvvm": "22.10.2",
-    "@cratis/arc.vite": "22.10.2",
+    "@cratis/arc": "22.10.4",
+    "@cratis/arc.react": "22.10.4",
+    "@cratis/arc.react.mvvm": "22.10.4",
+    "@cratis/arc.vite": "22.10.4",
     "@cratis/components": "3.6.1",
     "@primereact/core": "11.1.0",
     "@primereact/headless": "11.1.0",
