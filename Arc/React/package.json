@@ -13,9 +13,9 @@
     "ci": "yarn test && yarn lint:ci && yarn compile && yarn build"
   },
   "dependencies": {
-    "@cratis/arc": "22.10.5",
-    "@cratis/arc.react": "22.10.5",
-    "@cratis/arc.react.mvvm": "22.10.5",
+    "@cratis/arc": "22.10.6",
+    "@cratis/arc.react": "22.10.6",
+    "@cratis/arc.react.mvvm": "22.10.6",
     "@cratis/arc.vite": "22.10.5",
     "@cratis/components": "3.6.1",
     "@cratis/fundamentals": "7.19.1",
