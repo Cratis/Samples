@@ -10,5 +10,5 @@ Screenplay and Stage (experimental).
 
 Read every concern below before working in this repository. Together they are the project-owned instructions and override conflicting shared guidance.
 
-- [Conventions](project/conventions.md)
-- [AI-assisted development](project/ai-assisted-development.md)
+- [Conventions](.cratis/ai/rules/project/conventions.md)
+- [AI-assisted development](.cratis/ai/rules/project/ai-assisted-development.md)
