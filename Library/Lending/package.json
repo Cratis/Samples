@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@cratis/arc": "22.15.0",
-    "@cratis/arc.react": "22.15.0",
+    "@cratis/arc.react": "22.16.0",
     "@cratis/arc.react.mvvm": "22.15.0",
     "@cratis/arc.vite": "22.15.0",
     "@cratis/components": "3.6.1",
