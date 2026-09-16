@@ -16,7 +16,7 @@
     "ci": "cd $INIT_CWD && yarn test --passWithNoTests && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
-    "@cratis/arc": "22.15.0",
+    "@cratis/arc": "22.16.0",
     "@cratis/arc.react": "22.16.0",
     "@cratis/arc.react.mvvm": "22.16.0",
     "@cratis/arc.vite": "22.16.0",
@@ -34,7 +34,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-icons": "5.7.0",
-    "react-router-dom": "7.18.3",
+    "react-router-dom": "7.18.4",
     "reflect-metadata": "0.2.2",
     "ts-deepmerge": "8.0.0",
     "tsyringe": "4.10.0"
