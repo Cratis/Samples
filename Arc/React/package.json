@@ -24,7 +24,7 @@
     "@primereact/hooks": "11.1.0",
     "@primereact/styles": "11.1.0",
     "@primereact/types": "11.1.0",
-    "@primeuix/themes": "3.0.0",
+    "@primeuix/themes": "3.0.1",
     "mobx": "7.0.3",
     "mobx-react": "10.0.2",
     "primeicons": "8.0.1",
