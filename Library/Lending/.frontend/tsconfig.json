@@ -2,25 +2,24 @@
     "extends": "../../../.frontend/tsconfig.base.json",
     "compilerOptions": {
         "allowImportingTsExtensions": true,
-        "baseUrl": "..",
         "paths": {
             "Components/*": [
-                "Components/*"
+                "../Components/*"
             ],
             "Components": [
-                "Components/index"
+                "../Components/index"
             ],
             "Layout/*": [
-                "Layout/*"
+                "../Layout/*"
             ],
             "Authors/*": [
-                "Authors/*"
+                "../Authors/*"
             ],
             "Inventory/*": [
-                "Inventory/*"
+                "../Inventory/*"
             ],
             "Lending/*": [
-                "Lending/*"
+                "../Lending/*"
             ]
         }
     },
