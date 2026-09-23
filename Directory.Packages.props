@@ -3,13 +3,13 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.19.3" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.19.3" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.19.4" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.19.4" />
     <PackageVersion Include="Cratis" Version="22.19.1" />
-    <PackageVersion Include="Cratis.Arc" Version="22.20.0" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.20.0" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.20.0" />
-    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.20.0" />
+    <PackageVersion Include="Cratis.Arc" Version="22.21.0" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.21.0" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.21.0" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.21.0" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.21.0" />
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.5.4" />
@@ -17,7 +17,7 @@
     <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.5.4" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.5.4" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.5.4" />
-    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.22.2" />
+    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.22.3" />
     <PackageVersion Include="Cratis.Chronicle" Version="19.4.3" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.4.3" />
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.4.3" />
