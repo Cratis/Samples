@@ -13,7 +13,7 @@
     "ci": "yarn test && yarn lint:ci && yarn compile && yarn build"
   },
   "dependencies": {
-    "@cratis/arc": "22.19.2",
+    "@cratis/arc": "22.20.0",
     "@cratis/arc.react": "22.20.0",
     "@cratis/arc.react.mvvm": "22.20.0",
     "@cratis/arc.vite": "22.20.0",
