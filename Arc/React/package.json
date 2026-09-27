@@ -15,8 +15,8 @@
   "dependencies": {
     "@cratis/arc": "22.29.0",
     "@cratis/arc.react": "22.29.0",
-    "@cratis/arc.react.mvvm": "22.29.0",
-    "@cratis/arc.vite": "22.29.0",
+    "@cratis/arc.react.mvvm": "22.30.0",
+    "@cratis/arc.vite": "22.30.0",
     "@cratis/components": "3.6.1",
     "@cratis/fundamentals": "7.19.6",
     "@primereact/core": "11.1.0",
