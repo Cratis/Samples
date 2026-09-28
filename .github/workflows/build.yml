@@ -42,7 +42,8 @@ jobs:
             Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj \
             Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj \
             Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj \
-            Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
+            Chronicle/Processing/Processing.Specs/Processing.Specs.csproj \
+            Chronicle/Quickstart/Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj
           do
             dotnet test "$project" --configuration Debug --verbosity normal
           done
