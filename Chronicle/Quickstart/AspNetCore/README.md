@@ -54,7 +54,11 @@ The application listens on <http://localhost:5000>.
 dotnet build AspNetCore.csproj --configuration Debug
 ```
 
-This focused host currently has no dedicated test project.
+The read-model names the host queries are covered by specs in `Common.AspNetCore.Specs`:
+
+```bash
+dotnet test ../Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj
+```
 
 ## Send a couple of events
 

@@ -30,6 +30,7 @@
         <Project Path="Chronicle/Processing/Processing.Specs/Processing.Specs.csproj" />
     </Folder>
     <Folder Name="/Chronicle/Quickstart/">
+        <Project Path="Chronicle/Quickstart/Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj" />
         <Project Path="Chronicle/Quickstart/AspNetCore/AspNetCore.csproj" />
         <Project Path="Chronicle/Quickstart/Common.AspNetCore/Common.AspNetCore.csproj" />
         <Project Path="Chronicle/Quickstart/Common/Common.csproj" />

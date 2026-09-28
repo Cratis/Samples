@@ -14,12 +14,12 @@ public static class MongoDBServices
         #region Snippet:Quickstart-AspNetCore-MongoSetup
         builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
         builder.Services.AddSingleton(provider => provider.GetRequiredService<IMongoClient>().GetDatabase("Quickstart"));
-        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<Book>("book"));
+        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<Book>("Books"));
         #endregion Snippet:Quickstart-AspNetCore-MongoSetup
 
-        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<BorrowedBook>("borrowedBook"));
-        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<OverdueBook>("overdueBook"));
-        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<ReservedBook>("reservedBook"));
-        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<User>("users"));
+        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<BorrowedBook>("BorrowedBooks"));
+        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<OverdueBook>("OverdueBooks"));
+        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<ReservedBook>("ReservedBooks"));
+        builder.Services.AddTransient(provider => provider.GetRequiredService<IMongoDatabase>().GetCollection<User>("Users"));
     }
 }
