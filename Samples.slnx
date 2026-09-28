@@ -8,6 +8,9 @@
     <Folder Name="/Arc/React/">
         <Project Path="Arc/React/Arc.React.csproj" />
     </Folder>
+    <Folder Name="/Capstone/">
+        <Project Path="Capstone/Capstone.csproj" />
+    </Folder>
     <Folder Name="/Chronicle/" />
     <Folder Name="/Chronicle/Backend/">
         <Project Path="Chronicle/Backend/Backend.csproj" />
