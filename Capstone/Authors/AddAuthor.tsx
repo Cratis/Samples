@@ -12,7 +12,7 @@ export const AddAuthor = () => (
         command={RegisterAuthor}
         title="Add author"
         okLabel="Add"
-        onBeforeExecute={(values) => { values.id = Guid.create(); return values; }}>
+        initialValues={{ id: Guid.create() }}>
         <InputTextField<RegisterAuthor> value={i => i.name} title="Name" />
     </CommandDialog>
 );
