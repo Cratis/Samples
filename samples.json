@@ -150,6 +150,34 @@
       "featured": true
     },
     {
+      "id": "capstone-authors",
+      "title": "Full-stack author registration",
+      "tagline": "Register an author and watch the projected list update in a React screen.",
+      "track": "full-stack-cqrs",
+      "path": "Capstone",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Capstone",
+      "ui": "React",
+      "level": "Focused",
+      "products": ["Arc", "Chronicle", "Components", "Fundamentals"],
+      "runtime": ["ASP.NET Core", "React", "Chronicle", "MongoDB"],
+      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "npm", "Docker"],
+      "highlights": [
+        "Return AuthorRegistered from the RegisterAuthor command",
+        "Project AuthorRegistered into an observable Author read model",
+        "Use generated command and query proxies in a React screen"
+      ],
+      "verification": [
+        "dotnet build Capstone/Capstone.csproj --configuration Debug",
+        "npm --prefix Capstone ci",
+        "npm --prefix Capstone run build"
+      ],
+      "limitations": [
+        "The sample uses the template's development credentials and local Chronicle/MongoDB containers; do not deploy them as-is.",
+        "It covers only author registration and listing, not a complete library application."
+      ],
+      "featured": true
+    },
+    {
       "id": "chronicle-multi-tenancy",
       "title": "Chronicle Multi-Tenancy",
       "tagline": "Use Arc header tenancy to isolate the same workflow in separate Chronicle namespaces.",

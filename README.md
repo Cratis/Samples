@@ -30,6 +30,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | **[Chronicle with ASP.NET Core](./Chronicle/Quickstart/AspNetCore/README.md)** | HTTP API | Chronicle | Host Chronicle through dependency injection and expose focused endpoints. |
 | **[Model-First Library](./ModelFirst/Library/README.md)** | Executable model | Screenplay, Stage | Compile one modeled workflow and run its accepted and rejected examples. |
 | **[Library](./Library/README.md)** | React + APIs | Arc, Chronicle, Components | Explore separate lending and membership applications under one local composition. |
+| **[Capstone](./Capstone/README.md)** | React + API | Arc, Chronicle, Components | Build an author-registration slice from event to React screen. |
 
 > [!TIP]
 > Start with Chronicle Backend for the smallest HTTP path, then open Chronicle Processing to compare projections, reducers, and reactors. Move to Library when you want generated TypeScript contracts and React.

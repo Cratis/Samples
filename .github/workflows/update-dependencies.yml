@@ -81,6 +81,7 @@ jobs:
           - Arc/React
           - Library/Lending
           - Library/Members
+          - Capstone
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -96,6 +97,7 @@ jobs:
         run: git pull --rebase
 
       - name: Update @cratis/* packages in ${{ matrix.folder }}
+        if: matrix.folder != 'Capstone'
         working-directory: ${{ matrix.folder }}
         run: |
           # Get all @cratis/* packages from package.json
@@ -118,6 +120,20 @@ jobs:
             fi
           done
 
+      # Capstone uses npm's lockfile: update both manifests together so npm ci stays valid.
+      - name: Update @cratis/* packages and lockfile in Capstone
+        if: matrix.folder == 'Capstone'
+        working-directory: Capstone
+        run: |
+          mapfile -t dependencies < <(jq -r '.dependencies | keys[] | select(startswith("@cratis/")) | . + "@latest"' package.json)
+          mapfile -t dev_dependencies < <(jq -r '.devDependencies | keys[] | select(startswith("@cratis/")) | . + "@latest"' package.json)
+          if [ ${#dependencies[@]} -gt 0 ]; then
+            npm install --package-lock-only --ignore-scripts --no-audit --no-fund "${dependencies[@]}"
+          fi
+          if [ ${#dev_dependencies[@]} -gt 0 ]; then
+            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --save-dev "${dev_dependencies[@]}"
+          fi
+
       - name: Commit npm updates for ${{ matrix.folder }}
         id: commit-npm
         working-directory: ${{ matrix.folder }}
@@ -125,6 +141,9 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add package.json
+          if [ "${{ matrix.folder }}" = "Capstone" ]; then
+            git add package-lock.json
+          fi
           if git diff --staged --quiet; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No npm package updates found in ${{ matrix.folder }}"
