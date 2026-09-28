@@ -23,6 +23,13 @@
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.14.0" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.14.0" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.14.0" />
+    <!--
+      Orleans.Reminders is only requested transitively by Orleans.Providers.MongoDB (9.x, asks for 9.0.1)
+      while the rest of the Orleans graph comes from Cratis.Orleans at 10.3.1. Keep it pinned to the
+      version Cratis.Orleans brings so the pair stays aligned; Cratis.Orleans.targets fails the Release
+      build when they drift.
+    -->
+    <PackageVersion Include="Microsoft.Orleans.Reminders" Version="10.3.1" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageVersion Include="MongoDB.Driver" Version="3.12.0" />
