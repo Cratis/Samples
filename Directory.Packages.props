@@ -20,8 +20,8 @@
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.22.4" />
     <PackageVersion Include="Cratis.Chronicle" Version="19.15.0" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.15.0" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.14.2" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.14.2" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.15.0" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.15.0" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.15.0" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
