@@ -1,6 +1,6 @@
 # Full-stack author registration
 
-A small Cratis library slice based on the MongoDB choice of `dotnet new cratis`. `Authors/` keeps the event-source identity, command and event, observable read model, and React screen together. The [full-stack capstone](https://cratis.io/build-a-full-app/) walks through these exact files. The rest of the generated host is in `Program.cs`, `App.tsx`, and `.frontend/`. The Samples repository pins .NET dependencies in `Directory.Packages.props` and frontend dependencies in this sample's `package-lock.json`.
+A small Cratis library slice based on the MongoDB choice of `dotnet new cratis`. `Authors/` keeps the event-source identity, command and event, observable read model, and React screen together. The rest of the generated host is in `Program.cs`, `App.tsx`, and `.frontend/`. The Samples repository pins .NET dependencies in `Directory.Packages.props` and frontend dependencies in this sample's `package-lock.json`. This README is deliberately short because the [full-stack capstone](https://cratis.io/build-a-full-app/) walks through these exact files. The `docs:` regions in these files appear verbatim on cratis.io/build-a-full-app and are checked by Cratis/Documentation CI; change the Documentation page alongside them.
 
 ## Run locally
 
