@@ -27,14 +27,14 @@
   --footer-height: 0px;
   --focus-border: var(--cratis-primary-color);
 
-  --cratis-sidebar-namespace-bg: var(--cratis-surface-100);
-  --cratis-sidebar-space-textColor: var(--cratis-text-color-secondary);
-  --cratis-sidebar-bg: var(--cratis-surface-section);
-  --cratis-sidebar-textColor: var(--cratis-text-color-secondary);
-  --cratis-sidebar-menuitem-active-bg: var(--cratis-highlight-bg);
-  --cratis-sidebar-menuitem-active-textColor: var(--cratis-highlight-text-color);
-  --cratis-topbar-bg: var(--cratis-surface-card);
-  --cratis-layout-border-color: var(--cratis-surface-border);
+  --lending-sidebar-namespace-bg: var(--cratis-surface-100);
+  --lending-sidebar-space-textColor: var(--cratis-text-color-secondary);
+  --lending-sidebar-bg: var(--cratis-surface-section);
+  --lending-sidebar-textColor: var(--cratis-text-color-secondary);
+  --lending-sidebar-menuitem-active-bg: var(--cratis-highlight-bg);
+  --lending-sidebar-menuitem-active-textColor: var(--cratis-highlight-text-color);
+  --lending-topbar-bg: var(--cratis-surface-card);
+  --lending-layout-border-color: var(--cratis-surface-border);
 }
 
 body {

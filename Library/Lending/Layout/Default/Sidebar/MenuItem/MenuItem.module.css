@@ -19,7 +19,7 @@
 
 .menuItem .label {
     flex: 1;
-    color: var(--cratis-sidebar-textColor);
+    color: var(--lending-sidebar-textColor);
     opacity: 1;
     transition: opacity 0.3s;
 }
@@ -28,13 +28,13 @@
 }
 
 .menuItem.active {
-    background-color: var(--cratis-sidebar-menuitem-active-bg);
+    background-color: var(--lending-sidebar-menuitem-active-bg);
     border-color: var(--cratis-primary-color);
-    color: var(--cratis-sidebar-menuitem-active-textColor);
+    color: var(--lending-sidebar-menuitem-active-textColor);
     font-weight: 600;
 }
 .menuItem.active .label {
-    color: var(--cratis-sidebar-menuitem-active-textColor);
+    color: var(--lending-sidebar-menuitem-active-textColor);
 }
 .menuItem.pending {
     background-color: var(--cratis-surface-hover);
