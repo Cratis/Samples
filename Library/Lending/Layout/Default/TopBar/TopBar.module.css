@@ -6,26 +6,29 @@
     justify-content: space-between;
     align-items: center;
     height: var(--topbar-height);
-    color: var(--cratis-highlight-text-color);
+    color: var(--cratis-text-color);
 }
 
 .leftSide {
     flex: 0 0 var(--sidebar-width);
+    display: flex;
+    align-items: center;
 }
 
+/* Same width as the collapsed sidebar, so the toggle sits above the menu icons. */
 .sidebarToggle {
-    width: var(--sidebar-closed-width);
-    position: absolute;
+    flex: 0 0 var(--sidebar-closed-width);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.hamburgerMenuButton {
-  outline: none !important;
-}
-
-.hamburgerMenuButton:focus,
-.hamburgerMenuButton:active {
-  box-shadow: none !important;
+.title {
+    flex: 1;
+    margin: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 2rem;
+    color: var(--cratis-text-color);
 }

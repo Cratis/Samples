@@ -11,18 +11,15 @@ export const TopBar = () => {
 
     return (
         <div className={css.container}>
-            <div className={`flex items-center justify-between ${css.leftSide}`}>
+            <div className={css.leftSide}>
                 <div className={css.sidebarToggle}>
                     <IconButton
                         icon={<FaBars aria-hidden="true" />}
                         aria-label="Toggle sidebar"
                         variant="ghost"
-                        onClick={toggleLeftSidebarOpen}
-                        className={css.hamburgerMenuButton} />
+                        onClick={toggleLeftSidebarOpen} />
                 </div>
-                <div className="flex-1 flex align-center justify-center">
-                    <div className="font-extrabold text-2xl m-2">Library</div>
-                </div>
+                <div className={css.title}>Library</div>
             </div>
             <div className="flex-1 flex items-center justify-end px-5 gap-6">
                 <div>
