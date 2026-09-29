@@ -3,3 +3,5 @@ typescript-eslint
 @typescript-eslint/eslint-plugin
 @typescript-eslint/parser
 @cratis/components
+primereact
+@primereact/*
