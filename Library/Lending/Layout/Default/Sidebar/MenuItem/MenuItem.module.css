@@ -37,8 +37,11 @@
     color: var(--cratis-sidebar-menuitem-active-textColor);
 }
 .menuItem.pending {
-    background-color: var(--cratis-surface-border);
-    border-color: #faad14;
-    color: #faad14;
+    background-color: var(--cratis-surface-hover);
+    border-color: var(--cratis-warning-background);
+    color: var(--cratis-text-color);
     font-weight: 600;
+}
+.menuItem.pending .label {
+    color: var(--cratis-text-color);
 }

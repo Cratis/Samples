@@ -106,7 +106,7 @@
     background: color-mix(in srgb, var(--cratis-surface-card) 88%, transparent);
     border: 1px solid var(--cratis-surface-border);
     border-radius: 1.35rem;
-    box-shadow: 0 1.5rem 4rem color-mix(in srgb, var(--cratis-text-color) 8%, transparent);
+    box-shadow: var(--cratis-shadow-overlay);
     backdrop-filter: blur(18px);
 }
 
@@ -137,7 +137,7 @@
     background: color-mix(in srgb, var(--cratis-surface-card) 92%, transparent);
     border: 1px solid var(--cratis-surface-border);
     border-radius: 1.6rem;
-    box-shadow: 0 1.8rem 5rem color-mix(in srgb, var(--cratis-text-color) 9%, transparent);
+    box-shadow: var(--cratis-shadow-overlay);
     backdrop-filter: blur(20px);
 }
 
@@ -206,7 +206,7 @@
 
 .idea-card:hover {
     border-color: color-mix(in srgb, var(--cratis-primary-color) 40%, var(--cratis-surface-border));
-    box-shadow: 0 0.9rem 2.3rem color-mix(in srgb, var(--cratis-text-color) 7%, transparent);
+    box-shadow: var(--cratis-shadow-overlay);
     transform: translateY(-2px);
 }
 
