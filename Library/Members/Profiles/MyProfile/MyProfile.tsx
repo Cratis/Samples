@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
+import { IconButton } from '@cratis/components/Common';
+import { ProgressSpinner } from '@cratis/components/Display';
+import { FaArrowLeft, FaTriangleExclamation, FaUser } from 'react-icons/fa6';
 import { GetMyProfile } from '../Listing';
 
 export const MyProfile = () => {
@@ -11,19 +13,19 @@ export const MyProfile = () => {
     const profile = profileResult.data;
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: 'var(--surface-ground)' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: 'var(--cratis-surface-ground)' }}>
             <div
                 className='flex flex-row items-center justify-between px-6 py-4'
-                style={{ backgroundColor: 'var(--surface-card)', borderBottom: '1px solid var(--surface-border)' }}
+                style={{ backgroundColor: 'var(--cratis-surface-card)', borderBottom: '1px solid var(--cratis-surface-border)' }}
             >
                 <div className='flex flex-row items-center gap-3'>
-                    <Button
-                        icon='pi pi-arrow-left'
-                        text
+                    <IconButton
+                        icon={<FaArrowLeft aria-hidden='true' />}
+                        variant='ghost'
                         onClick={() => navigate('/')}
                         aria-label='Back to My Library'
                     />
-                    <h1 className='m-0 text-2xl font-semibold' style={{ color: 'var(--text-color)' }}>
+                    <h1 className='m-0 text-2xl font-semibold' style={{ color: 'var(--cratis-text-color)' }}>
                         My Profile
                     </h1>
                 </div>
@@ -32,12 +34,12 @@ export const MyProfile = () => {
             <div className='p-6'>
                 <div
                     className='mx-auto max-w-lg rounded-lg p-8'
-                    style={{ backgroundColor: 'var(--surface-card)', border: '1px solid var(--surface-border)' }}
+                    style={{ backgroundColor: 'var(--cratis-surface-card)', border: '1px solid var(--cratis-surface-border)' }}
                 >
                     {profileResult.isPerforming && (
                         <div className='flex flex-col items-center gap-3 py-8'>
-                            <i className='pi pi-spin pi-spinner text-3xl' style={{ color: 'var(--primary-color)' }} />
-                            <span style={{ color: 'var(--text-color-secondary)' }}>Loading profile...</span>
+                            <ProgressSpinner aria-label='Loading profile' style={{ width: '1.875rem', height: '1.875rem' }} />
+                            <span style={{ color: 'var(--cratis-text-color-secondary)' }}>Loading profile...</span>
                         </div>
                     )}
 
@@ -46,46 +48,46 @@ export const MyProfile = () => {
                             <div className='flex flex-row items-center gap-5'>
                                 <div
                                     className='flex h-20 w-20 shrink-0 items-center justify-center rounded-full'
-                                    style={{ backgroundColor: 'var(--highlight-bg)' }}
+                                    style={{ backgroundColor: 'var(--cratis-highlight-bg)' }}
                                 >
-                                    <i className='pi pi-user text-4xl' style={{ color: 'var(--primary-color)' }} />
+                                    <FaUser aria-hidden='true' className='text-4xl' style={{ color: 'var(--cratis-primary-color)' }} />
                                 </div>
                                 <div className='flex flex-col gap-1'>
-                                    <span className='text-xl font-semibold' style={{ color: 'var(--text-color)' }}>
+                                    <span className='text-xl font-semibold' style={{ color: 'var(--cratis-text-color)' }}>
                                         {profile.name}
                                     </span>
-                                    <span className='text-sm' style={{ color: 'var(--text-color-secondary)' }}>
+                                    <span className='text-sm' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                                         Library Member
                                     </span>
                                 </div>
                             </div>
 
-                            <div className='h-px' style={{ backgroundColor: 'var(--surface-border)' }} />
+                            <div className='h-px' style={{ backgroundColor: 'var(--cratis-surface-border)' }} />
 
                             <div className='flex flex-col gap-4'>
                                 <div className='flex flex-col gap-1'>
-                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--text-color-secondary)' }}>
+                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                                         Full Name
                                     </span>
-                                    <span className='text-base' style={{ color: 'var(--text-color)' }}>
+                                    <span className='text-base' style={{ color: 'var(--cratis-text-color)' }}>
                                         {profile.name}
                                     </span>
                                 </div>
 
                                 <div className='flex flex-col gap-1'>
-                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--text-color-secondary)' }}>
+                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                                         Email Address
                                     </span>
-                                    <span className='text-base' style={{ color: 'var(--text-color)' }}>
+                                    <span className='text-base' style={{ color: 'var(--cratis-text-color)' }}>
                                         {profile.email}
                                     </span>
                                 </div>
 
                                 <div className='flex flex-col gap-1'>
-                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--text-color-secondary)' }}>
+                                    <span className='text-xs font-medium uppercase tracking-wide' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                                         Member ID
                                     </span>
-                                    <span className='font-mono text-sm' style={{ color: 'var(--text-color-secondary)' }}>
+                                    <span className='font-mono text-sm' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                                         {profile.id.toString()}
                                     </span>
                                 </div>
@@ -95,8 +97,8 @@ export const MyProfile = () => {
 
                     {!profileResult.isPerforming && !profile && (
                         <div className='flex flex-col items-center gap-3 py-8'>
-                            <i className='pi pi-exclamation-triangle text-3xl' style={{ color: 'var(--text-color-secondary)' }} />
-                            <span style={{ color: 'var(--text-color-secondary)' }}>Profile not found.</span>
+                            <FaTriangleExclamation aria-hidden='true' className='text-3xl' style={{ color: 'var(--cratis-text-color-secondary)' }} />
+                            <span style={{ color: 'var(--cratis-text-color-secondary)' }}>Profile not found.</span>
                         </div>
                     )}
                 </div>
