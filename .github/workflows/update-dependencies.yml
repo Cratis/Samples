@@ -140,8 +140,12 @@ jobs:
                 else . + "@latest"
                 end' package.json
           }
-          mapfile -t dependencies < <(install_specs dependencies)
-          mapfile -t dev_dependencies < <(install_specs devDependencies)
+          # Command substitution, unlike process substitution, lets bash -e stop the step when jq
+          # fails, so an unreadable package.json fails the job instead of silently updating nothing.
+          dependency_specs=$(install_specs dependencies)
+          dev_dependency_specs=$(install_specs devDependencies)
+          mapfile -t dependencies < <(printf '%s' "$dependency_specs" | sed '/^$/d')
+          mapfile -t dev_dependencies < <(printf '%s' "$dev_dependency_specs" | sed '/^$/d')
           if [ ${#dependencies[@]} -gt 0 ]; then
             npm install --package-lock-only --ignore-scripts --no-audit --no-fund "${dependencies[@]}"
           fi
