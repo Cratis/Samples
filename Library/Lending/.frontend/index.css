@@ -6,6 +6,9 @@
 @import '@cratis/components/styles';
 @import '@cratis/components/theme';
 
+/* The Vite root is .frontend; scan the whole sample folder for utility classes. */
+@source "../";
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 12px;
