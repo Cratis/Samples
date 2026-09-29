@@ -4,8 +4,7 @@
 import { AddBook } from './Adding/AddBook';
 import { Listing } from './Listing/Listing';
 import { useDialog } from '@cratis/arc.react/dialogs';
-import { Page } from '../Components/Common';
-import { Toolbar, ToolbarButton } from '@cratis/components/Toolbar';
+import { Button, Page } from '../Components/Common';
 import { FaBook } from 'react-icons/fa6';
 
 export const Inventory = () => {
@@ -13,9 +12,9 @@ export const Inventory = () => {
 
     return (
         <Page title="Books" panel>
-            <Toolbar orientation="horizontal">
-                <ToolbarButton icon={<FaBook aria-hidden="true" />} text="Add book" title="Add book" onClick={() => showAddBookDialog()} />
-            </Toolbar>
+            <div className="flex gap-2 p-3">
+                <Button label="Add book" icon={<FaBook aria-hidden="true" />} onClick={() => showAddBookDialog()} />
+            </div>
             <Listing />
 
             <AddBookDialog />

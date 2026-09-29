@@ -3,8 +3,8 @@
 
 import { useDialog } from '@cratis/arc.react/dialogs';
 import { withViewModel } from '@cratis/arc.react.mvvm';
+import { Button } from '@cratis/components/Common';
 import { ProgressSpinner } from '@cratis/components/Display';
-import { Toolbar, ToolbarButton } from '@cratis/components/Toolbar';
 import { FaBolt, FaMagnifyingGlass, FaPlus, FaWandMagicSparkles } from 'react-icons/fa6';
 import { BoardViewModel } from './BoardViewModel';
 import { CaptureIdeaDialog } from './CaptureIdeaDialog';
@@ -64,14 +64,11 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                         <span className="eyebrow">Working set</span>
                         <h2 id="board-title">Ideas worth a conversation</h2>
                     </div>
-                    <Toolbar orientation="horizontal">
-                        <ToolbarButton
-                            icon={<FaPlus aria-hidden="true" />}
-                            text="Capture idea"
-                            title="Capture idea"
-                            onClick={() => { void showCaptureDialog(); }}
-                        />
-                    </Toolbar>
+                    <Button
+                        label="Capture idea"
+                        icon={<FaPlus aria-hidden="true" />}
+                        onClick={() => { void showCaptureDialog(); }}
+                    />
                 </div>
 
                 <label className="search-box">
