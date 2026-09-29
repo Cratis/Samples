@@ -43,7 +43,7 @@
     margin-bottom: var(--footer-height);
     overflow: auto;
     transition: padding-left 0.3s;
-    color: var(--surface-900);
+    color: var(--cratis-text-color);
 }
 
 .sidebarClosed .appOutlet,
@@ -57,5 +57,5 @@
     bottom: 0;
     width: 100%;
     height: var(--footer-height);
-    background-color: var(--surface-a);
+    background-color: var(--cratis-surface-card);
 }

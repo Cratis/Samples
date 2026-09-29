@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { useLayoutContext } from '../context/LayoutContext';
-import { Button } from 'primereact/button';
+import { IconButton } from '@cratis/components/Common';
 import css from './TopBar.module.css';
 import { FaBars } from 'react-icons/fa6';
 
@@ -13,12 +13,12 @@ export const TopBar = () => {
         <div className={css.container}>
             <div className={`flex items-center justify-between ${css.leftSide}`}>
                 <div className={css.sidebarToggle}>
-                    <Button
+                    <IconButton
+                        icon={<FaBars aria-hidden="true" />}
+                        aria-label="Toggle sidebar"
+                        variant="ghost"
                         onClick={toggleLeftSidebarOpen}
-                        text
-                        className={css.hamburgerMenuButton}>
-                        <FaBars />
-                    </Button>
+                        className={css.hamburgerMenuButton} />
                 </div>
                 <div className="flex-1 flex align-center justify-center">
                     <div className="font-extrabold text-2xl m-2">Library</div>

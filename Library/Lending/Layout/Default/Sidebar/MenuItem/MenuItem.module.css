@@ -29,7 +29,7 @@
 
 .menuItem.active {
     background-color: var(--cratis-sidebar-menuitem-active-bg);
-    border-color: var(--primary-color);
+    border-color: var(--cratis-primary-color);
     color: var(--cratis-sidebar-menuitem-active-textColor);
     font-weight: 600;
 }
@@ -37,7 +37,7 @@
     color: var(--cratis-sidebar-menuitem-active-textColor);
 }
 .menuItem.pending {
-    background-color: var(--surface-d);
+    background-color: var(--cratis-surface-border);
     border-color: #faad14;
     color: #faad14;
     font-weight: 600;

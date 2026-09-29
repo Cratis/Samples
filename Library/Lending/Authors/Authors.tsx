@@ -6,6 +6,7 @@ import { Listing } from './Listing/Listing';
 import { useDialog } from '@cratis/arc.react/dialogs';
 import { Page } from '../Components/Common';
 import { Toolbar, ToolbarButton } from '@cratis/components/Toolbar';
+import { FaUser } from 'react-icons/fa6';
 
 export const Authors = () => {
     const [AddAuthorDialog, showAddAuthorDialog] = useDialog(AddAuthor);
@@ -13,7 +14,7 @@ export const Authors = () => {
     return (
         <Page title="Authors" panel>
             <Toolbar orientation="horizontal">
-                <ToolbarButton icon="pi pi-user" text="Add Author" title="Add Author" onClick={() => showAddAuthorDialog()} />
+                <ToolbarButton icon={<FaUser aria-hidden="true" />} text="Add Author" title="Add Author" onClick={() => showAddAuthorDialog()} />
             </Toolbar>
             <Listing />
 

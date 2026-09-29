@@ -8,8 +8,7 @@ module.exports = {
             "./index.html",
             "./Components/**/*.tsx",
             "./Features/**/*.tsx",
-            "./Layout/**/*.tsx",
-            "./node_modules/primereact/**/*.{js,ts,jsx,tsx}"
+            "./Layout/**/*.tsx"
         ]
     },
     theme: {
