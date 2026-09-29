@@ -176,6 +176,7 @@
 
 .search-box input {
     width: 100%;
+    font: inherit;
     color: var(--cratis-text-color);
     background: transparent;
     border: 0;
@@ -275,6 +276,7 @@
 
 .empty-state button {
     padding: 0.75rem 1rem;
+    font: inherit;
     color: var(--cratis-primary-color-text);
     background: var(--cratis-primary-color);
     border: 0;
