@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { useNavigate } from 'react-router-dom';
-import { IconButton } from '@cratis/components/Common';
+import { IconButton, Surface } from '@cratis/components/Common';
 import { ProgressSpinner } from '@cratis/components/Display';
 import { FaArrowLeft, FaTriangleExclamation, FaUser } from 'react-icons/fa6';
 import { GetMyProfile } from '../Listing';
@@ -32,10 +32,7 @@ export const MyProfile = () => {
             </div>
 
             <div className='p-6'>
-                <div
-                    className='mx-auto max-w-lg rounded-lg p-8'
-                    style={{ backgroundColor: 'var(--cratis-surface-card)', border: '1px solid var(--cratis-surface-border)' }}
-                >
+                <Surface as='section' aria-label='Profile' className='mx-auto max-w-lg p-8'>
                     {profileResult.isPerforming && (
                         <div className='flex flex-col items-center gap-3 py-8'>
                             <ProgressSpinner aria-label='Loading profile' style={{ width: '1.875rem', height: '1.875rem' }} />
@@ -101,7 +98,7 @@ export const MyProfile = () => {
                             <span style={{ color: 'var(--cratis-text-color-secondary)' }}>Profile not found.</span>
                         </div>
                     )}
-                </div>
+                </Surface>
             </div>
         </div>
     );

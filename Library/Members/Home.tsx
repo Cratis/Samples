@@ -56,15 +56,12 @@ export const MembersHome = () => {
                 )}
 
                 {!borrowedResult.isPerforming && borrowedBooks.length === 0 && (
-                    <div
-                        className='flex flex-col items-center gap-3 rounded-lg py-16'
-                        style={{ backgroundColor: 'var(--cratis-surface-card)', border: '1px solid var(--cratis-surface-border)' }}
-                    >
+                    <Surface className='flex flex-col items-center gap-3 py-16'>
                         <FaInbox aria-hidden='true' className='text-5xl' style={{ color: 'var(--cratis-text-color-secondary)' }} />
                         <p className='m-0 text-base' style={{ color: 'var(--cratis-text-color-secondary)' }}>
                             You have no books borrowed at the moment.
                         </p>
-                    </div>
+                    </Surface>
                 )}
 
                 <div className='grid gap-4' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
