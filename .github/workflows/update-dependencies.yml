@@ -106,12 +106,7 @@ jobs:
           # Update each package to latest version
           for package in $PACKAGES; do
             echo "Updating $package..."
-            if [ "$package" = "@cratis/components" ]; then
-              # @cratis/components 4.x removed APIs these samples use; remain on latest 3.x.
-              LATEST=$(npm view "$package@<4" version --json 2>/dev/null | jq -r 'if type == "array" then last elif type == "string" then . else empty end' || echo "")
-            else
-              LATEST=$(npm view "$package" version 2>/dev/null || echo "")
-            fi
+            LATEST=$(npm view "$package" version 2>/dev/null || echo "")
             if [ ! -z "$LATEST" ]; then
               echo "Latest version: $LATEST"
               # Update the version in package.json using jq
