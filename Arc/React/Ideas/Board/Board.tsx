@@ -3,7 +3,9 @@
 
 import { useDialog } from '@cratis/arc.react/dialogs';
 import { withViewModel } from '@cratis/arc.react.mvvm';
+import { ProgressSpinner } from '@cratis/components/Display';
 import { Toolbar, ToolbarButton } from '@cratis/components/Toolbar';
+import { FaBolt, FaMagnifyingGlass, FaPlus, FaWandMagicSparkles } from 'react-icons/fa6';
 import { BoardViewModel } from './BoardViewModel';
 import { CaptureIdeaDialog } from './CaptureIdeaDialog';
 import { Idea } from './Idea';
@@ -38,7 +40,7 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                     <span className="brand__mark">IL</span>
                     <span>Idea Loom</span>
                 </a>
-                <span className="architecture-pill"><i className="pi pi-bolt" /> Arc CQRS · no Chronicle</span>
+                <span className="architecture-pill"><FaBolt aria-hidden="true" /> Arc CQRS · no Chronicle</span>
             </header>
 
             <section className="hero">
@@ -64,7 +66,7 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                     </div>
                     <Toolbar orientation="horizontal">
                         <ToolbarButton
-                            icon="pi pi-plus"
+                            icon={<FaPlus aria-hidden="true" />}
                             text="Capture idea"
                             title="Capture idea"
                             onClick={() => { void showCaptureDialog(); }}
@@ -73,7 +75,7 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                 </div>
 
                 <label className="search-box">
-                    <i className="pi pi-search" aria-hidden="true" />
+                    <FaMagnifyingGlass aria-hidden="true" />
                     <span className="visually-hidden">Search ideas</span>
                     <input
                         type="search"
@@ -84,12 +86,12 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                 </label>
 
                 {ideasResult.isPerforming && !ideasResult.hasData && (
-                    <div className="board-state"><i className="pi pi-spin pi-spinner" /> Connecting to the live board…</div>
+                    <div className="board-state"><ProgressSpinner aria-label="Connecting to the live board" /> Connecting to the live board…</div>
                 )}
 
                 {!ideasResult.isPerforming && capturedCount === 0 && (
                     <div className="empty-state">
-                        <span className="empty-state__icon"><i className="pi pi-sparkles" /></span>
+                        <span className="empty-state__icon"><FaWandMagicSparkles aria-hidden="true" /></span>
                         <h3>Give the board its first spark</h3>
                         <p>Capture one concrete improvement. Arc will validate it, run the command, and push the new read model here.</p>
                         <button type="button" onClick={() => { void showCaptureDialog(); }}>Capture the first idea</button>

@@ -3,13 +3,12 @@
 
 import { Arc } from '@cratis/arc.react';
 import { DialogComponents } from '@cratis/arc.react/dialogs';
-import { CratisComponentsProvider } from '@cratis/components/Common';
-import { styledMode } from '@cratis/components/styled';
+import { CratisComponentsProvider } from '@cratis/components';
 import { BusyIndicatorDialog, ConfirmationDialog } from '@cratis/components/Dialogs';
 import { Board } from '../Ideas/Board/Board';
 
 export const App = () => (
-    <CratisComponentsProvider value={{ ripple: true, ...styledMode() }}>
+    <CratisComponentsProvider>
         <Arc>
             <DialogComponents confirmation={ConfirmationDialog} busyIndicator={BusyIndicatorDialog}>
                 <Board />

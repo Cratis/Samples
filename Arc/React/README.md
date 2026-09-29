@@ -124,7 +124,7 @@ Then open `http://localhost:5064`.
 | `Ideas/Board/IdeaTitle.cs` | Carries the title and its reusable `NotEmpty`/length invariant. |
 | `Ideas/Board/IdeaSummary.cs` | Carries the summary and its reusable invariant. |
 | `Ideas/Board/Board.cs` | The complete backend slice: model-bound command, read model/query, and direct current-state store. |
-| `Ideas/Board/CaptureIdeaDialog.tsx` | Uses Cratis `CommandDialog` and typed command fields—never a raw PrimeReact dialog. |
+| `Ideas/Board/CaptureIdeaDialog.tsx` | Uses the Cratis Components `CommandDialog` and typed command fields rather than a hand-built dialog. |
 | `Ideas/Board/BoardViewModel.ts` | Keeps search behavior out of JSX and stays directly specifiable without React. |
 | `Ideas/Board/Board.tsx` | Composes the generated observable query, MVVM interaction, dialog, and small UI. |
 | `.frontend/vite.config.ts` | Builds the SPA and proxies Arc HTTP plus live-query connections during development. |

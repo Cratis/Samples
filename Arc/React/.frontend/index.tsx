@@ -3,7 +3,7 @@
 
 import '@cratis/components/tokens';
 import '@cratis/components/styles';
-import 'primeicons/primeicons.css';
+import '@cratis/components/theme';
 import 'reflect-metadata';
 import './index.css';
 import { Bindings } from '@cratis/arc.react.mvvm';
