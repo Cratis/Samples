@@ -48,14 +48,17 @@ export const MembersHome = () => {
                     )}
                 </div>
 
-                {borrowedResult.isPerforming && (
-                    <div role='status' className='flex items-center gap-2' style={{ color: 'var(--cratis-text-color-secondary)' }}>
-                        <span aria-hidden='true' style={{ display: 'inline-flex' }}>
-                            <ProgressSpinner style={{ width: '1rem', height: '1rem' }} />
-                        </span>
-                        <span>Loading your books...</span>
-                    </div>
-                )}
+                {/* Always mounted so assistive technology announces the text when it appears. */}
+                <div role='status' className='flex items-center gap-2' style={{ color: 'var(--cratis-text-color-secondary)' }}>
+                    {borrowedResult.isPerforming && (
+                        <>
+                            <span aria-hidden='true' style={{ display: 'inline-flex' }}>
+                                <ProgressSpinner style={{ width: '1rem', height: '1rem' }} />
+                            </span>
+                            <span>Loading your books...</span>
+                        </>
+                    )}
+                </div>
 
                 {!borrowedResult.isPerforming && borrowedBooks.length === 0 && (
                     <Surface className='flex flex-col items-center gap-3 py-16'>

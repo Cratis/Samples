@@ -33,14 +33,17 @@ export const MyProfile = () => {
 
             <div className='p-6'>
                 <Surface as='section' aria-label='Profile' className='mx-auto max-w-lg p-8'>
-                    {profileResult.isPerforming && (
-                        <div role='status' className='flex flex-col items-center gap-3 py-8'>
-                            <span aria-hidden='true' style={{ display: 'inline-flex' }}>
-                                <ProgressSpinner style={{ width: '1.875rem', height: '1.875rem' }} />
-                            </span>
-                            <span style={{ color: 'var(--cratis-text-color-secondary)' }}>Loading profile...</span>
-                        </div>
-                    )}
+                    {/* Always mounted so assistive technology announces the text when it appears. */}
+                    <div role='status'>
+                        {profileResult.isPerforming && (
+                            <div className='flex flex-col items-center gap-3 py-8'>
+                                <span aria-hidden='true' style={{ display: 'inline-flex' }}>
+                                    <ProgressSpinner style={{ width: '1.875rem', height: '1.875rem' }} />
+                                </span>
+                                <span style={{ color: 'var(--cratis-text-color-secondary)' }}>Loading profile...</span>
+                            </div>
+                        )}
+                    </div>
 
                     {!profileResult.isPerforming && profile && (
                         <div className='flex flex-col gap-6'>

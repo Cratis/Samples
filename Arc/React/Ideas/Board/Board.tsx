@@ -82,14 +82,17 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                     />
                 </label>
 
-                {ideasResult.isPerforming && !ideasResult.hasData && (
-                    <div className="board-state" role="status">
-                        <span aria-hidden="true" style={{ display: 'inline-flex' }}>
-                            <ProgressSpinner />
-                        </span>
-                        Connecting to the live board…
-                    </div>
-                )}
+                {/* Always mounted so assistive technology announces the text when it appears. */}
+                <div role="status">
+                    {ideasResult.isPerforming && !ideasResult.hasData && (
+                        <div className="board-state">
+                            <span aria-hidden="true" style={{ display: 'inline-flex' }}>
+                                <ProgressSpinner />
+                            </span>
+                            Connecting to the live board…
+                        </div>
+                    )}
+                </div>
 
                 {!ideasResult.isPerforming && capturedCount === 0 && (
                     <div className="empty-state">
