@@ -49,8 +49,10 @@ export const MembersHome = () => {
                 </div>
 
                 {borrowedResult.isPerforming && (
-                    <div className='flex items-center gap-2' style={{ color: 'var(--cratis-text-color-secondary)' }}>
-                        <ProgressSpinner aria-label='Loading your books' style={{ width: '1rem', height: '1rem' }} />
+                    <div role='status' className='flex items-center gap-2' style={{ color: 'var(--cratis-text-color-secondary)' }}>
+                        <span aria-hidden='true' style={{ display: 'inline-flex' }}>
+                            <ProgressSpinner style={{ width: '1rem', height: '1rem' }} />
+                        </span>
                         <span>Loading your books...</span>
                     </div>
                 )}

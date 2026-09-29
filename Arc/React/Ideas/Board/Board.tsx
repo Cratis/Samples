@@ -83,7 +83,12 @@ export const Board = withViewModel(BoardViewModel, ({ viewModel }) => {
                 </label>
 
                 {ideasResult.isPerforming && !ideasResult.hasData && (
-                    <div className="board-state"><ProgressSpinner aria-label="Connecting to the live board" /> Connecting to the live board…</div>
+                    <div className="board-state" role="status">
+                        <span aria-hidden="true" style={{ display: 'inline-flex' }}>
+                            <ProgressSpinner />
+                        </span>
+                        Connecting to the live board…
+                    </div>
                 )}
 
                 {!ideasResult.isPerforming && capturedCount === 0 && (
