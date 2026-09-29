@@ -3,16 +3,19 @@
 
 import { Arc } from '@cratis/arc.react';
 import { DialogComponents } from '@cratis/arc.react/dialogs';
-import { CratisComponentsProvider } from '@cratis/components/Common';
-import { styledMode } from '@cratis/components/styled';
+import { CratisComponentsProvider } from '@cratis/components';
 import { BusyIndicatorDialog, ConfirmationDialog } from '@cratis/components/Dialogs';
+import { BrowserRouter } from 'react-router-dom';
 import { Board } from '../Ideas/Board/Board';
 
+// withViewModel reads route and query parameters through React Router, so the view needs a router above it.
 export const App = () => (
-    <CratisComponentsProvider value={{ ripple: true, ...styledMode() }}>
+    <CratisComponentsProvider>
         <Arc>
             <DialogComponents confirmation={ConfirmationDialog} busyIndicator={BusyIndicatorDialog}>
-                <Board />
+                <BrowserRouter>
+                    <Board />
+                </BrowserRouter>
             </DialogComponents>
         </Arc>
     </CratisComponentsProvider>

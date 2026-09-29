@@ -4,17 +4,17 @@
 import { AddAuthor } from './Registration';
 import { Listing } from './Listing/Listing';
 import { useDialog } from '@cratis/arc.react/dialogs';
-import { Page } from '../Components/Common';
-import { Toolbar, ToolbarButton } from '@cratis/components/Toolbar';
+import { Button, Page } from '../Components/Common';
+import { FaUser } from 'react-icons/fa6';
 
 export const Authors = () => {
     const [AddAuthorDialog, showAddAuthorDialog] = useDialog(AddAuthor);
 
     return (
         <Page title="Authors" panel>
-            <Toolbar orientation="horizontal">
-                <ToolbarButton icon="pi pi-user" text="Add Author" title="Add Author" onClick={() => showAddAuthorDialog()} />
-            </Toolbar>
+            <div className="flex gap-2 p-3">
+                <Button label="Add Author" icon={<FaUser aria-hidden="true" />} onClick={() => showAddAuthorDialog()} />
+            </div>
             <Listing />
 
             <AddAuthorDialog />

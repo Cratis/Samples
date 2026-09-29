@@ -6,8 +6,8 @@
     top: 0;
     left: 0;
     position: fixed;
-    background-color: var(--cratis-topbar-bg);
-    border-bottom: 1px solid var(--cratis-layout-border-color);
+    background-color: var(--lending-topbar-bg);
+    border-bottom: 1px solid var(--lending-layout-border-color);
     right: 0;
     z-index:100;
 }
@@ -18,10 +18,10 @@
     position: fixed;
     top: var(--topbar-height);
     left: 0;
-    background-color: var(--cratis-sidebar-bg);
-    color: var(--cratis-sidebar-textColor);
+    background-color: var(--lending-sidebar-bg);
+    color: var(--lending-sidebar-textColor);
     transition: width 0.3s;
-    box-shadow: var(--cratis-layout-border-color) -1px 0 0 0 inset;
+    box-shadow: var(--lending-layout-border-color) -1px 0 0 0 inset;
     overflow: hidden;
 }
 
@@ -43,7 +43,7 @@
     margin-bottom: var(--footer-height);
     overflow: auto;
     transition: padding-left 0.3s;
-    color: var(--surface-900);
+    color: var(--cratis-text-color);
 }
 
 .sidebarClosed .appOutlet,
@@ -57,5 +57,5 @@
     bottom: 0;
     width: 100%;
     height: var(--footer-height);
-    background-color: var(--surface-a);
+    background-color: var(--cratis-surface-card);
 }

@@ -1,7 +1,6 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { useTheme } from '../Utils/useTheme';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LayoutProvider } from '../Layout/Default/context/LayoutContext';
 import { DialogComponents } from '@cratis/arc.react/dialogs';
@@ -14,8 +13,6 @@ import { Authors } from '../Authors/Authors';
 import { Inventory } from '../Inventory/Inventory';
 
 function App() {
-    useTheme();
-
     const menuItems: IMenuItemGroup[] = [
         {
             items: [

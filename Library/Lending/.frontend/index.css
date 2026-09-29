@@ -1,13 +1,19 @@
+/* Keep Components above the Tailwind reset and below Tailwind utilities; see the Components cascade contract. */
+@layer properties, theme, base, cratis-theme, cratis-components, cratis-utilities, components, utilities;
 @import url(allotment/dist/style.css);
 @import "tailwindcss";
+@import '@cratis/components/tokens';
+@import '@cratis/components/styles';
+@import '@cratis/components/theme';
+
+/* The Vite root is .frontend; scan the whole sample folder for utility classes. */
+@source "../";
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 24px;
   font-weight: 400;
-
-  color-scheme: light;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,66 +25,38 @@
   --sidebar-width: 280px;
   --sidebar-closed-width: calc(4.5rem + 2px);
   --footer-height: 0px;
-  --focus-border: var(--primary-color);
+  --focus-border: var(--cratis-primary-color);
 
-  --cratis-sidebar-namespace-bg: var(--gray-600);
-  --cratis-sidebar-space-textColor: var(--gray-300);
-  --cratis-sidebar-bg: var(--gray-800);
-  --cratis-sidebar-textColor: var(--gray-300);
-  --cratis-sidebar-menuitem-active-bg: var(--gray-700);
-  --cratis-sidebar-menuitem-active-textColor: var(--highlight-text-color);
-  --cratis-topbar-bg: var(--gray-800);
-  --cratis-layout-border-color: var(--surface-border);
+  --lending-sidebar-namespace-bg: var(--cratis-surface-100);
+  --lending-sidebar-space-textColor: var(--cratis-text-color-secondary);
+  --lending-sidebar-bg: var(--cratis-surface-section);
+  --lending-sidebar-textColor: var(--cratis-text-color-secondary);
+  --lending-sidebar-menuitem-active-bg: var(--cratis-highlight-bg);
+  --lending-sidebar-menuitem-active-textColor: var(--cratis-highlight-text-color);
+  --lending-topbar-bg: var(--cratis-surface-card);
+  --lending-layout-border-color: var(--cratis-surface-border);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--surface-ground);
-  color: var(--highlight-text-color);
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  background-color: var(--cratis-surface-ground);
+  color: var(--cratis-text-color);
 }
 
 .highlight {
-    background-color: var(--highlight-bg);
-    color: var(--highlight-text-color);
+    background-color: var(--cratis-highlight-bg);
+    color: var(--cratis-highlight-text-color);
 }
 
 .contentBackground {
-    background-color: var(--surface-0);
+    background-color: var(--cratis-surface-0);
 }
 
 .panel {
-    background: var(--surface-card);
-    border: 1px solid var(--shade600);
-    border-radius: var(--border-radius);
-    color: var(--menu-text-color);
-}
-
-/* Ensure dialog content is visible and has proper dimensions */
-.p-dialog.p-dialog-enter-done,
-.p-dialog.p-dialog-enter-active,
-.p-dialog {
-  max-height: 90vh !important;
-  min-height: fit-content !important;
-  height: auto !important;
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-.p-dialog-content {
-  min-height: 100px;
-  display: block !important;
-  visibility: visible !important;
-}
-
-.p-dialog-mask {
-  pointer-events: auto !important;
+    background: var(--cratis-surface-card);
+    border: 1px solid var(--cratis-surface-border);
+    border-radius: var(--cratis-border-radius);
+    color: var(--cratis-text-color);
 }

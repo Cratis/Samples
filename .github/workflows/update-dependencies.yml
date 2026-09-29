@@ -107,8 +107,10 @@ jobs:
           for package in $PACKAGES; do
             echo "Updating $package..."
             if [ "$package" = "@cratis/components" ]; then
-              # @cratis/components 4.x removed APIs these samples use; remain on latest 3.x.
-              LATEST=$(npm view "$package@<4" version --json 2>/dev/null | jq -r 'if type == "array" then last elif type == "string" then . else empty end' || echo "")
+              # A new @cratis/components major needs a reviewed migration of the samples,
+              # so stay on the major the samples are currently on.
+              CURRENT=$(jq -r ".dependencies[\"$package\"]" package.json | sed -E 's/^[^0-9]*//')
+              LATEST=$(npm view "$package@^$CURRENT" version --json 2>/dev/null | jq -r 'if type == "array" then (sort_by(split(".") | map(tonumber)) | last) elif type == "string" then . else empty end' || echo "")
             else
               LATEST=$(npm view "$package" version 2>/dev/null || echo "")
             fi
@@ -125,8 +127,25 @@ jobs:
         if: matrix.folder == 'Capstone'
         working-directory: Capstone
         run: |
-          mapfile -t dependencies < <(jq -r '.dependencies | keys[] | select(startswith("@cratis/")) | . + "@latest"' package.json)
-          mapfile -t dev_dependencies < <(jq -r '.devDependencies | keys[] | select(startswith("@cratis/")) | . + "@latest"' package.json)
+          # A new @cratis/components major needs a reviewed migration of the samples,
+          # so keep @cratis/components on the major the samples are currently on.
+          # Every other @cratis/* package is updated to latest.
+          install_specs() {
+            jq -r --arg list "$1" '
+              (.[$list] // {}) as $deps
+              | ($deps["@cratis/components"] // "" | sub("^[^0-9]*"; "")) as $components
+              | $deps | keys[] | select(startswith("@cratis/"))
+              | if . == "@cratis/components" and $components != ""
+                then . + "@^" + $components
+                else . + "@latest"
+                end' package.json
+          }
+          # Command substitution, unlike process substitution, lets bash -e stop the step when jq
+          # fails, so an unreadable package.json fails the job instead of silently updating nothing.
+          dependency_specs=$(install_specs dependencies)
+          dev_dependency_specs=$(install_specs devDependencies)
+          mapfile -t dependencies < <(printf '%s' "$dependency_specs" | sed '/^$/d')
+          mapfile -t dev_dependencies < <(printf '%s' "$dev_dependency_specs" | sed '/^$/d')
           if [ ${#dependencies[@]} -gt 0 ]; then
             npm install --package-lock-only --ignore-scripts --no-audit --no-fund "${dependencies[@]}"
           fi

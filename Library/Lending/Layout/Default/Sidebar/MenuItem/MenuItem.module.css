@@ -19,7 +19,7 @@
 
 .menuItem .label {
     flex: 1;
-    color: var(--cratis-sidebar-textColor);
+    color: var(--lending-sidebar-textColor);
     opacity: 1;
     transition: opacity 0.3s;
 }
@@ -28,17 +28,20 @@
 }
 
 .menuItem.active {
-    background-color: var(--cratis-sidebar-menuitem-active-bg);
-    border-color: var(--primary-color);
-    color: var(--cratis-sidebar-menuitem-active-textColor);
+    background-color: var(--lending-sidebar-menuitem-active-bg);
+    border-color: var(--cratis-primary-color);
+    color: var(--lending-sidebar-menuitem-active-textColor);
     font-weight: 600;
 }
 .menuItem.active .label {
-    color: var(--cratis-sidebar-menuitem-active-textColor);
+    color: var(--lending-sidebar-menuitem-active-textColor);
 }
 .menuItem.pending {
-    background-color: var(--surface-d);
-    border-color: #faad14;
-    color: #faad14;
+    background-color: var(--cratis-surface-hover);
+    border-color: var(--cratis-warning-background);
+    color: var(--cratis-text-color);
     font-weight: 600;
+}
+.menuItem.pending .label {
+    color: var(--cratis-text-color);
 }

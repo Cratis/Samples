@@ -11,7 +11,7 @@ The sample presents two focused applications behind local authentication:
 | **Lending** | A desktop-style workspace with a sidebar, paged **Authors** and **Books** tables, and Cratis command dialogs for registering an author or adding a book title. |
 | **Members** | A compact **My Library** portal with cards for currently borrowed books and a profile page for the signed-in member. |
 
-The initial event seed supplies recognizable authors, books, members, reservations, and borrowings. PrimeReact supplies tables and cards, while `@cratis/components` and Arc React provide the command forms, dialogs, and generated command/query hooks.
+The initial event seed supplies recognizable authors, books, members, reservations, and borrowings. Cratis Components 4 supplies the tables, card surfaces, command forms, and dialogs, while Arc React provides the generated command/query hooks.
 
 ## Run it with Aspire and MongoDB
 
