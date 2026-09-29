@@ -15,8 +15,6 @@
   line-height: 24px;
   font-weight: 400;
 
-  color-scheme: light;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -41,17 +39,10 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--cratis-surface-ground);
   color: var(--cratis-text-color);
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 .highlight {
