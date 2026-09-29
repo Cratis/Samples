@@ -40,7 +40,7 @@ export const MenuItem = ({ item, basePath, ...rest }: IMenuItemProps) => {
         <NavLink to={resolvedPath}
                  {...rest}
                  className={({ isActive, isPending }) =>
-                     css.menuItem + ' ' + (isPending ? css.pending : isActive ? css.active : "") + " p-ripple "
+                     css.menuItem + ' ' + (isPending ? css.pending : isActive ? css.active : "")
                  }>
             <div className={css.icon}>
                 {item.icon && <item.icon size='1.5rem'/>}
