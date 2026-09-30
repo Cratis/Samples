@@ -27,7 +27,7 @@ jobs:
         run: sleep 600
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
 
@@ -134,7 +134,7 @@ jobs:
             jq -r --arg list "$1" '
               (.[$list] // {}) as $deps
               | $deps | to_entries[] | select(.key | startswith("@cratis/"))
-              | (.value | sub("^[^0-9]*"; "") | split(".")[0]) as $major
+              | (.value | sub("^[^0-9]*"; "") | split(".")[0] // "") as $major
               | if ($major | test("^[0-9]+$"))
                 then .key + "@^" + $major
                 else .key + "@latest"
