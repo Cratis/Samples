@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Wait for NuGet validation
         if: >
@@ -27,7 +27,7 @@ jobs:
         run: sleep 600
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
 
@@ -84,14 +84,14 @@ jobs:
           - Capstone
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main # Ensure we get the latest changes from the NuGet job
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '23'
+          node-version: '24'
 
       - name: Pull latest changes
         run: git pull --rebase
@@ -127,17 +127,17 @@ jobs:
         if: matrix.folder == 'Capstone'
         working-directory: Capstone
         run: |
-          # A new @cratis/components major needs a reviewed migration of the samples,
-          # so keep @cratis/components on the major the samples are currently on.
-          # Every other @cratis/* package is updated to latest.
+          # A new @cratis/* major needs a reviewed migration of the samples, so every
+          # @cratis/* package stays on the major it is currently declared at (^<major>).
+          # A package whose declared version has no leading number is updated to latest.
           install_specs() {
             jq -r --arg list "$1" '
               (.[$list] // {}) as $deps
-              | ($deps["@cratis/components"] // "" | sub("^[^0-9]*"; "")) as $components
-              | $deps | keys[] | select(startswith("@cratis/"))
-              | if . == "@cratis/components" and $components != ""
-                then . + "@^" + $components
-                else . + "@latest"
+              | $deps | to_entries[] | select(.key | startswith("@cratis/"))
+              | (.value | sub("^[^0-9]*"; "") | split(".")[0] // "") as $major
+              | if ($major | test("^[0-9]+$"))
+                then .key + "@^" + $major
+                else .key + "@latest"
                 end' package.json
           }
           # Command substitution, unlike process substitution, lets bash -e stop the step when jq
