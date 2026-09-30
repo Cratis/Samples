@@ -3,11 +3,11 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.19.6" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.19.6" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.19.7" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.19.7" />
     <PackageVersion Include="Cratis" Version="22.39.0" />
     <PackageVersion Include="Cratis.Arc" Version="22.39.1" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.39.0" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.39.1" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.39.1" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="22.39.1" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.39.1" />
