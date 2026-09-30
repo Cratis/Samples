@@ -32,5 +32,5 @@ public class and_with_valid_details(context context) : Given<context>(context)
 
     [Fact] void should_return_the_event_payload() => Context.Result.Response.Title.Value.ShouldEqual(context.Title);
 
-    [Fact] void should_append_a_single_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
+    [Fact] Task should_append_a_single_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
 }

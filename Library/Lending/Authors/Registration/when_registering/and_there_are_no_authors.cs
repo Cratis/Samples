@@ -24,7 +24,7 @@ public class and_there_are_no_authors(context context) : Given<context>(context)
 
     [Fact] void should_be_successful() => Context.Result.IsSuccess.ShouldBeTrue();
 
-    [Fact] void should_have_appended_only_one_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
+    [Fact] Task should_have_appended_only_one_event() => Context.ShouldHaveTailSequenceNumber(EventSequenceNumber.First);
 
-    [Fact] void should_append_1_author_registered_event() => Context.ShouldHaveAppendedEvent<AuthorRegistered>(EventSequenceNumber.First, Context.Result.Response, evt => evt.Name.Value.ShouldEqual(context.AuthorName));
+    [Fact] Task should_append_1_author_registered_event() => Context.ShouldHaveAppendedEvent<AuthorRegistered>(EventSequenceNumber.First, Context.Result.Response, evt => evt.Name.Value.ShouldEqual(context.AuthorName));
 }
