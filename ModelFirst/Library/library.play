@@ -27,6 +27,7 @@ module Library
           authorName not empty  message "An author name is required"
 
         produces BookAddedToCatalog
+          for bookId
           title      = title
           authorName = authorName
 
