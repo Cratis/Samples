@@ -27,7 +27,7 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
-    "@cratis/eslint-config": "^7.19.7",
+    "@cratis/eslint-config": "^7.19.8",
     "@cratis/eslint-plugin-arc": "^22.39.2",
     "@cratis/eslint-plugin-components": "^4.22.0",
     "@tailwindcss/vite": "^4.3.3",
