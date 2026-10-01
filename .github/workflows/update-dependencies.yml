@@ -5,10 +5,11 @@ on:
     types: [update-dependencies]
   workflow_dispatch: # Allow manual trigger
 
-# Serialize overlapping runs; max-parallel and push retries below cover races inside a run.
+# A burst of dispatches collapses into one run: each run updates every Cratis.* package to the
+# latest version, so a newer run supersedes an older one. Push retries below cover races inside a run.
 concurrency:
   group: update-dependencies
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update-nuget:
