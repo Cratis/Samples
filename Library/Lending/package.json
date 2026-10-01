@@ -16,8 +16,8 @@
     "ci": "cd $INIT_CWD && yarn test --passWithNoTests && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
-    "@cratis/arc": "22.41.0",
-    "@cratis/arc.react": "22.41.0",
+    "@cratis/arc": "22.41.1",
+    "@cratis/arc.react": "22.41.1",
     "@cratis/arc.react.mvvm": "22.41.1",
     "@cratis/arc.vite": "22.41.1",
     "@cratis/components": "4.22.0",
