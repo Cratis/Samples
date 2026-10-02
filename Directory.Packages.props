@@ -7,6 +7,7 @@
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.22.0" />
     <PackageVersion Include="Cratis" Version="22.48.2" />
     <PackageVersion Include="Cratis.Arc" Version="22.48.2" />
+    <PackageVersion Include="Cratis.Arc.Screenplay.Embedded" Version="22.48.2" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.48.2" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.48.2" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="22.48.2" />
@@ -23,6 +24,11 @@
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.29.2" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.29.2" />
     <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.29.2" />
+    <PackageVersion Include="Marten" Version="9.45.0" />
+    <PackageVersion Include="WolverineFx" Version="6.45.0" />
+    <PackageVersion Include="WolverineFx.Marten" Version="6.45.0" />
+    <PackageVersion Include="WolverineFx.Http" Version="6.45.0" />
+    <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.45.0" />
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageVersion Include="MongoDB.Driver" Version="3.12.0" />

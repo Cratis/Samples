@@ -1,0 +1,10 @@
+name: event-model-coffee
+services:
+  chronicle:
+    image: cratis/chronicle:19.29.2-development
+    ports:
+      - "127.0.0.1:35110:35000"
+      - "127.0.0.1:27110:27017"
+    environment:
+      Cratis__Chronicle__Storage__Type: MongoDB
+      Cratis__Chronicle__Storage__ConnectionDetails: mongodb://localhost:27017

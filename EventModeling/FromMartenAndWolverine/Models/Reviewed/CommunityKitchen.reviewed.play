@@ -1,0 +1,68 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// Human-reviewed diagram companion, not executable equivalence to the C# application.
+// Compare with CommunityKitchen.generated.play and the source before changing it.
+domain CommunityKitchen
+
+module Kitchen
+  feature CommunityMeal
+    slice StateChange Planning
+      command PlanBatch
+        id Uuid identifier
+        recipe String
+        targetPortions Int
+        produces BatchPlanned
+          for id
+          recipe = recipe
+          targetPortions = targetPortions
+
+      event BatchPlanned
+        file Kitchen/Events.cs
+        recipe String
+        targetPortions Int
+
+    slice StateChange Preparation
+      command PreparePortions
+        id Uuid identifier
+        portions Int
+        produces PortionsPrepared
+          for id
+          portions = portions
+
+      event PortionsPrepared
+        file Kitchen/Events.cs
+        portions Int
+
+    slice StateChange Serving
+      description "The aggregate handler emits BatchServed only when prepared portions meet the target and the batch has not already been served. That decision remains in C#, not in a reconstructed rule."
+      command ServeBatch
+        id Uuid identifier
+        handler
+          file Kitchen/Serving/ServeBatch.cs
+
+      event BatchServed
+        file Kitchen/Events.cs
+        portions Int
+
+    slice StateView Cards
+      query BatchCard => BatchCard?
+        by id Uuid
+        performer
+          file Kitchen/Cards/BatchCardEndpoint.cs
+
+      readmodel BatchCard
+        file Kitchen/Cards/BatchCard.cs
+        id Uuid
+        recipe String
+        targetPortions Int
+        preparedPortions Int
+        served Bool
+
+      reducer BatchCardProjection => BatchCard
+        on BatchPlanned
+          file Kitchen/Cards/BatchCardProjection.cs
+        on PortionsPrepared
+          file Kitchen/Cards/BatchCardProjection.cs
+        on BatchServed
+          file Kitchen/Cards/BatchCardProjection.cs
