@@ -5,6 +5,10 @@
         <LangVersion>14.0</LangVersion>
         <Nullable>enable</Nullable>
 
+        <!-- These samples do not consume embedded Screenplay documents. Remove this workaround
+             once https://github.com/Cratis/Arc/issues/2979 is fixed. -->
+        <CratisEmbeddedScreenplayEnabled>false</CratisEmbeddedScreenplayEnabled>
+
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
         <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
