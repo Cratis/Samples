@@ -72,12 +72,43 @@ test('selects the newest complete trains, preserves prefixes and non-Cratis depe
     assert.deepEqual(manifest, before);
 });
 
-test('mid-publish resolves an actual intersection, not the lowest latest tag', () => {
+test('skips a mid-publish intersection below the highest declared train member', () => {
     const stub = registry();
     delete stub.data['@cratis/arc']['22.40.0'];
     delete stub.data['@cratis/arc.vite']['22.39.0'];
-    const result = resolveVersions(sample(), { ...stub, capMajors: true });
-    assertArc(result, '22.38.0');
+    assert.equal(resolveVersions(sample(), { ...stub, capMajors: true }), undefined);
+});
+
+test('repairs mixed pins upward to a complete train at the highest declared floor', () => {
+    const manifest = sample();
+    manifest.devDependencies['@cratis/eslint-plugin-arc'] = '^22.40.0';
+    assertArc(resolveVersions(manifest, { ...registry(), capMajors: true }), '22.40.0');
+});
+
+test('does not downgrade Components to keep a newer Arc train', () => {
+    const stub = registry();
+    const manifest = sample();
+    manifest.dependencies['@cratis/components'] = '^4.23.1';
+    stub.data['@cratis/components']['4.23.1'].peerDependencies['@cratis/arc'] = '<22.40.0';
+    stub.data.ranges['@cratis/arc@<22.40.0'] = ['22.38.0', '22.39.0'];
+    const result = resolveVersions(manifest, stub);
+    assertArc(result, '22.39.0');
+    assert.equal(result.dependencies['@cratis/components'], '^4.23.1');
+    manifest.dependencies['@cratis/arc'] = '^22.40.0';
+    assert.equal(resolveVersions(manifest, stub), undefined);
+});
+
+test('does not downgrade Fundamentals to keep a newer Arc train', () => {
+    const stub = registry();
+    const manifest = sample();
+    manifest.dependencies['@cratis/fundamentals'] = '^7.22.0';
+    stub.data['@cratis/arc.react']['22.40.0'].dependencies['@cratis/fundamentals'] = '^7.20.0 <7.22.0';
+    stub.data.ranges['@cratis/fundamentals@^7.20.0 <7.22.0'] = ['7.20.0'];
+    const result = resolveVersions(manifest, { ...stub, capMajors: true });
+    assertArc(result, '22.39.0');
+    assert.equal(result.dependencies['@cratis/fundamentals'], '^7.22.0');
+    manifest.dependencies['@cratis/arc'] = '^22.40.0';
+    assert.equal(resolveVersions(manifest, { ...stub, capMajors: true }), undefined);
 });
 
 test('repairs drift and moves dependencies and devDependencies together', () => {
@@ -165,20 +196,11 @@ test('supports latest without a numeric major cap and leaves empty manifests alo
 });
 
 for (const project of ['Arc/React', 'Library/Lending', 'Library/Members', 'Capstone']) {
-    test(`resolves the actual ${project} manifest coherently against a mid-publish fixture`, () => {
+    test(`does not downgrade the actual ${project} manifest to older registry fixtures`, () => {
         const manifest = JSON.parse(readFileSync(new URL(`../../${project}/package.json`, import.meta.url)));
-        const stub = registry();
-        delete stub.data['@cratis/arc']['22.40.0'];
-        const result = resolveVersions(manifest, { ...stub, capMajors: project === 'Capstone' });
-        assert.ok(result);
-        for (const section of ['dependencies', 'devDependencies']) {
-            for (const [name, spec] of Object.entries(manifest[section] ?? {})) {
-                if (!name.startsWith('@cratis/')) assert.equal(result[section][name], spec);
-                if (name.startsWith('@cratis/arc') || name === '@cratis/eslint-plugin-arc') {
-                    assert.equal(result[section][name], `${spec.startsWith('^') ? '^' : ''}22.39.0`);
-                }
-            }
-        }
+        const before = structuredClone(manifest);
+        assert.equal(resolveVersions(manifest, { ...registry(), capMajors: project === 'Capstone' }), undefined);
+        assert.deepEqual(manifest, before);
     });
 }
 
@@ -267,7 +289,7 @@ test('rejects a lockfile that did not use the selected exact version and restore
     assert.match(notices[0], /::notice::.*restored/);
 });
 
-for (const code of ['ETARGET', 'E404', 'ERESOLVE']) {
+for (const code of ['ETARGET', 'E404', 'ERESOLVE', 'ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'ENOENT', 'E401', 'E403']) {
     test(`restores both files on ${code}; only registry publication failures are skipped`, t => {
         const { directory, original, lock } = folder(t);
         const stub = registry();
@@ -279,7 +301,7 @@ for (const code of ['ETARGET', 'E404', 'ERESOLVE']) {
             error.stderr = `npm error code ${code}`;
             throw error;
         } });
-        if (code === 'ERESOLVE') assert.throws(perform, /npm install failed/);
+        if (!['ETARGET', 'E404'].includes(code)) assert.throws(perform, /npm install failed/);
         else {
             assert.doesNotThrow(perform);
             assert.match(notices[0], /::notice::.*publication.*restored/);
@@ -289,11 +311,16 @@ for (const code of ['ETARGET', 'E404', 'ERESOLVE']) {
     });
 }
 
-for (const scenario of ['missing train', 'registry unavailable', 'unsupported spec', 'no changes']) {
+for (const scenario of ['missing train', 'only older trains', 'unsupported spec', 'no changes']) {
     test(`leaves files byte-for-byte unchanged and never installs: ${scenario}`, t => {
         const { directory, lock } = folder(t);
         const stub = registry();
         if (scenario === 'missing train') stub.data['@cratis/arc'] = {};
+        if (scenario === 'only older trains') {
+            const manifest = sample();
+            manifest.dependencies['@cratis/arc.vite'] = '22.41.0';
+            writeFileSync(`${directory}/package.json`, JSON.stringify(manifest));
+        }
         if (scenario === 'unsupported spec') {
             const manifest = sample();
             manifest.dependencies['@cratis/arc'] = 'workspace:*';
@@ -306,12 +333,52 @@ for (const scenario of ['missing train', 'registry unavailable', 'unsupported sp
         const notices = [];
         update(directory, { withLockfile: true, notice: message => notices.push(message), npm: args => {
             assert.equal(args[0], 'view');
-            if (scenario === 'registry unavailable') throw new Error('registry temporarily unavailable');
             return stub.npm(args);
         } });
         assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
         assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
         assert.match(notices[0], scenario === 'no changes' ? /No .* updates/ : /::notice::Skipping npm update/);
+    });
+}
+
+for (const code of ['ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'ENOENT', 'E401', 'E403', 'timeout', 'malformed JSON', 'invalid metadata']) {
+    for (const stage of ['versions', 'metadata', 'peer range']) {
+        test(`${code} during ${stage} fails without fallback, install, or file changes`, t => {
+            const { directory, original, lock } = folder(t);
+            const stub = registry();
+            const error = new Error(`npm ${code}`);
+            if (!['timeout', 'malformed JSON', 'invalid metadata'].includes(code)) error.code = code;
+            const notices = [];
+            const npm = args => {
+                assert.equal(args[0], 'view');
+                const matches = stage === 'versions' ? args[2] === 'versions'
+                    : stage === 'metadata' ? args[1] === '@cratis/arc@22.40.0'
+                    : args[1] === '@cratis/arc@>=20.3.1 <23';
+                if (matches) {
+                    if (code === 'malformed JSON') return 'not JSON: E404';
+                    if (code === 'invalid metadata') return '{"error":"E401"}';
+                    throw error;
+                }
+                return stub.npm(args);
+            };
+            assert.throws(() => update(directory, { npm, withLockfile: true, notice: message => notices.push(message) }),
+                code === 'malformed JSON' ? SyntaxError : code === 'invalid metadata' ? /Invalid registry/ : thrown => thrown === error);
+            assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
+            assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
+            assert.deepEqual(notices, []);
+            assert.equal(stub.calls.some(args => args[1] === '@cratis/arc@22.39.0'), false);
+        });
+    }
+}
+
+for (const message of ['npm error code E404', 'npm error code ETARGET', 'No match found for version 22.40.0', 'No matching version found for @cratis/arc@22.40.0']) {
+    test(`only publication-missing errors permit an older complete train: ${message}`, () => {
+        const stub = registry();
+        const result = resolveVersions(sample(), { capMajors: true, npm: args => {
+            if (args[1] === '@cratis/arc@22.40.0') throw new Error(message);
+            return stub.npm(args);
+        } });
+        assertArc(result, '22.39.0');
     });
 }
 

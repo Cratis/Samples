@@ -24,6 +24,12 @@ function train(name) {
 
 class Unavailable extends Error {}
 
+function isNotPublished(error) {
+    if (typeof error.code === 'string') return ['E404', 'ETARGET'].includes(error.code);
+    const diagnostics = `${error.message}\n${error.stderr ?? ''}\n${error.stdout ?? ''}`;
+    return /\b(?:E404|ETARGET)\b|No match found for version|No matching version found/i.test(diagnostics);
+}
+
 function runNpm(args, cwd) {
     return execFileSync('npm', args, { cwd, encoding: 'utf8', timeout: 60_000, maxBuffer: 10 * 1024 * 1024 });
 }
@@ -38,16 +44,22 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
     const metadata = new Map();
     const ranges = new Map();
     function view(spec, field) {
+        let response;
         try {
-            return JSON.parse(npm(['view', spec, ...(field ? [field] : []), '--json']));
+            response = npm(['view', spec, ...(field ? [field] : []), '--json']);
         } catch (error) {
+            if (!isNotPublished(error)) throw error;
             throw new Unavailable(`Registry metadata unavailable for ${spec}: ${error.message}`);
         }
+        // Invalid registry output is a failure, not evidence of a publish window.
+        return JSON.parse(response);
     }
     function published(name) {
         if (!versions.has(name)) {
             const result = view(name, 'versions');
-            versions.set(name, (Array.isArray(result) ? result : [result]).filter(version => typeof version === 'string' && stable.test(version)).sort(compare).reverse());
+            const publishedVersions = Array.isArray(result) ? result : [result];
+            if (publishedVersions.some(version => typeof version !== 'string')) throw new Error(`Invalid registry versions for ${name}`);
+            versions.set(name, publishedVersions.filter(version => stable.test(version)).sort(compare).reverse());
         }
         return versions.get(name);
     }
@@ -58,7 +70,9 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
             // Let npm interpret semver/peer ranges instead of maintaining a second
             // range parser. This also checks that the matching versions are visible.
             const result = view(key, 'version');
-            ranges.set(key, Array.isArray(result) ? result : [result]);
+            const matchingVersions = Array.isArray(result) ? result : [result];
+            if (matchingVersions.some(version => typeof version !== 'string')) throw new Error(`Invalid registry versions for ${key}`);
+            ranges.set(key, matchingVersions);
         }
         return ranges.get(key).includes(version);
     }
@@ -67,7 +81,7 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
         if (!metadata.has(key)) {
             const result = view(key);
             const manifest = Array.isArray(result) ? result.find(item => item?.version === version) : result;
-            if (!manifest || manifest.version !== version) throw new Unavailable(`Registry metadata unavailable for ${key}`);
+            if (!manifest || manifest.version !== version) throw new Error(`Invalid registry metadata for ${key}`);
             metadata.set(key, manifest);
         }
         return metadata.get(key);
@@ -76,7 +90,8 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
         const parsed = /^(\^|~|=)?(\d+\.\d+\.\d+)$/.exec(entry.spec);
         if (!parsed && entry.spec !== 'latest') throw new Unavailable(`Unsupported version spec ${entry.name}: ${entry.spec}; leaving the entire npm set unchanged`);
         entry.prefix = parsed?.[1] ?? '';
-        entry.major = parsed?.[2].split('.')[0];
+        entry.current = parsed?.[2];
+        entry.major = entry.current?.split('.')[0];
         const key = train(entry.name);
         if (!groups.has(key)) groups.set(key, []);
         groups.get(key).push(entry);
@@ -84,7 +99,11 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
     const candidates = [...groups].map(([key, members]) => {
         // Components upgrades need a reviewed migration; Capstone caps every train.
         const caps = members.filter(member => (capMajors || key === 'components') && member.major !== undefined).map(member => member.major);
-        const common = published(members[0].name).filter(version => caps.every(major => version.split('.')[0] === major)
+        // Repair mixed pins upward, never downgrade any declared train member
+        // (including lower-priority trains used to satisfy another train's peers).
+        const floor = members.map(member => member.current).filter(Boolean).sort(compare).at(-1);
+        const common = published(members[0].name).filter(version => (!floor || compare(version, floor) >= 0)
+            && caps.every(major => version.split('.')[0] === major)
             && members.every(member => published(member.name).includes(version)));
         return { key, members, common };
     });
@@ -213,8 +232,7 @@ export function update(folder, { npm = runNpm, withLockfile = false, notice = co
             // installation. Never leave a manifest/lockfile pair partially updated.
             writeFileSync(manifestPath, original);
             writeFileSync(lockPath, lock);
-            const diagnostics = `${error.message}\n${error.stderr ?? ''}\n${error.stdout ?? ''}`;
-            if (!(error instanceof Unavailable) && !/\b(?:ETARGET|E404)\b/.test(diagnostics)) throw error;
+            if (!(error instanceof Unavailable) && !isNotPublished(error)) throw error;
             notice(`::notice::Skipping npm update in ${folder}: registry publication is still settling; restored package.json and package-lock.json`);
             return;
         }
