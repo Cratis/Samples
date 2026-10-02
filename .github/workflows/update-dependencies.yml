@@ -5,7 +5,7 @@ on:
     types: [update-dependencies]
   workflow_dispatch: # Allow manual trigger
 
-# A burst of dispatches collapses into one run: each run updates every Cratis.* package to the
+# A burst of dispatches collapses into one run: each run updates every Cratis and Cratis.* package to the
 # latest version, so a newer run supersedes an older one. Push retries below cover races inside a run.
 concurrency:
   group: update-dependencies
@@ -35,10 +35,10 @@ jobs:
       - name: Pull latest changes
         run: git pull --rebase
 
-      - name: Update Cratis.* NuGet packages
+      - name: Update Cratis and Cratis.* NuGet packages
         run: |
-          # Get all Cratis.* packages from Directory.Packages.props
-          PACKAGES=$(grep -oP 'PackageVersion Include="Cratis\.\K[^"]+' Directory.Packages.props | sed 's/^/Cratis./')
+          # Get the Cratis umbrella package and all Cratis.* packages from Directory.Packages.props
+          PACKAGES=$(grep -oP 'PackageVersion Include="\KCratis(?:\.[^"]+)?(?=")' Directory.Packages.props)
 
           # Update each package to latest version
           for package in $PACKAGES; do
@@ -62,7 +62,7 @@ jobs:
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No NuGet package updates found"
           else
-            git commit -m "chore: update Cratis.* NuGet packages to latest versions"
+            git commit -m "chore: update Cratis and Cratis.* NuGet packages to latest versions"
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
