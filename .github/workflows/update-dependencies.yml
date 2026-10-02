@@ -97,62 +97,10 @@ jobs:
       - name: Pull latest changes
         run: git pull --rebase
 
+      # Resolve published release trains together, including exact cross-pins.
+      # Capstone keeps its major caps and refreshes its lockfile transactionally.
       - name: Update @cratis/* packages in ${{ matrix.folder }}
-        if: matrix.folder != 'Capstone'
-        working-directory: ${{ matrix.folder }}
-        run: |
-          # Get all @cratis/* packages from package.json
-          PACKAGES=$(jq -r '.dependencies | keys[] | select(startswith("@cratis/"))' package.json)
-
-          # Update each package to latest version
-          for package in $PACKAGES; do
-            echo "Updating $package..."
-            if [ "$package" = "@cratis/components" ]; then
-              # A new @cratis/components major needs a reviewed migration of the samples,
-              # so stay on the major the samples are currently on.
-              CURRENT=$(jq -r ".dependencies[\"$package\"]" package.json | sed -E 's/^[^0-9]*//')
-              LATEST=$(npm view "$package@^$CURRENT" version --json 2>/dev/null | jq -r 'if type == "array" then (sort_by(split(".") | map(tonumber)) | last) elif type == "string" then . else empty end' || echo "")
-            else
-              LATEST=$(npm view "$package" version 2>/dev/null || echo "")
-            fi
-            if [ ! -z "$LATEST" ]; then
-              echo "Latest version: $LATEST"
-              # Update the version in package.json using jq
-              jq ".dependencies[\"$package\"] = \"$LATEST\"" package.json > package.json.tmp
-              mv package.json.tmp package.json
-            fi
-          done
-
-      # Capstone uses npm's lockfile: update both manifests together so npm ci stays valid.
-      - name: Update @cratis/* packages and lockfile in Capstone
-        if: matrix.folder == 'Capstone'
-        working-directory: Capstone
-        run: |
-          # A new @cratis/* major needs a reviewed migration of the samples, so every
-          # @cratis/* package stays on the major it is currently declared at (^<major>).
-          # A package whose declared version has no leading number is updated to latest.
-          install_specs() {
-            jq -r --arg list "$1" '
-              (.[$list] // {}) as $deps
-              | $deps | to_entries[] | select(.key | startswith("@cratis/"))
-              | (.value | sub("^[^0-9]*"; "") | split(".")[0] // "") as $major
-              | if ($major | test("^[0-9]+$"))
-                then .key + "@^" + $major
-                else .key + "@latest"
-                end' package.json
-          }
-          # Command substitution, unlike process substitution, lets bash -e stop the step when jq
-          # fails, so an unreadable package.json fails the job instead of silently updating nothing.
-          dependency_specs=$(install_specs dependencies)
-          dev_dependency_specs=$(install_specs devDependencies)
-          mapfile -t dependencies < <(printf '%s' "$dependency_specs" | sed '/^$/d')
-          mapfile -t dev_dependencies < <(printf '%s' "$dev_dependency_specs" | sed '/^$/d')
-          if [ ${#dependencies[@]} -gt 0 ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund "${dependencies[@]}"
-          fi
-          if [ ${#dev_dependencies[@]} -gt 0 ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund --save-dev "${dev_dependencies[@]}"
-          fi
+        run: node .github/scripts/update-cratis-npm.mjs "${{ matrix.folder }}" ${{ matrix.folder == 'Capstone' && '--with-lockfile' || '' }}
 
       - name: Commit npm updates for ${{ matrix.folder }}
         id: commit-npm
