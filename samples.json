@@ -28,6 +28,11 @@
       "description": "Create a known local symptom and learn to inspect Chronicle before taking action."
     },
     {
+      "id": "event-modeling",
+      "title": "Event-model views",
+      "description": "View an application's event model and review a model generated from source."
+    },
+    {
       "id": "model-first",
       "title": "Model-first",
       "description": "Describe behavior as an executable model, compile it, and run its specifications."
@@ -283,6 +288,58 @@
         "Replay, retry, quarantine changes, redaction, and administration are outside the sample."
       ],
       "featured": true
+    },
+    {
+      "id": "arc-runtime-event-model",
+      "title": "Coffee counter — Arc runtime event model",
+      "tagline": "Open an Arc + Chronicle application's embedded event model in the browser.",
+      "track": "event-modeling",
+      "path": "EventModeling/ArcRuntimeView",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/EventModeling/ArcRuntimeView",
+      "ui": "Event-model board",
+      "level": "Focused",
+      "products": ["Arc", "Chronicle", "Screenplay", "Cratis CLI"],
+      "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
+      "prerequisites": [".NET 10 SDK", "Docker", "Browser"],
+      "highlights": [
+        "Map the viewer explicitly in Development",
+        "Explore commands, events, and an orders projection",
+        "Use cratis view without starting the application or Chronicle"
+      ],
+      "verification": [
+        "dotnet build EventModeling/ArcRuntimeView/ArcRuntimeView.csproj --configuration Release -warnaserror"
+      ],
+      "limitations": [
+        "The board describes application structure, not live event history.",
+        "This local-only example omits validation, authentication, and lifecycle guards."
+      ],
+      "featured": false
+    },
+    {
+      "id": "marten-wolverine-event-model",
+      "title": "Community kitchen — from Marten and Wolverine",
+      "tagline": "Generate, validate, and review an event-model starting point from original C# source.",
+      "track": "event-modeling",
+      "path": "EventModeling/FromMartenAndWolverine",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/EventModeling/FromMartenAndWolverine",
+      "ui": "Event-model board",
+      "level": "Focused",
+      "products": ["Screenplay", "Cratis CLI"],
+      "runtime": ["ASP.NET Core", "Marten", "Wolverine", "PostgreSQL"],
+      "prerequisites": [".NET 10 SDK", "VS Code or an MCP Apps-capable chat client or a browser"],
+      "highlights": [
+        "Generate with the critter-stack provider without starting PostgreSQL",
+        "Compare unchanged generated output with a separately reviewed model",
+        "Inspect explicit Marten writes and a Wolverine aggregate handler"
+      ],
+      "verification": [
+        "dotnet build EventModeling/FromMartenAndWolverine/FromMartenAndWolverine.csproj --configuration Release -warnaserror"
+      ],
+      "limitations": [
+        "Human review is required: command/event links and aggregate-handler decisions are not fully recovered.",
+        "Marten and Wolverine are projects of JasperFx Software; this sample is not affiliated with or endorsed by JasperFx."
+      ],
+      "featured": false
     },
     {
       "id": "model-first-library",
