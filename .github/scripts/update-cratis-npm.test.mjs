@@ -33,7 +33,7 @@ function registry(data = structuredClone(fixture)) {
         assert.equal(args[0], 'view');
         assert.equal(args.at(-1), '--json');
         if (args[2] === 'versions') {
-            if (!data[args[1]]) throw new Error('E404: package not yet published');
+            if (!data[args[1]]) throw Object.assign(new Error('package not yet published'), { code: 'E404' });
             return JSON.stringify(Object.keys(data[args[1]]));
         }
         if (args[2] === 'version') {
@@ -45,7 +45,7 @@ function registry(data = structuredClone(fixture)) {
         const name = args[1].slice(0, separator);
         const version = args[1].slice(separator + 1);
         const info = data[name]?.[version];
-        if (!info || info.unavailable) throw new Error('E404: manifest not yet visible');
+        if (!info || info.unavailable) throw Object.assign(new Error('manifest not yet visible'), { code: 'E404' });
         return JSON.stringify({ name, version, ...info });
     };
     return { npm, data, calls };
@@ -371,14 +371,64 @@ for (const code of ['ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'ENOENT', 'E401', 'E
     }
 }
 
-for (const message of ['npm error code E404', 'npm error code ETARGET', 'No match found for version 22.40.0', 'No matching version found for @cratis/arc@22.40.0']) {
-    test(`only publication-missing errors permit an older complete train: ${message}`, () => {
+for (const format of ['JSON', 'npm ERR! code', 'npm error code']) {
+    for (const code of ['E404', 'ETARGET']) {
+        test(`${format} ${code} permits fallback to an older complete train`, () => {
+            const stub = registry();
+            const error = Object.assign(new Error('Command failed: npm view'), { status: 1 });
+            if (format === 'JSON') error.stdout = JSON.stringify({ error: { code, summary: 'Not published yet' } });
+            else error.stderr = `${format} ${code}\n`;
+            const result = resolveVersions(sample(), { capMajors: true, npm: args => {
+                if (args[1] === '@cratis/arc@22.40.0') throw error;
+                return stub.npm(args);
+            } });
+            assertArc(result, '22.39.0');
+        });
+    }
+}
+
+for (const message of ['No match found for version 22.40.0', 'npm ERR! No match found for version 22.40.0', 'npm error No match found for version 22.40.0']) {
+    test(`a narrow missing-version message without a code permits fallback: ${message}`, () => {
         const stub = registry();
         const result = resolveVersions(sample(), { capMajors: true, npm: args => {
-            if (args[1] === '@cratis/arc@22.40.0') throw new Error(message);
+            if (args[1] === '@cratis/arc@22.40.0') throw Object.assign(new Error(message), { status: 1 });
             return stub.npm(args);
         } });
         assertArc(result, '22.39.0');
+    });
+}
+
+for (const format of ['JSON', 'npm ERR! code', 'npm error code']) {
+    for (const code of ['FETCH_ERROR', 'E401', 'E403', 'ETIMEDOUT']) {
+        test(`${format} ${code} fails even when diagnostics mention E404 and ETARGET`, t => {
+            const { directory, original, lock } = folder(t);
+            const stub = registry();
+            const message = 'Invalid JSON response: E404 / ETARGET; No match found for version 22.40.0';
+            const error = Object.assign(new Error(`Command failed: npm view\n${message}`), { status: 1 });
+            if (format === 'JSON') error.stdout = JSON.stringify({ error: { code, summary: message } });
+            else error.stderr = `${format} ${code}\nnpm error ${message}\n`;
+            const notices = [];
+            assert.throws(() => update(directory, { withLockfile: true, notice: message => notices.push(message), npm: args => {
+                assert.equal(args[0], 'view');
+                if (args[1] === '@cratis/arc@22.40.0') throw error;
+                return stub.npm(args);
+            } }), thrown => thrown === error);
+            assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
+            assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
+            assert.deepEqual(notices, []);
+            assert.equal(stub.calls.some(args => args[1] === '@cratis/arc@22.39.0'), false);
+        });
+    }
+}
+
+for (const stderr of ['npm error code\nNo match found for version 22.40.0', 'npm ERR! code UNKNOWN\nNo match found for version 22.40.0', 'Invalid JSON response: E404 / ETARGET']) {
+    test(`unknown or absent codes do not turn arbitrary error text into publication misses: ${stderr}`, () => {
+        const stub = registry();
+        const error = Object.assign(new Error('Command failed: npm view'), { status: 1, stderr });
+        assert.throws(() => resolveVersions(sample(), { capMajors: true, npm: args => {
+            if (args[1] === '@cratis/arc@22.40.0') throw error;
+            return stub.npm(args);
+        } }), thrown => thrown === error);
     });
 }
 

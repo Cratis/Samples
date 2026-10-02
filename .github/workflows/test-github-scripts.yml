@@ -38,4 +38,4 @@ jobs:
           node-version: '24'
 
       - name: Run script tests
-        run: node --test .github/scripts/
+        run: node --test '.github/scripts/*.test.mjs'

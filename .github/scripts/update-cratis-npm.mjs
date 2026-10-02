@@ -25,9 +25,21 @@ function train(name) {
 class Unavailable extends Error {}
 
 function isNotPublished(error) {
-    if (typeof error.code === 'string') return ['E404', 'ETARGET'].includes(error.code);
-    const diagnostics = `${error.message}\n${error.stderr ?? ''}\n${error.stdout ?? ''}`;
-    return /\b(?:E404|ETARGET)\b|No match found for version|No matching version found/i.test(diagnostics);
+    const missing = code => ['E404', 'ETARGET'].includes(code);
+    if (typeof error.code === 'string') return missing(error.code);
+    let output;
+    try {
+        output = JSON.parse(error.stdout?.toString() ?? '');
+    } catch {
+        // npm can emit non-JSON diagnostics even when invoked with --json.
+    }
+    if (output?.error && Object.hasOwn(output.error, 'code')) return missing(output.error.code);
+    const codeLines = [...String(error.stderr ?? '').matchAll(/^[ \t]*npm (?:error|ERR!) code(?:[ \t]+(.*))?$/gm)];
+    if (codeLines.length) return codeLines.every(line => missing(line[1]?.trim()));
+    // Older npm versions can report this exact missing-version message without
+    // a code line. Arbitrary mentions of E404/ETARGET are not evidence of one.
+    const diagnostics = `${error.stderr ?? ''}\n${error.message}`;
+    return /^(?:npm (?:error|ERR!) )?No match found for version [^\r\n]+$/m.test(diagnostics);
 }
 
 function runNpm(args, cwd) {
