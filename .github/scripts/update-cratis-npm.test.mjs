@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
@@ -331,13 +332,54 @@ for (const scenario of ['missing train', 'only older trains', 'unsupported spec'
         }
         const original = readFileSync(`${directory}/package.json`, 'utf8');
         const notices = [];
-        update(directory, { withLockfile: true, notice: message => notices.push(message), npm: args => {
+        const perform = () => update(directory, { withLockfile: true, notice: message => notices.push(message), npm: args => {
             assert.equal(args[0], 'view');
             return stub.npm(args);
         } });
+        if (scenario === 'unsupported spec') {
+            assert.throws(perform, /Unsupported version spec @cratis\/arc: workspace:\*/);
+            assert.deepEqual(notices, []);
+            assert.deepEqual(stub.calls, []);
+        } else {
+            assert.doesNotThrow(perform);
+            assert.match(notices[0], scenario === 'no changes' ? /No .* updates/ : /::notice::Skipping npm update/);
+        }
         assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
         assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
-        assert.match(notices[0], scenario === 'no changes' ? /No .* updates/ : /::notice::Skipping npm update/);
+    });
+}
+
+for (const spec of ['>=22', 'workspace:*']) {
+    test(`unsupported spec ${spec} exits with an error annotation and leaves files unchanged`, t => {
+        const { directory, lock } = folder(t);
+        const manifest = sample();
+        manifest.dependencies['@cratis/arc'] = spec;
+        const original = JSON.stringify(manifest);
+        writeFileSync(`${directory}/package.json`, original);
+        const result = spawnSync(process.execPath, [fileURLToPath(new URL('./update-cratis-npm.mjs', import.meta.url)), directory, '--with-lockfile'], { encoding: 'utf8', timeout: 5_000 });
+        assert.equal(result.status, 1);
+        assert.ok(result.stderr.includes(`::error::Unsupported version spec @cratis/arc: ${spec}`));
+        assert.equal(result.stdout, '');
+        assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
+        assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
+    });
+}
+
+for (const name of ['@cratis/arc', '@cratis/arc.react']) {
+    test(`warns and skips when the whole package ${name} is unavailable`, t => {
+        const { directory, lock } = folder(t);
+        const manifest = { dependencies: { '@cratis/arc.react.mvvm': '^22.38.0' } };
+        const original = JSON.stringify(manifest);
+        writeFileSync(`${directory}/package.json`, original);
+        const stub = registry();
+        delete stub.data[name];
+        const notices = [];
+        assert.doesNotThrow(() => update(directory, { ...stub, withLockfile: true, notice: message => notices.push(message) }));
+        assert.equal(notices.length, 1);
+        assert.ok(notices[0].startsWith('::warning::Skipping npm update'));
+        assert.ok(notices[0].includes(`Registry metadata unavailable for ${name}:`));
+        assert.equal(readFileSync(`${directory}/package.json`, 'utf8'), original);
+        assert.equal(readFileSync(`${directory}/package-lock.json`, 'utf8'), lock);
     });
 }
 

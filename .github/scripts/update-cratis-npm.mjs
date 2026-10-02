@@ -23,6 +23,7 @@ function train(name) {
 }
 
 class Unavailable extends Error {}
+class PackageUnavailable extends Unavailable {}
 
 function isNotPublished(error) {
     const missing = code => ['E404', 'ETARGET'].includes(code);
@@ -61,7 +62,8 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
             response = npm(['view', spec, ...(field ? [field] : []), '--json']);
         } catch (error) {
             if (!isNotPublished(error)) throw error;
-            throw new Unavailable(`Registry metadata unavailable for ${spec}: ${error.message}`);
+            const Failure = field === 'versions' ? PackageUnavailable : Unavailable;
+            throw new Failure(`Registry metadata unavailable for ${spec}: ${error.message}`);
         }
         // Invalid registry output is a failure, not evidence of a publish window.
         return JSON.parse(response);
@@ -100,7 +102,7 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
     }
     for (const entry of entries) {
         const parsed = /^(\^|~|=)?(\d+\.\d+\.\d+)$/.exec(entry.spec);
-        if (!parsed && entry.spec !== 'latest') throw new Unavailable(`Unsupported version spec ${entry.name}: ${entry.spec}; leaving the entire npm set unchanged`);
+        if (!parsed && entry.spec !== 'latest') throw new Error(`Unsupported version spec ${entry.name}: ${entry.spec}; leaving the entire npm set unchanged`);
         entry.prefix = parsed?.[1] ?? '';
         entry.current = parsed?.[2];
         entry.major = entry.current?.split('.')[0];
@@ -174,7 +176,7 @@ export function resolveVersions(manifest, { npm = runNpm, capMajors = false } = 
             } catch (error) {
                 // An exact manifest may still be invisible after the versions index
                 // appeared. Try an older complete train, not independent latest pins.
-                if (!(error instanceof Unavailable)) throw error;
+                if (!(error instanceof Unavailable) || error instanceof PackageUnavailable) throw error;
             }
         }
         trainVersions.delete(key);
@@ -197,7 +199,7 @@ export function update(folder, { npm = runNpm, withLockfile = false, notice = co
         updated = resolveVersions(manifest, { npm, capMajors: withLockfile });
     } catch (error) {
         if (!(error instanceof Unavailable)) throw error;
-        notice(`::notice::Skipping npm update in ${folder}: ${error.message}`);
+        notice(`::${error instanceof PackageUnavailable ? 'warning' : 'notice'}::Skipping npm update in ${folder}: ${error.message}`);
         return;
     }
     if (!updated) {
@@ -258,6 +260,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
         console.error('Usage: node .github/scripts/update-cratis-npm.mjs <folder> [--with-lockfile]');
         process.exitCode = 1;
     } else {
-        update(folder, { withLockfile: option === '--with-lockfile' });
+        try {
+            update(folder, { withLockfile: option === '--with-lockfile' });
+        } catch (error) {
+            console.error(`::error::${error.message}`);
+            process.exitCode = 1;
+        }
     }
 }
