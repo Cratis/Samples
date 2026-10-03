@@ -1,0 +1,79 @@
+domain CommunityKitchen
+
+module FromMartenAndWolverine
+
+  feature Events
+
+    slice StateView BatchServed
+
+      event BatchServed
+        file Kitchen/Events.cs
+        portions Int
+
+  feature PlanBatch
+
+    slice StateChange PlanBatch
+
+      event BatchPlanned
+        file Kitchen/Events.cs
+        recipe String
+        targetPortions Int
+
+  feature PreparePortions
+
+    slice StateChange PreparePortions
+
+      event PortionsPrepared
+        file Kitchen/Events.cs
+        portions Int
+
+module Kitchen
+
+  feature General
+
+    slice StateView Cards
+
+      query BatchCard => BatchCard?
+        by id Uuid
+        performer
+          file Kitchen/Cards/BatchCardEndpoint.cs
+
+      readmodel BatchCard
+        file Kitchen/Cards/BatchCard.cs
+        id Uuid
+        recipe String
+        targetPortions Int
+        preparedPortions Int
+        served Bool
+
+      reducer BatchCardProjection => BatchCard
+        on BatchPlanned
+          file Kitchen/Cards/BatchCardProjection.cs
+        on BatchServed
+          file Kitchen/Cards/BatchCardProjection.cs
+        on PortionsPrepared
+          file Kitchen/Cards/BatchCardProjection.cs
+
+    slice StateChange Planning
+
+      command PlanBatch
+        id Uuid identifier
+        recipe String
+        targetPortions Int
+        handler
+          file Kitchen/Planning/PlanBatch.cs
+
+    slice StateChange Preparation
+
+      command PreparePortions
+        id Uuid identifier
+        portions Int
+        handler
+          file Kitchen/Preparation/PreparePortions.cs
+
+    slice StateChange Serving
+
+      command ServeBatch
+        id Uuid identifier
+        handler
+          file Kitchen/Serving/ServeBatchEndpoint.cs

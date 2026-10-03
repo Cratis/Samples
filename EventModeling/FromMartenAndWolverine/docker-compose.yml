@@ -1,0 +1,15 @@
+name: event-model-kitchen
+services:
+  postgres:
+    image: postgres:17.6-alpine
+    ports:
+      - "127.0.0.1:54329:5432"
+    environment:
+      POSTGRES_DB: kitchen
+      POSTGRES_USER: kitchen
+      POSTGRES_PASSWORD: local-kitchen-only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kitchen -d kitchen"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
