@@ -1,0 +1,4 @@
+<Solution>
+    <Project Path="ArcRuntimeView/ArcRuntimeView.csproj" />
+    <Project Path="FromMartenAndWolverine/FromMartenAndWolverine.csproj" />
+</Solution>

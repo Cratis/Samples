@@ -28,6 +28,8 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | **[Chronicle Cross-Store](./Chronicle/CrossStore/README.md)** | HTTP API | Chronicle, Fundamentals | Connect two event stores through an outbox, inbox, and local translation. |
 | **[Chronicle Operations Diagnosis](./Chronicle/OperationsDiagnosis/README.md)** | CLI + Workbench | Chronicle, CLI, Fundamentals | Create one known failure and learn to inspect it before repair. |
 | **[Chronicle with ASP.NET Core](./Chronicle/Quickstart/AspNetCore/README.md)** | HTTP API | Chronicle | Host Chronicle through dependency injection and expose focused endpoints. |
+| **[Coffee counter — runtime event model](./EventModeling/ArcRuntimeView/README.md)** | Event-model board | Arc, Chronicle, Screenplay, CLI | Open a running application's event model, or use `cratis view`. |
+| **[Community kitchen — Marten and Wolverine](./EventModeling/FromMartenAndWolverine/README.md)** | Event-model board | Screenplay, CLI | Generate a starting point from source and review its missing behavior. |
 | **[Model-First Library](./ModelFirst/Library/README.md)** | Executable model | Screenplay, Stage | Compile one modeled workflow and run its accepted and rejected examples. |
 | **[Library](./Library/README.md)** | React + APIs | Arc, Chronicle, Components | Explore separate lending and membership applications under one local composition. |
 | **[Capstone](./Capstone/README.md)** | React + API | Arc, Chronicle, Components | Build an author-registration slice from event to React screen. |
@@ -86,6 +88,7 @@ Each sample README contains its own infrastructure and run commands, a short tou
 ```text
 Arc/             standalone Arc and React samples
 Chronicle/       focused Chronicle samples
+EventModeling/   runtime viewers and source-to-model examples
 ModelFirst/      executable Screenplay and Stage samples
 Library/         the larger React and multi-service showcase
 samples.json     the catalog used by repository checks and the documentation site
