@@ -11,9 +11,9 @@ The board describes the application's structure; it is not a live event-log view
 - A browser. No Node.js or frontend build is needed.
 
 NuGet versions are pinned in the repository's `Directory.Packages.props`:
-Arc, Arc.Chronicle, Arc.MongoDB, and `Cratis.Arc.Screenplay.Embedded` **22.48.4**;
-Chronicle.AspNetCore **19.29.5**. The Compose image is
-`cratis/chronicle:19.29.5-development`.
+Arc, Arc.Chronicle, Arc.MongoDB, and `Cratis.Arc.Screenplay.Embedded` **22.50.3**;
+Chronicle.AspNetCore **19.31.10**. The Compose image is
+`cratis/chronicle:19.31.10-development`.
 
 ## Open the runtime view — about five minutes
 
