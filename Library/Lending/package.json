@@ -21,7 +21,7 @@
     "@cratis/arc.react.mvvm": "22.50.5",
     "@cratis/arc.vite": "22.50.5",
     "@cratis/components": "4.25.0",
-    "@cratis/fundamentals": "7.22.5",
+    "@cratis/fundamentals": "7.22.6",
     "allotment": "1.20.5",
     "echarts": "6.1.0",
     "mobx": "7.0.6",
