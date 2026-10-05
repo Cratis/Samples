@@ -92,10 +92,14 @@ used here.
 
 ### Option 3: anonymous Studio viewer
 
-Open **<https://view.cratis.studio/>** and load the local generated `.play` file
-using the file picker. No Studio account is required. Load only this public
-sample—not private application source—into a hosted viewer. You can also load
-the reviewed file to compare its layout.
+The anonymous viewer has no file picker or upload. Open the `.play` file in VS Code
+with the `cratis.screenplay` extension (Option 1), or, once the file is pushed to
+a public repository, open
+`https://view.cratis.studio/?url=<encoded raw GitHub URL>` where the URL points to
+the raw `.play` file, not its GitHub HTML page. The viewer takes a self-contained
+single file and does not follow imports; each file in this sample is one. No
+Studio account is required. Put only this public sample—not private application
+source—into a hosted viewer.
 
 ## What the extraction does and does not tell you
 

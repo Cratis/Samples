@@ -11,9 +11,9 @@ The board describes the application's structure; it is not a live event-log view
 - A browser. No Node.js or frontend build is needed.
 
 NuGet versions are pinned in the repository's `Directory.Packages.props`:
-Arc, Arc.Chronicle, Arc.MongoDB, and `Cratis.Arc.Screenplay.Embedded` **22.48.2**;
-Chronicle.AspNetCore **19.29.2**. The Compose image is
-`cratis/chronicle:19.29.2-development`.
+Arc, Arc.Chronicle, Arc.MongoDB, and `Cratis.Arc.Screenplay.Embedded` **22.48.3**;
+Chronicle.AspNetCore **19.29.4**. The Compose image is
+`cratis/chronicle:19.29.4-development`.
 
 ## Open the runtime view — about five minutes
 
@@ -40,6 +40,11 @@ if (app.Environment.IsDevelopment())
     app.MapCratisEventModel();
 }
 ```
+
+Through the `Cratis` metapackage, automatic hosting is development-only by default:
+it needs a Debug (non-optimized) build and the Development environment. This
+sample builds in Release, so it maps the viewer explicitly, which opts in wherever
+the app runs; that is why the call is guarded by `IsDevelopment()`.
 
 `CratisEmbeddedScreenplayEnabled` is explicitly enabled in the project because
 the repository disables embedding by default for its other samples. The package
