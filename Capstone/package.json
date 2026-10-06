@@ -13,7 +13,7 @@
     "@cratis/arc": "^22.50.5",
     "@cratis/arc.react": "^22.50.5",
     "@cratis/arc.vite": "^22.50.5",
-    "@cratis/components": "^4.25.0",
+    "@cratis/components": "^4.25.1",
     "@cratis/fundamentals": "^7.22.8",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@cratis/eslint-config": "^7.22.8",
     "@cratis/eslint-plugin-arc": "^22.50.5",
-    "@cratis/eslint-plugin-components": "^4.25.0",
+    "@cratis/eslint-plugin-components": "^4.25.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
