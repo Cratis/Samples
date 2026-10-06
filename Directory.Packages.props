@@ -18,7 +18,7 @@
     <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.6.0" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.0" />
-    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.30.4" />
+    <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.30.5" />
     <PackageVersion Include="Cratis.Chronicle" Version="19.32.5" />
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.32.5" />
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.32.5" />
