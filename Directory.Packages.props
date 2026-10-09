@@ -23,7 +23,7 @@
     <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.36.0" />
     <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.36.0" />
     <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.36.0" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.36.0" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.37.0" />
     <PackageVersion Include="Marten" Version="9.46.0" />
     <PackageVersion Include="WolverineFx" Version="6.46.0" />
     <PackageVersion Include="WolverineFx.Marten" Version="6.46.0" />
