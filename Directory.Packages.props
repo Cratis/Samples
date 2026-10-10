@@ -5,13 +5,13 @@
   <ItemGroup>
     <PackageVersion Include="Cratis.Fundamentals" Version="7.23.0" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.23.0" />
-    <PackageVersion Include="Cratis" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.65.3" />
-    <PackageVersion Include="Cratis.Arc.Screenplay.Embedded" Version="22.65.3" />
+    <PackageVersion Include="Cratis" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.65.4" />
+    <PackageVersion Include="Cratis.Arc.Screenplay.Embedded" Version="22.65.4" />
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.6.0" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.0" />
@@ -19,11 +19,11 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.0" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.30.5" />
-    <PackageVersion Include="Cratis.Chronicle" Version="19.39.0" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.39.0" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.39.0" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.39.0" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.39.0" />
+    <PackageVersion Include="Cratis.Chronicle" Version="19.39.2" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.39.2" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.39.2" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.39.2" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.39.2" />
     <PackageVersion Include="Marten" Version="9.46.0" />
     <PackageVersion Include="WolverineFx" Version="6.46.0" />
     <PackageVersion Include="WolverineFx.Marten" Version="6.46.0" />
