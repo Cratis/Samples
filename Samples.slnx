@@ -42,6 +42,11 @@
         <Project Path="Chronicle/Quickstart/Common.AspNetCore/Common.AspNetCore.csproj" />
         <Project Path="Chronicle/Quickstart/Common/Common.csproj" />
     </Folder>
+    <Folder Name="/LearningPath/">
+        <Project Path="LearningPath/01-FirstEvents/FirstEvents.csproj" />
+        <Project Path="LearningPath/02-FirstProjection/FirstProjection.csproj" />
+        <Project Path="LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj" />
+    </Folder>
     <Project Path="Library/Lending/Lending.csproj" />
     <Project Path="Library/Members/Members.csproj" />
     <Project Path="Library/Composition/Composition.csproj" />

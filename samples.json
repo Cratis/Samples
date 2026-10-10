@@ -100,6 +100,34 @@
       "featured": true
     },
     {
+      "id": "learning-path",
+      "title": "Learning path",
+      "tagline": "Learn event sourcing step by step: append events, project a read model, then serve both through Arc commands and queries.",
+      "track": "getting-started",
+      "path": "LearningPath",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/LearningPath",
+      "ui": "Terminal",
+      "level": "Start here",
+      "products": ["Chronicle", "Arc"],
+      "runtime": ["Console", "ASP.NET Core", "Chronicle"],
+      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "highlights": [
+        "Append events to the event log and read one event source's history back",
+        "Declare a projection with model-bound attributes and read the read model it builds",
+        "Turn the same events and read model into an Arc command and query API"
+      ],
+      "verification": [
+        "dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj",
+        "dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj",
+        "dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj"
+      ],
+      "limitations": [
+        "Each step is a separate, self-contained project, so the domain types are repeated on purpose.",
+        "The first three steps cover events, projections, and commands and queries; reactors, event versioning, testing, and production setup are left for later steps.",
+        "The steps run against the local Chronicle development container and do not include automated specs."
+      ]
+    },
+    {
       "id": "chronicle-processing",
       "title": "Chronicle Processing",
       "tagline": "See one event stream feed a projection, reducer, and reactor without timing guesses.",

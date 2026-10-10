@@ -22,6 +22,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | --- | --- | --- | --- |
 | **[Chronicle Backend](./Chronicle/Backend/README.md)** | HTTP API | Chronicle | Append one immutable fact and read an event source's history. |
 | **[Chronicle TypeScript Client](./Chronicle/TypeScript/README.md)** | Terminal | Chronicle | Append a fact from Node.js, let a reactor respond, and read the history. |
+| **[Learning path](./LearningPath/README.md)** | Terminal + HTTP API | Chronicle, Arc | Learn step by step: first events, a first projection, then Arc commands and queries. |
 | **[Chronicle Processing](./Chronicle/Processing/README.md)** | HTTP API | Chronicle, Fundamentals | Compare a projection, reducer, and reactor on one event stream. |
 | **[Idea Loom — Arc + React](./Arc/React/README.md)** | React | Arc, Components, Fundamentals | Follow a typed command and observable query from C# to a polished UI. |
 | **[Chronicle Multi-Tenancy](./Chronicle/MultiTenancy/README.md)** | HTTP API | Arc, Chronicle, Fundamentals | Isolate the same typed workflow across tenant namespaces. |
@@ -89,6 +90,7 @@ Each sample README contains its own infrastructure and run commands, a short tou
 Arc/             standalone Arc and React samples
 Chronicle/       focused Chronicle samples
 EventModeling/   runtime viewers and source-to-model examples
+LearningPath/    numbered, self-contained steps from first events to commands and queries
 ModelFirst/      executable Screenplay and Stage samples
 Library/         the larger React and multi-service showcase
 samples.json     the catalog used by repository checks and the documentation site
