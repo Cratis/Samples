@@ -112,6 +112,10 @@ A sample should be enjoyable to explore and easy to understand:
 5. Add the entry to [`samples.json`](./samples.json).
 6. Run `yarn samples:validate` and the sample's own build and test commands.
 
+## Questions?
+
+Running or adapting a sample? Ask questions and get help from the Cratis team and other developers on the [Cratis Discord](https://discord.gg/kt4AMpV8WV). Bugs and feature requests belong in [GitHub Issues](https://github.com/Cratis/Samples/issues).
+
 ## The wider Cratis ecosystem
 
 These samples are part of [Cratis](https://www.cratis.io) — free, MIT-licensed tools for building event-sourced and CQRS applications.
