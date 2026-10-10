@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>LearningPath.FirstProjection</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis.Chronicle" />
+        <PackageReference Include="Cratis.Fundamentals" />
+    </ItemGroup>
+</Project>
