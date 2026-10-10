@@ -14,7 +14,7 @@
     "@cratis/arc.react": "^22.64.1",
     "@cratis/arc.vite": "^22.64.1",
     "@cratis/components": "^4.26.3",
-    "@cratis/fundamentals": "^7.22.8",
+    "@cratis/fundamentals": "^7.23.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-icons": "^5.7.0",
@@ -27,7 +27,7 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
-    "@cratis/eslint-config": "^7.22.8",
+    "@cratis/eslint-config": "^7.23.0",
     "@cratis/eslint-plugin-arc": "^22.64.1",
     "@cratis/eslint-plugin-components": "^4.26.3",
     "@tailwindcss/vite": "^4.3.3",
