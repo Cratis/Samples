@@ -134,7 +134,7 @@ Routes come from the namespace and the type or method name. The types live in `L
 
 ## Next
 
-This is the last step so far. Later steps will cover reactors, changing events over time, testing, and production. The [Capstone](../../Capstone/README.md) sample shows the same command and query shape with a React frontend.
+[Step 04 — Reactors](../04-Reactors/README.md) sends an order confirmation after checkout is recorded and returns a follow-up event. The [Capstone](../../Capstone/README.md) sample shows the same command and query shape with a React frontend.
 
 ## Questions? Ask on Discord
 
