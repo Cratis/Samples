@@ -22,19 +22,56 @@ public record BookAvailability(ISBN Id, int AvailableCount = 0);
 public class BookAvailabilityReducer : IReducerFor<BookAvailability>
 {
     /// <summary>
-    /// Reduces the current availability based on inventory and lending events.
+    /// Adds the added copies to the availability.
     /// </summary>
-    /// <param name="current">The current state.</param>
     /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
     /// <returns>The updated state.</returns>
-    public BookAvailability Reduce(BookAvailability current, object @event) => @event switch
+    public BookAvailability OnBookAddedToInventory(BookAddedToInventory @event, BookAvailability? current, EventContext context)
     {
-        BookAddedToInventory e => current with { AvailableCount = current.AvailableCount + e.Count },
-        BookReserved => current with { AvailableCount = current.AvailableCount - 1 },
-        BookBorrowed => current with { AvailableCount = current.AvailableCount - 1 },
-        BookReturned => current with { AvailableCount = current.AvailableCount + 1 },
-        _ => current
-    };
+        var state = current ?? new BookAvailability(new ISBN(context.EventSourceId.Value));
+        return state with { AvailableCount = state.AvailableCount + @event.Count };
+    }
+
+    /// <summary>
+    /// Takes a copy out of availability when it is reserved.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The updated state.</returns>
+    public BookAvailability OnBookReserved(BookReserved @event, BookAvailability? current, EventContext context)
+    {
+        var state = current ?? new BookAvailability(@event.Isbn);
+        return state with { AvailableCount = state.AvailableCount - 1 };
+    }
+
+    /// <summary>
+    /// Takes a copy out of availability when it is borrowed.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The updated state.</returns>
+    public BookAvailability OnBookBorrowed(BookBorrowed @event, BookAvailability? current, EventContext context)
+    {
+        var state = current ?? new BookAvailability(@event.Isbn);
+        return state with { AvailableCount = state.AvailableCount - 1 };
+    }
+
+    /// <summary>
+    /// Puts a copy back into availability when it is returned.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The updated state.</returns>
+    public BookAvailability OnBookReturned(BookReturned @event, BookAvailability? current, EventContext context)
+    {
+        var state = current ?? new BookAvailability(@event.Isbn);
+        return state with { AvailableCount = state.AvailableCount + 1 };
+    }
 }
 
 /// <summary>
