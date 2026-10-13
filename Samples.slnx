@@ -61,6 +61,8 @@
         <Project Path="LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj" />
         <Project Path="LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj" />
         <Project Path="LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj" />
+        <Project Path="LearningPath/08-Production/Production.csproj" />
+        <Project Path="LearningPath/08-Production/Production.Specs/Production.Specs.csproj" />
     </Folder>
     <Project Path="Library/Lending/Lending.csproj" />
     <Project Path="Library/Members/Members.csproj" />

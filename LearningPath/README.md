@@ -24,6 +24,7 @@ Each step is a small, self-contained .NET project that adds one idea to the step
 05  testing            decision + command pipeline + projection + reactor → specs
 06  changing events    coming soon
 07  validation/access  identity → input rules → protected decision → event or rejection
+08  production         trusted TLS + JWT identity + health probes + distributed traces
 ```
 
 The steps don't share code. Each one copies the cart types it needs, so you can open any folder and read it top to bottom without jumping around.
@@ -39,12 +40,13 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [05 — Testing](./05-Testing/README.md) | Specify the cart's decisions, appended events, read model, and reaction without a server | [Chronicle testing](https://www.cratis.io/chronicle/testing/) |
 | 06 — Changing events over time (coming soon) | Evolve recorded event shapes | — |
 | [07 — Validation and authorization](./07-ValidationAndAuthorization/README.md) | Reject bad input, protect decisions after checkout, and require a customer role | [Command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md) |
+| [08 — Preparing for production](./08-Production/README.md) | Run the production image with TLS, JWT authentication, health probes, and telemetry | [Production hosting](https://github.com/Cratis/Chronicle/blob/main/Documentation/hosting/production.md) |
 
 ## Before you start
 
 You need the [.NET 10 SDK](https://dotnet.microsoft.com/download), [Docker](https://www.docker.com/), and `curl`.
 
-Running the step applications talks to a local Chronicle server. Step 05 and step 07's specs need only the .NET SDK: no Docker, API, or Chronicle server. For the applications, start the development image once and leave it running while you work through the steps:
+Running the step applications talks to a local Chronicle server. Step 05, step 07, and step 08's specs need only the .NET SDK: no Docker, API, or Chronicle server. Step 08 runs its own production-shaped Compose stack; follow its README instead of starting the development server below. For steps 01–07, start the development image once and leave it running while you work through the steps:
 
 ```bash
 docker run -d --name chronicle \
@@ -80,16 +82,18 @@ dotnet build LearningPath/05-Testing/Testing.csproj
 dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
 dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj
 dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
+dotnet build LearningPath/08-Production/Production.csproj
+dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug
 ```
 
 Building and running the specs do not need Chronicle. Running the step applications does.
 
 ## Coming later
 
-Step 06 will cover changing event shapes over time. Step 07 adds validation, protected state-dependent decisions, and authorization to the tested cart. Step 08 will cover preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+Only step 06 — Changing events over time remains, waiting on [Chronicle event-generation support](https://github.com/Cratis/Chronicle/issues/4862). The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
 
 > [!NOTE]
-> These steps are for learning. Steps 01–05 omit validation and authentication; step 07 adds rules and a development-only identity fixture, not production sign-in. Tenancy and production configuration remain outside the path so far.
+> These steps are for learning. Steps 01–05 omit validation and authentication; step 07 adds rules and a development-only identity fixture, not production sign-in. Step 08 replaces that fixture with JWT validation and adds production configuration. Tenancy and cart ownership remain outside the path.
 
 ## Questions? Ask on Discord
 
