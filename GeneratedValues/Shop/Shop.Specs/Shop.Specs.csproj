@@ -12,7 +12,7 @@
     <ItemGroup>
         <!-- In-process Arc command scenarios. The repository's central package list has no entry for it yet,
              so the version is pinned here to the released Arc version the repository uses. -->
-        <PackageReference Include="Cratis.Arc.Chronicle.Testing" VersionOverride="22.87.1" />
+        <PackageReference Include="Cratis.Arc.Chronicle.Testing" />
         <PackageReference Include="Cratis.Specifications.XUnit" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="xunit" />

@@ -21,7 +21,7 @@ concept InviteCode : String
   generate nanoid 10 alphabet "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
 
 // 32 random bytes as URL-safe base64 without padding: 256 random bits.
-// Screenplay cannot generate secrets yet; this declares only the value's shape.
+// Screenplay cannot mark it as a secret yet; the hand-written Shop adds [NotAudited].
 concept ApiKey : String
   generate bytes 32 base64url
 
