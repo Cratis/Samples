@@ -1,0 +1,26 @@
+projection OrderStylesPreview => ProjectionStyles.PdlOrder
+  from OrderPlaced
+    Id = $eventSourceId
+    CustomerName = CustomerName
+    IsShipped = false
+  from OrderShipped
+    IsShipped = true
+  from ItemAddedToOrder
+    increment ItemCount
+  from ItemRemovedFromOrder
+    decrement ItemCount
+  every
+    LastUpdated = $eventContext.occurred
+  children Lines identified by ProductId
+    from ItemAddedToOrder key ProductId
+      ProductId = ProductId
+      Quantity = Quantity
+    from ItemQuantityAdjusted key ProductId
+      Quantity = Quantity
+    join ProductName on ProductId
+      with ProductRegistered
+        ProductName = ProductName
+      with ProductRenamed
+        ProductName = ProductName
+    remove with ItemRemovedFromOrder key ProductId
+  remove with OrderCancelled
