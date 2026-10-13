@@ -21,6 +21,7 @@ Each step is a small, self-contained .NET project that adds one idea to the step
 02  projection         events → projection → read model
 03  commands/queries   HTTP command → event → projection → HTTP query
 04  reactors           checkout event → reactor → confirmation + follow-up event
+05  testing            decision + command pipeline + projection + reactor → specs
 ```
 
 The steps don't share code. Each one copies the cart types it needs, so you can open any folder and read it top to bottom without jumping around.
@@ -33,12 +34,13 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [02 — First projection](./02-FirstProjection/README.md) | Build a read model from those events and query it | [Projections and read models](https://www.cratis.io/concepts/projections-and-read-models/) |
 | [03 — Commands and queries with Arc](./03-CommandsAndQueries/README.md) | Append events from an Arc command and return the read model from an Arc query | [CQRS explained](https://www.cratis.io/concepts/cqrs/) |
 | [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
+| [05 — Testing](./05-Testing/README.md) | Specify the cart's decisions, appended events, read model, and reaction without a server | [Chronicle testing](https://www.cratis.io/chronicle/testing/) |
 
 ## Before you start
 
 You need the [.NET 10 SDK](https://dotnet.microsoft.com/download), [Docker](https://www.docker.com/), and `curl`.
 
-Every step talks to a local Chronicle server. Start the development image once and leave it running while you work through the steps:
+Running the step applications talks to a local Chronicle server. Step 05's specs need only the .NET SDK: no Docker, API, or Chronicle server. For the applications, start the development image once and leave it running while you work through the steps:
 
 ```bash
 docker run -d --name chronicle \
@@ -70,13 +72,15 @@ dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj
 dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj
 dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
 dotnet build LearningPath/04-Reactors/Reactors.csproj
+dotnet build LearningPath/05-Testing/Testing.csproj
+dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
 ```
 
-Building does not need Chronicle. Running does.
+Building and running the specs do not need Chronicle. Running the step applications does.
 
 ## Coming later
 
-The first steps reach a reaction to checkout. Later steps will cover changing event shapes over time, testing, and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+The first five steps reach a reaction to checkout and specify the cart's behavior. Later steps will cover changing event shapes over time, validation and authorization, and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
 
 > [!NOTE]
 > These steps are for learning. They leave out validation, authentication, tenancy, and production configuration so each idea stays in view.
