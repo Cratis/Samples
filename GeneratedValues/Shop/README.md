@@ -32,7 +32,7 @@ flowchart LR
     model -.->|written by hand| shop[Shop/ + Shop.Specs/ · 28 specs]
 ```
 
-This sample is the source of the snippets in the [Generated values, from Screenplay to running app](https://www.cratis.io/tutorials/generated-values/) tutorial. For the API itself, see [Generating values](https://www.cratis.io/fundamentals/csharp/generating-values/) in Fundamentals.
+This sample is the source of the snippets in the [Generated values, from Screenplay to running app](https://www.cratis.io/generated-values/) tutorial. For the API itself, see [Generating values](https://www.cratis.io/fundamentals/csharp/generating-values/) in Fundamentals.
 
 ## What is in the sample
 
