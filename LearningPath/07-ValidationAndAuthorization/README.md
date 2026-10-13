@@ -168,7 +168,7 @@ Stop the API with Ctrl+C. Remove the development container as the learning path 
 
 ## Next
 
-Step 08 will cover preparing for production. Step 06 — Changing events over time is coming soon. The [Capstone](../../Capstone/README.md) connects commands and queries to a React screen; production identity providers, tenancy, ownership, constraints, and UI error handling are outside this step.
+Continue with [Step 08 — Preparing for production](../08-Production/README.md) to replace the identity fixture with JWT validation and run the production Chronicle image with TLS, health probes, and telemetry. Step 06 — Changing events over time is coming soon. The [Capstone](../../Capstone/README.md) connects commands and queries to a React screen; production identity providers, tenancy, ownership, constraints, and UI error handling are outside this step.
 
 ## Questions? Ask on Discord
 

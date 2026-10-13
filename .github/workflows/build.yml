@@ -56,7 +56,8 @@ jobs:
             GeneratedValues/Shop/Rendered/Shop.Rendered.csproj \
             GeneratedValues/Shop/Shop.Specs/Shop.Specs.csproj \
             LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj \
-            LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj
+            LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj \
+            LearningPath/08-Production/Production.Specs/Production.Specs.csproj
           do
             dotnet test "$project" --configuration Debug --verbosity normal
           done
