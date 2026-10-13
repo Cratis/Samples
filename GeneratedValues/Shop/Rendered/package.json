@@ -1,0 +1,47 @@
+{
+  "name": "shop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config .frontend/vite.config.ts",
+    "build": "tsc -b .frontend/tsconfig.json && vite build --config .frontend/vite.config.ts",
+    "preview": "vite preview --config .frontend/vite.config.ts"
+  },
+  "dependencies": {
+    "@cratis/arc": "22.58.2",
+    "@cratis/arc.react": "22.58.2",
+    "@cratis/components": "4.26.2",
+    "@cratis/fundamentals": "7.22.8",
+    "@cratis/scene.blueprint.default": "4.22.1",
+    "@cratis/scene.components": "4.22.1",
+    "@cratis/scene.engine": "4.22.1",
+    "@cratis/scene.model": "4.22.1",
+    "@cratis/scene.primereact": "4.22.1",
+    "@cratis/scene.react": "4.22.1",
+    "@primereact/core": "11.2.0",
+    "@primereact/headless": "11.2.0",
+    "@primereact/hooks": "11.2.0",
+    "@primereact/styles": "11.2.0",
+    "@primereact/types": "11.2.0",
+    "@primereact/ui": "11.2.0",
+    "@primeuix/themes": "3.0.1",
+    "primeicons": "8.0.2",
+    "primereact": "11.2.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "7.18.4",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "tsyringe": "4.10.0"
+  },
+  "devDependencies": {
+    "@cratis/arc.vite": "22.58.2",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  }
+}

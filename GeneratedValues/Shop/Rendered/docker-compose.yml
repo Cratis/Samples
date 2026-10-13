@@ -1,0 +1,13 @@
+services:
+  chronicle:
+    image: cratis/chronicle:19.54.0-development
+    ports:
+      - "27017:27017"
+      - "35000:35000"
+    volumes:
+      - chronicle-data:/data/db
+      - chronicle-config:/data/configdb
+
+volumes:
+  chronicle-data:
+  chronicle-config:
