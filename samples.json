@@ -155,6 +155,34 @@
       "featured": true
     },
     {
+      "id": "chronicle-projection-styles",
+      "title": "Chronicle Projection Styles",
+      "tagline": "Build one order four ways and see where event counters differ from state-derived line counts.",
+      "track": "event-processing",
+      "path": "Chronicle/ProjectionStyles",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/Chronicle/ProjectionStyles",
+      "ui": "Workbench and CLI",
+      "level": "Focused",
+      "products": ["Chronicle", "Fundamentals"],
+      "runtime": ["In-process read-model scenarios", "ASP.NET Core", "Chronicle Workbench"],
+      "prerequisites": [".NET 10 SDK", "Docker and a browser only for the optional Workbench preview"],
+      "highlights": [
+        "Compare model-bound attributes, a fluent projection, a stream-local reducer, and a PDL declaration",
+        "Join product names into keyed order lines and update the root timestamp from child-only events",
+        "Specify duplicate adds, quantity changes, removals, and cancellation without Docker"
+      ],
+      "verification": [
+        "dotnet build Chronicle/ProjectionStyles/ProjectionStyles.csproj --configuration Debug",
+        "dotnet test Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj --configuration Debug"
+      ],
+      "limitations": [
+        "Projection counters count add/remove events, not distinct active lines; only the reducer derives the exact count.",
+        "The stream-local reducer cannot join cross-stream product names, so those names remain null.",
+        "PDL is for server-side Workbench preview and is not covered by the in-process specs.",
+        "The specs substitute storage, observer lifecycle, event context, join-key resolution, and compliance processing."
+      ]
+    },
+    {
       "id": "arc-react",
       "title": "Idea Loom — Arc + React",
       "tagline": "Build a polished command-and-query experience with generated contracts and no event sourcing.",
