@@ -37,19 +37,26 @@ public record BookReturnRecorded(string Isbn, DateTimeOffset ReturnedDate);
 public class BorrowedBookReducer : IReducerFor<BorrowedBook>
 {
     /// <summary>
-    /// Reduces the current borrowed book state based on events.
+    /// Creates the borrowed book record when a lending is recorded.
     /// </summary>
-    /// <param name="current">The current state.</param>
     /// <param name="event">The event to apply.</param>
-    /// <returns>
-    /// The updated state with any applicable changes from the event.
-    /// </returns>
-    public BorrowedBook Reduce(BorrowedBook current, object @event) => @event switch
-    {
-        BookReturnRecorded e when e.Isbn == current.Isbn =>
-            current with { ReturnedDate = e.ReturnedDate },
-        _ => current
-    };
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The borrowed book record.</returns>
+    public BorrowedBook OnBookLendingRecorded(BookLendingRecorded @event, BorrowedBook? current, EventContext context) =>
+        new(@event.BorrowedBy.Value, @event.Isbn, @event.Title, @event.BorrowedBy, @event.BorrowedDate, @event.DueDate);
+
+    /// <summary>
+    /// Marks the borrowed book as returned when the return is recorded.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The updated state, or the current state when the return is for another book.</returns>
+    public BorrowedBook? OnBookReturnRecorded(BookReturnRecorded @event, BorrowedBook? current, EventContext context) =>
+        current is not null && current.Isbn == @event.Isbn
+            ? current with { ReturnedDate = @event.ReturnedDate }
+            : current;
 }
 
 /// <summary>
