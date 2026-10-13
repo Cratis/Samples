@@ -131,7 +131,7 @@ Printing twice is harmless here. A real sender needs an **idempotency key** that
 
 ## Next
 
-This is the last step so far. Later steps will cover changing events over time, testing, and production. The [Chronicle Processing](../../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers on one stream.
+[Step 05 — Testing](../05-Testing/README.md) proves the cart's commands, projection, and reactor with specs that run without Chronicle. The [Chronicle Processing](../../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers on one stream.
 
 ## Questions? Ask on Discord
 
