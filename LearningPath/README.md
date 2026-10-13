@@ -22,6 +22,8 @@ Each step is a small, self-contained .NET project that adds one idea to the step
 03  commands/queries   HTTP command → event → projection → HTTP query
 04  reactors           checkout event → reactor → confirmation + follow-up event
 05  testing            decision + command pipeline + projection + reactor → specs
+06  changing events    coming soon
+07  validation/access  identity → input rules → protected decision → event or rejection
 ```
 
 The steps don't share code. Each one copies the cart types it needs, so you can open any folder and read it top to bottom without jumping around.
@@ -35,12 +37,14 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [03 — Commands and queries with Arc](./03-CommandsAndQueries/README.md) | Append events from an Arc command and return the read model from an Arc query | [CQRS explained](https://www.cratis.io/concepts/cqrs/) |
 | [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
 | [05 — Testing](./05-Testing/README.md) | Specify the cart's decisions, appended events, read model, and reaction without a server | [Chronicle testing](https://www.cratis.io/chronicle/testing/) |
+| 06 — Changing events over time (coming soon) | Evolve recorded event shapes | — |
+| [07 — Validation and authorization](./07-ValidationAndAuthorization/README.md) | Reject bad input, protect decisions after checkout, and require a customer role | [Command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md) |
 
 ## Before you start
 
 You need the [.NET 10 SDK](https://dotnet.microsoft.com/download), [Docker](https://www.docker.com/), and `curl`.
 
-Running the step applications talks to a local Chronicle server. Step 05's specs need only the .NET SDK: no Docker, API, or Chronicle server. For the applications, start the development image once and leave it running while you work through the steps:
+Running the step applications talks to a local Chronicle server. Step 05 and step 07's specs need only the .NET SDK: no Docker, API, or Chronicle server. For the applications, start the development image once and leave it running while you work through the steps:
 
 ```bash
 docker run -d --name chronicle \
@@ -74,16 +78,18 @@ dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
 dotnet build LearningPath/04-Reactors/Reactors.csproj
 dotnet build LearningPath/05-Testing/Testing.csproj
 dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
+dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj
+dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
 ```
 
 Building and running the specs do not need Chronicle. Running the step applications does.
 
 ## Coming later
 
-The first five steps reach a reaction to checkout and specify the cart's behavior. Later steps will cover changing event shapes over time, validation and authorization, and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+Step 06 will cover changing event shapes over time. Step 07 adds validation, protected state-dependent decisions, and authorization to the tested cart. Step 08 will cover preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
 
 > [!NOTE]
-> These steps are for learning. They leave out validation, authentication, tenancy, and production configuration so each idea stays in view.
+> These steps are for learning. Steps 01–05 omit validation and authentication; step 07 adds rules and a development-only identity fixture, not production sign-in. Tenancy and production configuration remain outside the path so far.
 
 ## Questions? Ask on Discord
 

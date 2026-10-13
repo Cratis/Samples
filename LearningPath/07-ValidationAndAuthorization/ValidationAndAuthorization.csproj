@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <RootNamespace>LearningPath.ValidationAndAuthorization</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="ValidationAndAuthorization.Specs/**/*.cs" />
+        <Content Remove="ValidationAndAuthorization.Specs/**" />
+        <None Remove="ValidationAndAuthorization.Specs/**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cratis" />
+    </ItemGroup>
+</Project>

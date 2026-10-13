@@ -102,7 +102,7 @@
     {
       "id": "learning-path",
       "title": "Learning path",
-      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, react to checkout, and specify the behavior.",
+      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, react to checkout, specify behavior, and protect commands.",
       "track": "getting-started",
       "path": "LearningPath",
       "sourceUrl": "https://github.com/Cratis/Samples/tree/main/LearningPath",
@@ -116,7 +116,8 @@
         "Declare a projection with model-bound attributes and read the read model it builds",
         "Turn the same events and read model into an Arc command and query API",
         "React to checkout with a visible side effect and a returned follow-up event",
-        "Specify decisions, command appends, projections, and reactors without a Chronicle server"
+        "Specify decisions, command appends, projections, and reactors without a Chronicle server",
+        "Reject invalid values, protect state-dependent decisions, and require a customer role for checkout"
       ],
       "verification": [
         "dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj",
@@ -124,12 +125,15 @@
         "dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj",
         "dotnet build LearningPath/04-Reactors/Reactors.csproj",
         "dotnet build LearningPath/05-Testing/Testing.csproj",
-        "dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug"
+        "dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug",
+        "dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj",
+        "dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug"
       ],
       "limitations": [
         "Each step is a separate, self-contained project, so the domain types are repeated on purpose.",
-        "The first five steps cover events, projections, commands and queries, reactors, and testing; event versioning, validation and authorization, and production setup are left for later steps.",
-        "The applications run against the local Chronicle development container; step 05's specs run in-process without external infrastructure and do not verify a real server or HTTP transport."
+        "Step 06 (changing events over time) and step 08 (production setup) are coming later; step 07 adds validation and authorization to the tested cart.",
+        "The applications run against the local Chronicle development container; step 05 and step 07's specs run in-process without external infrastructure and do not verify a real server or HTTP transport.",
+        "Step 07 trusts unsigned identity headers only in Development; this fixture is not production authentication or cart ownership enforcement."
       ]
     },
     {
