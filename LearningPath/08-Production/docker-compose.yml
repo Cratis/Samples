@@ -25,11 +25,14 @@ services:
       - --quiet
       - --eval
       - |
-        const status = db.adminCommand({ replSetGetStatus: 1 });
-        if (status.code === 94) {
+        try {
+          const status = db.adminCommand({ replSetGetStatus: 1 });
+          if (!status.ok) { throw new Error(JSON.stringify(status)); }
+        } catch (error) {
+          if (error.code !== 94) { throw error; }
           const result = rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongodb:27017' }] });
           if (!result.ok) { throw new Error(JSON.stringify(result)); }
-        } else if (!status.ok) { throw new Error(JSON.stringify(status)); }
+        }
 
   chronicle:
     image: cratis/chronicle:19.59.4
@@ -108,11 +111,11 @@ services:
     environment:
       DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
       DOTNET_DASHBOARD_OTLP_AUTHMODE: Unsecured
-      Dashboard__Mcp__EndpointUrl: http://0.0.0.0:18890
+      Dashboard__Mcp__EndpointUrl: http://0.0.0.0:18891
       Dashboard__Mcp__AuthMode: Unsecured
     ports:
       - "127.0.0.1:18888:18888"
-      - "127.0.0.1:18890:18890"
+      - "127.0.0.1:18891:18891"
 
 volumes:
   mongodb-data:
