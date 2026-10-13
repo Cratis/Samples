@@ -120,7 +120,7 @@ This copy listens on <http://localhost:5105> and uses the `LearningPathTesting` 
 
 ## Next
 
-This is the last step so far. Later steps will cover changing event shapes over time, validation and authorization, and preparing for production. The [Projection Styles sample](../../Chronicle/ProjectionStyles/README.md) offers more projection and reducer scenarios to explore.
+Continue to [Step 07 — Validation and authorization](../07-ValidationAndAuthorization/README.md) to reject invalid input, protect state-dependent decisions, and restrict checkout to customers. Step 06 — Changing events over time is coming soon; you can go straight to 07. The [Projection Styles sample](../../Chronicle/ProjectionStyles/README.md) offers more projection and reducer scenarios to explore.
 
 ## Questions? Ask on Discord
 
