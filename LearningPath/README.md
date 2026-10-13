@@ -14,12 +14,13 @@
 
 ## How the path works
 
-Each step is a small, self-contained .NET project that adds one idea to the step before it. All steps use the same shopping cart, so you can focus on what changes:
+Each step is a small, self-contained .NET project that adds one idea to the step before it. All steps use the same shopping cart, from recording its first events to sending a confirmation after checkout, so you can focus on what changes:
 
 ```text
 01  events             append → event log → read the history back
 02  projection         events → projection → read model
 03  commands/queries   HTTP command → event → projection → HTTP query
+04  reactors           checkout event → reactor → confirmation + follow-up event
 ```
 
 The steps don't share code. Each one copies the cart types it needs, so you can open any folder and read it top to bottom without jumping around.
@@ -31,6 +32,7 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [01 — First events](./01-FirstEvents/README.md) | Define events, append them to the event log, and read them back | [What is event sourcing?](https://www.cratis.io/concepts/event-sourcing/) |
 | [02 — First projection](./02-FirstProjection/README.md) | Build a read model from those events and query it | [Projections and read models](https://www.cratis.io/concepts/projections-and-read-models/) |
 | [03 — Commands and queries with Arc](./03-CommandsAndQueries/README.md) | Append events from an Arc command and return the read model from an Arc query | [CQRS explained](https://www.cratis.io/concepts/cqrs/) |
+| [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
 
 ## Before you start
 
@@ -67,13 +69,14 @@ From the repository root:
 dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj
 dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj
 dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
+dotnet build LearningPath/04-Reactors/Reactors.csproj
 ```
 
 Building does not need Chronicle. Running does.
 
 ## Coming later
 
-The first steps stop at commands and queries. Later steps will cover reacting to events with reactors, changing event shapes over time, testing, and preparing for production. Until then, the [Chronicle Processing](../Chronicle/Processing/README.md) sample shows reactors and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+The first steps reach a reaction to checkout. Later steps will cover changing event shapes over time, testing, and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
 
 > [!NOTE]
 > These steps are for learning. They leave out validation, authentication, tenancy, and production configuration so each idea stays in view.

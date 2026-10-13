@@ -22,7 +22,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | --- | --- | --- | --- |
 | **[Chronicle Backend](./Chronicle/Backend/README.md)** | HTTP API | Chronicle | Append one immutable fact and read an event source's history. |
 | **[Chronicle TypeScript Client](./Chronicle/TypeScript/README.md)** | Terminal | Chronicle | Append a fact from Node.js, let a reactor respond, and read the history. |
-| **[Learning path](./LearningPath/README.md)** | Terminal + HTTP API | Chronicle, Arc | Learn step by step: first events, a first projection, then Arc commands and queries. |
+| **[Learning path](./LearningPath/README.md)** | Terminal + HTTP API | Chronicle, Arc | Learn step by step: first events, a first projection, Arc commands and queries, then reactors. |
 | **[Chronicle Processing](./Chronicle/Processing/README.md)** | HTTP API | Chronicle, Fundamentals | Compare a projection, reducer, and reactor on one event stream. |
 | **[Chronicle Projection Styles](./Chronicle/ProjectionStyles/README.md)** | Specs + Workbench preview | Chronicle, Fundamentals | Compare one order built four ways, including event counters versus distinct line counts. |
 | **[Idea Loom — Arc + React](./Arc/React/README.md)** | React | Arc, Components, Fundamentals | Follow a typed command and observable query from C# to a polished UI. |
@@ -93,7 +93,7 @@ Arc/             standalone Arc and React samples
 Chronicle/       focused Chronicle samples
 EventModeling/   runtime viewers and source-to-model examples
 GeneratedValues/ generated identifiers from Screenplay model to Arc specs
-LearningPath/    numbered, self-contained steps from first events to commands and queries
+LearningPath/    numbered, self-contained steps from first events to reactors
 ModelFirst/      executable Screenplay and Stage samples
 Library/         the larger React and multi-service showcase
 samples.json     the catalog used by repository checks and the documentation site

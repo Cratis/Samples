@@ -56,6 +56,7 @@
         <Project Path="LearningPath/01-FirstEvents/FirstEvents.csproj" />
         <Project Path="LearningPath/02-FirstProjection/FirstProjection.csproj" />
         <Project Path="LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj" />
+        <Project Path="LearningPath/04-Reactors/Reactors.csproj" />
     </Folder>
     <Project Path="Library/Lending/Lending.csproj" />
     <Project Path="Library/Members/Members.csproj" />
