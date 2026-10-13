@@ -32,6 +32,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 | **[Coffee counter — runtime event model](./EventModeling/ArcRuntimeView/README.md)** | Event-model board | Arc, Chronicle, Screenplay, CLI | Open a running application's event model, or use `cratis view`. |
 | **[Community kitchen — Marten and Wolverine](./EventModeling/FromMartenAndWolverine/README.md)** | Event-model board | Screenplay, CLI | Generate a starting point from source and review its missing behavior. |
 | **[Model-First Library](./ModelFirst/Library/README.md)** | Executable model | Screenplay, Stage | Compile one modeled workflow and run its accepted and rejected examples. |
+| **[Generated Values Shop](./GeneratedValues/Shop/README.md)** | Model + specs | Screenplay, Stage, Arc, Fundamentals | Declare server-owned identifiers once, render them, write them by hand, and pin them in specs. |
 | **[Library](./Library/README.md)** | React + APIs | Arc, Chronicle, Components | Explore separate lending and membership applications under one local composition. |
 | **[Capstone](./Capstone/README.md)** | React + API | Arc, Chronicle, Components | Build an author-registration slice from event to React screen. |
 
@@ -90,6 +91,7 @@ Each sample README contains its own infrastructure and run commands, a short tou
 Arc/             standalone Arc and React samples
 Chronicle/       focused Chronicle samples
 EventModeling/   runtime viewers and source-to-model examples
+GeneratedValues/ generated identifiers from Screenplay model to Arc specs
 LearningPath/    numbered, self-contained steps from first events to commands and queries
 ModelFirst/      executable Screenplay and Stage samples
 Library/         the larger React and multi-service showcase

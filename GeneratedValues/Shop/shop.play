@@ -1,0 +1,95 @@
+// Copyright (c) Cratis. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// A small shop whose server-owned values are declared once, on their concepts.
+// Each concept says how a value is generated; each command says which properties the server generates.
+domain Shop
+
+concept CustomerName : String
+
+// A prefixed, lowercase ULID: 80 random bits, time-ordered.
+concept CustomerId : String
+  generate ulid prefix "cus_" case lower
+
+// A TypeID: lowercase prefix plus a UUIDv7 suffix, 74 random bits, time-ordered.
+concept OrderId : String
+  generate typeid "order"
+
+// A short code without look-alike characters: 10 characters x 5 bits = 50 random bits.
+// Too few bits for an identifier, so commands generate it as a plain property.
+concept InviteCode : String
+  generate nanoid 10 alphabet "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
+
+// 32 random bytes as URL-safe base64 without padding: 256 random bits.
+// Screenplay cannot mark it as a secret yet; the hand-written Shop adds [NotAudited].
+concept ApiKey : String
+  generate bytes 32 base64url
+
+module Shop
+  feature Customers
+    slice StateChange RegisterCustomer
+      command RegisterCustomer
+        customerId CustomerId generated identifier
+        name       CustomerName
+        produces event CustomerRegistered
+          name CustomerName = name
+        returns customerId
+
+      specification RegisteringACustomer
+        when RegisterCustomer
+          for "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+          name = "Ada Lovelace"
+        then CustomerRegistered
+          for "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+          name = "Ada Lovelace"
+        then returns "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+
+    slice StateChange IssueInvite
+      command IssueInvite
+        customerId CustomerId identifier
+        inviteCode InviteCode generated
+        produces event InviteIssued
+          inviteCode InviteCode = inviteCode
+        returns inviteCode
+
+      specification IssuingAnInvite
+        when IssueInvite
+          customerId = "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+          generated inviteCode = "K7MPQ2XRT9"
+        then InviteIssued
+          for "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+          inviteCode = "K7MPQ2XRT9"
+        then returns "K7MPQ2XRT9"
+
+    slice StateChange IssueApiKey
+      command IssueApiKey
+        customerId CustomerId identifier
+        apiKey     ApiKey generated
+        produces event ApiKeyIssued
+        returns apiKey
+
+      specification IssuingAnApiKey
+        when IssueApiKey
+          customerId = "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+          generated apiKey = "AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyA"
+        then ApiKeyIssued
+          for "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+        then returns "AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyA"
+
+  feature Orders
+    slice StateChange PlaceOrder
+      command PlaceOrder
+        orderId    OrderId generated identifier
+        customerId CustomerId
+        produces event OrderPlaced
+          customerId CustomerId = customerId
+        returns orderId
+
+      specification PlacingAnOrder
+        when PlaceOrder
+          for "order_01m4t7txm0fgx9p7tehmp6mprg"
+          customerId = "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+        then OrderPlaced
+          for "order_01m4t7txm0fgx9p7tehmp6mprg"
+          customerId = "cus_01m4t7txm0hrn5rwemy2dkwtgq"
+        then returns "order_01m4t7txm0fgx9p7tehmp6mprg"

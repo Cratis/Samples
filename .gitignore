@@ -240,6 +240,7 @@ typings/
 *.d.ts
 !global.d.ts
 !*.scss.d.ts
+!vite-env.d.ts
 
 # Visual Studio 6 build log
 *.plg

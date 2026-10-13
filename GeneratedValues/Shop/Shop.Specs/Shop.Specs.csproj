@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <RootNamespace>Shop.Specs</RootNamespace>
+        <!-- Cratis Specifications uses snake_case facts, inline attributes, and convention-based teardown. -->
+        <NoWarn>$(NoWarn);CA1001;CA1515;IDE1006;SA1134</NoWarn>
+        <!-- Pins parse literal text, as a Screenplay fixture would, so they can be recovered into the model. -->
+        <NoWarn>$(NoWarn);MA0176</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- In-process Arc command scenarios. The repository's central package list has no entry for it yet,
+             so the version is pinned here to the released Arc version the repository uses. -->
+        <PackageReference Include="Cratis.Arc.Chronicle.Testing" />
+        <PackageReference Include="Cratis.Specifications.XUnit" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../Shop/Shop.csproj" />
+    </ItemGroup>
+</Project>

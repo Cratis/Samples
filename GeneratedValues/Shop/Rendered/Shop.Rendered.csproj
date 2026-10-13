@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Shop</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- The source .play model is authoritative, so reverse code-to-model extraction is redundant. -->
+    <CratisEmbeddedScreenplayEnabled>false</CratisEmbeddedScreenplayEnabled>
+    <IsTestProject Condition="'$(Configuration)' == 'Debug'">true</IsTestProject>
+    <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);CS7022</NoWarn>
+    <CratisProxiesOutputPath>$(MSBuildThisFileDirectory)</CratisProxiesOutputPath>
+    <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
+    <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
+    <CratisProxiesSkipCommandNameInRoute>true</CratisProxiesSkipCommandNameInRoute>
+    <CratisProxiesUseSourceFileAsOutputFile>true</CratisProxiesUseSourceFileAsOutputFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="package.json" />
+    <None Remove="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Cratis" Version="22.83.0" />
+    <PackageReference Include="Cratis.Arc.MongoDB" Version="22.83.0" />
+    <PackageReference Include="Cratis.Chronicle" Version="19.54.0" />
+    <PackageReference Include="Cratis.Chronicle.AspNetCore" Version="19.54.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="Cratis.Arc.Chronicle.Testing" Version="22.83.0" />
+    <PackageReference Include="Cratis.Chronicle.Testing" Version="19.54.0" />
+    <PackageReference Include="Cratis.Specifications" Version="4.1.1" />
+    <PackageReference Include="Cratis.Specifications.XUnit" Version="4.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageReference Include="NSubstitute" Version="6.2.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="Customizations/Dependencies.props" Condition="Exists('Customizations/Dependencies.props')" />
+</Project>

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "cratis.screenplay.tool": {
+      "version": "4.151.0",
+      "commands": [
+        "screenplay"
+      ],
+      "rollForward": false
+    },
+    "cratis.cli": {
+      "version": "3.59.0",
+      "commands": [
+        "cratis"
+      ],
+      "rollForward": false
+    }
+  }
+}
