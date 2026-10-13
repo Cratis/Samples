@@ -90,6 +90,9 @@ curl --fail http://localhost:5108/health/live
 
 Chronicle and both API probes should return **200 / Healthy**; Keycloak returns discovery JSON. `/health/ready` selects Chronicle's automatic `ready`-tagged connection check; `/health/live` has no dependency checks. In production, an orchestrator probes the dedicated Chronicle health port externally: its chiseled image contains neither a shell nor curl, so an in-container `HEALTHCHECK` cannot work. The dedicated port here serves **only** `/health`.
 
+> [!NOTE]
+> The `ready` check reports the Chronicle connection, not the client's artifact registration. If the API started before Chronicle was reachable, a command sent in the first second after `/health/ready` turns healthy can fail with `DefinitionMismatch` (HTTP 500) while the client is still registering its projections; repeat it and it succeeds. This is tracked in [Cratis/Chronicle#4877](https://github.com/Cratis/Chronicle/issues/4877).
+
 ## Authenticate and check out
 
 [Program.cs](./Program.cs) uses `AddCratisArc` plus the ASP.NET Core `WithChronicle` composition, not `AddCratis`'s forwarded-header adapter. JwtBearer keeps claim names unchanged and maps the flat `roles` claim to ASP.NET Core roles. The [realm import](./keycloak/cart-realm.json) supplies that claim and the `cart-api` audience. Internal metadata uses `keycloak:8443`; Keycloak's dynamic backchannel keeps the issuer at `https://localhost:8443/realms/cart` while serving signing keys on the Compose network.
