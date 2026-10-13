@@ -397,6 +397,38 @@
       "featured": true
     },
     {
+      "id": "generated-values-shop",
+      "title": "Generated Values Shop",
+      "tagline": "Declare server-owned identifiers once in a model, render them with Stage, write them by hand in Arc, and pin them in specs.",
+      "track": "model-first",
+      "path": "GeneratedValues/Shop",
+      "sourceUrl": "https://github.com/Cratis/Samples/tree/main/GeneratedValues/Shop",
+      "ui": "None",
+      "level": "Focused",
+      "products": ["Screenplay", "Stage", "Arc", "Fundamentals"],
+      "runtime": ["Screenplay compiler and evaluator", "Cratis CLI renderer", "Arc command scenarios"],
+      "prerequisites": [".NET 10 SDK"],
+      "highlights": [
+        "Choose a generation strategy per concept: prefixed ULID, TypeID, NanoID and random bytes",
+        "Keep generated identifiers out of the request with [GeneratedValue] Handle parameters",
+        "Use the command's received time for TypeID orders through IGeneratableInContext",
+        "Pin generated values by name, and fix the clock and tenant, in command scenarios"
+      ],
+      "verification": [
+        "dotnet tool restore",
+        "dotnet screenplay shop.play --warnaserror",
+        "dotnet screenplay test shop.play",
+        "dotnet test Rendered/Shop.Rendered.csproj --configuration Debug",
+        "dotnet test Shop.Specs/Shop.Specs.csproj --configuration Debug"
+      ],
+      "limitations": [
+        "Stage renders time-ordered identifiers with the wall clock, not the command's received time; the hand-written project shows the context form.",
+        "Stage refuses unique constraints on generated values, so the short invite code carries a collision warning instead of a uniqueness check.",
+        "Screenplay cannot generate secrets yet; the API key is modeled as random bytes and marked [NotAudited] in the hand-written code.",
+        "A freshness guard for hand-written generated identifiers and Studio editing are not part of this sample yet."
+      ]
+    },
+    {
       "id": "library-showcase",
       "title": "Library",
       "tagline": "Tour a larger Cratis application with separate lending and membership experiences.",
