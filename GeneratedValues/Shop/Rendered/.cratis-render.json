@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "2",
+  "artifactPlanSchemaVersion": "1",
+  "semanticRevision": "rev1:a34c056936bd7274e64b2c90716de46d049ef97d11122e9dd52f487fe374beb1",
+  "target": "cratis",
+  "targetVersion": "22.83.0",
+  "renderer": "Cratis.Stage.Rendering.Cratis",
+  "rendererVersion": "1",
+  "applicationName": "Shop",
+  "artifacts": [
+    {
+      "path": ".frontend/index.css",
+      "sha256": "c43098e7d8431ead00fe49644e97b14cbdb4e97a994850e810acb8a801bc24b2",
+      "sources": []
+    },
+    {
+      "path": ".frontend/index.html",
+      "sha256": "931ab0f7ad8a481a7c4e1ed74773252074f7922840a7cf246f94d44ef08a73b1",
+      "sources": []
+    },
+    {
+      "path": ".frontend/main.tsx",
+      "sha256": "f1be33ab4c4b17540e101e671276f76ac33b0b9f79f1cd536f2f1cf5eb235d65",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/App.tsx",
+      "sha256": "9876e89da7ff2540967f4d3c62bc3cebf7ab3b15efff5fa4e3e23d6f47f4f1f9",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/FlowArrangementView.tsx",
+      "sha256": "828b0518dd9d98a23605452355cb9a8a4e070bf98f61b6c014b0f705585cec93",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/StageChrome.tsx",
+      "sha256": "e13793cf12a2dbdbce7b59b0e3525d33fc6b8c102ca55ff38ef70c2f073c5993",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/StageCommandForm.tsx",
+      "sha256": "2dea1ddde16ec3a946a52bb4a7044928bb25de32b7702089634e48f1157fed5d",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/StageGuardedAction.tsx",
+      "sha256": "8c950711a7cd89ddd11191f846bf5230da93cf2a31a450976ff22d26e6210c5e",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/app.css",
+      "sha256": "c92f082cdc927eb690b3a3c9e339a89e86f3f0f64c93a51fae96ea51c669ebf8",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/blueprint.ts",
+      "sha256": "4a671d5d2f8be5f3eb80282a44214945f22075b41f0300196530a77a87ccd055",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/navigationTree.ts",
+      "sha256": "b07b69a65ad734b534cc865355e210c938aa0832057483e4ccdfbd04545fdfc3",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageCommands.ts",
+      "sha256": "48d56bfa7efb1ac14806a71ede7eba498e8ee29212ca159f81317b58621d9f41",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageComponents.tsx",
+      "sha256": "7f9ec92b0f9e25c49d3a37911413c9f4f0f61156fca3d061931e125e728f5145",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageData.tsx",
+      "sha256": "d47040fee417d01d666e0bafb10a52e8c3bdc44ea06b05af2a7e8dfd9f06578d",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageDataSources.ts",
+      "sha256": "ade1a9a757ec28de294254bcb59ee95df1e03d047036e9281915665c0d19d888",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageGuards.ts",
+      "sha256": "d3caad28af719787f1007a8824898c86e6a4ac2eba863c36c4afaaae45b4cdf1",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageNavigation.ts",
+      "sha256": "46fc13d64e68d906f47a2c4fb92ade4ed61535b3ec63ca40624d4fe2c9437633",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageRoutes.ts",
+      "sha256": "7d85720c1d04fbf81da0bb6a287b67a58fa5ec6e275f04595250c16cc4b9a348",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageRowInteractions.ts",
+      "sha256": "11d46c9b7e3dc182feb9629eb21d3d5b181b4119d3a03c4e565b814bfc2caf6f",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageSource.ts",
+      "sha256": "0d8df29508315a5d17abe3bcf928bef4a1b05f1115395bfbe3356c3df7569817",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/stageTheme.ts",
+      "sha256": "41c903960761179212feba27f3e3352666c54a6364b3b0a2223589e028df4398",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/useSizeClass.ts",
+      "sha256": "e7692466d18b3330ef13abe04ded391bdcaf3ab0781fa93290fc42ba5f3ea068",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/useStrings.ts",
+      "sha256": "7e9b26328e986b05f504ed40ae0656236d023b01ea4a1bf790220dd2f2309e17",
+      "sources": []
+    },
+    {
+      "path": ".frontend/stage/vite-env.d.ts",
+      "sha256": "e24655f2bbc165e2dcbd988edb4a9a28f50fb3d2d9d78c775c7d0ee144bcce10",
+      "sources": []
+    },
+    {
+      "path": ".frontend/styledPrimeReact.ts",
+      "sha256": "411262e641b07da4957bb52bf84deecdeef6319dbe64a1f1cba828065b402feb",
+      "sources": []
+    },
+    {
+      "path": ".frontend/tsconfig.json",
+      "sha256": "efa4d0a8fdc813c520c240d2df0cd9211132fcde952f3d21f244c1a74ab124bf",
+      "sources": []
+    },
+    {
+      "path": ".frontend/tsconfig.node.json",
+      "sha256": "8d6d5e5ed11a91fdfa530d705f55c9676f62f12e72aa21b45502ecbadc27607b",
+      "sources": []
+    },
+    {
+      "path": ".frontend/vite.config.ts",
+      "sha256": "f4c1f53dda10136c81243564eee59796c43cbf8485479de9d24fdcb8431b79bc",
+      "sources": []
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "74a92d28e98b0f259cc5b02bf9eac97fe103b30a10746f0315fba7fa0bfb0df9",
+      "sources": []
+    },
+    {
+      "path": "Common/ApiKey.cs",
+      "sha256": "1167726a30390bea33bbdbc290c1c355c24728ccc65e8c23d30f6343adef12d0",
+      "sources": [
+        "sem1:64eacd132dbd4f5e7d8ab1b7c2ad9d1abf7db5eb5037e30109a4c0966c400790"
+      ]
+    },
+    {
+      "path": "Common/CustomerId.cs",
+      "sha256": "26e7c6ebc2bfbd3d7a3b615f88171e5738a3b631bf6d93d585205195ac93942f",
+      "sources": [
+        "sem1:abd33eb5198176924e90af129754bd289a4004e17b5701cbeb1b7f7187db9e26"
+      ]
+    },
+    {
+      "path": "Common/CustomerName.cs",
+      "sha256": "c25bcc9011af468a3cb208b012fa6d3a01eaea414a8d7e61a351b55ec92bc53b",
+      "sources": [
+        "sem1:e056d11ce6d8e499cc19b82f6c4a729991e648bd9f920cc7dd4bd119bc7f3fce"
+      ]
+    },
+    {
+      "path": "Common/InviteCode.cs",
+      "sha256": "22b5730052c4f0b366a787361b1f4fcabcca4f09342dacadee0161b3e5dfbf94",
+      "sources": [
+        "sem1:245f467627590e99b88f9e65fc4ef560fe5fe56db842547589a780c22b7b510b"
+      ]
+    },
+    {
+      "path": "Common/OrderId.cs",
+      "sha256": "d588cdad63851aae0b27e8856eec493d1b83076ea2c8ee60901643cd1800d365",
+      "sources": [
+        "sem1:28b7b1fd7d55717c6d9ca55a552ea8b9dfd8670d06634ef1415f01427be032e1"
+      ]
+    },
+    {
+      "path": "Directory.Build.props",
+      "sha256": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+      "sources": []
+    },
+    {
+      "path": "Directory.Build.targets",
+      "sha256": "17284cb74605517cbec8a8153505da71a685b28694b67b5ef80608cd79b1c0ea",
+      "sources": []
+    },
+    {
+      "path": "Directory.Packages.props",
+      "sha256": "af799a176bf7be0de5e660924f4bde3444170788e9633399a1f65f0b72c9602f",
+      "sources": []
+    },
+    {
+      "path": "GeneratedPolicyRegistration.cs",
+      "sha256": "58ee791cd47d908de302371574fe3af920ea23c85feef2900f03dbb405987f41",
+      "sources": []
+    },
+    {
+      "path": "Program.cs",
+      "sha256": "5a66fb949c86f0fdc216742d87bd417631c6a94692967d2fc1c7bf5ad01ac70d",
+      "sources": []
+    },
+    {
+      "path": "Shop.Rendered.csproj",
+      "sha256": "aa6ec665dc4236257854ad249cf0ce8cbb5498fcb4135740081ae98a880e72a5",
+      "sources": []
+    },
+    {
+      "path": "Shop.Rendered.slnx",
+      "sha256": "ffe54090274c12d312035c1e21a29e746b958c7954128cff7ff118bb36bc9e90",
+      "sources": []
+    },
+    {
+      "path": "Shop/Customers/IssueApiKey/IssueApiKey.cs",
+      "sha256": "28a499939d61b1f655a3c49b2466216d52d389c392cf9a00239d1d9fc4bd592a",
+      "sources": [
+        "sem1:4d4ddd2e71911fe389448dafaa3dc42ccaae5ab9a1fc9015a05512ff13568e6f",
+        "sem1:6b84718b146f9701f0592592c78de4118197d2f3a903929364ac3b4e3d94f1c6",
+        "sem1:de83bca20aab70fbcee8908eae60f616409514572a6f717b72dd87dd40919e49"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:6b84718b146f9701f0592592c78de4118197d2f3a903929364ac3b4e3d94f1c6"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Customers/IssueApiKey/when_issuing_an_api_key.cs",
+      "sha256": "0dd084633bfd171aaaa8e9427af3f1daf2e24e5b9e1e42f2dbfc73c779e592cf",
+      "sources": [
+        "sem1:9103ed28ce1300239af64a4a512079aba51cf0c9003d5d1679934da30122a4ef"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:6b84718b146f9701f0592592c78de4118197d2f3a903929364ac3b4e3d94f1c6"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Customers/IssueInvite/IssueInvite.cs",
+      "sha256": "bed6f3b7418567d3c847c1899562acf608d34a81603dbca1bb02a962dfa982bd",
+      "sources": [
+        "sem1:0e3f53c1bbb3475f5b4294373851a72c973e980128ecbe29502ff158695b8912",
+        "sem1:78ab3f8984dbcbbb0dc668363d9745e4208db586cb9dc34f403ccf28903fac04",
+        "sem1:84d6b6dd674f10bfa4c1b6706206eafa87bc910ffb1a8ab3a2e14ea0c95bc38f"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:0e3f53c1bbb3475f5b4294373851a72c973e980128ecbe29502ff158695b8912"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Customers/IssueInvite/when_issuing_an_invite.cs",
+      "sha256": "94989819c93c3705f8c18eefbac61428837921ec8e6d0ff165e857cad608ae0a",
+      "sources": [
+        "sem1:b6cafa44dcddd7f82c29bb0742602092cd4e9a66fb00c5beb501fad30294bf12"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:0e3f53c1bbb3475f5b4294373851a72c973e980128ecbe29502ff158695b8912"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Customers/RegisterCustomer/RegisterCustomer.cs",
+      "sha256": "304c971f4509750d18535aba169779974b391ed71582546c5e5010f4fb38990a",
+      "sources": [
+        "sem1:ae6cb37a490ee1aaaa2049201663b3e1cba541521220f6020f76496185ac504e",
+        "sem1:b149ccfd4f9389b527a16cba601c034db6d1823da60dc77370b47e05e9ea76ff",
+        "sem1:fccb3cd4735d0547fb80d134929f496f2f3cd6db96f524d1a35f1266ff44d5ec"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:fccb3cd4735d0547fb80d134929f496f2f3cd6db96f524d1a35f1266ff44d5ec"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Customers/RegisterCustomer/when_registering_acustomer.cs",
+      "sha256": "bffc9fdf005aa75e7a10ec2d9be64538f792654c2be19a3afb5779226703500f",
+      "sources": [
+        "sem1:8dffaf99c995a1a3b40601509a7411dc5c9af011ce0dfd13b18e1550c152edf9"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:8dbade7d235f7ac27f870b62d61b81708ce227c31a5cd89b9b8b91e7865617dd",
+          "sem1:fccb3cd4735d0547fb80d134929f496f2f3cd6db96f524d1a35f1266ff44d5ec"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Orders/PlaceOrder/PlaceOrder.cs",
+      "sha256": "7efa8477c68c6ec3c5ec906f093821b24d88787b557e744fc741573a0767ec89",
+      "sources": [
+        "sem1:492a81c4e724b78f1a1ab79337fe634e383ab7f524ef628afce7fcf53a3335a1",
+        "sem1:9388dec9072d433997c38f70a880de5991ebf0b2205dfc59365c5a95d95ebe57",
+        "sem1:d4349b813275c2ad4d6584b3c9010b49a3b0a79fd545f85cec2598c474abe5fb"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:9a485b087ee789621b48df2a930cb78b101f17961e4d42bc34e49f2d27b976a9",
+          "sem1:9388dec9072d433997c38f70a880de5991ebf0b2205dfc59365c5a95d95ebe57"
+        ]
+      ]
+    },
+    {
+      "path": "Shop/Orders/PlaceOrder/when_placing_an_order.cs",
+      "sha256": "bd4c6e9ee897125a5d0cbe6dee3e54f2a3885078b0d84f27f817fa0cf7bd5eb3",
+      "sources": [
+        "sem1:a7c10ba0909b3577e2b0d0734b9a95f33c20ac3f075c9a3cfb37a918dbeeac75"
+      ],
+      "owners": [
+        [
+          "sem1:c528cb88aeb4f5648a5cac748cb6610279eabc94fa98f083bff62697a7cd9698",
+          "sem1:9a485b087ee789621b48df2a930cb78b101f17961e4d42bc34e49f2d27b976a9",
+          "sem1:9388dec9072d433997c38f70a880de5991ebf0b2205dfc59365c5a95d95ebe57"
+        ]
+      ]
+    },
+    {
+      "path": "appsettings.json",
+      "sha256": "5d31228d8322006cafc71a04ac52f8cb1165a5562511f0f941d2da14e2c66ebf",
+      "sources": []
+    },
+    {
+      "path": "docker-compose.yml",
+      "sha256": "cc80e0ad257b04094fb5f3126f310b35f03b427f93330079567e471bebc532d1",
+      "sources": []
+    },
+    {
+      "path": "package.json",
+      "sha256": "b64c785a6b28112f6e6bcd69287ad90c1118513294197ba19e8ea303c47f4674",
+      "sources": []
+    },
+    {
+      "path": "scene.json",
+      "sha256": "6015f2f7e9b5ac23d317d658aab4db08dcb02b6bf81e522869126f462a24da79",
+      "sources": [
+        "sem1:2e1df66ea70995a20af03fb24f2f3bec255ea5ef9cf37e6ffe3e31be51e946b2"
+      ]
+    },
+    {
+      "path": "src/bindings.ts",
+      "sha256": "60a2c71bd873e99c13161e28c4ff13f1a60927714ac602228357f142ebba1751",
+      "sources": [
+        "sem1:2e1df66ea70995a20af03fb24f2f3bec255ea5ef9cf37e6ffe3e31be51e946b2"
+      ]
+    },
+    {
+      "path": "src/stage-scene.json",
+      "sha256": "6015f2f7e9b5ac23d317d658aab4db08dcb02b6bf81e522869126f462a24da79",
+      "sources": [
+        "sem1:2e1df66ea70995a20af03fb24f2f3bec255ea5ef9cf37e6ffe3e31be51e946b2"
+      ]
+    },
+    {
+      "path": "src/stage.ts",
+      "sha256": "f17785bae9321935e705cf953e02c6dabfd460a1533f92453293537d4af6fbfc",
+      "sources": [
+        "sem1:2e1df66ea70995a20af03fb24f2f3bec255ea5ef9cf37e6ffe3e31be51e946b2"
+      ]
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "d52a81eda975fa981b1cda931dfec65026821a2a753f29e643e5247bb0a312bb",
+      "sources": []
+    }
+  ]
+}
