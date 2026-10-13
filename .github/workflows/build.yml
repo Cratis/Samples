@@ -51,6 +51,7 @@ jobs:
             Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj \
             Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj \
             Chronicle/Processing/Processing.Specs/Processing.Specs.csproj \
+            Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj \
             Chronicle/Quickstart/Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj \
             GeneratedValues/Shop/Rendered/Shop.Rendered.csproj \
             GeneratedValues/Shop/Shop.Specs/Shop.Specs.csproj

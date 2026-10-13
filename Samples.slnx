@@ -36,6 +36,10 @@
         <Project Path="Chronicle/Processing/Processing.csproj" />
         <Project Path="Chronicle/Processing/Processing.Specs/Processing.Specs.csproj" />
     </Folder>
+    <Folder Name="/Chronicle/ProjectionStyles/">
+        <Project Path="Chronicle/ProjectionStyles/ProjectionStyles.csproj" />
+        <Project Path="Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj" />
+    </Folder>
     <Folder Name="/Chronicle/Quickstart/">
         <Project Path="Chronicle/Quickstart/Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj" />
         <Project Path="Chronicle/Quickstart/AspNetCore/AspNetCore.csproj" />

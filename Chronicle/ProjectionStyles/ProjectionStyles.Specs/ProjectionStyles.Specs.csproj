@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <RootNamespace>ProjectionStyles.Specs</RootNamespace>
+        <IsTestProject>true</IsTestProject>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="../ProjectionStyles.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Cratis.Chronicle.Testing" />
+        <PackageReference Include="Cratis.Specifications" />
+        <PackageReference Include="Cratis.Specifications.XUnit" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    </ItemGroup>
+</Project>
