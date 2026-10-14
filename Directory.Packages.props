@@ -4,8 +4,8 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.24.0" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.24.0" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.24.1" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.24.1" />
     <PackageVersion Include="Cratis" Version="22.96.0" />
     <PackageVersion Include="Cratis.Arc" Version="22.96.0" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.96.0" />
