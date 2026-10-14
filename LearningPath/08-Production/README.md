@@ -186,4 +186,4 @@ From the repository root, run the copied specs without Docker:
 dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug
 ```
 
-Only [step 06 — Changing events over time](../README.md#coming-later) remains. The [Capstone](../../Capstone/README.md) adds a React screen; this step deliberately stays backend-only.
+This is the last step of the path. To see how event shapes change over time, go back to [step 06 — Changing events over time](../06-EventVersioning/README.md). The [Capstone](../../Capstone/README.md) adds a React screen; this step deliberately stays backend-only.
