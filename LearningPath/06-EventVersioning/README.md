@@ -36,7 +36,7 @@ Start Chronicle as described in the [learning path README](../README.md#before-y
 dotnet run --project LearningPath/06-EventVersioning/EventVersioning.csproj
 ```
 
-The sample uses the repository's released Chronicle .NET client, **19.59.6**. The API listens on <http://localhost:5106> and uses the `LearningPathEventVersioning` event store. Leave it running while you send commands and query the projection.
+The sample needs the Chronicle .NET client **19.59.5 or later**; earlier versions of its CHR0001 analyzer rejected appending a previous generation. The API listens on <http://localhost:5106> and uses the `LearningPathEventVersioning` event store. Leave it running while you send commands and query the projection.
 
 At startup, `SeedCartHistory` appends one generation-1 `ItemAddedToCartV1` to cart `00000000-0000-0000-0000-000000000006`, but only if that cart has no events. It stands in for history from before the price existed; this sample does not rewrite an event or run an older application first. Run only one instance of the sample at a time: the existence check and append are not an atomic seed operation.
 

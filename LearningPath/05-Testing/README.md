@@ -37,7 +37,7 @@ dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configu
 
 The runner builds the cart and specs, then reports passed facts with no failures or skips. It does not start the sample API or contact the server configured in `appsettings.json`. Each scenario gets its own state and each spec uses a fresh cart id.
 
-The versions come from [`Directory.Packages.props`](../../Directory.Packages.props): Arc and its Chronicle testing integration are `22.88.0`, Chronicle and its testing package are `19.59.2`, and Cratis Specifications is `4.1.1`.
+The package versions, including Arc's and Chronicle's testing packages and Cratis Specifications, are pinned in [`Directory.Packages.props`](../../Directory.Packages.props).
 
 ## Code tour
 

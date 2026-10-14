@@ -39,7 +39,7 @@ You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repo
 dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
 ```
 
-The specs need no Docker, HTTP host, or Chronicle server. Versions come from [`Directory.Packages.props`](../../Directory.Packages.props): Arc `22.88.0`, Chronicle `19.59.2`, and Cratis Specifications `4.1.1`.
+The specs need no Docker, HTTP host, or Chronicle server. The package versions are pinned in [`Directory.Packages.props`](../../Directory.Packages.props).
 
 | Layer | Rule in this cart | Source |
 | --- | --- | --- |
