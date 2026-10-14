@@ -120,7 +120,7 @@ This copy listens on <http://localhost:5105> and uses the `LearningPathTesting` 
 
 ## Next
 
-Continue to [Step 07 — Validation and authorization](../07-ValidationAndAuthorization/README.md) to reject invalid input, protect state-dependent decisions, and restrict checkout to customers. Step 06 — Changing events over time is coming soon; you can go straight to 07. The [Projection Styles sample](../../Chronicle/ProjectionStyles/README.md) offers more projection and reducer scenarios to explore.
+Continue to [Step 06 — Event versioning](../06-EventVersioning/README.md) to record unit prices while keeping the cart's old history readable. The [Projection Styles sample](../../Chronicle/ProjectionStyles/README.md) offers more projection and reducer scenarios to explore.
 
 ## Questions? Ask on Discord
 

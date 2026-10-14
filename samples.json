@@ -102,7 +102,7 @@
     {
       "id": "learning-path",
       "title": "Learning path",
-      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, react to checkout, specify behavior, protect commands, and prepare for production.",
+      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, react to checkout, specify behavior, evolve events, protect commands, and prepare for production.",
       "track": "getting-started",
       "path": "LearningPath",
       "sourceUrl": "https://github.com/Cratis/Samples/tree/main/LearningPath",
@@ -117,6 +117,7 @@
         "Turn the same events and read model into an Arc command and query API",
         "React to checkout with a visible side effect and a returned follow-up event",
         "Specify decisions, command appends, projections, and reactors without a Chronicle server",
+        "Evolve the cart's addition event through generations with an honest default for old prices",
         "Reject invalid values, protect state-dependent decisions, and require a customer role for checkout",
         "Run production Chronicle with trusted TLS, JWT authentication, health probes, and distributed traces"
       ],
@@ -127,6 +128,7 @@
         "dotnet build LearningPath/04-Reactors/Reactors.csproj",
         "dotnet build LearningPath/05-Testing/Testing.csproj",
         "dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug",
+        "dotnet build LearningPath/06-EventVersioning/EventVersioning.csproj",
         "dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj",
         "dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug",
         "dotnet build LearningPath/08-Production/Production.csproj",
@@ -134,7 +136,7 @@
       ],
       "limitations": [
         "Each step is a separate, self-contained project, so the domain types are repeated on purpose.",
-        "Only step 06 (changing events over time) is coming later, waiting on Chronicle event-generation support.",
+        "Step 07 adds validation and authorization to step 05's flat, unpriced cart rather than step 06's children projection.",
         "Steps 01–07 use development infrastructure; step 08 runs a separate production-shaped local stack. The specs run in-process without verifying a real server or HTTP transport.",
         "Step 07 trusts unsigned identity headers only in Development. Step 08 validates JWTs but does not enforce cart ownership; its local MongoDB, Keycloak database, demo password grant, and anonymous dashboard need hardening before deployment."
       ]

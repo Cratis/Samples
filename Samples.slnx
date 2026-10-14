@@ -59,6 +59,7 @@
         <Project Path="LearningPath/04-Reactors/Reactors.csproj" />
         <Project Path="LearningPath/05-Testing/Testing.csproj" />
         <Project Path="LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj" />
+        <Project Path="LearningPath/06-EventVersioning/EventVersioning.csproj" />
         <Project Path="LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj" />
         <Project Path="LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj" />
         <Project Path="LearningPath/08-Production/Production.csproj" />

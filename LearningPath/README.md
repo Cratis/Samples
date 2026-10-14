@@ -22,7 +22,7 @@ Each step is a small, self-contained .NET project that adds one idea to the step
 03  commands/queries   HTTP command → event → projection → HTTP query
 04  reactors           checkout event → reactor → confirmation + follow-up event
 05  testing            decision + command pipeline + projection + reactor → specs
-06  changing events    coming soon
+06  changing events    old + new event generations → migration → priced cart lines
 07  validation/access  identity → input rules → protected decision → event or rejection
 08  production         trusted TLS + JWT identity + health probes + distributed traces
 ```
@@ -38,7 +38,7 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [03 — Commands and queries with Arc](./03-CommandsAndQueries/README.md) | Append events from an Arc command and return the read model from an Arc query | [CQRS explained](https://www.cratis.io/concepts/cqrs/) |
 | [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
 | [05 — Testing](./05-Testing/README.md) | Specify the cart's decisions, appended events, read model, and reaction without a server | [Chronicle testing](https://www.cratis.io/chronicle/testing/) |
-| 06 — Changing events over time (coming soon) | Evolve recorded event shapes | — |
+| [06 — Event versioning](./06-EventVersioning/README.md) | Evolve an event through generations and query old and new cart history | [Event type migrations](https://www.cratis.io/chronicle/concepts/event-type-migrations/) |
 | [07 — Validation and authorization](./07-ValidationAndAuthorization/README.md) | Reject bad input, protect decisions after checkout, and require a customer role | [Command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md) |
 | [08 — Preparing for production](./08-Production/README.md) | Run the production image with TLS, JWT authentication, health probes, and telemetry | [Production hosting](https://github.com/Cratis/Chronicle/blob/main/Documentation/hosting/production.md) |
 
@@ -80,6 +80,7 @@ dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
 dotnet build LearningPath/04-Reactors/Reactors.csproj
 dotnet build LearningPath/05-Testing/Testing.csproj
 dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
+dotnet build LearningPath/06-EventVersioning/EventVersioning.csproj
 dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj
 dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
 dotnet build LearningPath/08-Production/Production.csproj
@@ -88,12 +89,12 @@ dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj 
 
 Building and running the specs do not need Chronicle. Running the step applications does.
 
-## Coming later
+## Explore further
 
-Only step 06 — Changing events over time remains, waiting on [Chronicle event-generation support](https://github.com/Cratis/Chronicle/issues/4862). The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
 
 > [!NOTE]
-> These steps are for learning. Steps 01–05 omit validation and authentication; step 07 adds rules and a development-only identity fixture, not production sign-in. Step 08 replaces that fixture with JWT validation and adds production configuration. Tenancy and cart ownership remain outside the path.
+> These steps are for learning. Steps 01–06 omit validation and authentication; step 07 adds rules and a development-only identity fixture, not production sign-in. Step 08 replaces that fixture with JWT validation and adds production configuration. Tenancy and cart ownership remain outside the path.
 
 ## Questions? Ask on Discord
 
