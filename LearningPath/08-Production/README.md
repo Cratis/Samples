@@ -33,7 +33,7 @@ flowchart LR
 | Fabricated forwarded principal | JwtBearer validates Keycloak signature, issuer, audience, and expiry |
 | No probes or telemetry backend | Separate liveness/readiness endpoints and OTLP traces/metrics |
 
-Versions: Arc `22.88.0`, Chronicle `19.59.4`; package pins are in [Directory.Packages.props](../../Directory.Packages.props). The server is pinned to `cratis/chronicle:19.59.4`, not a development image.
+Package versions are pinned in [Directory.Packages.props](../../Directory.Packages.props). The server image is pinned in [docker-compose.yml](./docker-compose.yml) to a released `cratis/chronicle` version, not a development image; keep it at or above the Chronicle client version.
 
 > [!WARNING]
 > **Production-shaped, not ready to deploy unchanged.** All published ports bind to loopback. MongoDB has no authentication/TLS, Keycloak uses its local file database, the dashboard is anonymous, and the cart API uses local HTTP. Keycloak runs **`start` (production mode)** with TLS, not `start-dev`, but its database and demo password grant are learning shortcuts. Use managed/hardened storage, HTTPS ingress, a platform secret store, and production identity/telemetry infrastructure for a real deployment. Authentication still does not enforce cart ownership.
@@ -91,7 +91,7 @@ curl --fail http://localhost:5108/health/live
 Chronicle and both API probes should return **200 / Healthy**; Keycloak returns discovery JSON. `/health/ready` selects Chronicle's automatic `ready`-tagged connection check; `/health/live` has no dependency checks. In production, an orchestrator probes the dedicated Chronicle health port externally: its chiseled image contains neither a shell nor curl, so an in-container `HEALTHCHECK` cannot work. The dedicated port here serves **only** `/health`.
 
 > [!NOTE]
-> The `ready` check reports the Chronicle connection, not the client's artifact registration. If the API started before Chronicle was reachable, a command sent in the first second after `/health/ready` turns healthy can fail with `DefinitionMismatch` (HTTP 500) while the client is still registering its projections; repeat it and it succeeds. This is tracked in [Cratis/Chronicle#4872](https://github.com/Cratis/Chronicle/issues/4872).
+> Chronicle 19.59.6 and later fixes the readiness window tracked in [Cratis/Chronicle#4872](https://github.com/Cratis/Chronicle/issues/4872). The `ready` check waits for the client's artifact registration as well as its connection, so an API started before Chronicle was reachable does not report ready while its projections are still registering.
 
 ## Authenticate and check out
 
@@ -186,4 +186,4 @@ From the repository root, run the copied specs without Docker:
 dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug
 ```
 
-Only [step 06 — Changing events over time](../README.md#coming-later) remains. The [Capstone](../../Capstone/README.md) adds a React screen; this step deliberately stays backend-only.
+This is the last step of the path. To see how event shapes change over time, go back to [step 06 — Changing events over time](../06-EventVersioning/README.md). The [Capstone](../../Capstone/README.md) adds a React screen; this step deliberately stays backend-only.

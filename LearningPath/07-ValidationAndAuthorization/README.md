@@ -6,7 +6,7 @@
 
 **Arc · Chronicle · Concept validators · Protected decisions · Roles**
 
-Previous: [Step 05 — Testing](../05-Testing/README.md) · [Learning path](../README.md)
+Previous: [Step 06 — Event versioning](../06-EventVersioning/README.md) · [Learning path](../README.md)
 
 </div>
 
@@ -14,7 +14,7 @@ Previous: [Step 05 — Testing](../05-Testing/README.md) · [Learning path](../R
 
 ## The idea
 
-Step 05 proves what the cart does, but it accepts zero quantities, empty product names, changes after checkout, and checkout from anyone. This copy adds rules and specs for those refusals. Step 06 — Changing events over time is coming soon; you do not need it before this step.
+Step 05 proves what the cart does, but it accepts zero quantities, empty product names, changes after checkout, and checkout from anyone. This copy adds rules and specs for those refusals. After [step 06's event versioning exercise](../06-EventVersioning/README.md), this step returns to step 05's flat, unpriced cart so the protected decision read has a supported projection shape.
 
 ```mermaid
 flowchart LR
@@ -39,7 +39,7 @@ You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repo
 dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
 ```
 
-The specs need no Docker, HTTP host, or Chronicle server. Versions come from [`Directory.Packages.props`](../../Directory.Packages.props): Arc `22.88.0`, Chronicle `19.59.2`, and Cratis Specifications `4.1.1`.
+The specs need no Docker, HTTP host, or Chronicle server. The package versions are pinned in [`Directory.Packages.props`](../../Directory.Packages.props).
 
 | Layer | Rule in this cart | Source |
 | --- | --- | --- |
@@ -168,7 +168,7 @@ Stop the API with Ctrl+C. Remove the development container as the learning path 
 
 ## Next
 
-Continue with [Step 08 — Preparing for production](../08-Production/README.md) to replace the identity fixture with JWT validation and run the production Chronicle image with TLS, health probes, and telemetry. Step 06 — Changing events over time is coming soon. The [Capstone](../../Capstone/README.md) connects commands and queries to a React screen; production identity providers, tenancy, ownership, constraints, and UI error handling are outside this step.
+Continue with [Step 08 — Preparing for production](../08-Production/README.md) to replace the identity fixture with JWT validation and run the production Chronicle image with TLS, health probes, and telemetry. The [Capstone](../../Capstone/README.md) connects commands and queries to a React screen; production identity providers, tenancy, ownership, constraints, and UI error handling are outside this step.
 
 ## Questions? Ask on Discord
 
