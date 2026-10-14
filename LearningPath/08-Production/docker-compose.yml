@@ -35,7 +35,7 @@ services:
         }
 
   chronicle:
-    image: cratis/chronicle:19.59.4
+    image: cratis/chronicle:19.59.6
     depends_on:
       mongodb-init:
         condition: service_completed_successfully

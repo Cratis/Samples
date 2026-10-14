@@ -91,7 +91,7 @@ curl --fail http://localhost:5108/health/live
 Chronicle and both API probes should return **200 / Healthy**; Keycloak returns discovery JSON. `/health/ready` selects Chronicle's automatic `ready`-tagged connection check; `/health/live` has no dependency checks. In production, an orchestrator probes the dedicated Chronicle health port externally: its chiseled image contains neither a shell nor curl, so an in-container `HEALTHCHECK` cannot work. The dedicated port here serves **only** `/health`.
 
 > [!NOTE]
-> The `ready` check reports the Chronicle connection, not the client's artifact registration. If the API started before Chronicle was reachable, a command sent in the first second after `/health/ready` turns healthy can fail with `DefinitionMismatch` (HTTP 500) while the client is still registering its projections; repeat it and it succeeds. This is tracked in [Cratis/Chronicle#4872](https://github.com/Cratis/Chronicle/issues/4872).
+> Chronicle 19.59.6 and later fixes the readiness window tracked in [Cratis/Chronicle#4872](https://github.com/Cratis/Chronicle/issues/4872). The `ready` check waits for the client's artifact registration as well as its connection, so an API started before Chronicle was reachable does not report ready while its projections are still registering.
 
 ## Authenticate and check out
 
