@@ -33,7 +33,7 @@ flowchart LR
 | Fabricated forwarded principal | JwtBearer validates Keycloak signature, issuer, audience, and expiry |
 | No probes or telemetry backend | Separate liveness/readiness endpoints and OTLP traces/metrics |
 
-Versions: Arc `22.88.0`, Chronicle `19.59.4`; package pins are in [Directory.Packages.props](../../Directory.Packages.props). The server is pinned to `cratis/chronicle:19.59.4`, not a development image.
+Versions: Arc `22.89.0`, Chronicle `19.59.6`; package pins are in [Directory.Packages.props](../../Directory.Packages.props). The server is pinned to `cratis/chronicle:19.59.6`, not a development image.
 
 > [!WARNING]
 > **Production-shaped, not ready to deploy unchanged.** All published ports bind to loopback. MongoDB has no authentication/TLS, Keycloak uses its local file database, the dashboard is anonymous, and the cart API uses local HTTP. Keycloak runs **`start` (production mode)** with TLS, not `start-dev`, but its database and demo password grant are learning shortcuts. Use managed/hardened storage, HTTPS ingress, a platform secret store, and production identity/telemetry infrastructure for a real deployment. Authentication still does not enforce cart ownership.
