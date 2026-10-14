@@ -20,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args)
             options.GeneratedApis.SegmentsToSkipForRoute = 1;
         },
         arcBuilder => AspNetCoreArcBuilderExtensions.WithChronicle(arcBuilder))
-    .AddCratisChronicle(options => options.EventStore = "Library");
+    .AddCratisChronicle(options => options.EventStore = Lending.Contracts.LendingEventStore.Name);
 builder.UseCratisMongoDB();
 builder.Services.AddControllers();
 builder.Services.AddMvc();
