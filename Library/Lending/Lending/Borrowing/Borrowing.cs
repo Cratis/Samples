@@ -12,8 +12,7 @@ namespace Library.Lending.Borrowing;
 /// <summary>
 /// Represents a borrowed book record for a member.
 /// </summary>
-/// <param name="Id">Unique identifier for this borrow record.</param>
-/// <param name="Isbn">The ISBN of the borrowed book.</param>
+/// <param name="Id">The ISBN of the borrowed book; the key is the event source the borrow is appended to, so there is one row per ISBN.</param>
 /// <param name="Title">The title of the borrowed book.</param>
 /// <param name="BorrowedBy">The member who borrowed the book.</param>
 /// <param name="BorrowedDate">When the book was borrowed.</param>
@@ -21,10 +20,9 @@ namespace Library.Lending.Borrowing;
 [ReadModel]
 [FromEvent<BookBorrowed>]
 public record MemberBorrowedBook(
-    Guid Id,
-    ISBN Isbn,
+    ISBN Id,
     string Title,
-    MemberId BorrowedBy,
+    [SetFrom<BookBorrowed>(nameof(BookBorrowed.MemberId))] MemberId BorrowedBy,
     DateTimeOffset BorrowedDate,
     DateTimeOffset DueDate);
 

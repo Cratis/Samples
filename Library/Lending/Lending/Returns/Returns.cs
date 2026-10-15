@@ -11,8 +11,7 @@ namespace Library.Lending.Returns;
 /// <summary>
 /// Represents overdue book information for a member.
 /// </summary>
-/// <param name="Id">Unique identifier for this record.</param>
-/// <param name="Isbn">The ISBN of the overdue book.</param>
+/// <param name="Id">The ISBN of the overdue book; the key is the event source the borrow is appended to, so there is one row per ISBN.</param>
 /// <param name="Title">The title of the book.</param>
 /// <param name="BorrowedBy">The member who borrowed the book.</param>
 /// <param name="DueDate">When the book was due.</param>
@@ -20,10 +19,9 @@ namespace Library.Lending.Returns;
 [ReadModel]
 [FromEvent<BookBorrowed>]
 public record OverdueBook(
-    Guid Id,
-    ISBN Isbn,
+    ISBN Id,
     string Title,
-    MemberId BorrowedBy,
+    [SetFrom<BookBorrowed>(nameof(BookBorrowed.MemberId))] MemberId BorrowedBy,
     DateTimeOffset DueDate,
     int DaysOverdue = 0);
 
