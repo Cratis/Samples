@@ -4,11 +4,11 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.24.1" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.25.0" />
     <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.25.0" />
     <PackageVersion Include="Cratis" Version="22.101.0" />
     <PackageVersion Include="Cratis.Arc" Version="22.101.0" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.101.0" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.102.0" />
     <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.101.0" />
     <PackageVersion Include="Cratis.Arc.Swagger" Version="22.101.0" />
     <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.101.0" />
