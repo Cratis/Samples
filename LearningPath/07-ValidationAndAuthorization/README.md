@@ -2,9 +2,9 @@
 
 # Step 07 — Validation and authorization
 
-### Reject bad input, protect checkout decisions, and restrict who may act
+### Reject bad input, guard checkout decisions, and restrict who may act
 
-**Arc · Chronicle · Concept validators · Protected decisions · Roles**
+**Arc · Chronicle · Concept validators · Read protection · Roles**
 
 Previous: [Step 06 — Event versioning](../06-EventVersioning/README.md) · [Learning path](../README.md)
 
@@ -14,17 +14,17 @@ Previous: [Step 06 — Event versioning](../06-EventVersioning/README.md) · [Le
 
 ## The idea
 
-Step 05 proves what the cart does, but it accepts zero quantities, empty product names, changes after checkout, and checkout from anyone. This copy adds rules and specs for those refusals. After [step 06's event versioning exercise](../06-EventVersioning/README.md), this step returns to step 05's flat, unpriced cart so the protected decision read has a supported projection shape.
+Step 05 proves what the cart does, but it accepts zero quantities, empty product names, changes after checkout, and checkout from anyone. This copy adds rules and specs for those refusals. After [step 06's event versioning exercise](../06-EventVersioning/README.md), this step returns to step 05's flat, unpriced cart so the guarded read has a supported projection shape.
 
 ```mermaid
 flowchart LR
     request[Command + caller] --> authorization{Allowed caller?}
     authorization -->|yes| validation{Valid values?}
     authorization -->|no| denied[Unauthorized result]
-    validation -->|yes| decision[Fold CartSummary with a guarded read]
+    validation -->|yes| decision[Read CartSummary for the cart]
     validation -->|no| rejected[Validation result]
     decision -->|already checked out| rejected
-    decision -->|still open| commit{Append against the read boundary}
+    decision -->|still open| commit{Append guarded by the read}
     commit -->|unchanged| fact[Event recorded]
     commit -->|competing change| conflict[Concurrency validation result]
 ```
@@ -44,22 +44,22 @@ The specs need no Docker, HTTP host, or Chronicle server. The package versions a
 | Layer | Rule in this cart | Source |
 | --- | --- | --- |
 | Value invariant | Quantity is greater than zero; product name is not empty or whitespace | [`QuantityValidator.cs`](./QuantityValidator.cs), [`ProductNameValidator.cs`](./ProductNameValidator.cs) |
-| Protected state decision | No add, removal, or second checkout after checkout | [`AddItemToCart.cs`](./AddItemToCart.cs), [`RemoveItemFromCart.cs`](./RemoveItemFromCart.cs), [`CheckOutCart.cs`](./CheckOutCart.cs) |
+| State rule under read protection | No add, removal, or second checkout after checkout | [`AddItemToCart.cs`](./AddItemToCart.cs), [`RemoveItemFromCart.cs`](./RemoveItemFromCart.cs), [`CheckOutCart.cs`](./CheckOutCart.cs) |
 | Authorization | Add, remove, and query need authentication; checkout also needs the `Customer` role | The command attributes, [`CartRole.cs`](./CartRole.cs), and [`CartSummary.ById`](./CartSummary.cs) |
 
 ### Values carry their rules
 
-`ConceptValidator<Quantity>` and `ConceptValidator<ProductName>` apply wherever Arc validates those concepts, including both add and remove commands. Arc discovers the validators; there is no per-command registration. Their public constructors are parameterless, as protected commands require.
+`ConceptValidator<Quantity>` and `ConceptValidator<ProductName>` apply wherever Arc validates those concepts, including both add and remove commands. Arc discovers the validators; there is no per-command registration. Their public constructors are parameterless.
 
 Use `CommandValidator<TCommand>` when the input has a rule that belongs to that operation—for example, a relationship between two fields—not when you would repeat a value invariant. This cart has no such input rule, so it has no empty command validator. See [command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md).
 
 ### State must stay valid until the append
 
-Each command declares `[ProtectedDecision]` and takes `DecisionRead<CartSummary>` in `Handle()`. Arc resolves it for the command's `CartId`, folds the relevant events, and enrolls the read in the command's Chronicle unit of work. The handler returns `Result<TEvent, ValidationResult>`: either the new fact or a normal business rejection, never an exception for checkout refusal.
+This project sets `<CratisReadProtection>On</CratisReadProtection>` in its project file. Under On, a read-model parameter of a command's `Handle()` or of a `CommandValidator<T>` constructor is read fresh from the event log, and the read guards the command's append. Each command's state rule lives in a validator that takes `CartSummary` in its constructor ([`CheckOutCartValidator`](./CheckOutCart.cs), [`AddItemToCartValidator`](./AddItemToCart.cs), [`RemoveItemFromCartValidator`](./RemoveItemFromCart.cs)); `Handle()` only returns the event. Arc reads `CartSummary` for the command's `CartId`, the only property of that type. The parameter is nullable because a cart with no events has no `CartSummary`; a non-nullable parameter would reject the command with a missing-state validation result before any rule runs.
 
-If another writer changes that cart after the read, the append fails with a validation result whose reason is `concurrencyViolation`. Nothing from the rejected command commits, and Arc does not retry it automatically. Read fresh state before deciding whether to submit again.
+If an `ItemAddedToCart`, `ItemRemovedFromCart` or `CartCheckedOut` event for that cart arrives after the read, nothing from the command is written. The caller gets HTTP 400 with a validation result whose reason is `concurrencyViolation` and whose detail is `ReadChanged`. Arc and Chronicle do not re-run the command, so read fresh state and submit it again.
 
-A plain `CartSummary` parameter or `IReadModels.GetInstanceById` inside a handler is **advisory**, not a concurrency guard. Moving that read into a validator does not fix the race; `ARCCHR0011` points out unguarded decision reads. Keep the state rule in the protected handler. The flat, event-source-keyed `CartSummary` projection is admitted for decision reads; a reducer or a projection with joins/children is not interchangeable. Read [decision reads in commands](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/chronicle/read-models/injecting-into-commands.md#decision-reads-for-event-dependent-commands).
+The default is Off, which reads the same models but guards nothing. The guard covers the events of the types `CartSummary` is built from, for that cart only. It does not cover revisions or redactions, other event sequences, services or external stores, or reads marked `[Unprotected]`. A flat, event-source-keyed projection like `CartSummary` can be protected; projections with joins or children, and reducers with dependencies, are refused when read protection is On. `IReadModels.GetInstanceById` inside a command is refused too. See [read protection](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/chronicle/consistency/getting-started.md) and [validators](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/chronicle/consistency/validators.md).
 
 Absence still means an open cart, preserving the earlier steps' behavior. This lesson adds no stock, per-product balance, empty-cart, or ownership rule. In particular, authentication is not ownership: any authenticated caller can read or change any open cart, and any customer can check one out. A real shop needs a separate ownership policy.
 
@@ -73,9 +73,9 @@ Absence still means an open cart, preserving the earlier steps' behavior. This l
 - Missing authentication or customer role asserts `ShouldNotBeAuthorized()`, not validation failure. The anonymous add spec submits invalid input too and checks that no validation errors are disclosed.
 - Each command has a competing-checkout spec using `AppendConcurrently`, asserting `ConcurrencyViolation` and no committed command events.
 
-The shared [`a_cart_command_scenario`](./ValidationAndAuthorization.Specs/given/a_cart_command_scenario.cs) calls `UseDecisionReads()` **before seeding**. Seed actual events through `Given.ForEventSource(id).Events(...)`; a pinned read model cannot provide a guard. The principal accessor is substituted in specs, not in the application. The direct decision spec uses an explicitly unprotected snapshot only to call the pure handler; it proves no concurrency or authorization guarantee.
+The shared [`a_cart_command_scenario`](./ValidationAndAuthorization.Specs/given/a_cart_command_scenario.cs) needs no setup for read protection; `CommandScenario` reads the seeded events. Seed actual events through `Given.ForEventSource(id).Events(...)`; a pinned read model cannot provide a guard. The principal accessor is substituted in specs, not in the application.
 
-`/validate` checks authorization and input, but skips `Handle()`. It therefore does not run this cart's checkout-state rule or reserve the cart. Always inspect the eventual execute result. See [pre-flight validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/command-validation.md).
+`/validate` runs authorization and the validators, including this cart's checkout-state rule with a fresh read of `CartSummary`, but never calls `Handle()`, appends nothing and guards nothing. A successful validation does not promise that executing the command will succeed: execution reads again and can still lose a race. Always inspect the eventual execute result. See [pre-flight validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/command-validation.md).
 
 ## Try the HTTP boundary
 
@@ -130,7 +130,7 @@ curl -i -X POST http://localhost:5107/api/carts/check-out-cart \
   "${identity[@]}" -H 'Content-Type: application/json' -d "{\"cartId\":\"$cart_id\"}"
 ```
 
-Expect **200**, `isSuccess: true`, and `CartCheckedOut`. The reactor prints a sample confirmation and returns `OrderConfirmationSent`, just as in step 04. It still has the [at-least-once delivery caveat](../04-Reactors/README.md#replay-and-retries); the protected decision does not make the external effect exactly once.
+Expect **200**, `isSuccess: true`, and `CartCheckedOut`. The reactor prints a sample confirmation and returns `OrderConfirmationSent`, just as in step 04. It still has the [at-least-once delivery caveat](../04-Reactors/README.md#replay-and-retries); read protection does not make the external effect exactly once.
 
 All three later changes must now be refused:
 
@@ -163,8 +163,8 @@ Stop the API with Ctrl+C. Remove the development container as the learning path 
 ## Make it yours
 
 - Remove `[Roles(nameof(CartRole.Customer))]` from this step's checkout command and run the specs. The anonymous and no-customer-role specs must fail. Restore the attribute.
-- Remove the after-checkout refusal from `AddItemToCart.Handle` and run its specs. The already-checked-out spec must fail even though the concurrency spec still has a guard. Restore the rule.
-- Remove `[ProtectedDecision]` instead and run the competing-checkout specs to see why checking state alone is not enough. Restore the attribute.
+- Remove the after-checkout rule from `AddItemToCartValidator` and run its specs. The already-checked-out spec must fail even though the concurrency spec still has a guard. Restore the rule.
+- Set `<CratisReadProtection>` to `Off` (or remove it) in the project file and run the competing-checkout specs: the guard is gone and they fail. Restore `On`.
 
 ## Next
 

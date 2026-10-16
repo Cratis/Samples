@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Arc.Validation;
-using Cratis.Monads;
+using FluentValidation;
 using Library.Inventory.Adding;
 using Library.Lending.Borrowing;
 
@@ -78,19 +78,27 @@ public record BookAvailability(ISBN Id, int AvailableCount = 0)
 public record ReserveBook(ISBN Isbn, MemberId MemberId)
 {
     /// <summary>
-    /// Handles the reserve book command by checking availability.
+    /// Handles the reserve book command. Whether a copy is available is decided by <see cref="ReserveBookValidator"/>.
     /// </summary>
-    /// <param name="availability">The current availability of the book.</param>
-    /// <returns>A reservation event if a copy is available, or a validation error.</returns>
-    public Result<BookReserved, ValidationResult> Handle(BookAvailability availability)
-    {
-        if (availability.AvailableCount <= 0)
-        {
-            return ValidationResult.Error($"No available copies to reserve for book {Isbn}");
-        }
+    /// <returns>A reservation event.</returns>
+    public BookReserved Handle() => new(Isbn, MemberId);
+}
 
-        return new BookReserved(Isbn, MemberId);
-    }
+/// <summary>
+/// Refuses to reserve a book when no copy is available. Read protection is On for this project, so Arc reads
+/// <see cref="BookAvailability"/> fresh from the event log; if another event for the same book arrives after
+/// that read, nothing from the command is written.
+/// </summary>
+public class ReserveBookValidator : CommandValidator<ReserveBook>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReserveBookValidator"/> class.
+    /// </summary>
+    /// <param name="availability">The availability of the book being reserved, or null when it has no events yet; no events means no copies.</param>
+    public ReserveBookValidator(BookAvailability? availability) =>
+        RuleFor(command => command.Isbn)
+            .Must(_ => availability is { AvailableCount: > 0 })
+            .WithMessage("No copies of this book are available to reserve.");
 }
 
 /// <summary>

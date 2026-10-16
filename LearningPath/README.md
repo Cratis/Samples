@@ -23,7 +23,7 @@ Each step is a small, self-contained .NET project that adds one idea to the step
 04  reactors           checkout event → reactor → confirmation + follow-up event
 05  testing            decision + command pipeline + projection + reactor → specs
 06  changing events    old + new event generations → migration → priced cart lines
-07  validation/access  identity → input rules → protected decision → event or rejection
+07  validation/access  identity → input rules → state rule under read protection → event or rejection
 08  production         trusted TLS + JWT identity + health probes + distributed traces
 ```
 
@@ -39,7 +39,7 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 | [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
 | [05 — Testing](./05-Testing/README.md) | Specify the cart's decisions, appended events, read model, and reaction without a server | [Chronicle testing](https://www.cratis.io/chronicle/testing/) |
 | [06 — Event versioning](./06-EventVersioning/README.md) | Evolve an event through generations and query old and new cart history | [Event type migrations](https://www.cratis.io/chronicle/concepts/event-type-migrations/) |
-| [07 — Validation and authorization](./07-ValidationAndAuthorization/README.md) | Reject bad input, protect decisions after checkout, and require a customer role | [Command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md) |
+| [07 — Validation and authorization](./07-ValidationAndAuthorization/README.md) | Reject bad input, refuse changes after checkout, and require a customer role | [Command validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/validation.md) |
 | [08 — Preparing for production](./08-Production/README.md) | Run the production image with TLS, JWT authentication, health probes, and telemetry | [Production hosting](https://github.com/Cratis/Chronicle/blob/main/Documentation/hosting/production.md) |
 
 ## Before you start

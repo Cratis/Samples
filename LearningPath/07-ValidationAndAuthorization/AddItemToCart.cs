@@ -2,11 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Arc.Authorization;
-using Cratis.Arc.Chronicle.ReadModels;
 using Cratis.Arc.Commands.ModelBound;
 using Cratis.Arc.Validation;
-using Cratis.Chronicle.ReadModels;
-using Cratis.Monads;
+using FluentValidation;
 
 namespace LearningPath.ValidationAndAuthorization.Carts;
 
@@ -18,16 +16,27 @@ namespace LearningPath.ValidationAndAuthorization.Carts;
 /// <param name="Quantity">How many to add.</param>
 [Command]
 [Authorize]
-[ProtectedDecision]
 public record AddItemToCart(CartId CartId, ProductName Product, Quantity Quantity)
 {
     /// <summary>
-    /// Handles the command by deciding which event happened.
+    /// Handles the command by deciding which event happened. The state rule lives in <see cref="AddItemToCartValidator"/>.
     /// </summary>
-    /// <param name="cart">The cart state, folded from events and guarded until commit.</param>
-    /// <returns>The event to append, or a rejection when the cart is already checked out.</returns>
-    public Result<ItemAddedToCart, ValidationResult> Handle(DecisionRead<CartSummary> cart) =>
-        cart.Instance is { CheckedOut: true }
-            ? ValidationResult.Error("Cannot add items after checkout.")
-            : new ItemAddedToCart(Product, Quantity);
+    /// <returns>The event to append.</returns>
+    public ItemAddedToCart Handle() => new(Product, Quantity);
+}
+
+/// <summary>
+/// Refuses the command once the cart has been checked out. Read protection is On for this project, so Arc reads
+/// <see cref="CartSummary"/> fresh from the event log and nothing is written if the cart changes after that read.
+/// </summary>
+public class AddItemToCartValidator : CommandValidator<AddItemToCart>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AddItemToCartValidator"/> class.
+    /// </summary>
+    /// <param name="cart">The cart state, or null when the cart has no events yet; an absent cart is open.</param>
+    public AddItemToCartValidator(CartSummary? cart) =>
+        RuleFor(command => command.CartId)
+            .Must(_ => cart is not { CheckedOut: true })
+            .WithMessage("Cannot add items after checkout.");
 }

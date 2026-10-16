@@ -19,6 +19,8 @@ global using Cratis.Chronicle.Transactions;
 global using Cratis.Concepts;
 global using Microsoft.AspNetCore.Mvc;
 #if DEBUG
+global using Cratis.Arc.Chronicle.Testing.Commands;
+global using Cratis.Arc.Testing.Commands;
 global using Cratis.Chronicle.XUnit;
 global using Cratis.Chronicle.XUnit.Integration;
 global using Cratis.Specifications;

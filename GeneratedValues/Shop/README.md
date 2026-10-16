@@ -148,7 +148,7 @@ Shop/Carts/Starting/StartCartWithInlineGeneration.cs(22,31): warning ARC0028: Mo
 
 **Specs pin values by name.** Every scenario pins its generated value with `PinGeneratedValue("<name>", …)`, using the same literal as the model's `for "…"` or `generated <name> = "…"`. [`without_a_pin`](./Shop.Specs/Orders/Placing/for_PlaceOrder/when_placing_an_order/without_a_pin.cs) shows the strict default: an unpinned generated value fails the command and tells you how to pin it.
 
-**New identities stay new.** Arc 22.95.0 guards a `[GeneratedValue]` append target with a whole-source `BeforeFirst` concurrency scope. [`with_an_occupied_order_id`](./Shop.Specs/Orders/Placing/for_PlaceOrder/when_placing_an_order/with_an_occupied_order_id.cs) enables the scenario's shared event log with `UseDecisionReads()`, seeds an order on the pinned id, and checks that the command reports `GeneratedIdentifierCollision` without appending anything.
+**New identities stay new.** Arc 22.95.0 guards a `[GeneratedValue]` append target with a whole-source `BeforeFirst` concurrency scope. [`with_an_occupied_order_id`](./Shop.Specs/Orders/Placing/for_PlaceOrder/when_placing_an_order/with_an_occupied_order_id.cs) seeds an order on the pinned id, and checks that the command reports `GeneratedIdentifierCollision` without appending anything.
 
 **Migration from inline generation.** [`StartCartWithInlineGeneration`](./Shop/Carts/Starting/StartCartWithInlineGeneration.cs) calls `CartId.New()` inside `Handle()`, which triggers ARC0028. [`StartCart`](./Shop/Carts/Starting/StartCart.cs) is the result of the quick fix: a `[GeneratedValue("cart")]` parameter that [`when_starting_a_cart`](./Shop.Specs/Carts/Starting/for_StartCart/when_starting_a_cart.cs) pins.
 
