@@ -27,10 +27,10 @@ Both identities derive from `EventSourceId<Guid>`. Names are `ConceptAs<string>`
 
 ## The four files side by side
 
-| Model-bound attributes | Fluent `IProjectionFor<T>` | `IReducerFor<T>` | PDL |
+| Model-bound attributes | Fluent `IProjectionFor<T>` | Self-reducing read model | PDL |
 | --- | --- | --- | --- |
 | [`ModelBoundOrder.cs`](./ModelBoundOrder.cs) | [`FluentOrder.cs`](./FluentOrder.cs) | [`ReducedOrder.cs`](./ReducedOrder.cs) | [`Order.pdl`](./Order.pdl) |
-| Mapping beside each property | Separate definition; clean read model | Immutable state transitions | Declaration for Workbench preview |
+| Mapping beside each property | Separate definition; clean read model | Static `Reduce` methods beside the state | Declaration for Workbench preview |
 
 Each uses a distinct read-model type so the definitions coexist. PDL targets the separately registered [`PdlOrder`](./PdlOrder.cs) schema; the host does **not** register a fourth code-owned projection.
 
@@ -62,7 +62,23 @@ The released `19.59.1` API defines [`CountAttribute<T>`](https://github.com/Crat
 
 Choose a reducer when the result depends on the complete next state, not just the triggering event. Here it upserts a line, snapshots the resulting collection, and derives `ItemCount` from its length. A repeated product remains one line; removal leaves zero. The reducer never mutates the prior collection.
 
-But a reducer processes an order's stream: it cannot join `ProductRegistered` or `ProductRenamed` on the product's stream. The sample leaves `ProductName` null rather than querying another read model or hiding a cross-stream lookup in a handler. If you need both exact distinct-line counts and product names, reconsider the event/read-model design; none of these four definitions supplies both here.
+The pure fold lives on `ReducedOrder` as public static `Reduce(event, current?[, EventContext])` overloads. No reducer instance or manual registration is needed. Returning null for cancellation still deletes the model; updates to absent orders still return null.
+
+### Separate-reducer alternative
+
+Use a separate `IReducerFor<T>` class when a fold needs injected services, replay-instance behavior, or a model contract kept separate from its transitions. The placement handler would then move off the record into this class (excerpt; the other handlers move in the same way):
+
+```csharp
+public class OrderReducer : IReducerFor<ReducedOrder>
+{
+    public ReducedOrder Placed(OrderPlaced @event, ReducedOrder? current, EventContext context) =>
+        new(new OrderId(Guid.Parse(context.EventSourceId)), @event.CustomerName, false, 0, context.Occurred, []);
+}
+```
+
+This is an alternative, not an additional builder: remove the model's static `Reduce` methods before registering a separate reducer for it. The running sample uses only the self-reducing form because the fold has no dependencies or instance behavior.
+
+Both forms process an order's stream: neither can join `ProductRegistered` or `ProductRenamed` on the product's stream. The sample leaves `ProductName` null rather than querying another read model or hiding a cross-stream lookup in a handler. If you need both exact distinct-line counts and product names, reconsider the event/read-model design; none of these four definitions supplies both here.
 
 ## Run the specifications — no Docker
 

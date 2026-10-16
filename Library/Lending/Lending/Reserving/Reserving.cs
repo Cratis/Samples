@@ -14,12 +14,7 @@ namespace Library.Lending.Reserving;
 /// <param name="Id">The ISBN of the book.</param>
 /// <param name="AvailableCount">The number of available copies.</param>
 [ReadModel]
-public record BookAvailability(ISBN Id, int AvailableCount = 0);
-
-/// <summary>
-/// Reduces book availability based on inventory additions and reservations.
-/// </summary>
-public class BookAvailabilityReducer : IReducerFor<BookAvailability>
+public record BookAvailability(ISBN Id, int AvailableCount = 0)
 {
     /// <summary>
     /// Adds the added copies to the availability.
@@ -28,7 +23,7 @@ public class BookAvailabilityReducer : IReducerFor<BookAvailability>
     /// <param name="current">The current state, if any.</param>
     /// <param name="context">The event context.</param>
     /// <returns>The updated state.</returns>
-    public BookAvailability OnBookAddedToInventory(BookAddedToInventory @event, BookAvailability? current, EventContext context)
+    public static BookAvailability Reduce(BookAddedToInventory @event, BookAvailability? current, EventContext context)
     {
         var state = current ?? new BookAvailability(new ISBN(context.EventSourceId.Value));
         return state with { AvailableCount = state.AvailableCount + @event.Count };
@@ -41,7 +36,7 @@ public class BookAvailabilityReducer : IReducerFor<BookAvailability>
     /// <param name="current">The current state, if any.</param>
     /// <param name="context">The event context.</param>
     /// <returns>The updated state.</returns>
-    public BookAvailability OnBookReserved(BookReserved @event, BookAvailability? current, EventContext context)
+    public static BookAvailability Reduce(BookReserved @event, BookAvailability? current, EventContext context)
     {
         var state = current ?? new BookAvailability(@event.Isbn);
         return state with { AvailableCount = state.AvailableCount - 1 };
@@ -54,7 +49,7 @@ public class BookAvailabilityReducer : IReducerFor<BookAvailability>
     /// <param name="current">The current state, if any.</param>
     /// <param name="context">The event context.</param>
     /// <returns>The updated state.</returns>
-    public BookAvailability OnBookBorrowed(BookBorrowed @event, BookAvailability? current, EventContext context)
+    public static BookAvailability Reduce(BookBorrowed @event, BookAvailability? current, EventContext context)
     {
         var state = current ?? new BookAvailability(@event.Isbn);
         return state with { AvailableCount = state.AvailableCount - 1 };
@@ -67,7 +62,7 @@ public class BookAvailabilityReducer : IReducerFor<BookAvailability>
     /// <param name="current">The current state, if any.</param>
     /// <param name="context">The event context.</param>
     /// <returns>The updated state.</returns>
-    public BookAvailability OnBookReturned(BookReturned @event, BookAvailability? current, EventContext context)
+    public static BookAvailability Reduce(BookReturned @event, BookAvailability? current, EventContext context)
     {
         var state = current ?? new BookAvailability(@event.Isbn);
         return state with { AvailableCount = state.AvailableCount + 1 };
