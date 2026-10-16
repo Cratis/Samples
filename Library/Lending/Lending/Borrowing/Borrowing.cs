@@ -57,7 +57,7 @@ public class BorrowBookValidator : CommandValidator<BorrowBook>
     /// <summary>
     /// Initializes a new instance of the <see cref="BorrowBookValidator"/> class.
     /// </summary>
-    /// <param name="availability">The availability of the book being borrowed.</param>
+    /// <param name="availability">The availability of the book being borrowed, or null when it has no events yet; no events means no copies.</param>
     public BorrowBookValidator(BookAvailability? availability) =>
         RuleFor(command => command.Isbn)
             .Must(_ => availability is { AvailableCount: > 0 })

@@ -99,7 +99,7 @@ public class ReserveBookValidator : CommandValidator<ReserveBook>
     /// <summary>
     /// Initializes a new instance of the <see cref="ReserveBookValidator"/> class.
     /// </summary>
-    /// <param name="availability">The availability of the book being reserved.</param>
+    /// <param name="availability">The availability of the book being reserved, or null when it has no events yet; no events means no copies.</param>
     public ReserveBookValidator(BookAvailability? availability) =>
         RuleFor(command => command.Isbn)
             .Must(_ => availability is { AvailableCount: > 0 })
