@@ -16,7 +16,7 @@ public class a_cart_command_scenario<TCommand> : Specification
 
     void Establish()
     {
-        _scenario = new CommandScenario<TCommand>().UseDecisionReads();
+        _scenario = new CommandScenario<TCommand>();
         _principal = Substitute.For<ICurrentPrincipalAccessor>();
         _principal.Current.Returns(new ClaimsPrincipal(new ClaimsIdentity(
             [new Claim(ClaimTypes.NameIdentifier, "sample-customer"), new Claim(ClaimTypes.Role, nameof(CartRole.Customer))], "spec")));
