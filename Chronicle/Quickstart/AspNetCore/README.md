@@ -25,6 +25,8 @@ minimal endpoint ──► Chronicle event log ──► processing ──► ma
 
 It adds reducers, projections, reactors, MongoDB-backed views, and focused HTTP endpoints to the smaller [Chronicle Backend](../../Backend/README.md) starting point.
 
+[`Book`](../Common/Book.cs) is a self-reducing read model: its public static `Reduce(BookAddedToInventory, Book?, EventContext)` builds the view from inventory events. This pure fold needs no separate reducer class or dependency-injection registration. Use a separate `IReducerFor<T>` when a fold needs injected services, replay-instance behavior, or a separate model contract.
+
 ## Run it
 
 ### Prerequisites
@@ -54,7 +56,7 @@ The application listens on <http://localhost:5000>.
 dotnet build AspNetCore.csproj --configuration Debug
 ```
 
-The read-model names the host queries are covered by specs in `Common.AspNetCore.Specs`:
+The read-model collection names and the book's self-reducing transitions are covered by specs in `Common.AspNetCore.Specs`:
 
 ```bash
 dotnet test ../Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj

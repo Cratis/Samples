@@ -2,29 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Cratis.Chronicle.Events;
-using Cratis.Chronicle.Reducers;
 
 namespace ProjectionStyles;
 
 /// <summary>
 /// Represents an order folded from its own stream, with a derived distinct line count.
 /// </summary>
+/// <remarks>
+/// The distinct line count is derived from the next state; projection counters count events, not keyed children.
+/// This stream-local fold cannot join product events from other streams.
+/// </remarks>
 /// <param name="Id">The order stream identity.</param>
 /// <param name="CustomerName">The customer's display name.</param>
 /// <param name="IsShipped">Whether a shipment event has occurred.</param>
 /// <param name="ItemCount">The number of distinct active lines.</param>
 /// <param name="LastUpdated">The occurrence time of the last handled order event.</param>
 /// <param name="Lines">Product-keyed lines; product names remain absent without a cross-stream join.</param>
-public record ReducedOrder(OrderId Id, CustomerName CustomerName, bool IsShipped, int ItemCount, DateTimeOffset LastUpdated, IEnumerable<OrderLine> Lines);
-
-/// <summary>
-/// Folds order events while deriving the line count from the complete next state.
-/// </summary>
-/// <remarks>
-/// A reducer is required for the distinct line count: projection counters count events, not keyed children.
-/// The reducer is stream-local and cannot join ProductRegistered or ProductRenamed from product streams.
-/// </remarks>
-public class OrderReducer : IReducerFor<ReducedOrder>
+public record ReducedOrder(OrderId Id, CustomerName CustomerName, bool IsShipped, int ItemCount, DateTimeOffset LastUpdated, IEnumerable<OrderLine> Lines)
 {
     /// <summary>
     /// Initializes the order from its placement event.
@@ -33,7 +27,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="current">The unused prior state.</param>
     /// <param name="context">The event identity and occurrence time.</param>
     /// <returns>The initialized order.</returns>
-    public ReducedOrder Placed(OrderPlaced @event, ReducedOrder? current, EventContext context) =>
+    public static ReducedOrder Reduce(OrderPlaced @event, ReducedOrder? current, EventContext context) =>
         new(new OrderId(Guid.Parse(context.EventSourceId)), @event.CustomerName, false, 0, context.Occurred, []);
 
     /// <summary>
@@ -43,7 +37,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="current">The current order, or null before placement or after cancellation.</param>
     /// <param name="context">The event occurrence time.</param>
     /// <returns>The next order, or null if no order exists.</returns>
-    public ReducedOrder? Added(ItemAddedToOrder @event, ReducedOrder? current, EventContext context) => current is null
+    public static ReducedOrder? Reduce(ItemAddedToOrder @event, ReducedOrder? current, EventContext context) => current is null
         ? null
         : WithLines(current, current.Lines.Where(line => line.ProductId != @event.ProductId).Append(new(@event.ProductId, @event.Quantity, null)), context);
 
@@ -54,7 +48,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="current">The current order, or null if absent.</param>
     /// <param name="context">The event occurrence time.</param>
     /// <returns>The next order, or null if absent.</returns>
-    public ReducedOrder? Adjusted(ItemQuantityAdjusted @event, ReducedOrder? current, EventContext context) => current is null
+    public static ReducedOrder? Reduce(ItemQuantityAdjusted @event, ReducedOrder? current, EventContext context) => current is null
         ? null
         : WithLines(current, current.Lines.Select(line => line.ProductId == @event.ProductId ? line with { Quantity = @event.Quantity } : line), context);
 
@@ -65,7 +59,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="current">The current order, or null if absent.</param>
     /// <param name="context">The event occurrence time.</param>
     /// <returns>The next order, or null if absent.</returns>
-    public ReducedOrder? Removed(ItemRemovedFromOrder @event, ReducedOrder? current, EventContext context) => current is null
+    public static ReducedOrder? Reduce(ItemRemovedFromOrder @event, ReducedOrder? current, EventContext context) => current is null
         ? null
         : WithLines(current, current.Lines.Where(line => line.ProductId != @event.ProductId), context);
 
@@ -76,7 +70,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="current">The current order, or null if absent.</param>
     /// <param name="context">The event occurrence time.</param>
     /// <returns>The shipped order, or null if absent.</returns>
-    public ReducedOrder? Shipped(OrderShipped @event, ReducedOrder? current, EventContext context) =>
+    public static ReducedOrder? Reduce(OrderShipped @event, ReducedOrder? current, EventContext context) =>
         current is null ? null : current with { IsShipped = true, LastUpdated = context.Occurred };
 
     /// <summary>
@@ -85,7 +79,7 @@ public class OrderReducer : IReducerFor<ReducedOrder>
     /// <param name="event">The cancellation.</param>
     /// <param name="current">The unused prior order.</param>
     /// <returns>Null, which removes the read model.</returns>
-    public ReducedOrder? Cancelled(OrderCancelled @event, ReducedOrder? current) => null;
+    public static ReducedOrder? Reduce(OrderCancelled @event, ReducedOrder? current) => null;
 
     static ReducedOrder WithLines(ReducedOrder current, IEnumerable<OrderLine> lines, EventContext context)
     {
