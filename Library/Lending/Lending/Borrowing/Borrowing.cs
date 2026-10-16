@@ -49,7 +49,7 @@ public record BorrowBook(ISBN Isbn, MemberId MemberId, int BorrowDays = 21)
 
 /// <summary>
 /// Refuses to borrow a book when no copy is available. Read protection is On for this project, so Arc reads
-/// <see cref="BookAvailability"/> fresh from the event log; if a borrow, reservation or return of the same book
+/// <see cref="BookAvailability"/> fresh from the event log; if an inventory, reservation, borrow or return event for the same book
 /// arrives after that read, nothing from the command is written and the caller is asked to submit it again.
 /// </summary>
 public class BorrowBookValidator : CommandValidator<BorrowBook>

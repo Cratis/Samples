@@ -75,7 +75,7 @@ Absence still means an open cart, preserving the earlier steps' behavior. This l
 
 The shared [`a_cart_command_scenario`](./ValidationAndAuthorization.Specs/given/a_cart_command_scenario.cs) needs no setup for read protection; `CommandScenario` reads the seeded events. Seed actual events through `Given.ForEventSource(id).Events(...)`; a pinned read model cannot provide a guard. The principal accessor is substituted in specs, not in the application.
 
-`/validate` checks authorization and input, but skips `Handle()`. It therefore does not run this cart's checkout-state rule or reserve the cart. Always inspect the eventual execute result. See [pre-flight validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/command-validation.md).
+`/validate` runs authorization and the validators, including this cart's checkout-state rule with a fresh read of `CartSummary`, but never calls `Handle()`, appends nothing and guards nothing. A successful validation does not promise that executing the command will succeed: execution reads again and can still lose a race. Always inspect the eventual execute result. See [pre-flight validation](https://github.com/Cratis/Arc/blob/main/Documentation/backend/csharp/commands/command-validation.md).
 
 ## Try the HTTP boundary
 
