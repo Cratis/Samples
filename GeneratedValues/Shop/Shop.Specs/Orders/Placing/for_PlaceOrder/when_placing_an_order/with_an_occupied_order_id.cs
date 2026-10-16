@@ -9,7 +9,7 @@ namespace Shop.Specs.Orders.Placing.for_PlaceOrder.when_placing_an_order;
 
 public class with_an_occupied_order_id : Specification
 {
-    readonly CommandScenario<PlaceOrder> _scenario = new CommandScenario<PlaceOrder>().UseDecisionReads();
+    readonly CommandScenario<PlaceOrder> _scenario = new();
     readonly CustomerId _customerId = new("cus_01m4t7txm0hrn5rwemy2dkwtgq");
     readonly OrderId _orderId = new("order_01m4t7txm0fgx9p7tehmp6mprg");
     CommandResult _result = null!;
