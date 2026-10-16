@@ -62,6 +62,9 @@ jobs:
             dotnet test "$project" --configuration Debug --verbosity normal
           done
 
+      - name: Run Library Lending in-process specifications
+        run: dotnet test Library/Lending/Lending.csproj --configuration Debug --no-build --filter "FullyQualifiedName~.for_" --verbosity normal
+
       - name: Build Release without regenerating proxies
         run: dotnet build Samples.slnx --configuration Release --no-restore -p:CratisProxiesOutputPath=
 

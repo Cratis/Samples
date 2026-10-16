@@ -4,8 +4,9 @@
 using Cratis.Arc.Validation;
 using Cratis.Chronicle.Projections.ModelBound;
 using Cratis.Chronicle.Reactors;
-using Cratis.Monads;
+using FluentValidation;
 using Lending.Contracts.Borrowing;
+using Library.Lending.Reserving;
 
 namespace Library.Lending.Borrowing;
 
@@ -36,22 +37,31 @@ public record MemberBorrowedBook(
 public record BorrowBook(ISBN Isbn, MemberId MemberId, int BorrowDays = 21)
 {
     /// <summary>
-    /// Handles the borrow book command by validating availability.
+    /// Handles the borrow book command. Whether a copy is available is decided by <see cref="BorrowBookValidator"/>.
     /// </summary>
-    /// <param name="availability">The current availability of the book.</param>
-    /// <returns>A book borrowed event if a copy is available, or a validation error.</returns>
-    public Result<BookBorrowed, ValidationResult> Handle(Reserving.BookAvailability availability)
+    /// <returns>A book borrowed event.</returns>
+    public BookBorrowed Handle()
     {
-        if (availability.AvailableCount <= 0)
-        {
-            return ValidationResult.Error($"No available copies of book {Isbn} to borrow");
-        }
-
         var borrowedDate = DateTimeOffset.UtcNow;
-        var dueDate = borrowedDate.AddDays(BorrowDays);
-
-        return new BookBorrowed(Isbn, "Book Title", MemberId, borrowedDate, dueDate);
+        return new BookBorrowed(Isbn, "Book Title", MemberId, borrowedDate, borrowedDate.AddDays(BorrowDays));
     }
+}
+
+/// <summary>
+/// Refuses to borrow a book when no copy is available. Read protection is On for this project, so Arc reads
+/// <see cref="BookAvailability"/> fresh from the event log; if a borrow, reservation or return of the same book
+/// arrives after that read, nothing from the command is written and the caller is asked to submit it again.
+/// </summary>
+public class BorrowBookValidator : CommandValidator<BorrowBook>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BorrowBookValidator"/> class.
+    /// </summary>
+    /// <param name="availability">The availability of the book being borrowed.</param>
+    public BorrowBookValidator(BookAvailability? availability) =>
+        RuleFor(command => command.Isbn)
+            .Must(_ => availability is { AvailableCount: > 0 })
+            .WithMessage("No copies of this book are available to borrow.");
 }
 
 /// <summary>

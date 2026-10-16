@@ -6,6 +6,7 @@
         <CratisProxiesSegmentsToSkip>1</CratisProxiesSegmentsToSkip>
         <CratisProxiesSkipOutputDeletion>true</CratisProxiesSkipOutputDeletion>
         <CratisProxiesSkipCommandNameInRoute>true</CratisProxiesSkipCommandNameInRoute>
+        <CratisReadProtection>On</CratisReadProtection>
         <AssemblyName>Library</AssemblyName>
         <RootNamespace>Library</RootNamespace>
 
@@ -44,6 +45,7 @@
         <PackageReference Include="NSubstitute" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Cratis.Specifications.XUnit" />
+        <PackageReference Include="Cratis.Arc.Chronicle.Testing" />
         <PackageReference Include="Cratis.Chronicle.Testing" />
         <PackageReference Include="Cratis.Chronicle.XUnit.Integration" />
         <PackageReference Include="Testcontainers" />

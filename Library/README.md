@@ -107,6 +107,14 @@ Lending/Authors/
 
 Concept types make domain intent visible at every boundary: `AuthorName` is a `ConceptAs<string>`, `ISBN` is an `EventSourceId`, and identifiers such as `AuthorId` and `MemberId` are dedicated types rather than loose primitives. A Debug build regenerates the TypeScript commands, queries, and models used by each React slice.
 
+## Read protection in Lending
+
+The Lending project sets `<CratisReadProtection>On</CratisReadProtection>` in [`Lending.csproj`](./Lending/Lending.csproj); Arc's default is Off. Under On, a read model that a command or its validator takes as a parameter is read fresh from the event log and guards that command's append.
+
+The availability rule lives in [`BorrowBookValidator`](./Lending/Lending/Borrowing/Borrowing.cs) and [`ReserveBookValidator`](./Lending/Lending/Reserving/Reserving.cs). Each takes `BookAvailability` in its constructor and refuses the command when no copy is available; `Handle()` only returns the event. If a borrow, reservation or return of the same book arrives after the read, nothing from the command is written and the caller gets HTTP 400 with a validation result whose reason is `concurrencyViolation` and whose detail is `ReadChanged`. Arc and Chronicle do not re-run the command; the caller reads the new availability and submits again. The guard covers events of the types behind `BookAvailability` for that ISBN. It does not cover revisions or redactions, other event sequences, or services and stores outside Chronicle.
+
+[`when_the_last_copy_is_borrowed_concurrently`](./Lending/Lending/Borrowing/for_BorrowBook/when_the_last_copy_is_borrowed_concurrently.cs) specifies the lost race with `CommandScenario.AppendConcurrently`.
+
 ## Build and verify
 
 From the Samples repository root:
