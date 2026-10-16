@@ -32,34 +32,6 @@ public record BookLendingRecorded(string Isbn, string Title, MemberId BorrowedBy
 public record BookReturnRecorded(string Isbn, DateTimeOffset ReturnedDate);
 
 /// <summary>
-/// Reduces borrowed book records based on lending and return events.
-/// </summary>
-public class BorrowedBookReducer : IReducerFor<BorrowedBook>
-{
-    /// <summary>
-    /// Creates the borrowed book record when a lending is recorded.
-    /// </summary>
-    /// <param name="event">The event to apply.</param>
-    /// <param name="current">The current state, if any.</param>
-    /// <param name="context">The event context.</param>
-    /// <returns>The borrowed book record.</returns>
-    public BorrowedBook OnBookLendingRecorded(BookLendingRecorded @event, BorrowedBook? current, EventContext context) =>
-        new(@event.BorrowedBy.Value, @event.Isbn, @event.Title, @event.BorrowedBy, @event.BorrowedDate, @event.DueDate);
-
-    /// <summary>
-    /// Marks the borrowed book as returned when the return is recorded.
-    /// </summary>
-    /// <param name="event">The event to apply.</param>
-    /// <param name="current">The current state, if any.</param>
-    /// <param name="context">The event context.</param>
-    /// <returns>The updated state, or the current state when the return is for another book.</returns>
-    public BorrowedBook? OnBookReturnRecorded(BookReturnRecorded @event, BorrowedBook? current, EventContext context) =>
-        current is not null && current.Isbn == @event.Isbn
-            ? current with { ReturnedDate = @event.ReturnedDate }
-            : current;
-}
-
-/// <summary>
 /// Represents a single borrowing record, capturing which member borrowed a specific book.
 /// </summary>
 /// <param name="Id">The unique identifier for this borrowing record.</param>
@@ -79,6 +51,28 @@ public record BorrowedBook(
     DateTimeOffset DueDate,
     DateTimeOffset? ReturnedDate = null)
 {
+    /// <summary>
+    /// Creates the borrowed book record when a lending is recorded.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The borrowed book record.</returns>
+    public static BorrowedBook Reduce(BookLendingRecorded @event, BorrowedBook? current, EventContext context) =>
+        new(@event.BorrowedBy.Value, @event.Isbn, @event.Title, @event.BorrowedBy, @event.BorrowedDate, @event.DueDate);
+
+    /// <summary>
+    /// Marks the borrowed book as returned when the return is recorded.
+    /// </summary>
+    /// <param name="event">The event to apply.</param>
+    /// <param name="current">The current state, if any.</param>
+    /// <param name="context">The event context.</param>
+    /// <returns>The updated state, or the current state when the return is for another book.</returns>
+    public static BorrowedBook? Reduce(BookReturnRecorded @event, BorrowedBook? current, EventContext context) =>
+        current is not null && current.Isbn == @event.Isbn
+            ? current with { ReturnedDate = @event.ReturnedDate }
+            : current;
+
     /// <summary>
     /// Observes all books currently borrowed by the authenticated member, pushing updates when the collection changes.
     /// The member is resolved server-side from the authenticated identity — the client never supplies the identifier.

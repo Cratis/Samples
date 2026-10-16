@@ -125,5 +125,5 @@ yarn --cwd Library/Members build
 - Keep the Authors or Books table open while changing data and observe the query update.
 - Open Chronicle Workbench and follow `AuthorRegistered` or `BookAddedToInventory` from event to projection.
 - Compare `Registration.cs`, its generated `RegisterAuthor.ts` proxy, and `AddAuthor.tsx` to see the full-stack type flow.
-- Follow book availability through the lending reducers, then inspect the borrowing event contracts on each side.
+- Follow the static `Reduce` overloads on [`BookAvailability`](./Lending/Lending/Reserving/Reserving.cs) and [`BorrowedBook`](./Members/BorrowedBooks/BorrowedBooks.cs), then inspect the borrowing event contracts on each side. These pure folds are self-reducing read models; keep a separate `IReducerFor<T>` for injected services, replay-instance behavior, or a separate model contract. Arc excludes the methods taking their own model type from query discovery; intended query methods remain on the same record.
 - Run the colocated specifications from this directory with `dotnet test Library.slnx`.

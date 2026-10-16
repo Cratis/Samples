@@ -12,7 +12,6 @@ public static class CommonServices
     {
         #region Snippet:Quickstart-AspNetCore-ArtifactsServices
         builder.Services.AddTransient<UsersReactor>();
-        builder.Services.AddTransient<BooksReducer>();
         builder.Services.AddTransient<BorrowedBooksProjection>();
         builder.Services.AddTransient<OverdueBooksProjection>();
         builder.Services.AddTransient<ReservedBooksProjection>();

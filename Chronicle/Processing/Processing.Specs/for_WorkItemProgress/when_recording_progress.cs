@@ -10,11 +10,10 @@ public class when_recording_progress : Specification
 
     void Because()
     {
-        var reducer = new WorkItemProgressReducer();
-        _result = reducer.Opened(new WorkItemOpened("Prepare release", 10), null, ContextFor(0));
-        _result = reducer.Recorded(new ProgressRecorded(4), _result, ContextFor(1));
-        _result = reducer.Recorded(new ProgressRecorded(5), _result, ContextFor(2));
-        _result = reducer.Recorded(new ProgressRecorded(3), _result, ContextFor(3));
+        _result = WorkItemProgress.Reduce(new WorkItemOpened("Prepare release", 10), null, ContextFor(0));
+        _result = WorkItemProgress.Reduce(new ProgressRecorded(4), _result, ContextFor(1));
+        _result = WorkItemProgress.Reduce(new ProgressRecorded(5), _result, ContextFor(2));
+        _result = WorkItemProgress.Reduce(new ProgressRecorded(3), _result, ContextFor(3));
     }
 
     [Fact]

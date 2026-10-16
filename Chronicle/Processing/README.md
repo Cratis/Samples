@@ -4,7 +4,7 @@
 
 ### One event stream. Three processing styles. No sleeps.
 
-**Model-bound projection · Typed reducer · Deterministic reactor · ASP.NET Core**
+**Model-bound projection · Self-reducing read model · Deterministic reactor · ASP.NET Core**
 
 </div>
 
@@ -22,7 +22,7 @@ flowchart LR
     Log -->|WorkItemOpened| Projection[Model-bound projection]
     Projection --> Details[(WorkItemDetails)]
 
-    Log -->|Opened + ProgressRecorded| Reducer[Typed reducer]
+    Log -->|Opened + ProgressRecorded| Reducer[Self-reducing read model]
     Reducer --> Progress[(WorkItemProgress)]
 
     Log -->|WorkItemCompleted| Reactor[Deterministic reactor]
@@ -36,7 +36,7 @@ flowchart LR
 | Style | Artifact | What it shows |
 | --- | --- | --- |
 | Model-bound projection | [`WorkItemDetails`](./WorkItemDetails.cs) | `[FromEvent<T>]` and AutoMap for a direct event-to-view mapping. |
-| Typed reducer | [`WorkItemProgressReducer`](./WorkItemProgress.cs) | Prior-state accumulation, coordinated calculations, and immutable `with` transitions. |
+| Self-reducing read model | [`WorkItemProgress`](./WorkItemProgress.cs) | Static `Reduce` overloads accumulate prior state with coordinated calculations and immutable `with` transitions. |
 | Deterministic reactor | [`CompletionSummaryReactor`](./CompletionSummaryReactor.cs) | A stateless follow-up event derived only from the triggering event. |
 
 The domain uses `WorkItemId : EventSourceId<Guid>` for stream identity and small `ConceptAs<T>` values for titles, work points, and completion summaries. This keeps events and read models strongly typed without distracting from the processing flow.
@@ -100,7 +100,7 @@ dotnet build Chronicle/Processing/Processing.csproj
 dotnet test Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
 ```
 
-The three focused specifications show the projection binding, reducer fold, and deterministic reactor result without introducing external infrastructure.
+The focused specifications show the projection binding, reducer fold (including an update before opening), and deterministic reactor result without introducing external infrastructure.
 
 ## Code tour
 
@@ -110,13 +110,13 @@ The three focused specifications show the projection binding, reducer fold, and 
 | [`WorkItemDetails.cs`](./WorkItemDetails.cs) | Direct model-bound projection |
 | [`WorkItemProgress.cs`](./WorkItemProgress.cs) | Prior-state reducer |
 | [`CompletionSummaryReactor.cs`](./CompletionSummaryReactor.cs) | Follow-up event from a reactor |
-| [`Processing.Specs`](./Processing.Specs/) | One focused specification per processing style |
+| [`Processing.Specs`](./Processing.Specs/) | Focused specifications for each processing style |
 
 ## Learning points
 
 - Use `EventSourceId<T>` for stream identities and `ConceptAs<T>` for meaningful domain values.
 - Start with model-bound attributes when event and view properties line up.
-- Choose a reducer when the next state genuinely depends on prior state.
+- Choose a reducer when the next state genuinely depends on prior state. For a pure fold, keep public static `Reduce(event, current?, EventContext)` methods on the read model. A separate `IReducerFor<T>` class is useful when the fold needs injected services, replay-instance behavior, or a separate contract.
 - Keep reactors stateless; use event data directly and return follow-up events instead of injecting `IEventLog`.
 - Await an observable processing boundary when a request truly needs read-after-write consistency.
 
