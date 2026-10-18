@@ -16,10 +16,10 @@
     "ci": "cd $INIT_CWD && yarn test --passWithNoTests && yarn lint:ci && tsc -b .frontend/tsconfig.json"
   },
   "dependencies": {
-    "@cratis/arc": "22.124.1",
-    "@cratis/arc.react": "22.124.1",
-    "@cratis/arc.react.mvvm": "22.124.1",
-    "@cratis/arc.vite": "22.124.1",
+    "@cratis/arc": "22.125.0",
+    "@cratis/arc.react": "22.125.0",
+    "@cratis/arc.react.mvvm": "22.125.0",
+    "@cratis/arc.vite": "22.125.0",
     "@cratis/components": "4.29.1",
     "@cratis/fundamentals": "7.25.1",
     "allotment": "1.20.6",
