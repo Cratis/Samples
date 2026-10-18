@@ -1,0 +1,22 @@
+name: Verify Pull Request Policy
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, labeled, unlabeled, ready_for_review]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  policy:
+    uses: Cratis/Workflows/.github/workflows/verify-pull-request-policy.yml@main
+    with:
+      runs-on: ${{ vars.RUNNER_GATE || 'ubuntu-latest' }}
+      release-intent: false
