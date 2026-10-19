@@ -13,10 +13,10 @@
     "ci": "yarn test && yarn lint:ci && yarn compile && yarn build"
   },
   "dependencies": {
-    "@cratis/arc": "22.125.3",
-    "@cratis/arc.react": "22.125.3",
-    "@cratis/arc.react.mvvm": "22.125.3",
-    "@cratis/arc.vite": "22.125.3",
+    "@cratis/arc": "22.125.4",
+    "@cratis/arc.react": "22.125.4",
+    "@cratis/arc.react.mvvm": "22.125.4",
+    "@cratis/arc.vite": "22.125.4",
     "@cratis/components": "4.30.0",
     "@cratis/fundamentals": "7.25.1",
     "mobx": "7.0.6",
