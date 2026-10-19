@@ -5,18 +5,19 @@ on:
     types: [update-dependencies]
   workflow_dispatch: # Allow manual trigger
 
-# A burst of dispatches collapses into one run: each run updates every Cratis and Cratis.* package to the
-# latest version, so a newer run supersedes an older one. Push retries below cover races inside a run.
+# A burst of dispatches collapses into one pending run: each run updates every Cratis and Cratis.* package to the
+# latest version, so GitHub keeping only the newest pending run is enough. A running update is never cancelled
+# (that wasted the work done so far); push retries below cover races inside a run.
 concurrency:
   group: update-dependencies
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update-nuget:
 
     name: Update NuGet Packages
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -25,7 +26,9 @@ jobs:
         if: >
           github.event_name == 'repository_dispatch' &&
           github.event.action == 'update-dependencies'
-        run: sleep 600
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node .github/scripts/wait-for-nuget.mjs
 
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
@@ -74,15 +77,6 @@ jobs:
     name: Update npm Packages
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        folder:
-          - Arc/React
-          - Library/Lending
-          - Library/Members
-          - Capstone
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -99,27 +93,45 @@ jobs:
 
       # Resolve published release trains together, including exact cross-pins.
       # Capstone keeps its major caps and refreshes its lockfile transactionally.
-      - name: Update @cratis/* packages in ${{ matrix.folder }}
-        run: node .github/scripts/update-cratis-npm.mjs "${{ matrix.folder }}" ${{ matrix.folder == 'Capstone' && '--with-lockfile' || '' }}
-
-      - name: Commit npm updates for ${{ matrix.folder }}
-        id: commit-npm
-        working-directory: ${{ matrix.folder }}
+      - name: Update and commit @cratis/* npm packages
         run: |
+          set -euo pipefail
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add package.json
-          if [ "${{ matrix.folder }}" = "Capstone" ]; then
-            git add package-lock.json
-          fi
-          if git diff --staged --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No npm package updates found in ${{ matrix.folder }}"
-          else
-            git commit -m "chore: update @cratis/* npm packages in ${{ matrix.folder }} to latest versions"
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
+          committed=false
+          failed=""
+          # Record the outcome even if the loop aborts, so folders already committed are still pushed.
+          trap 'echo "committed=$committed" >> "$GITHUB_ENV"; echo "failed=$failed" >> "$GITHUB_ENV"' EXIT
+          for folder in Arc/React Library/Lending Library/Members Capstone; do
+            # A failing folder must not hold back the others; it fails the job after the push below.
+            args=()
+            if [ "$folder" = "Capstone" ]; then
+              args=(--with-lockfile)
+            fi
+            if ! node .github/scripts/update-cratis-npm.mjs "$folder" "${args[@]}"; then
+              echo "::error::Updating @cratis/* npm packages in $folder failed"
+              failed="$failed $folder"
+              git checkout -- "$folder"
+              continue
+            fi
+            git add "$folder/package.json"
+            if [ "$folder" = "Capstone" ]; then
+              git add "$folder/package-lock.json"
+            fi
+            if git diff --staged --quiet; then
+              echo "No npm package updates found in $folder"
+            else
+              git commit -m "chore: update @cratis/* npm packages in $folder to latest versions"
+              committed=true
+            fi
+          done
 
       - name: Push npm updates
-        if: steps.commit-npm.outputs.has_changes == 'true'
+        if: ${{ !cancelled() && env.committed == 'true' }}
         run: .github/scripts/push-with-retry.sh
+
+      - name: Fail when a folder could not be updated
+        if: env.failed != ''
+        run: |
+          echo "::error::npm updates failed in:${failed}"
+          exit 1
