@@ -99,11 +99,18 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           committed=false
+          failed=""
           for folder in Arc/React Library/Lending Library/Members Capstone; do
+            # A failing folder must not hold back the others; it fails the job after the push below.
+            args=()
             if [ "$folder" = "Capstone" ]; then
-              node .github/scripts/update-cratis-npm.mjs "$folder" --with-lockfile
-            else
-              node .github/scripts/update-cratis-npm.mjs "$folder"
+              args=(--with-lockfile)
+            fi
+            if ! node .github/scripts/update-cratis-npm.mjs "$folder" "${args[@]}"; then
+              echo "::error::Updating @cratis/* npm packages in $folder failed"
+              failed="$failed $folder"
+              git checkout -- "$folder"
+              continue
             fi
             git add "$folder/package.json"
             if [ "$folder" = "Capstone" ]; then
@@ -117,7 +124,14 @@ jobs:
             fi
           done
           echo "committed=$committed" >> "$GITHUB_ENV"
+          echo "failed=$failed" >> "$GITHUB_ENV"
 
       - name: Push npm updates
         if: env.committed == 'true'
         run: .github/scripts/push-with-retry.sh
+
+      - name: Fail when a folder could not be updated
+        if: env.failed != ''
+        run: |
+          echo "::error::npm updates failed in:${failed}"
+          exit 1
