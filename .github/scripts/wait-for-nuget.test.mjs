@@ -97,3 +97,11 @@ test('sends the token as a bearer header', async () => {
     await waitForNuGet(options);
     assert.equal(state.headers[0].Authorization, 'Bearer secret');
 });
+
+test('shares one deadline across all awaited packages', async () => {
+    const { state, options } = harness({ ages: { 'Cratis/Arc': 1, 'Cratis/Chronicle': 1, 'Cratis/Fundamentals': 1 } });
+    const result = await waitForNuGet({ ...options, intervalMs: 30_000, timeoutMs: 120_000 });
+    assert.equal(result.awaited, 3);
+    assert.equal(state.warnings.length, 3);
+    assert.ok(state.time - start <= 120_000, `waited ${state.time - start} ms in total`);
+});

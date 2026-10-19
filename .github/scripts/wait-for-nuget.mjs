@@ -31,8 +31,7 @@ async function isListed(packageId, version, fetch) {
     return Array.isArray(index.versions) && index.versions.includes(version);
 }
 
-async function awaitListing(packageId, version, { fetch, sleep, now, intervalMs, timeoutMs, log, warn }) {
-    const deadline = now() + timeoutMs;
+async function awaitListing(packageId, version, { fetch, sleep, now, intervalMs, deadline, log, warn }) {
     log(`Waiting for ${packageId} ${version} to appear on NuGet`);
     for (;;) {
         let listed = false;
@@ -66,6 +65,8 @@ export async function waitForNuGet({
 } = {}) {
     let checked = 0;
     let awaited = 0;
+    // One deadline for the whole run, so several late packages cannot add up past the job timeout.
+    const deadline = now() + timeoutMs;
     for (const [repository, packageId] of Object.entries(sources)) {
         let release;
         try {
@@ -80,7 +81,7 @@ export async function waitForNuGet({
             continue;
         }
         awaited++;
-        await awaitListing(packageId, release.version, { fetch, sleep, now, intervalMs, timeoutMs, log, warn });
+        await awaitListing(packageId, release.version, { fetch, sleep, now, intervalMs, deadline, log, warn });
     }
     log(`Checked ${checked} of ${Object.keys(sources).length} repositories, awaited ${awaited}`);
     return { checked, awaited };
