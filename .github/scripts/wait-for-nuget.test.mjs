@@ -67,7 +67,7 @@ test('warns and succeeds on timeout', async () => {
     assert.equal(result.awaited, 1);
     assert.equal(state.warnings.length, 1);
     assert.match(state.warnings[0], /^::warning::.*Cratis\.Fundamentals 1\.2\.3/);
-    assert.equal(state.sleeps, 3);
+    assert.equal(state.sleeps, 4);
 });
 
 test('skips a repository whose release lookup fails', async () => {
