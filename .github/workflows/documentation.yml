@@ -11,6 +11,14 @@ on:
   push:
     branches:
       - "main"
+    # Dependency bumps (Update Dependencies runs on every Cratis release) do not change
+    # what the documentation shows, so they do not rebuild it (Cratis/Documentation#198).
+    paths-ignore:
+      - "Directory.Packages.props"
+      - "**/package.json"
+      - "**/package-lock.json"
+      - "**/yarn.lock"
+      - ".github/**"
 
 permissions:
   contents: read
