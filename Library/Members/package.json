@@ -20,7 +20,7 @@
     "@cratis/arc.react": "22.128.1",
     "@cratis/arc.react.mvvm": "22.128.1",
     "@cratis/arc.vite": "22.128.1",
-    "@cratis/components": "4.32.0",
+    "@cratis/components": "4.33.0",
     "@cratis/fundamentals": "7.25.1",
     "mobx": "7.0.6",
     "mobx-react": "10.0.2",
