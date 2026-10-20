@@ -1,13 +1,16 @@
 name: Update Dependencies
 
+# One nightly run picks up every Cratis package released since the last one. Product releases no longer start a
+# run each: their `update-dependencies` repository dispatches have no listener here, so GitHub accepts them and
+# starts nothing. Run it manually to pick up a release before the next night.
 on:
-  repository_dispatch:
-    types: [update-dependencies]
+  schedule:
+    - cron: '43 3 * * *'
   workflow_dispatch: # Allow manual trigger
 
-# A burst of dispatches collapses into one pending run: each run updates every Cratis and Cratis.* package to the
-# latest version, so GitHub keeping only the newest pending run is enough. A running update is never cancelled
-# (that wasted the work done so far); push retries below cover races inside a run.
+# Each run updates every Cratis and Cratis.* package to the latest version, so a manual run queued behind the
+# nightly one only needs the newest pending run. A running update is never cancelled (that wasted the work done
+# so far); push retries below cover races inside a run.
 concurrency:
   group: update-dependencies
   cancel-in-progress: false
@@ -21,14 +24,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Wait for NuGet validation
-        if: >
-          github.event_name == 'repository_dispatch' &&
-          github.event.action == 'update-dependencies'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: node .github/scripts/wait-for-nuget.mjs
 
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
