@@ -2,6 +2,8 @@
 
 # Cratis Samples
 
+Cratis Samples is a set of runnable examples for developers learning event sourcing and CQRS with Cratis.
+
 ### Runnable event sourcing and CQRS samples for the Cratis stack
 
 From a small Chronicle event-sourcing process to a React application composed with Arc, Components, and Aspire — covering the Chronicle event store, Arc CQRS for ASP.NET Core, React Components, the CLI, Workbench, and the model-first Screenplay and Stage (experimental).
@@ -10,7 +12,7 @@ From a small Chronicle event-sourcing process to a React application composed wi
 [![Update dependencies](https://github.com/Cratis/Samples/actions/workflows/update-dependencies.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/update-dependencies.yml)
 [![Documentation](https://github.com/Cratis/Samples/actions/workflows/documentation.yml/badge.svg)](https://github.com/Cratis/Samples/actions/workflows/documentation.yml)
 
-[Explore the samples](#pick-a-sample) · [Run locally](#run-locally) · [Browse the documentation](https://cratis.io/samples/)
+[Explore the samples](#pick-a-sample) · [Run locally](#run-locally) · [Browse the documentation](https://www.cratis.io/samples/)
 
 </div>
 
@@ -100,7 +102,7 @@ samples.json     the catalog used by repository checks and the documentation sit
 scripts/         catalog and repository checks
 ```
 
-The catalog is deliberately machine-readable. The [Cratis documentation sample roster](https://cratis.io/samples/) is generated from it so descriptions and source links stay aligned with the runnable projects. A sample can add `previewUrl` and `previewLabel` when a real read-only experience, such as an event-model viewer, is available.
+The catalog is deliberately machine-readable. The [Cratis documentation sample roster](https://www.cratis.io/samples/) is generated from it so descriptions and source links stay aligned with the runnable projects. A sample can add `previewUrl` and `previewLabel` when a real read-only experience, such as an event-model viewer, is available.
 
 ## Samples are for learning
 
