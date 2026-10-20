@@ -21,11 +21,11 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.1" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.31.2" />
-    <PackageVersion Include="Cratis.Chronicle" Version="19.97.0" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.97.0" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.97.0" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.97.0" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.97.0" />
+    <PackageVersion Include="Cratis.Chronicle" Version="19.98.0" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.98.0" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.98.0" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.98.0" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.98.0" />
     <PackageVersion Include="Marten" Version="9.49.0" />
     <PackageVersion Include="WolverineFx" Version="6.49.0" />
     <PackageVersion Include="WolverineFx.Marten" Version="6.49.0" />
