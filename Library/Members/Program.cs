@@ -4,6 +4,13 @@
 using System.Globalization;
 using AspNetCoreArcBuilderExtensions = Microsoft.AspNetCore.Builder.ArcBuilderExtensions;
 
+#if DEBUG
+if (args.FirstOrDefault() == "--specifications")
+{
+    return await Xunit.Runner.InProc.SystemConsole.ConsoleRunner.Run(args[1..]);
+}
+#endif
+
 // Force invariant culture for the Backend
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
@@ -43,3 +50,4 @@ app.UseSwaggerUI();
 app.MapFallbackToFile("/index.html");
 
 await app.RunAsync();
+return 0;

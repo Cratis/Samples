@@ -183,7 +183,7 @@ unset customer_token visitor_token CHRONICLE_CERTIFICATE_PASSWORD ENCRYPTION_CER
 From the repository root, run the copied specs without Docker:
 
 ```bash
-dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug --
 ```
 
 This is the last step of the path. To see how event shapes change over time, go back to [step 06 — Changing events over time](../06-EventVersioning/README.md). The [Capstone](../../Capstone/README.md) adds a React screen; this step deliberately stays backend-only.

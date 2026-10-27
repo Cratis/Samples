@@ -4,8 +4,8 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.26.0" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.26.0" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.26.1" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.26.1" />
     <PackageVersion Include="Cratis" Version="22.136.7" />
     <PackageVersion Include="Cratis.Arc" Version="22.136.7" />
     <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.136.7" />
@@ -17,15 +17,14 @@
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.1" />
-    <PackageVersion Include="Aspire.Hosting.MongoDB" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.1" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.32.2" />
-    <PackageVersion Include="Cratis.Chronicle" Version="19.108.1" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.108.1" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.108.1" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.108.1" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.108.1" />
+    <PackageVersion Include="Cratis.Chronicle" Version="19.110.1" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.110.1" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.110.1" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.110.1" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.110.1" />
     <PackageVersion Include="Marten" Version="9.49.0" />
     <PackageVersion Include="WolverineFx" Version="6.49.0" />
     <PackageVersion Include="WolverineFx.Marten" Version="6.49.0" />
@@ -38,14 +37,17 @@
     <!-- Analysis -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageVersion Include="MongoDB.Driver" Version="3.12.0" />
-    <PackageVersion Include="SharpCompress" Version="0.50.5" />
+    <PackageVersion Include="SharpCompress" Version="0.50.7" />
     <PackageVersion Include="Snappier" Version="1.3.1" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" NoWarn="NU5104" />
     <PackageVersion Include="Roslynator.Analyzers" Version="5.0.1" />
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.299" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
     <!-- Testing & Specifications -->
-    <PackageVersion Include="Cratis.Specifications" Version="4.3.0" />
+    <PackageVersion Include="Cratis.Specifications" Version="5.0.1" />
+    <PackageVersion Include="Cratis.Specifications.XUnit.v3" Version="5.0.1" />
+    <PackageVersion Include="xunit.v3" Version="4.0.2" />
+    <PackageVersion Include="xunit.v3.mtp-off" Version="4.0.2" />
     <PackageVersion Include="Cratis.Specifications.XUnit" Version="4.3.0" />
     <PackageVersion Include="Testcontainers" Version="4.16.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />

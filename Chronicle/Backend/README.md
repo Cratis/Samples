@@ -93,7 +93,7 @@ app.UseCratisChronicle();
 
 ```bash
 dotnet build Chronicle/Backend/Backend.csproj
-dotnet test Chronicle/Backend/Backend.Specs/Backend.Specs.csproj
+dotnet run --project Chronicle/Backend/Backend.Specs/Backend.Specs.csproj --
 ```
 
 The small specification project checks the append and history behavior without requiring a running Chronicle container.

@@ -7,6 +7,7 @@
     </Configurations>
     <Folder Name="/Arc/React/">
         <Project Path="Arc/React/Arc.React.csproj" />
+    <Project Path="Arc/React/Arc.React.Specs/Arc.React.Specs.csproj" />
     </Folder>
     <Folder Name="/Capstone/">
         <Project Path="Capstone/Capstone.csproj" />

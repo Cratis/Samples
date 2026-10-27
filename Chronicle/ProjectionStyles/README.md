@@ -85,7 +85,7 @@ Both forms process an order's stream: neither can join `ProductRegistered` or `P
 Install the [.NET 10 SDK](https://dotnet.microsoft.com/download), then run from the repository root:
 
 ```bash
-dotnet test Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj --configuration Debug
+dotnet run --project Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj --configuration Debug --
 ```
 
 [`ProjectionStyles.Specs`](./ProjectionStyles.Specs/) uses `ReadModelScenario<T>` to discover each C# style and drive the same histories in memory: product joins before children, a child-only last event, duplicate adds, quantity adjustment, removal, and cancellation. Additional specs cover placement, shipment, and a rename after the line exists. A direct reducer spec checks an explicit occurrence time and preservation of prior state.

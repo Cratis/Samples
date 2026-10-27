@@ -123,7 +123,7 @@ Build it directly while exploring, or as part of the root Samples solution:
 
 ```bash
 dotnet build Chronicle/MultiTenancy/MultiTenancy.csproj
-dotnet test Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj
+dotnet run --project Chronicle/MultiTenancy/MultiTenancy.Specs/MultiTenancy.Specs.csproj --
 ```
 
 The focused namespace-isolation spec uses Chronicle's in-process event scenario, so the test suite needs no container.

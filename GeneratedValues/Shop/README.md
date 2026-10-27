@@ -123,7 +123,7 @@ Do not edit files under `Rendered/`; change `shop.play` and render again. The re
 ### 3. Build and specify the hand-written shop
 
 ```bash
-dotnet test Shop.Specs/Shop.Specs.csproj --configuration Debug
+dotnet run --project Shop.Specs/Shop.Specs.csproj --configuration Debug --
 ```
 
 ```text

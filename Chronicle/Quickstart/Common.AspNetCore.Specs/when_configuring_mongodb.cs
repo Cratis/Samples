@@ -13,6 +13,8 @@ namespace Quickstart.Common.AspNetCore.Specs;
 
 public class when_configuring_mongodb
 {
+    static when_configuring_mongodb() => MongoDBDefaults.Initialize();
+
     [Fact]
     public void should_use_chronicles_read_model_collection_names()
     {
@@ -30,8 +32,6 @@ public class when_configuring_mongodb
     [Fact]
     public void should_keep_read_model_property_names()
     {
-        MongoDBDefaults.Initialize();
-
         Assert.Equal(nameof(Book.Title), BsonClassMap.LookupClassMap(typeof(Book)).GetMemberMap(nameof(Book.Title)).ElementName);
     }
 }

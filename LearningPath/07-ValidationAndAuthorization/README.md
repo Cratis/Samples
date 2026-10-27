@@ -36,7 +36,7 @@ Authorization runs **before validation**, then Arc resolves handler inputs and c
 You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repository root:
 
 ```bash
-dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug --
 ```
 
 The specs need no Docker, HTTP host, or Chronicle server. The package versions are pinned in [`Directory.Packages.props`](../../Directory.Packages.props).

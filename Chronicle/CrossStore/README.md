@@ -117,7 +117,7 @@ public FulfillmentOrderReceived Requested(OrderRequestedForFulfillment @event) =
 
 ```bash
 dotnet build Chronicle/CrossStore/CrossStore.csproj
-dotnet test Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj
+dotnet run --project Chronicle/CrossStore/CrossStore.Specs/CrossStore.Specs.csproj --
 ```
 
 ## Make it yours

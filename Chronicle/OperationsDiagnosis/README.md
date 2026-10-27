@@ -118,7 +118,7 @@ Use **Overview**, **Observers**, **Failures**, and **Event Sequences** to follow
 
 ```bash
 dotnet build Chronicle/OperationsDiagnosis/OperationsDiagnosis.csproj
-dotnet test Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj
+dotnet run --project Chronicle/OperationsDiagnosis/OperationsDiagnosis.Specs/OperationsDiagnosis.Specs.csproj --
 ```
 
 ## Make it yours—safely

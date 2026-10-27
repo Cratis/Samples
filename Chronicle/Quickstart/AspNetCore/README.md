@@ -59,7 +59,7 @@ dotnet build AspNetCore.csproj --configuration Debug
 The read-model collection names and the book's self-reducing transitions are covered by specs in `Common.AspNetCore.Specs`:
 
 ```bash
-dotnet test ../Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj
+dotnet run --project ../Common.AspNetCore.Specs/Common.AspNetCore.Specs.csproj --
 ```
 
 ## Send a couple of events
