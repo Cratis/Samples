@@ -1,7 +1,7 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// A deliberately small model-first sample: one command, one fact, and two model specifications.
+// A deliberately small model-first sample: one command, one inline fact, and three model specifications.
 domain Library
 
 concept BookId     : Uuid
@@ -26,14 +26,9 @@ module Library
           title not empty       message "A title is required"
           authorName not empty  message "An author name is required"
 
-        produces BookAddedToCatalog
-          for bookId
-          title      = title
-          authorName = authorName
-
-      event BookAddedToCatalog
-        title      BookTitle
-        authorName AuthorName
+        produces event BookAddedToCatalog
+          title      BookTitle  = title
+          authorName AuthorName = authorName
 
       specification AddingABook
         when AddBook
@@ -50,3 +45,10 @@ module Library
           title      = ""
           authorName = "Mara North"
         then error "A title is required"
+
+      specification RejectingABookWithoutAnAuthorName
+        when AddBook
+          bookId     = "69064f39-6a76-458a-8a34-088eb4752650"
+          title      = "The Quiet Archive"
+          authorName = ""
+        then error "An author name is required"
