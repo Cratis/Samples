@@ -32,7 +32,7 @@ The Aspire dashboard opens automatically. When all resources are healthy, use th
 | Aspire dashboard | <http://localhost:15888> |
 | Lending application | <http://localhost:7000> |
 | Members application | <http://localhost:7001> |
-| Chronicle Workbench | <http://localhost:8080> |
+| Chronicle Workbench | <https://localhost:35000> |
 
 The AppHost starts MongoDB, Chronicle, Vault, two Keycloak realms, both ASP.NET Core backends, both Vite development servers, and the AuthProxy entry points. The credentials below are local sample data only:
 
@@ -123,7 +123,8 @@ From the Samples repository root:
 
 ```bash
 dotnet build Library/Library.slnx --configuration Debug
-dotnet test Library/Library.slnx --configuration Debug --no-build
+dotnet run --project Library/Lending/Lending.csproj --configuration Debug --no-build -- --specifications -class "*.for_*"
+dotnet run --project Library/Members/Members.csproj --configuration Debug --no-build -- --specifications
 dotnet build Library/Library.slnx --configuration Release -p:CratisProxiesOutputPath=
 yarn --cwd Library/Lending build
 yarn --cwd Library/Members build
@@ -136,4 +137,4 @@ yarn --cwd Library/Members build
 - Open Chronicle Workbench and follow `AuthorRegistered` or `BookAddedToInventory` from event to projection.
 - Compare `Registration.cs`, its generated `RegisterAuthor.ts` proxy, and `AddAuthor.tsx` to see the full-stack type flow.
 - Follow the static `Reduce` overloads on [`BookAvailability`](./Lending/Lending/Reserving/Reserving.cs) and [`BorrowedBook`](./Members/BorrowedBooks/BorrowedBooks.cs), then inspect the borrowing event contracts on each side. These pure folds are self-reducing read models; keep a separate `IReducerFor<T>` for injected services, replay-instance behavior, or a separate model contract. Arc excludes the methods taking their own model type from query discovery; intended query methods remain on the same record.
-- Run the colocated specifications from this directory with `dotnet test Library.slnx`.
+- The specifications live beside the code in each app. Run them from this directory with the Debug-built app, `dotnet run --project <Lending|Members>/<Lending|Members>.csproj --configuration Debug --no-build -- --specifications`. Lending's `-class "*.for_*"` filter selects its in-process specs; running its full suite also requires Chronicle and MongoDB.

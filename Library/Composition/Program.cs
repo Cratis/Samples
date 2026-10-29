@@ -34,6 +34,7 @@ var vault = builder.AddContainer("vault", "hashicorp/vault")
 // When no configure callback is supplied AddCratisChronicle uses the development image (embedded MongoDB).
 // For any explicit database choice we supply a callback to switch to the production image.
 IResourceBuilder<ChronicleResource> chronicle;
+IResourceBuilder<IResourceWithConnectionString>? readModels = null;
 var vaultEndpoint = vault.GetEndpoint("http");
 
 if (string.Equals(databaseType, "postgresql", StringComparison.Ordinal))
@@ -63,17 +64,19 @@ else if (string.Equals(databaseType, "sqlite", StringComparison.Ordinal))
 }
 else
 {
-    // mongodb — the latest-development image no longer bundles MongoDB, so spin up a dedicated container
-    var mongo = builder.AddMongoDB("mongodb", port: 27017).AddDatabase("chronicle-db", databaseName: "chronicle");
+    // mongodb — one MongoDB holds both Chronicle's storage and the applications' read models.
+    // AddCratisChronicleMongoDB starts it as the single-node replica set Chronicle needs for transactions and change streams.
+    // The development image bundles its own MongoDB, so select the slim development image, which does not.
+    readModels = builder.AddCratisChronicleMongoDB();
     chronicle = builder.AddCratisChronicle("chronicle", c => c
-        .WithMongoDB(mongo)
-        .WithHashiCorpVault(vaultEndpoint, "root"));
+            .WithMongoDB(readModels)
+            .WithHashiCorpVault(vaultEndpoint, "root"))
+        .WithImageTag(ChronicleContainerImageTags.DevelopmentSlimTag);
 }
 
-// Pin to stable host ports. Management (workbench) runs on 8080, gRPC on 35000.
+// Pin Chronicle to a stable host port. Port 35000 serves gRPC and, over HTTP/1.1, the Workbench.
 chronicle
     .WaitFor(vault)
-    .WithEndpoint("management", endpoint => endpoint.Port = 8080)
     .WithEndpoint("grpc", endpoint => endpoint.Port = 35000);
 
 // Keycloak for Lending - pre-seeded with librarian and borrower users
@@ -105,11 +108,21 @@ var lending = builder.AddProject<Projects.Lending>("lending")
     .WithEnvironment("Cratis__Chronicle__DefaultSinkTypeId", sinkTypeId)
     .WaitFor(chronicle);
 
+if (readModels is not null)
+{
+    lending.WithEnvironment("Cratis__MongoDB__Server", readModels);
+}
+
 // Members backend - connected to Chronicle; projection sink type flows from DATABASE_TYPE
 var members = builder.AddProject<Projects.Members>("members")
     .WithReference(chronicle)
     .WithEnvironment("Cratis__Chronicle__DefaultSinkTypeId", sinkTypeId)
     .WaitFor(chronicle);
+
+if (readModels is not null)
+{
+    members.WithEnvironment("Cratis__MongoDB__Server", readModels);
+}
 
 // Lending frontend (Vite dev server via yarn, port 9000)
 var lendingFrontend = builder.AddViteApp("lending-frontend", "../Lending")

@@ -98,7 +98,7 @@ dotnet build Arc/React/Arc.React.csproj -c Debug
 dotnet build Arc/React/Arc.React.csproj -c Release -p:CratisProxiesOutputPath=
 
 # Run the focused backend specifications
-dotnet test Arc/React/Arc.React.Specs/Arc.React.Specs.csproj -c Debug
+dotnet run --project Arc/React/Arc.React.Specs/Arc.React.Specs.csproj -c Debug --
 
 # Type-check, lint, specify, and bundle React
 yarn tsc -b Arc/React/.frontend/tsconfig.json

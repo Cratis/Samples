@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <IsPackable>false</IsPackable>
-        <IsTestProject>true</IsTestProject>
+        <OutputType>Exe</OutputType>
         <RootNamespace>Arc.React.Specs</RootNamespace>
         <!-- Cratis Specifications uses snake_case facts, inline attributes, and convention-based teardown. -->
         <NoWarn>$(NoWarn);CA1001;IDE1006;SA1134</NoWarn>
@@ -9,13 +9,8 @@
 
     <ItemGroup>
         <PackageReference Include="Cratis.Fundamentals" />
-        <PackageReference Include="Cratis.Specifications.XUnit" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" />
-        <PackageReference Include="xunit" />
-        <PackageReference Include="xunit.runner.visualstudio">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="Cratis.Specifications.XUnit.v3" />
+        <PackageReference Include="xunit.v3" />
     </ItemGroup>
 
     <ItemGroup>

@@ -32,7 +32,7 @@ Use a plain call for a pure decision. Add a scenario when you need proof that th
 You need only the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repository root:
 
 ```bash
-dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug --
 ```
 
 The runner builds the cart and specs, then reports passed facts with no failures or skips. It does not start the sample API or contact the server configured in `appsettings.json`. Each scenario gets its own state and each spec uses a fresh cart id.

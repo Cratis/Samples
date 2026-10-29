@@ -97,7 +97,7 @@ Build it on its own while exploring, or as part of the root Samples solution:
 
 ```bash
 dotnet build Chronicle/Processing/Processing.csproj
-dotnet test Chronicle/Processing/Processing.Specs/Processing.Specs.csproj
+dotnet run --project Chronicle/Processing/Processing.Specs/Processing.Specs.csproj --
 ```
 
 The focused specifications show the projection binding, reducer fold (including an update before opening), and deterministic reactor result without introducing external infrastructure.

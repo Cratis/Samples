@@ -79,12 +79,12 @@ dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj
 dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
 dotnet build LearningPath/04-Reactors/Reactors.csproj
 dotnet build LearningPath/05-Testing/Testing.csproj
-dotnet test LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug --
 dotnet build LearningPath/06-EventVersioning/EventVersioning.csproj
 dotnet build LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.csproj
-dotnet test LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug --
 dotnet build LearningPath/08-Production/Production.csproj
-dotnet test LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug
+dotnet run --project LearningPath/08-Production/Production.Specs/Production.Specs.csproj --configuration Debug --
 ```
 
 Building and running the specs do not need Chronicle. Running the step applications does.
