@@ -25,13 +25,13 @@ AddBook command
 BookAddedToCatalog event
 ```
 
-The same file contains one accepted example and one rejected example. Screenplay compiles the model; Stage runs those examples as model-level specifications.
+The same file contains one accepted example and two rejected examples: an empty title and an empty author name. Screenplay compiles the model; Stage runs those examples as model-level specifications.
 
 ```mermaid
 flowchart LR
     model[library.play] --> compiler[Screenplay compiler]
     compiler --> stage[Stage specification runner]
-    stage --> result[2 model specifications]
+    stage --> result[3 model specifications]
 ```
 
 ## What is in the model
@@ -39,9 +39,9 @@ flowchart LR
 - `BookId`, `BookTitle`, and `AuthorName` concepts;
 - an `AddBook` state-change slice;
 - required title and author rules;
-- the `BookAddedToCatalog` fact;
+- the `BookAddedToCatalog` fact, declared inline with `produces event`, with typed payload mappings and the command identifier as its default event source;
 - one successful scenario;
-- one expected validation rejection.
+- two expected validation rejections.
 
 Open [`library.play`](./library.play) before running anything—the complete behavior fits on one screen.
 
@@ -67,12 +67,12 @@ dotnet run --no-build --no-restore \
 cat "$RESULTS_PATH"
 ```
 
-The current model compiles without diagnostics and produces two passing specification results.
+The current model compiles without diagnostics and produces three passing specification results.
 
 ## Make it yours
 
 - Add an ISBN concept and require it on `AddBook`.
-- Add a second rejection for an empty author name.
+- Add a specification for a book with both title and author name empty.
 - Introduce a read model after exploring the focused state-change slice.
 - Change an expected event value and watch the specification catch it.
 
