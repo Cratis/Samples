@@ -1,9 +1,9 @@
 // Copyright (c) Cratis. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Globalization;
 using Cratis.Arc.Identity;
 using Cratis.Chronicle.Projections.ModelBound;
-using Cratis.Chronicle.Reactors;
 using Lending.Contracts.Borrowing;
 using Members.Identity;
 using MongoDB.Driver;
@@ -59,7 +59,7 @@ public record BorrowedBook(
     /// <param name="context">The event context.</param>
     /// <returns>The borrowed book record.</returns>
     public static BorrowedBook Reduce(BookLendingRecorded @event, BorrowedBook? current, EventContext context) =>
-        new(@event.BorrowedBy.Value, @event.Isbn, @event.Title, @event.BorrowedBy, @event.BorrowedDate, @event.DueDate);
+        new(Guid.Parse(context.EventSourceId.Value, CultureInfo.InvariantCulture), @event.Isbn, @event.Title, @event.BorrowedBy, @event.BorrowedDate, @event.DueDate);
 
     /// <summary>
     /// Marks the borrowed book as returned when the return is recorded.
@@ -92,34 +92,32 @@ public record BorrowedBook(
 
 /// <summary>
 /// Reactor that consumes book lending and return events from the Lending service outbox
-/// and records them as private events in the Members service event log.
+/// and records them as private events in the Members service event log, on one stream per member and book.
 /// </summary>
-/// <param name="eventStore">The event store for appending private events.</param>
 [Reactor]
-public class IncomingLendingEventsReactor(IEventStore eventStore) : IReactor
+public class IncomingLendingEventsReactor : IReactor
 {
     /// <summary>
     /// Handles BookLended events from the Lending service outbox by recording them locally.
     /// </summary>
     /// <param name="event">The book lended contract event.</param>
     /// <param name="context">The event context.</param>
-    public async Task On(BookLended @event, EventContext context)
-    {
-        var memberId = new MemberId(@event.MemberId);
-        await eventStore.EventLog.Append(
-            @event.MemberId.ToString(),
-            new BookLendingRecorded(@event.BookIsbn, @event.BookTitle, memberId, @event.BorrowedDate, @event.DueDate));
-    }
+    /// <returns>The lending event targeted to the member and book's stream.</returns>
+    [OnceOnly]
+    public EventForEventSourceId On(BookLended @event, EventContext context) =>
+        new(
+            BorrowedBookId.For(new MemberId(@event.MemberId), @event.BookIsbn),
+            new BookLendingRecorded(@event.BookIsbn, @event.BookTitle, new MemberId(@event.MemberId), @event.BorrowedDate, @event.DueDate));
 
     /// <summary>
     /// Handles BookReturnedToLibrary events from the Lending service outbox by recording them locally.
     /// </summary>
     /// <param name="event">The book returned contract event.</param>
     /// <param name="context">The event context.</param>
-    public async Task On(BookReturnedToLibrary @event, EventContext context)
-    {
-        await eventStore.EventLog.Append(
-            @event.MemberId.ToString(),
+    /// <returns>The return event targeted to the same member and book's stream as its lending.</returns>
+    [OnceOnly]
+    public EventForEventSourceId On(BookReturnedToLibrary @event, EventContext context) =>
+        new(
+            BorrowedBookId.For(new MemberId(@event.MemberId), @event.BookIsbn),
             new BookReturnRecorded(@event.BookIsbn, @event.ReturnedDate));
-    }
 }
