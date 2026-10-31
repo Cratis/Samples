@@ -15,7 +15,7 @@ namespace Members.Seeding;
 /// Member IDs are fixed so seed data remains consistent across restarts.
 /// The IDs intentionally align with those used by the Lending service seeder (<c>LibrarySeeding</c>),
 /// so reservations in the Library event store reference the same logical people registered here.
-/// Borrowing record IDs use a separate fixed GUID range (0xc3...) to avoid collisions.
+/// Borrowing record IDs use the same deterministic member and book keys as incoming Lending events.
 /// </remarks>
 public sealed class MembersSeeding : ICanSeedEvents
 {
@@ -23,9 +23,9 @@ public sealed class MembersSeeding : ICanSeedEvents
     static readonly Guid _bobId = new(0xb2000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
     static readonly Guid _carolId = new(0xb2000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
 
-    static readonly Guid _hobbitBorrowingId = new(0xc3000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-    static readonly Guid _foundationBorrowingId = new(0xc3000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2);
-    static readonly Guid _duneBorrowingId = new(0xc3000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
+    static readonly BorrowedBookId _hobbitBorrowingId = BorrowedBookId.For(new MemberId(_aliceId), "978-0547928227");
+    static readonly BorrowedBookId _foundationBorrowingId = BorrowedBookId.For(new MemberId(_aliceId), "978-0553293357");
+    static readonly BorrowedBookId _duneBorrowingId = BorrowedBookId.For(new MemberId(_bobId), "978-0441013593");
 
     /// <inheritdoc/>
     public void Seed(IEventSeedingBuilder builder)

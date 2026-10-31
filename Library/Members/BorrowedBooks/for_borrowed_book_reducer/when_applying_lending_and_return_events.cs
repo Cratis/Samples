@@ -17,7 +17,7 @@ public class when_applying_lending_and_return_events
         var member = MemberId.New();
         var scenario = new ReadModelScenario<BorrowedBook>();
         await scenario.Given
-            .ForEventSource(member)
+            .ForEventSource(BorrowedBookId.For(member, "978-0316389704"))
             .Events(new BookLendingRecorded("978-0316389704", "The Last Wish", member, _borrowed, _due));
 
         scenario.Instance!.Title.ShouldEqual("The Last Wish");
@@ -32,7 +32,7 @@ public class when_applying_lending_and_return_events
         var member = MemberId.New();
         var scenario = new ReadModelScenario<BorrowedBook>();
         await scenario.Given
-            .ForEventSource(member)
+            .ForEventSource(BorrowedBookId.For(member, "978-0316389704"))
             .Events(
                 new BookLendingRecorded("978-0316389704", "The Last Wish", member, _borrowed, _due),
                 new BookReturnRecorded("978-0316389704", _returned));

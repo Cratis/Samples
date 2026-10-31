@@ -115,7 +115,15 @@ Because the command declares read protection On, a caller cannot skip these stat
 
 The availability rule lives in [`BorrowBookValidator`](./Lending/Lending/Borrowing/Borrowing.cs) and [`ReserveBookValidator`](./Lending/Lending/Reserving/Reserving.cs). Each takes `BookAvailability` in its constructor and refuses the command when no copy is available; `Handle()` only returns the event. If an inventory, reservation, borrow or return event for the same book arrives after the read, nothing from the command is written and the caller gets HTTP 400 with a validation result whose reason is `concurrencyViolation` and whose detail is `ReadChanged`. Arc and Chronicle do not re-run the command; the caller reads the new availability and submits again. The guard covers the event types `BookAvailability` is reduced from, for that ISBN. It does not cover revisions or redactions, other event sequences, or services and stores outside Chronicle.
 
-[`when_the_last_copy_is_borrowed_concurrently`](./Lending/Lending/Borrowing/for_BorrowBook/when_the_last_copy_is_borrowed_concurrently.cs) specifies the lost race with `CommandScenario.AppendConcurrently`.
+[`when_the_last_copy_is_borrowed_concurrently`](./Lending/Lending/Borrowing/for_BorrowBook/when_the_last_copy_is_borrowed_concurrently.cs) and [`when_the_last_copy_is_reserved_concurrently`](./Lending/Lending/Reserving/for_ReserveBook/when_the_last_copy_is_reserved_concurrently.cs) specify the lost race with `CommandScenario.AppendConcurrently`.
+
+## Borrowed books in Members
+
+Members records each Lending contract event on a stream keyed by member and book (`BorrowedBookId.For`), and the `BorrowedBook` row id is that stream id.
+A member's books therefore have separate rows, and a return closes only its own book; the seeder uses the same key so returns also reach seeded borrowings.
+A Members store kept from an earlier version holds borrowings on the member's stream, or on the old fixed seed streams, which new returns cannot close.
+The AppHost containers keep no volumes, so a normal restart starts clean; if you kept a Members store from an earlier version, remove that store or its container and start fresh.
+The contracts carry no copy or borrowing id, so two simultaneous copies of the same ISBN for one member share a row.
 
 ## Build and verify
 
