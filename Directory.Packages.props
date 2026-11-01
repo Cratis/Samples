@@ -4,28 +4,28 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cratis.Fundamentals" Version="7.30.0" />
-    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.30.0" />
-    <PackageVersion Include="Cratis" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.Chronicle.Testing" Version="22.153.1" />
-    <PackageVersion Include="Cratis.Arc.Screenplay.Embedded" Version="22.153.1" />
+    <PackageVersion Include="Cratis.Fundamentals" Version="7.30.2" />
+    <PackageVersion Include="Cratis.Metrics.Roslyn" Version="7.30.2" />
+    <PackageVersion Include="Cratis" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.MongoDB" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.ProxyGenerator.Build" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.Swagger" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.Chronicle" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.Chronicle.Testing" Version="22.154.2" />
+    <PackageVersion Include="Cratis.Arc.Screenplay.Embedded" Version="22.154.2" />
     <PackageVersion Include="Aspire.AppHost.Sdk" Version="13.4.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.6.1" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="13.6.1" />
     <PackageVersion Include="Cratis.AuthProxy.Aspire" Version="2.39.0" />
-    <PackageVersion Include="Cratis.Chronicle" Version="19.114.0" />
-    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.114.0" />
-    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.114.0" />
-    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.114.0" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.114.0" />
-    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration.v3" Version="19.114.0" />
+    <PackageVersion Include="Cratis.Chronicle" Version="19.115.2" />
+    <PackageVersion Include="Cratis.Chronicle.AspNetCore" Version="19.115.2" />
+    <PackageVersion Include="Cratis.Chronicle.Aspire" Version="19.115.2" />
+    <PackageVersion Include="Cratis.Chronicle.Testing" Version="19.115.2" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration" Version="19.115.2" />
+    <PackageVersion Include="Cratis.Chronicle.XUnit.Integration.v3" Version="19.115.2" />
     <PackageVersion Include="Marten" Version="9.49.0" />
     <PackageVersion Include="WolverineFx" Version="6.49.0" />
     <PackageVersion Include="WolverineFx.Marten" Version="6.49.0" />
@@ -45,11 +45,11 @@
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.299" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
     <!-- Testing & Specifications -->
-    <PackageVersion Include="Cratis.Specifications" Version="5.1.0" />
-    <PackageVersion Include="Cratis.Specifications.XUnit.v3" Version="5.1.0" />
+    <PackageVersion Include="Cratis.Specifications" Version="5.2.0" />
+    <PackageVersion Include="Cratis.Specifications.XUnit.v3" Version="5.2.0" />
     <PackageVersion Include="xunit.v3" Version="4.0.2" />
     <PackageVersion Include="xunit.v3.mtp-off" Version="4.0.2" />
-    <PackageVersion Include="Cratis.Specifications.XUnit" Version="5.1.0" />
+    <PackageVersion Include="Cratis.Specifications.XUnit" Version="5.2.0" />
     <PackageVersion Include="Testcontainers" Version="4.16.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
