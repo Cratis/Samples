@@ -9,8 +9,8 @@ view the model.
 ## Versions and prerequisites
 
 - .NET SDK **10.0.401**; the repository permits .NET 10 feature-band updates.
-- Marten **9.45.0**; WolverineFx, WolverineFx.Marten, WolverineFx.Http, and
-  WolverineFx.RuntimeCompilation **6.45.0**.
+- Marten **9.49.0**; WolverineFx, WolverineFx.Marten, WolverineFx.Http, and
+  WolverineFx.RuntimeCompilation **6.49.0**.
   These stable NuGet versions are pinned in `../../Directory.Packages.props`.
 - Cratis CLI **3.24.0**, restored by the commands below.
 - For the first viewing option: VS Code with extension **cratis.screenplay 4.48.0**.
