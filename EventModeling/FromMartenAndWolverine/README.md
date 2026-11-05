@@ -6,13 +6,11 @@ Screenplay model from its C# source, inspect what was recovered, and compare it
 with a separately reviewed model. You do not need PostgreSQL to generate or
 view the model.
 
-Marten and Wolverine are projects of JasperFx Software; this sample is not affiliated with or endorsed by JasperFx.
-
 ## Versions and prerequisites
 
 - .NET SDK **10.0.401**; the repository permits .NET 10 feature-band updates.
-- Marten **9.45.0**; WolverineFx, WolverineFx.Marten, WolverineFx.Http, and
-  WolverineFx.RuntimeCompilation **6.45.0**.
+- Marten **9.49.0**; WolverineFx, WolverineFx.Marten, WolverineFx.Http, and
+  WolverineFx.RuntimeCompilation **6.49.0**.
   These stable NuGet versions are pinned in `../../Directory.Packages.props`.
 - Cratis CLI **3.24.0**, restored by the commands below.
 - For the first viewing option: VS Code with extension **cratis.screenplay 4.48.0**.
@@ -153,8 +151,7 @@ Use a new UUID or reset before repeating the planning request.
 
 The sample omits authentication, input validation, and production concurrency,
 retry, and operational policies. It uses local-only demonstration credentials.
-Do not deploy it as a production template. No JasperFx sample application was
-copied or adapted to create it.
+Do not deploy it as a production template.
 
 Stop the app with Ctrl+C, then remove **this sample's data**:
 
