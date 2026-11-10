@@ -67,10 +67,5 @@ chronicle-data/
 # Commit the npm lockfile for repeatable frontend CI installs.
 !package-lock.json
 
-# Recreated by `dotnet build` before the frontend build.
-Authors/Author.ts
-Authors/RegisterAuthor.ts
-Authors/index.ts
-
 # TypeScript incremental build state.
 *.tsbuildinfo

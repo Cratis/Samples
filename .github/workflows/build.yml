@@ -39,8 +39,8 @@ jobs:
           dotnet screenplay test shop.play
           dotnet cratis render shop.play --target cratis --name Shop --project-name Shop.Rendered --destination ./Rendered --check
 
-      - name: Build Debug and generate proxies
-        run: dotnet build Samples.slnx --configuration Debug --no-restore
+      - name: Build Debug
+        run: dotnet build Samples.slnx --configuration Debug --no-restore -p:CratisProxiesOutputPath=
 
       - name: Run focused Debug specifications
         shell: bash
@@ -99,8 +99,8 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: Generate Capstone proxies
-        run: dotnet build Capstone/Capstone.csproj --configuration Debug
+      - name: Build Capstone
+        run: dotnet build Capstone/Capstone.csproj --configuration Debug -p:CratisProxiesOutputPath=
 
       - name: Install dependencies
         working-directory: Capstone
