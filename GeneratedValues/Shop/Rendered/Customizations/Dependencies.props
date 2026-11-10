@@ -1,0 +1,6 @@
+<Project>
+  <!-- The rendered project is generated, so its target framework is overridden here, in the imported customization. -->
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+  </PropertyGroup>
+</Project>
