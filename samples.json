@@ -55,7 +55,7 @@
       "level": "Start here",
       "products": ["Chronicle"],
       "runtime": ["ASP.NET Core", "Chronicle"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Configure one named Chronicle event store",
         "Use ConceptAs and EventSourceId for clear domain values and identities",
@@ -110,7 +110,7 @@
       "level": "Start here",
       "products": ["Chronicle", "Arc"],
       "runtime": ["Console", "ASP.NET Core", "Chronicle"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Append events to the event log and read one event source's history back",
         "Declare a projection with model-bound attributes and read the read model it builds",
@@ -152,7 +152,7 @@
       "level": "Focused",
       "products": ["Chronicle", "Fundamentals"],
       "runtime": ["ASP.NET Core", "Chronicle"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Use ConceptAs values and an EventSourceId identity throughout the model",
         "Compare a model-bound projection with a prior-state reducer",
@@ -179,7 +179,7 @@
       "level": "Focused",
       "products": ["Chronicle", "Fundamentals"],
       "runtime": ["In-process read-model scenarios", "ASP.NET Core", "Chronicle Workbench"],
-      "prerequisites": [".NET 10 SDK", "Docker and a browser only for the optional Workbench preview"],
+      "prerequisites": [".NET 11 SDK", "Docker and a browser only for the optional Workbench preview"],
       "highlights": [
         "Compare model-bound attributes, a fluent projection, a stream-local reducer, and a PDL declaration",
         "Join product names into keyed order lines and update the root timestamp from child-only events",
@@ -207,7 +207,7 @@
       "level": "Focused",
       "products": ["Arc", "Components", "Fundamentals"],
       "runtime": ["ASP.NET Core", "React"],
-      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "Yarn"],
+      "prerequisites": [".NET 11 SDK", "Node.js 23 or newer", "Yarn"],
       "highlights": [
         "Use ConceptAs values and validators in a model-bound Arc command",
         "Generate TypeScript command, query, and read-model contracts",
@@ -235,7 +235,7 @@
       "level": "Focused",
       "products": ["Arc", "Chronicle", "Components", "Fundamentals"],
       "runtime": ["ASP.NET Core", "React", "Chronicle", "MongoDB"],
-      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "npm", "Docker"],
+      "prerequisites": [".NET 11 SDK", "Node.js 23 or newer", "npm", "Docker"],
       "highlights": [
         "Return AuthorRegistered from the RegisterAuthor command",
         "Project AuthorRegistered into an observable Author read model",
@@ -263,7 +263,7 @@
       "level": "Focused",
       "products": ["Arc", "Chronicle", "Fundamentals"],
       "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Resolve the tenant from Arc's standard header",
         "Map tenant context to Chronicle namespaces",
@@ -290,7 +290,7 @@
       "level": "Advanced",
       "products": ["Chronicle", "Fundamentals"],
       "runtime": ["ASP.NET Core", "Chronicle"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Keep Orders and Fulfillment in separate event stores",
         "Forward one narrow contract through source outbox and target inbox",
@@ -317,7 +317,7 @@
       "level": "Start here",
       "products": ["Chronicle"],
       "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
-      "prerequisites": [".NET 10 SDK", "Docker", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "curl"],
       "highlights": [
         "Configure Chronicle through ASP.NET Core dependency injection",
         "Register reducers, projections, reactors, and query services",
@@ -343,7 +343,7 @@
       "level": "Focused",
       "products": ["Chronicle", "Cratis CLI", "Fundamentals"],
       "runtime": ["ASP.NET Core", "Chronicle", "CLI", "Workbench"],
-      "prerequisites": [".NET 10 SDK", "Docker", "Cratis CLI", "curl"],
+      "prerequisites": [".NET 11 SDK", "Docker", "Cratis CLI", "curl"],
       "highlights": [
         "Use typed probe identity and name values",
         "Create one stable reactor failure",
@@ -370,7 +370,7 @@
       "level": "Focused",
       "products": ["Arc", "Chronicle", "Screenplay", "Cratis CLI"],
       "runtime": ["ASP.NET Core", "Chronicle", "MongoDB"],
-      "prerequisites": [".NET 10 SDK", "Docker", "Browser"],
+      "prerequisites": [".NET 11 SDK", "Docker", "Browser"],
       "highlights": [
         "Map the viewer explicitly in Development",
         "Explore commands, events, and an orders projection",
@@ -396,7 +396,7 @@
       "level": "Focused",
       "products": ["Screenplay", "Cratis CLI"],
       "runtime": ["ASP.NET Core", "Marten", "Wolverine", "PostgreSQL"],
-      "prerequisites": [".NET 10 SDK", "VS Code or an MCP Apps-capable chat client or a browser"],
+      "prerequisites": [".NET 11 SDK", "VS Code or an MCP Apps-capable chat client or a browser"],
       "highlights": [
         "Generate with the critter-stack provider without starting PostgreSQL",
         "Compare unchanged generated output with a separately reviewed model",
@@ -422,7 +422,7 @@
       "level": "Focused",
       "products": ["Screenplay", "Stage"],
       "runtime": ["Screenplay compiler", "Stage specification runner"],
-      "prerequisites": [".NET 10 SDK", "Built Screenplay checkout", "Built Stage checkout"],
+      "prerequisites": [".NET 11 SDK", "Built Screenplay checkout", "Built Stage checkout"],
       "highlights": [
         "Describe concepts, a command, validation, and an event in one model",
         "Keep accepted and rejected examples beside the behavior",
@@ -449,7 +449,7 @@
       "level": "Focused",
       "products": ["Screenplay", "Stage", "Arc", "Fundamentals"],
       "runtime": ["Screenplay compiler and evaluator", "Cratis CLI renderer", "Arc command scenarios"],
-      "prerequisites": [".NET 10 SDK"],
+      "prerequisites": [".NET 11 SDK"],
       "highlights": [
         "Choose a generation strategy per concept: prefixed ULID, TypeID, NanoID and random bytes",
         "Keep generated identifiers out of the request with [GeneratedValue] Handle parameters",
@@ -481,7 +481,7 @@
       "level": "Showcase",
       "products": ["Arc", "Chronicle", "Components"],
       "runtime": ["ASP.NET Core", "React", "Aspire", "Chronicle", "MongoDB"],
-      "prerequisites": [".NET 10 SDK", "Node.js 23 or newer", "Corepack/Yarn", "Docker", "Bash"],
+      "prerequisites": [".NET 11 SDK", "Node.js 23 or newer", "Corepack/Yarn", "Docker", "Bash"],
       "highlights": [
         "Organize behavior as cohesive vertical slices",
         "Generate TypeScript contracts from backend commands and queries",

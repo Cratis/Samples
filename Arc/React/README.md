@@ -42,7 +42,7 @@ The write path stores current state directly. Arc still owns the command/query b
 
 ## Prerequisites
 
-Requires .NET 10, Node.js 23 or newer, and the repository-pinned Yarn 4.5.3. Install the frontend dependencies once from the Samples root:
+Requires .NET 11, Node.js 23 or newer, and the repository-pinned Yarn 4.5.3. Install the frontend dependencies once from the Samples root:
 
 ```bash
 corepack enable

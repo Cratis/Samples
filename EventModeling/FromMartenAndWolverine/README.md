@@ -8,7 +8,7 @@ view the model.
 
 ## Versions and prerequisites
 
-- .NET SDK **10.0.401**; the repository permits .NET 10 feature-band updates.
+- .NET SDK **11.0.100**; the repository permits .NET 11 feature-band updates.
 - Marten **9.49.0**; WolverineFx, WolverineFx.Marten, WolverineFx.Http, and
   WolverineFx.RuntimeCompilation **6.49.0**.
   These stable NuGet versions are pinned in `../../Directory.Packages.props`.

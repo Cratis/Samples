@@ -29,7 +29,7 @@ Use a plain call for a pure decision. Add a scenario when you need proof that th
 
 ## Run it
 
-You need only the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repository root:
+You need only the [.NET 11 SDK](https://dotnet.microsoft.com/download). From the repository root:
 
 ```bash
 dotnet run --project LearningPath/05-Testing/Testing.Specs/Testing.Specs.csproj --configuration Debug --

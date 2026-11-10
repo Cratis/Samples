@@ -31,7 +31,7 @@ It adds reducers, projections, reactors, MongoDB-backed views, and focused HTTP 
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download)
 - [Docker](https://www.docker.com/) or another compatible container runtime
 - `curl`
 

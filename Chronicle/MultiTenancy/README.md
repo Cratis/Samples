@@ -36,7 +36,7 @@ flowchart LR
 
 ## Run it
 
-Prerequisites: the repository's .NET 10 SDK, Docker, and `curl`.
+Prerequisites: the repository's .NET 11 SDK, Docker, and `curl`.
 
 From the repository root, start the Chronicle development container. It exposes Chronicle on `35000` and its embedded MongoDB on `27017`:
 

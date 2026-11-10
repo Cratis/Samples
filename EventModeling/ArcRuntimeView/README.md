@@ -6,7 +6,7 @@ The board describes the application's structure; it is not a live event-log view
 
 ## Prerequisites
 
-- .NET SDK **10.0.401** (the repository's `global.json` permits .NET 10 feature-band updates).
+- .NET SDK **11.0.100** (the repository's `global.json` permits .NET 11 feature-band updates).
 - Docker with Compose v2 for the running-app path.
 - A browser. No Node.js or frontend build is needed.
 
