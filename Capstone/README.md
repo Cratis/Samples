@@ -13,6 +13,6 @@ npm ci
 npm run build
 ```
 
-The Debug build generates `Authors/RegisterAuthor.ts`, `Authors/Author.ts`, and `Authors/index.ts` from the C# slice; do not edit the proxies. In separate terminals, run `dotnet run --no-launch-profile` and `npm run dev`, then visit http://localhost:9000. Click **Add author**, enter a name, and submit it. The new name should appear in the list after Chronicle processes `AuthorRegistered` into the MongoDB read model. The template's Chronicle and MongoDB development settings are in `appsettings.json`.
+The Debug build generates `Authors/RegisterAuthor.ts`, `Authors/Author.ts`, and `Authors/index.ts` from the C# slice; commit them with the C# change and do not edit them by hand. CI does not regenerate them. In separate terminals, run `dotnet run --no-launch-profile` and `npm run dev`, then visit http://localhost:9000. Click **Add author**, enter a name, and submit it. The new name should appear in the list after Chronicle processes `AuthorRegistered` into the MongoDB read model. The template's Chronicle and MongoDB development settings are in `appsettings.json`.
 
 To start over with empty local sample data, stop the app and run `docker compose down -v` **from this directory**. This deletes the Compose project's container data; do not run it against other projects. The template's development credentials and exposed ports are not production settings. This sample does not model other library operations, authentication, or deployment. The CI build checks compilation and proxy generation, not a live Chronicle/MongoDB interaction.
