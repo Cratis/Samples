@@ -33,7 +33,7 @@ Authorization runs **before validation**, then Arc resolves handler inputs and c
 
 ## Prove the rules without a server
 
-You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). From the repository root:
+You need the [.NET 11 SDK](https://dotnet.microsoft.com/download). From the repository root:
 
 ```bash
 dotnet run --project LearningPath/07-ValidationAndAuthorization/ValidationAndAuthorization.Specs/ValidationAndAuthorization.Specs.csproj --configuration Debug --

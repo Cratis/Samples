@@ -44,7 +44,7 @@ The steps don't share code. Each one copies the cart types it needs, so you can 
 
 ## Before you start
 
-You need the [.NET 10 SDK](https://dotnet.microsoft.com/download), [Docker](https://www.docker.com/), and `curl`.
+You need the [.NET 11 SDK](https://dotnet.microsoft.com/download), [Docker](https://www.docker.com/), and `curl`.
 
 Running the step applications talks to a local Chronicle server. Step 05, step 07, and step 08's specs need only the .NET SDK: no Docker, API, or Chronicle server. Step 08 runs its own production-shaped Compose stack; follow its README instead of starting the development server below. For steps 01–07, start the development image once and leave it running while you work through the steps:
 

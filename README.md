@@ -60,7 +60,7 @@ Choose the path matching what you want to learn. The focused samples keep one id
 
 ### You will need
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download)
 - [Docker](https://www.docker.com/) or another compatible container runtime
 - Node.js 23 or newer for the React applications
 - Corepack/Yarn for frontend work

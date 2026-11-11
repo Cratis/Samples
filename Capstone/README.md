@@ -4,7 +4,7 @@ A small Cratis library slice based on the MongoDB choice of `dotnet new cratis`.
 
 ## Run locally
 
-Prerequisites: .NET 10 SDK, Node.js 23 or newer, npm, Docker with Compose. From this directory:
+Prerequisites: .NET 11 SDK, Node.js 23 or newer, npm, Docker with Compose. From this directory:
 
 ```sh
 docker compose up -d

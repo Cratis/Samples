@@ -82,7 +82,7 @@ Both forms process an order's stream: neither can join `ProductRegistered` or `P
 
 ## Run the specifications — no Docker
 
-Install the [.NET 10 SDK](https://dotnet.microsoft.com/download), then run from the repository root:
+Install the [.NET 11 SDK](https://dotnet.microsoft.com/download), then run from the repository root:
 
 ```bash
 dotnet run --project Chronicle/ProjectionStyles/ProjectionStyles.Specs/ProjectionStyles.Specs.csproj --configuration Debug --

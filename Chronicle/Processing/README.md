@@ -43,7 +43,7 @@ The domain uses `WorkItemId : EventSourceId<Guid>` for stream identity and small
 
 ## Prerequisites
 
-- .NET 10 SDK, selected by the repository's `global.json`.
+- .NET 11 SDK, selected by the repository's `global.json`.
 - Docker with Compose support.
 - The existing Chronicle development container, which provides the local kernel and read-model sink.
 

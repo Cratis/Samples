@@ -28,7 +28,7 @@ There is no projection, database abstraction, frontend, or messaging layer in th
 
 ## Run it
 
-You need the .NET 10 SDK, Docker, and `curl`.
+You need the .NET 11 SDK, Docker, and `curl`.
 
 Start Chronicle:
 

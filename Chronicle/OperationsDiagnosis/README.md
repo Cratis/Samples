@@ -28,7 +28,7 @@ The model stays tiny: `ProbeId : EventSourceId<Guid>`, `ProbeName : ConceptAs<st
 
 ## Prerequisites
 
-- .NET 10 SDK
+- .NET 11 SDK
 - Docker with Compose support
 - `curl`
 - A Cratis CLI version supporting the Chronicle commands shown below

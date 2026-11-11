@@ -37,7 +37,7 @@ The contract carries only what Fulfillment needs. The buyer reference remains pr
 
 ## Run it
 
-You need the .NET 10 SDK, Docker, and `curl`.
+You need the .NET 11 SDK, Docker, and `curl`.
 
 Start Chronicle:
 

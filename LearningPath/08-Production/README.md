@@ -40,7 +40,7 @@ Package versions are pinned in [Directory.Packages.props](../../Directory.Packag
 
 ## Start the stack
 
-You need [Docker Compose](https://docs.docker.com/compose/install/), [OpenSSL](https://www.openssl.org/), Bash, `curl`, and [jq](https://jqlang.org/download/). Builds/specs outside Docker also need the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+You need [Docker Compose](https://docs.docker.com/compose/install/), [OpenSSL](https://www.openssl.org/), Bash, `curl`, and [jq](https://jqlang.org/download/). Builds/specs outside Docker also need the [.NET 11 SDK](https://dotnet.microsoft.com/download).
 
 From the repository root:
 
