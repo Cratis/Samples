@@ -10,10 +10,10 @@
     "preview": "vite preview --config .frontend/vite.config.ts"
   },
   "dependencies": {
-    "@cratis/arc": "^22.185.1",
-    "@cratis/arc.react": "^22.185.1",
-    "@cratis/arc.vite": "^22.185.1",
-    "@cratis/components": "^4.40.0",
+    "@cratis/arc": "^22.186.2",
+    "@cratis/arc.react": "^22.186.2",
+    "@cratis/arc.vite": "^22.186.2",
+    "@cratis/components": "^4.40.1",
     "@cratis/fundamentals": "^7.34.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@cratis/eslint-config": "^7.34.0",
-    "@cratis/eslint-plugin-arc": "^22.185.1",
-    "@cratis/eslint-plugin-components": "^4.40.0",
+    "@cratis/eslint-plugin-arc": "^22.186.2",
+    "@cratis/eslint-plugin-components": "^4.40.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
