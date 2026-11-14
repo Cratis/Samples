@@ -1,0 +1,824 @@
+diff --git a/LearningPath/05-EventVersioning/AddItemToCart.cs b/LearningPath/05-EventVersioning/AddItemToCart.cs
+new file mode 100644
+index 0000000..123202e
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/AddItemToCart.cs
+@@ -0,0 +1,23 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Arc.Commands.ModelBound;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Adds a product to a shopping cart.
++/// </summary>
++/// <param name="CartId">The cart to add to. Arc uses it as the event source id for the returned event.</param>
++/// <param name="Product">The product to add.</param>
++/// <param name="Quantity">How many to add.</param>
++/// <param name="UnitPrice">The unit price recorded when the item is added.</param>
++[Command]
++public record AddItemToCart(CartId CartId, ProductName Product, Quantity Quantity, Price UnitPrice)
++{
++    /// <summary>
++    /// Handles the command by deciding which event happened.
++    /// </summary>
++    /// <returns>The event Arc appends to the cart's event source.</returns>
++    public ItemAddedToCart Handle() => new(Product, Quantity, UnitPrice);
++}
+diff --git a/LearningPath/05-EventVersioning/CartId.cs b/LearningPath/05-EventVersioning/CartId.cs
+new file mode 100644
+index 0000000..7b5f36f
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/CartId.cs
+@@ -0,0 +1,26 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents the identity of a shopping cart, and with it the event source its events belong to.
++/// </summary>
++/// <param name="Value">The underlying identifier.</param>
++public record CartId(Guid Value) : EventSourceId<Guid>(Value)
++{
++    /// <summary>
++    /// Converts a <see cref="Guid"/> to a <see cref="CartId"/>.
++    /// </summary>
++    /// <param name="value">The value to convert.</param>
++    /// <returns>The strongly typed cart identifier.</returns>
++    public static implicit operator CartId(Guid value) => new(value);
++
++    /// <summary>
++    /// Creates a new cart identifier.
++    /// </summary>
++    /// <returns>A new <see cref="CartId"/>.</returns>
++    public static CartId New() => new(Guid.NewGuid());
++}
+diff --git a/LearningPath/05-EventVersioning/CartLine.cs b/LearningPath/05-EventVersioning/CartLine.cs
+new file mode 100644
+index 0000000..33928c1
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/CartLine.cs
+@@ -0,0 +1,28 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Keys;
++using Cratis.Chronicle.Projections;
++using Cratis.Chronicle.Projections.ModelBound;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents one product's quantity and last recorded unit price in a cart.
++/// </summary>
++/// <param name="Product">The product identifying this line.</param>
++/// <param name="Quantity">The running quantity, including additions and removals.</param>
++/// <param name="UnitPrice">The price from the most recent addition, or not recorded for generation 1.</param>
++[NoAutoMap]
++public record CartLine(
++    [Key]
++    [SetFrom<ItemAddedToCart>(nameof(ItemAddedToCart.Product))]
++    [SetFrom<ItemRemovedFromCart>(nameof(ItemRemovedFromCart.Product))]
++    ProductName Product,
++
++    [AddFrom<ItemAddedToCart>(nameof(ItemAddedToCart.Quantity))]
++    [SubtractFrom<ItemRemovedFromCart>(nameof(ItemRemovedFromCart.Quantity))]
++    int Quantity,
++
++    [SetFrom<ItemAddedToCart>(nameof(ItemAddedToCart.UnitPrice))]
++    Price UnitPrice);
+diff --git a/LearningPath/05-EventVersioning/CartSummary.cs b/LearningPath/05-EventVersioning/CartSummary.cs
+new file mode 100644
+index 0000000..43dce4b
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/CartSummary.cs
+@@ -0,0 +1,45 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Arc.Queries.ModelBound;
++using Cratis.Chronicle.Events;
++using Cratis.Chronicle.Projections.ModelBound;
++using Cratis.Chronicle.ReadModels;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents the current state of a shopping cart, projected from its events and served by an Arc query.
++/// </summary>
++/// <param name="Id">The cart's identity.</param>
++/// <param name="ItemCount">The number of items currently in the cart.</param>
++/// <param name="CheckedOut">Whether the cart has been checked out.</param>
++/// <param name="ConfirmationSent">Whether the order confirmation has been sent.</param>
++/// <param name="Lines">The quantities and last recorded unit prices, grouped by product.</param>
++[ReadModel]
++public record CartSummary(
++    CartId Id,
++
++    [AddFrom<ItemAddedToCart>(nameof(ItemAddedToCart.Quantity))]
++    [SubtractFrom<ItemRemovedFromCart>(nameof(ItemRemovedFromCart.Quantity))]
++    int ItemCount,
++
++    [SetValue<CartCheckedOut>(true)]
++    bool CheckedOut,
++
++    [SetValue<OrderConfirmationSent>(true)]
++    bool ConfirmationSent,
++
++    [ChildrenFrom<ItemAddedToCart>(key: nameof(ItemAddedToCart.Product))]
++    [ChildrenFrom<ItemRemovedFromCart>(key: nameof(ItemRemovedFromCart.Product))]
++    IEnumerable<CartLine> Lines)
++{
++    /// <summary>
++    /// Gets the current state of one cart.
++    /// </summary>
++    /// <param name="id">The cart to get.</param>
++    /// <param name="readModels">Chronicle's read models, resolved by Arc from dependency injection.</param>
++    /// <returns>The cart's current state.</returns>
++    public static Task<CartSummary> ById(CartId id, IReadModels readModels) =>
++        readModels.GetInstanceById<CartSummary>((EventSourceId)id);
++}
+diff --git a/LearningPath/05-EventVersioning/CheckOutCart.cs b/LearningPath/05-EventVersioning/CheckOutCart.cs
+new file mode 100644
+index 0000000..1102e42
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/CheckOutCart.cs
+@@ -0,0 +1,20 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Arc.Commands.ModelBound;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Checks out a shopping cart.
++/// </summary>
++/// <param name="CartId">The cart to check out.</param>
++[Command]
++public record CheckOutCart(CartId CartId)
++{
++    /// <summary>
++    /// Handles the command by deciding which event happened.
++    /// </summary>
++    /// <returns>The event Arc appends to the cart's event source.</returns>
++    public CartCheckedOut Handle() => new();
++}
+diff --git a/LearningPath/05-EventVersioning/EventVersioning.csproj b/LearningPath/05-EventVersioning/EventVersioning.csproj
+new file mode 100644
+index 0000000..780e713
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/EventVersioning.csproj
+@@ -0,0 +1,11 @@
++<Project Sdk="Microsoft.NET.Sdk.Web">
++    <PropertyGroup>
++        <RootNamespace>LearningPath.EventVersioning</RootNamespace>
++    </PropertyGroup>
++
++    <ItemGroup>
++        <PackageReference Include="Cratis" />
++        <PackageReference Include="Cratis.Chronicle" />
++        <PackageReference Include="Cratis.Chronicle.AspNetCore" />
++    </ItemGroup>
++</Project>
+diff --git a/LearningPath/05-EventVersioning/Events.cs b/LearningPath/05-EventVersioning/Events.cs
+new file mode 100644
+index 0000000..706f1bc
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/Events.cs
+@@ -0,0 +1,35 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Records that a product was added to a shopping cart.
++/// </summary>
++/// <param name="Product">The product that was added.</param>
++/// <param name="Quantity">How many were added.</param>
++/// <param name="UnitPrice">The unit price recorded at the time of the addition.</param>
++[EventType(generation: 2)]
++public record ItemAddedToCart(ProductName Product, Quantity Quantity, Price UnitPrice);
++
++/// <summary>
++/// Records that a product was removed from a shopping cart.
++/// </summary>
++/// <param name="Product">The product that was removed.</param>
++/// <param name="Quantity">How many were removed.</param>
++[EventType]
++public record ItemRemovedFromCart(ProductName Product, Quantity Quantity);
++
++/// <summary>
++/// Records that a shopping cart was checked out. The fact that it happened is the whole story.
++/// </summary>
++[EventType]
++public record CartCheckedOut;
++
++/// <summary>
++/// Records that an order confirmation was sent after a shopping cart was checked out.
++/// </summary>
++[EventType]
++public record OrderConfirmationSent;
+diff --git a/LearningPath/05-EventVersioning/IOrderConfirmations.cs b/LearningPath/05-EventVersioning/IOrderConfirmations.cs
+new file mode 100644
+index 0000000..a773e5a
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/IOrderConfirmations.cs
+@@ -0,0 +1,16 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Defines how order confirmations are sent.
++/// </summary>
++public interface IOrderConfirmations
++{
++    /// <summary>
++    /// Sends a confirmation for a checked-out shopping cart.
++    /// </summary>
++    /// <param name="cartId">The cart that was checked out.</param>
++    void Send(CartId cartId);
++}
+diff --git a/LearningPath/05-EventVersioning/ItemAddedToCartMigration.cs b/LearningPath/05-EventVersioning/ItemAddedToCartMigration.cs
+new file mode 100644
+index 0000000..bbf3cef
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/ItemAddedToCartMigration.cs
+@@ -0,0 +1,23 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events.Migrations;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Describes how the same addition fact is represented before and after unit prices were recorded.
++/// </summary>
++public class ItemAddedToCartMigration : EventTypeMigration<ItemAddedToCart, ItemAddedToCartV1>
++{
++    /// <inheritdoc/>
++    public override void Upcast(IEventMigrationBuilder<ItemAddedToCart, ItemAddedToCartV1> builder) =>
++        builder.Properties(properties => properties.DefaultValue(@event => @event.UnitPrice, Price.NotRecorded));
++
++    /// <inheritdoc/>
++    public override void Downcast(IEventMigrationBuilder<ItemAddedToCartV1, ItemAddedToCart> builder)
++    {
++        // Chronicle walks the target schema: Product and Quantity survive; UnitPrice is not in generation 1.
++        // No property operations are needed to drop it.
++    }
++}
+diff --git a/LearningPath/05-EventVersioning/ItemAddedToCartV1.cs b/LearningPath/05-EventVersioning/ItemAddedToCartV1.cs
+new file mode 100644
+index 0000000..4a5801b
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/ItemAddedToCartV1.cs
+@@ -0,0 +1,14 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents the original addition event, before the shop recorded unit prices.
++/// </summary>
++/// <param name="Product">The product that was added.</param>
++/// <param name="Quantity">How many were added.</param>
++[EventTypeGenerationFor<ItemAddedToCart>(1)]
++public record ItemAddedToCartV1(ProductName Product, Quantity Quantity);
+diff --git a/LearningPath/05-EventVersioning/OrderConfirmations.cs b/LearningPath/05-EventVersioning/OrderConfirmations.cs
+new file mode 100644
+index 0000000..f07281b
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/OrderConfirmations.cs
+@@ -0,0 +1,13 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Prints order confirmations in the sample instead of sending real email.
++/// </summary>
++public class OrderConfirmations : IOrderConfirmations
++{
++    /// <inheritdoc/>
++    public void Send(CartId cartId) => Console.WriteLine($"Order confirmation sent for cart {cartId.Value} (sample only; no email sent).");
++}
+diff --git a/LearningPath/05-EventVersioning/Price.cs b/LearningPath/05-EventVersioning/Price.cs
+new file mode 100644
+index 0000000..89a8229
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/Price.cs
+@@ -0,0 +1,25 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Concepts;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents the unit price recorded when a product is added to a cart.
++/// </summary>
++/// <param name="Value">The price amount.</param>
++public record Price(decimal Value) : ConceptAs<decimal>(Value)
++{
++    /// <summary>
++    /// Gets the sentinel used when the event did not record a price, not a claim that the product was free.
++    /// </summary>
++    public static readonly Price NotRecorded = new(0m);
++
++    /// <summary>
++    /// Converts an amount to a price.
++    /// </summary>
++    /// <param name="value">The amount to convert.</param>
++    /// <returns>The price.</returns>
++    public static implicit operator Price(decimal value) => new(value);
++}
+diff --git a/LearningPath/05-EventVersioning/ProductName.cs b/LearningPath/05-EventVersioning/ProductName.cs
+new file mode 100644
+index 0000000..63f3382
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/ProductName.cs
+@@ -0,0 +1,20 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Concepts;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents the name of a product placed in a shopping cart.
++/// </summary>
++/// <param name="Value">The product name.</param>
++public record ProductName(string Value) : ConceptAs<string>(Value)
++{
++    /// <summary>
++    /// Converts text to a product name.
++    /// </summary>
++    /// <param name="value">The text to convert.</param>
++    /// <returns>The product name.</returns>
++    public static implicit operator ProductName(string value) => new(value);
++}
+diff --git a/LearningPath/05-EventVersioning/Program.cs b/LearningPath/05-EventVersioning/Program.cs
+new file mode 100644
+index 0000000..f2a6d56
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/Program.cs
+@@ -0,0 +1,29 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.EventSequences;
++using LearningPath.EventVersioning.Carts;
++
++var builder = WebApplication.CreateBuilder(args);
++
++// Arc for commands and queries, Chronicle for the events underneath.
++// The event store, Chronicle connection, and API routes are configured in appsettings.json.
++builder.AddCratis();
++
++await using var app = builder.Build();
++app.UseCratis();
++
++// Start Chronicle's connection and artifact registration before appending the learning history.
++await app.StartAsync();
++await using (var scope = app.Services.CreateAsyncScope())
++{
++    if (!await SeedCartHistory.Ensure(scope.ServiceProvider.GetRequiredService<IEventLog>()))
++    {
++        await Console.Error.WriteLineAsync("Chronicle rejected the generation-1 learning history. Check the Chronicle server.");
++        await app.StopAsync();
++        return 1;
++    }
++}
++
++await app.WaitForShutdownAsync();
++return 0;
+diff --git a/LearningPath/05-EventVersioning/Properties/launchSettings.json b/LearningPath/05-EventVersioning/Properties/launchSettings.json
+new file mode 100644
+index 0000000..9f74006
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/Properties/launchSettings.json
+@@ -0,0 +1,13 @@
++{
++  "profiles": {
++    "EventVersioning": {
++      "commandName": "Project",
++      "dotnetRunMessages": true,
++      "launchBrowser": false,
++      "applicationUrl": "http://localhost:5105",
++      "environmentVariables": {
++        "ASPNETCORE_ENVIRONMENT": "Development"
++      }
++    }
++  }
++}
+diff --git a/LearningPath/05-EventVersioning/Quantity.cs b/LearningPath/05-EventVersioning/Quantity.cs
+new file mode 100644
+index 0000000..252e7e7
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/Quantity.cs
+@@ -0,0 +1,20 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Concepts;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Represents how many of a product a change to a shopping cart involves.
++/// </summary>
++/// <param name="Value">The number of items.</param>
++public record Quantity(int Value) : ConceptAs<int>(Value)
++{
++    /// <summary>
++    /// Converts a number to a quantity.
++    /// </summary>
++    /// <param name="value">The number to convert.</param>
++    /// <returns>The quantity.</returns>
++    public static implicit operator Quantity(int value) => new(value);
++}
+diff --git a/LearningPath/05-EventVersioning/README.md b/LearningPath/05-EventVersioning/README.md
+new file mode 100644
+index 0000000..a7adff7
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/README.md
+@@ -0,0 +1,146 @@
++<div align="center">
++
++# Step 05 — Event versioning
++
++### Record unit prices without losing the cart's old history
++
++**Arc · Chronicle · ASP.NET Core**
++
++Previous: [Step 04 — Reactors](../04-Reactors/README.md) · [Learning path](../README.md)
++
++</div>
++
++---
++
++## The idea
++
++The shop now records the unit price when an item is added. Existing `ItemAddedToCart` events only recorded the product and quantity. You cannot recover a price that was never recorded, and changing the C# record alone does not explain how to read those old facts.
++
++This step keeps the original shape as **generation 1**, declares the priced shape as **generation 2**, and supplies a migration between them. Both shapes describe the same fact and share one event type identity. The commands, checkout reactor, and confirmation behavior from step 04 remain; the cart query now includes product lines so you can see the migration's result.
++
++```mermaid
++flowchart LR
++    old[Generation 1: product + quantity] -->|upcast: price not recorded| current[Generation 2: product + quantity + unit price]
++    current -->|downcast: omit unit price| old
++    current --> projection[CartSummary with product lines]
++    projection --> query[Arc query]
++```
++
++You will declare an old generation, write an upcast and downcast, and query old and new history through the same read model. Read [What is event sourcing?](https://www.cratis.io/concepts/event-sourcing/) for why recorded facts remain history, and [Chronicle event type migrations](https://www.cratis.io/chronicle/concepts/event-type-migrations/) for the generation mechanism.
++
++## Run it
++
++Start Chronicle as described in the [learning path README](../README.md#before-you-start), then start the API from the repository root:
++
++```bash
++dotnet run --project LearningPath/05-EventVersioning/EventVersioning.csproj
++```
++
++The sample uses the repository's released Chronicle .NET client, **19.59.2**. The API listens on <http://localhost:5105> and uses the `LearningPathEventVersioning` event store. Leave it running while you send commands and query the projection.
++
++At startup, `SeedCartHistory` appends one generation-1 `ItemAddedToCartV1` to cart `00000000-0000-0000-0000-000000000005`, but only if that cart has no events. It stands in for history from before the price existed; this sample does not rewrite an event or run an older application first. Run only one instance of the sample at a time: the existence check and append are not an atomic seed operation.
++
++### Add an item with its price and check out
++
++In another terminal, choose a fresh cart id and send the commands:
++
++```bash
++CART_ID=$(uuidgen)
++
++curl --request POST \
++  --header 'Content-Type: application/json' \
++  --data "{\"cartId\":\"${CART_ID}\",\"product\":\"Coffee beans\",\"quantity\":2,\"unitPrice\":12.50}" \
++  http://localhost:5105/api/carts/add-item-to-cart
++
++curl --request POST \
++  --header 'Content-Type: application/json' \
++  --data "{\"cartId\":\"${CART_ID}\"}" \
++  http://localhost:5105/api/carts/check-out-cart
++```
++
++`"isSuccess":true` in each command result means the event was appended. The API terminal prints the sample order confirmation after checkout, just as in step 04. The read model and reactor are eventually consistent.
++
++### Query the new cart
++
++```bash
++curl "http://localhost:5105/api/carts/by-id?id=${CART_ID}"
++```
++
++Once the reactor and projection have caught up, the `data` part of the result looks like this, with your cart id:
++
++```json
++{"id":"7d9d3f76-0c2d-4a93-a67b-d8f8fb2bc941","itemCount":2,"checkedOut":true,"confirmationSent":true,"lines":[{"product":"Coffee beans","quantity":2,"unitPrice":12.50}]}
++```
++
++If you query immediately, ask again after the confirmation appears. The line's price came from the generation-2 event, not from today's product catalog.
++
++### Query the old cart
++
++```bash
++OLD_CART_ID=00000000-0000-0000-0000-000000000005
++curl "http://localhost:5105/api/carts/by-id?id=${OLD_CART_ID}"
++```
++
++After the projection catches up, its `data` is:
++
++```json
++{"id":"00000000-0000-0000-0000-000000000005","itemCount":2,"checkedOut":false,"confirmationSent":false,"lines":[{"product":"Coffee beans","quantity":2,"unitPrice":0}]}
++```
++
++Here **0 means not recorded**, not free. The migration supplies `Price.NotRecorded` because generation 1 has no price. Product and quantity still come from the original fact.
++
++Stop the API with Ctrl+C, start it with the same `dotnet run` command, and query the old cart again. Its quantity remains 2: restarting did not append another seed event. Use a fresh cart id for each new-cart exercise. The fixed old cart is reserved for the seed demonstration; sending commands to it changes the result.
++
++### What Chronicle stored
++
++Open Workbench at <https://localhost:35000>, select `LearningPathEventVersioning`, and open the event log. Find each cart by its event source id, select its `ItemAddedToCart` event, and inspect the generation content:
++
++| Appended fact | Generation 1 | Generation 2 |
++| --- | --- | --- |
++| Seeded old cart | Product and quantity as written | Same product and quantity, with unit price 0 |
++| New cart | Product and quantity; price omitted by downcast | Product, quantity, and unit price 12.50 as written |
++
++Chronicle stores both generations for **each addition event**, not two events in the cart's history. The appended generation stays as written; the other representation contains what the migration produces. The new cart also has `CartCheckedOut` and `OrderConfirmationSent`, as before.
++
++Stop the API when you are done. Removing the disposable Chronicle development container as described in the [learning path README](../README.md#before-you-start) resets this exercise's event and read-model data. These local development credentials and the unauthenticated sample API are not production configuration.
++
++## Code tour
++
++| File | What it shows |
++| --- | --- |
++| [`Events.cs`](./Events.cs), [`ItemAddedToCartV1.cs`](./ItemAddedToCartV1.cs) | Current and previous generations of the same addition event |
++| [`ItemAddedToCartMigration.cs`](./ItemAddedToCartMigration.cs) | Upcast with an honest default; downcast to the original schema |
++| [`Price.cs`](./Price.cs) | A strongly typed price with the `NotRecorded` sentinel |
++| [`AddItemToCart.cs`](./AddItemToCart.cs) | The command now returns a generation-2 event with its unit price |
++| [`CartSummary.cs`](./CartSummary.cs), [`CartLine.cs`](./CartLine.cs) | A model-bound children projection keyed by product, served by the existing query |
++| [`SeedCartHistory.cs`](./SeedCartHistory.cs), [`Program.cs`](./Program.cs) | Startup history that is appended once on sequential starts |
++| [`CheckOutCart.cs`](./CheckOutCart.cs), [`SendOrderConfirmation.cs`](./SendOrderConfirmation.cs), [`IOrderConfirmations.cs`](./IOrderConfirmations.cs), [`OrderConfirmations.cs`](./OrderConfirmations.cs) | The checkout command and reactor from step 04 |
++| [`RemoveItemFromCart.cs`](./RemoveItemFromCart.cs), [`CartId.cs`](./CartId.cs), [`ProductName.cs`](./ProductName.cs), [`Quantity.cs`](./Quantity.cs) | The existing command and domain types |
++| [`appsettings.json`](./appsettings.json) | This step's own event store |
++
++`[EventType(generation: 2)]` keeps the `ItemAddedToCart` type-name identity used in the earlier steps; no explicit id is required here. `[EventTypeGenerationFor<ItemAddedToCart>(1)]` makes the old type resolve that same identity rather than acquiring the unrelated id `ItemAddedToCartV1`. Chronicle discovers the migration automatically.
++
++`Upcast` declares `DefaultValue` for `UnitPrice`. `Downcast` needs no property operations: Chronicle walks generation 1's target schema, retaining product and quantity and omitting unit price. The [C# migration guide](https://www.cratis.io/chronicle/migrations/dotnet-client/) covers this and the other transformation operations.
++
++`CartSummary.Lines` uses `[ChildrenFrom]` with the event's product as the child key. `CartLine.Product` is marked `[Key]`; its attributes add and subtract quantity and set the price from the latest addition. `[NoAutoMap]` keeps those explicit quantity operations from being replaced by a copied event quantity. This small example retains zero-quantity lines and uses the latest addition's price for each product; it does not calculate an invoice total or model separate price lots.
++
++## Pitfalls to avoid
++
++- **Do not invent missing data.** A default is a declared interpretation of absence. `Price.NotRecorded` cannot tell you what the customer paid. This sample reserves zero for that meaning; a real shop that supports free items needs a representation that distinguishes them.
++- **Keep what consumers need.** Downcasting here deliberately loses the price because generation-1 consumers never had it. For renames, splits, or combinations, check that every needed part survives. Storing another generation does not make a lossy migration lossless.
++- **Keep old generation types unchanged while their events exist.** Do not edit or delete `ItemAddedToCartV1` to make a new shape fit. Add the next generation and a migration for each consecutive pair.
++- **Do not assume every observer receives your current CLR generation.** Reactors and reducers receive the appended generation live by default in this Chronicle major version. See [pinned observer delivery](https://www.cratis.io/chronicle/concepts/event-type-migrations/#opt-in-to-pinned-observer-delivery) before adding a handler that depends on a particular generation. This step keeps the checkout reactor, whose event shape did not change.
++
++## Make it yours
++
++- Add a second product with a different price to a fresh cart and inspect both lines.
++- Add more of the same product, then remove one. Compare the line quantity with `ItemCount`.
++- Inspect both stored generations of the seeded event and explain why the migration cannot recover its original price.
++
++## Next
++
++This is the last step so far. Later steps will cover testing and preparing for production. The [Chronicle Processing](../../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers on one stream.
++
++## Questions? Ask on Discord
++
++Ask questions and get help from the Cratis team and other developers on the [Cratis Discord](https://discord.gg/kt4AMpV8WV).
+diff --git a/LearningPath/05-EventVersioning/RemoveItemFromCart.cs b/LearningPath/05-EventVersioning/RemoveItemFromCart.cs
+new file mode 100644
+index 0000000..df19ba6
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/RemoveItemFromCart.cs
+@@ -0,0 +1,22 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Arc.Commands.ModelBound;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Removes a product from a shopping cart.
++/// </summary>
++/// <param name="CartId">The cart to remove from.</param>
++/// <param name="Product">The product to remove.</param>
++/// <param name="Quantity">How many to remove.</param>
++[Command]
++public record RemoveItemFromCart(CartId CartId, ProductName Product, Quantity Quantity)
++{
++    /// <summary>
++    /// Handles the command by deciding which event happened.
++    /// </summary>
++    /// <returns>The event Arc appends to the cart's event source.</returns>
++    public ItemRemovedFromCart Handle() => new(Product, Quantity);
++}
+diff --git a/LearningPath/05-EventVersioning/SeedCartHistory.cs b/LearningPath/05-EventVersioning/SeedCartHistory.cs
+new file mode 100644
+index 0000000..bdd9961
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/SeedCartHistory.cs
+@@ -0,0 +1,36 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events;
++using Cratis.Chronicle.EventSequences;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Supplies one generation-1 fact to stand in for history recorded before unit prices existed.
++/// </summary>
++public static class SeedCartHistory
++{
++    /// <summary>
++    /// Gets the fixed cart used to demonstrate old history.
++    /// </summary>
++    public static readonly CartId OldCart = new(new Guid(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5));
++
++    /// <summary>
++    /// Appends the old fact only when this cart has no history. Run one sample instance at a time.
++    /// </summary>
++    /// <param name="eventLog">The event log for this step's event store.</param>
++    /// <returns>Whether the old history exists or was successfully appended.</returns>
++    public static async Task<bool> Ensure(IEventLog eventLog)
++    {
++        // This is learning data, not a production migration or a rewrite of a stored event.
++        var eventSourceId = (EventSourceId)OldCart;
++        if (await eventLog.HasEventsFor(eventSourceId))
++        {
++            return true;
++        }
++
++        var result = await eventLog.Append(eventSourceId, new ItemAddedToCartV1("Coffee beans", 2));
++        return result.IsSuccess;
++    }
++}
+diff --git a/LearningPath/05-EventVersioning/SendOrderConfirmation.cs b/LearningPath/05-EventVersioning/SendOrderConfirmation.cs
+new file mode 100644
+index 0000000..cd9d700
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/SendOrderConfirmation.cs
+@@ -0,0 +1,28 @@
++// Copyright (c) Cratis. All rights reserved.
++// Licensed under the MIT license. See LICENSE file in the project root for full license information.
++
++using Cratis.Chronicle.Events;
++using Cratis.Chronicle.Reactors;
++
++namespace LearningPath.EventVersioning.Carts;
++
++/// <summary>
++/// Sends an order confirmation after checkout has been recorded.
++/// </summary>
++/// <param name="orderConfirmations">The collaborator that sends the confirmation.</param>
++public class SendOrderConfirmation(IOrderConfirmations orderConfirmations) : IReactor
++{
++    /// <summary>
++    /// Sends the confirmation and records the consequence as a follow-up event.
++    /// </summary>
++    /// <param name="event">The checkout event that triggers the confirmation.</param>
++    /// <param name="context">The event context identifying the cart.</param>
++    /// <returns>The fact Chronicle appends to the same cart's event source.</returns>
++    [OnceOnly]
++    public OrderConfirmationSent CheckedOut(CartCheckedOut @event, EventContext context)
++    {
++        orderConfirmations.Send(new CartId(Guid.Parse(context.EventSourceId.Value)));
++
++        return new();
++    }
++}
+diff --git a/LearningPath/05-EventVersioning/appsettings.json b/LearningPath/05-EventVersioning/appsettings.json
+new file mode 100644
+index 0000000..eb59314
+--- /dev/null
++++ b/LearningPath/05-EventVersioning/appsettings.json
+@@ -0,0 +1,21 @@
++{
++    "Logging": {
++        "LogLevel": {
++            "Default": "Information",
++            "Microsoft.AspNetCore": "Warning"
++        }
++    },
++    "AllowedHosts": "*",
++    "Cratis": {
++        "Arc": {
++            "GeneratedApis": {
++                "RoutePrefix": "api",
++                "SegmentsToSkipForRoute": 2
++            }
++        },
++        "Chronicle": {
++            "EventStore": "LearningPathEventVersioning",
++            "ConnectionString": "chronicle://chronicle-dev-client:chronicle-dev-secret@localhost:35000"
++        }
++    }
++}
+diff --git a/LearningPath/README.md b/LearningPath/README.md
+index b8f8436..3cc2996 100644
+--- a/LearningPath/README.md
++++ b/LearningPath/README.md
+@@ -21,6 +21,7 @@ Each step is a small, self-contained .NET project that adds one idea to the step
+ 02  projection         events → projection → read model
+ 03  commands/queries   HTTP command → event → projection → HTTP query
+ 04  reactors           checkout event → reactor → confirmation + follow-up event
++05  event versioning   old event → migration → current read model with unit prices
+ ```
+ 
+ The steps don't share code. Each one copies the cart types it needs, so you can open any folder and read it top to bottom without jumping around.
+@@ -33,6 +34,7 @@ The steps don't share code. Each one copies the cart types it needs, so you can
+ | [02 — First projection](./02-FirstProjection/README.md) | Build a read model from those events and query it | [Projections and read models](https://www.cratis.io/concepts/projections-and-read-models/) |
+ | [03 — Commands and queries with Arc](./03-CommandsAndQueries/README.md) | Append events from an Arc command and return the read model from an Arc query | [CQRS explained](https://www.cratis.io/concepts/cqrs/) |
+ | [04 — Reactors](./04-Reactors/README.md) | React to checkout with a side effect and return a follow-up event | [Event-driven architecture](https://www.cratis.io/concepts/event-driven-architecture/) |
++| [05 — Event versioning](./05-EventVersioning/README.md) | Evolve an event through generations and migrate old history into the current read model | [Event type migrations](https://www.cratis.io/chronicle/concepts/event-type-migrations/) |
+ 
+ ## Before you start
+ 
+@@ -70,13 +72,14 @@ dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj
+ dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj
+ dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj
+ dotnet build LearningPath/04-Reactors/Reactors.csproj
++dotnet build LearningPath/05-EventVersioning/EventVersioning.csproj
+ ```
+ 
+ Building does not need Chronicle. Running does.
+ 
+ ## Coming later
+ 
+-The first steps reach a reaction to checkout. Later steps will cover changing event shapes over time, testing, and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
++The first steps reach a reaction to checkout and changing an event's shape without discarding its history. Later steps will cover testing and preparing for production. The [Chronicle Processing](../Chronicle/Processing/README.md) sample compares reactors, projections, and reducers, and the [Capstone](../Capstone/README.md) sample puts Arc, Chronicle, and React together.
+ 
+ > [!NOTE]
+ > These steps are for learning. They leave out validation, authentication, tenancy, and production configuration so each idea stays in view.
+diff --git a/Samples.slnx b/Samples.slnx
+index 6a8955b..48c5821 100644
+--- a/Samples.slnx
++++ b/Samples.slnx
+@@ -57,6 +57,7 @@
+         <Project Path="LearningPath/02-FirstProjection/FirstProjection.csproj" />
+         <Project Path="LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj" />
+         <Project Path="LearningPath/04-Reactors/Reactors.csproj" />
++        <Project Path="LearningPath/05-EventVersioning/EventVersioning.csproj" />
+     </Folder>
+     <Project Path="Library/Lending/Lending.csproj" />
+     <Project Path="Library/Members/Members.csproj" />
+diff --git a/samples.json b/samples.json
+index f887229..f1e8353 100644
+--- a/samples.json
++++ b/samples.json
+@@ -102,7 +102,7 @@
+     {
+       "id": "learning-path",
+       "title": "Learning path",
+-      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, then react to checkout.",
++      "tagline": "Learn event sourcing step by step: append events, project a read model, serve it through Arc, react to checkout, and evolve an event.",
+       "track": "getting-started",
+       "path": "LearningPath",
+       "sourceUrl": "https://github.com/Cratis/Samples/tree/main/LearningPath",
+@@ -115,17 +115,19 @@
+         "Append events to the event log and read one event source's history back",
+         "Declare a projection with model-bound attributes and read the read model it builds",
+         "Turn the same events and read model into an Arc command and query API",
+-        "React to checkout with a visible side effect and a returned follow-up event"
++        "React to checkout with a visible side effect and a returned follow-up event",
++        "Evolve an event through generations and show old history with an honest migration default"
+       ],
+       "verification": [
+         "dotnet build LearningPath/01-FirstEvents/FirstEvents.csproj",
+         "dotnet build LearningPath/02-FirstProjection/FirstProjection.csproj",
+         "dotnet build LearningPath/03-CommandsAndQueries/CommandsAndQueries.csproj",
+-        "dotnet build LearningPath/04-Reactors/Reactors.csproj"
++        "dotnet build LearningPath/04-Reactors/Reactors.csproj",
++        "dotnet build LearningPath/05-EventVersioning/EventVersioning.csproj"
+       ],
+       "limitations": [
+         "Each step is a separate, self-contained project, so the domain types are repeated on purpose.",
+-        "The first four steps cover events, projections, commands and queries, and reactors; event versioning, testing, and production setup are left for later steps.",
++        "The first five steps cover events, projections, commands and queries, reactors, and event versioning; testing and production setup are left for later steps.",
+         "The steps run against the local Chronicle development container and do not include automated specs."
+       ]
+     },
