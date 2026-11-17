@@ -1,5 +1,15 @@
 ---
-applyTo: "**/*"
+applyTo: "**/*.cs,**/*.ts,**/*.tsx,**/*.go,**/*.kt,**/*.kts,**/*.java,**/*.ex,**/*.exs"
+paths:
+  - "**/*.cs"
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.go"
+  - "**/*.kt"
+  - "**/*.kts"
+  - "**/*.java"
+  - "**/*.ex"
+  - "**/*.exs"
 ---
 <!-- cratis-ai-managed: rules/code-quality.md -->
 
@@ -18,6 +28,10 @@ Prefer composing behavior from smaller, focused collaborators over building clas
 **Rules:**
 - Never extend a concrete class to add or change behavior — inject a collaborator instead.
 - Inheritance is acceptable only for framework integration points where a base class is part of a well-defined extension mechanism.
+
+## Comments carry no issue or spec references
+
+Code comments never cite issue numbers, PR numbers or spec sections; that context belongs in the commit message and pull request. A comment says why code is non-obvious.
 
 ## Single Responsibility Principle
 
