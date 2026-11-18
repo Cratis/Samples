@@ -86,7 +86,7 @@ For an explicitly requested large application scope, adapt this optional numbere
 
 ### Phase 3 — Build  [run: Debug, then Release]
 3. Run `dotnet build -c Debug` to validate spec code and generate TypeScript proxies.
-4. Run `dotnet build -c Release -p:CratisProxiesOutputPath=` as a build-only release check.
+4. Run `dotnet build -c Release -p:CratisProxiesSkip=true -p:CratisProxiesOutputPath=` (Skip needs Arc 22.185.1 or later) as a build-only release check.
 
 ### Phase 4 — Frontend  [delegate to: frontend-developer]
 5. Create React component(s) beside the slice in `<AppSourceRoot>/<Module?>/<Feature>/<Slice>/`.
@@ -130,7 +130,7 @@ For an implemented application slice, require the applicable changed-lane gates 
 - [ ] `dotnet build` succeeds with zero errors and zero warnings
 - [ ] `yarn lint` passes with zero errors (if frontend is present)
 - [ ] `npx tsc -b` passes with zero errors (if frontend is present)
-- [ ] All integration specs pass (`dotnet test`)
+- [ ] All integration specs pass (built C# spec executables; `dotnet test <project> --no-build` only for VSTest; see specs.csharp)
 - [ ] All TypeScript specs pass (`yarn test`) if applicable
 - [ ] Public-facing changes (clients, SDKs, public APIs) include associated documentation updates
 - [ ] `Documentation/verify-markdown.sh` passes when documentation is added or changed
@@ -145,7 +145,7 @@ For an implemented application slice, require the applicable changed-lane gates 
 
 For large features with many slices, use these techniques to keep context manageable:
 
-- **`/compact`** after completing each phase to free context space. Add focus notes: `/compact focus on remaining slices and unresolved issues`.
+- Keep a state note and hand off between phases: follow `cratis-session-handoff`.
 - **`/fork`** before exploring an alternative design approach, so the original plan is preserved.
 - Use bounded source inspection for routine research. Request an independent researcher from the parent only when the scope justifies it and the host supports it.
 
