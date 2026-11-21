@@ -30,6 +30,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
@@ -38,22 +43,13 @@ jobs:
       - name: Pull latest changes
         run: git pull --rebase
 
+      # Resolve each release train together, deferring incomplete publication without downgrading pins.
       - name: Update Cratis and Cratis.* NuGet packages
-        run: |
-          # Get the Cratis umbrella package and all Cratis.* packages from Directory.Packages.props
-          PACKAGES=$(grep -oP 'PackageVersion Include="\KCratis(?:\.[^"]+)?(?=")' Directory.Packages.props)
+        run: node .github/scripts/update-cratis-nuget.mjs Directory.Packages.props
 
-          # Update each package to latest version
-          for package in $PACKAGES; do
-            echo "Updating $package..."
-            # Use NuGet API directly to get latest version
-            LATEST=$(curl -s "https://api.nuget.org/v3-flatcontainer/${package,,}/index.json" | jq -r '.versions[-1]')
-            if [ ! -z "$LATEST" ] && [ "$LATEST" != "null" ]; then
-              echo "Latest version: $LATEST"
-              # Update the version in Directory.Packages.props
-              sed -i "s/PackageVersion Include=\"$package\" Version=\"[^\"]*\"/PackageVersion Include=\"$package\" Version=\"$LATEST\"/" Directory.Packages.props
-            fi
-          done
+      # A failed restore stops the job before an incoherent update can be committed or pushed.
+      - name: Restore NuGet packages
+        run: dotnet restore Samples.slnx
 
       - name: Commit NuGet updates
         id: commit-nuget
